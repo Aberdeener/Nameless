@@ -9,7 +9,7 @@
  *  Italian Language - Table
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -17,5 +17,5 @@ $language = array(
     'nothing_found' => 'Nessun risultato trovato',
     'page_x_of_y' => 'Visualizzazione della pagina _PAGE_ di _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Nessun record disponibile',
-    'filtered' => '(filtrato da _MAX_ record totali)' // Don't replace "_MAX_"
-);
+    'filtered' => '(filtrato da _MAX_ record totali)', // Don't replace "_MAX_"
+];

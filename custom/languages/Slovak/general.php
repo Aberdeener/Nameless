@@ -9,7 +9,7 @@
  *  Czech Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
@@ -93,7 +93,6 @@ $language = array(
      *  Homepage
      */
     'social' => 'Sociálné siete',
-
 
     /*
      *  Help dialogues
@@ -155,6 +154,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
-);
-
+    'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.', // Don't replace {x} which is the redirect URL
+];

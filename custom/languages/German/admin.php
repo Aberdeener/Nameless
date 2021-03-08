@@ -10,7 +10,7 @@
  *  German Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -41,9 +41,9 @@ $language = array(
     'registrations' => 'Anmeldungen',
     'topics' => 'Themen',
     'posts' => 'Posts',
-        'notices' => 'Ereignisse',
-        'no_notices' => 'Keine Ereignisse.',
-        'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
+    'notices' => 'Ereignisse',
+    'no_notices' => 'Keine Ereignisse.',
+    'email_errors_logged' => 'Fehler bei der Email wurden gespeichert',
 
     // Core
     'settings' => 'Einstellungen',
@@ -503,7 +503,7 @@ $language = array(
     'action_info' => 'Aktion Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Update',
     'current_version_x' => 'Aktuelle Version: <strong>{x}</strong>', // Don't replaec {x}
@@ -742,6 +742,6 @@ $language = array(
     'discord_bot_error_notlinked' => 'Der Bot ist für die angegebene Gilden-ID nicht mit dieser Website verlinkt.',
     'discord_bot_error_unauthorized' => 'Der Website-API-Schlüssel ist ungültig',
     'discord_bot_error_invrole' => 'Die angegebene Rollen-ID ist ungültig.',
-    'discord_bot_error_hierarchy' => 'Der Bot kann die Rolle dieses Benutzers nicht bearbeiten.'
+    'discord_bot_error_hierarchy' => 'Der Bot kann die Rolle dieses Benutzers nicht bearbeiten.',
 
-);
+];

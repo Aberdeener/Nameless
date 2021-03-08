@@ -1,15 +1,15 @@
 <?php
-$readme = file(ROOT_PATH . '/README.md');
+$readme = file(ROOT_PATH.'/README.md');
 $subheader = str_replace('#', '', $readme[0]);
 
-if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SESSION['installer_language'] . '/installer.php')) {
+if (isset($_SESSION['installer_language']) && is_file('custom/languages/'.$_SESSION['installer_language'].'/installer.php')) {
     $installer_language = $_SESSION['installer_language'];
 } else {
     $installer_language = 'EnglishUK';
 }
 
-$languages_folders = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*' , GLOB_ONLYDIR);
-$languages = array();
+$languages_folders = glob('custom'.DIRECTORY_SEPARATOR.'languages'.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
+$languages = [];
 
 foreach ($languages_folders as $folder) {
     $folder = explode(DIRECTORY_SEPARATOR, $folder);

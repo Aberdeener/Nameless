@@ -11,7 +11,7 @@
  *  Last Update: 29/06/2018
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -27,5 +27,5 @@ $language = array(
     'about_1_month' => 'Acum o lună',
     '_months' => 'Acum {x} luni',
     'about_1_year' => 'Acum un an',
-    'over_x_years' => 'Acum {x} ani'
-);
+    'over_x_years' => 'Acum {x} ani',
+];

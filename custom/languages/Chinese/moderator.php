@@ -1,4 +1,5 @@
 <?php
+
  /*
  *  Made by Samerton
  *  Translation  by Hi_Michael
@@ -13,7 +14,7 @@
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
-$language = array(
+$language = [
     'mod_cp' => '控制者後台',
     'staff_cp' => 'StaffCP',
     'overview' => '總覽',
@@ -107,6 +108,6 @@ $language = array(
 
     // Users
     'recent_registrations' => 'Recent Registrations',
-    'reset_profile_banner' => 'Reset Profile Banner'
+    'reset_profile_banner' => 'Reset Profile Banner',
 
-);
+];

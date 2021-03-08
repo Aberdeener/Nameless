@@ -11,7 +11,7 @@
  *  Nederlandse taal - Gebruikers
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -145,12 +145,12 @@ $language = array(
     'must_input_password' => 'Je moet een wachtwoord invoeren.',
 
     // Forgot password
-       'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
-       'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de spam/junk/ongewenste map.',
-       'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
-       'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
-       'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
-       'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
+    'forgot_password_instructions' => 'Graag je email adres invoeren zodat we verdere instructies kunnen sturen om je wachtwoord te herstellen.',
+    'forgot_password_email_sent' => 'Als een account met dit email adres bestaat, is er een email verstuurt met daarin verdere instructies. Als je hem niet kan vinden, bekijk dan ook de spam/junk/ongewenste map.',
+    'unable_to_send_forgot_password_email' => 'Kon vergeten wachtwoord email niet verzenden. Graag contact opnemen met een administrator.',
+    'enter_new_password' => 'Graag je email bevestigen en een nieuw wachtwoord invoeren.',
+    'incorrect_email' => 'Het email adres dat is ingevoerd komt niet overeen met het verzoek.',
+    'forgot_password_change_successful' => 'Je wachtwoord is succesvol veranderd. Je kan nu inloggen.',
 
     // Profiel paginas
     'profile' => 'Profiel',
@@ -190,7 +190,7 @@ $language = array(
     'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
     'reply' => 'Antwoord',
     'discord_username' => 'Discord Username',
-    
+
     // Rapporten
     'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
     'report_post_content' => 'Voer een reden in voor je rapport',
@@ -236,7 +236,7 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{x} is lid geworden van '.SITE_NAME.'!',
     'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
@@ -253,5 +253,5 @@ $language = array(
     'discord_database_error' => 'De Nameless Link database is op dit moment offline. Probeer het later nog eens.',
     'discord_communication_error' => 'Er was een fout in de communicatie met de Discord Bot. Zorg ervoor dat de bot werkt en dat uw Bot-URL correct is.',
     'discord_unknown_error' => 'Er was een onbekende fout bij het synchroniseren van de rollen van Discord. Neem contact op met een beheerder.',
-    'discord_id_help' => 'Voor informatie over waar je de Discord ID\'s kunt vinden, lees alsjeblieft <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">dit.</a>'
-);
+    'discord_id_help' => 'Voor informatie over waar je de Discord ID\'s kunt vinden, lees alsjeblieft <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">dit.</a>',
+];

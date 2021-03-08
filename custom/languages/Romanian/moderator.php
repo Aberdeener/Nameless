@@ -11,7 +11,7 @@
  *  Last Update: 23/11/2018
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'Panou Moderator',
     'staff_cp' => 'Panoul de Control',
     'overview' => 'Prezentare generală',
@@ -105,6 +105,6 @@ $language = array(
 
     // Users
     'recent_registrations' => 'Înregistrări recente',
-    'reset_profile_banner' => 'Resetaţi bannerul profilului'
+    'reset_profile_banner' => 'Resetaţi bannerul profilului',
 
-);
+];

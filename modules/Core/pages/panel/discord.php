@@ -15,72 +15,76 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'integrations');
 define('PANEL_PAGE', 'discord');
 $page_title = $language->get('admin', 'discord');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH.'/core/templates/backend_init.php';
 
 if (Input::exists()) {
     // Check token
-    $errors = array();
+    $errors = [];
 
     if (Token::check()) {
         // Valid token
         // Either enable or disable Discord integration
-        $enable_discord_id = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+        $enable_discord_id = $queries->getWhere('settings', ['name', '=', 'discord_integration']);
         $enable_discord_id = $enable_discord_id[0]->id;
         if ($_POST['enable_discord'] == '1') {
-            $guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+            $guild_id = $queries->getWhere('settings', ['name', '=', 'discord']);
             $guild_id = $guild_id[0]->value;
             if (BOT_URL == '' || BOT_USERNAME == '' || $guild_id == '') {
                 $errors[] = $language->get('admin', 'discord_bot_must_be_setup');
-                $queries->update('settings', $enable_discord_id, array(
-                    'value' => 0
-                ));
+                $queries->update('settings', $enable_discord_id, [
+                    'value' => 0,
+                ]);
             } else {
-                $queries->update('settings', $enable_discord_id, array(
-                    'value' => 1
-                ));
+                $queries->update('settings', $enable_discord_id, [
+                    'value' => 1,
+                ]);
             }
         } else {
-            $queries->update('settings', $enable_discord_id, array(
-                'value' => 0
-            ));
+            $queries->update('settings', $enable_discord_id, [
+                'value' => 0,
+            ]);
         }
 
-        if (!count($errors))
+        if (! count($errors)) {
             $success = $language->get('admin', 'discord_settings_updated');
+        }
     } else {
         // Invalid token
-        $errors[] = array($language->get('general', 'invalid_token'));
+        $errors[] = [$language->get('general', 'invalid_token')];
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
-if (isset($success))
-    $smarty->assign(array(
+if (isset($success)) {
+    $smarty->assign([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
+    ]);
+}
 
-if (isset($errors) && count($errors))
-    $smarty->assign(array(
+if (isset($errors) && count($errors)) {
+    $smarty->assign([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+        'ERRORS_TITLE' => $language->get('general', 'error'),
+    ]);
+}
 
-if (Session::exists('discord_error'))
-    $smarty->assign(array(
-        'ERRORS' => array(Session::flash('discord_error')),
-        'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+if (Session::exists('discord_error')) {
+    $smarty->assign([
+        'ERRORS' => [Session::flash('discord_error')],
+        'ERRORS_TITLE' => $language->get('general', 'error'),
+    ]);
+}
 
 // Check if Discord integration is enabled
-$discord_enabled = $queries->getWhere('settings', array('name', '=', 'discord_integration'));
+$discord_enabled = $queries->getWhere('settings', ['name', '=', 'discord_integration']);
 $discord_enabled = $discord_enabled[0]->value;
-$guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
+$guild_id = $queries->getWhere('settings', ['name', '=', 'discord']);
 $guild_id = $guild_id[0]->value;
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
@@ -96,15 +100,15 @@ $smarty->assign(array(
     'BOT_URL_SET' => (BOT_URL != ''),
     'BOT_USERNAME_SET' => (BOT_USERNAME != ''),
     'REQUIREMENTS' => rtrim($language->get('installer', 'requirements'), ':'),
-    'BOT_SETUP' => $language->get('admin', 'discord_bot_setup')
-));
+    'BOT_SETUP' => $language->get('admin', 'discord_bot_setup'),
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH.'/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('integrations/discord/discord.tpl', $smarty);

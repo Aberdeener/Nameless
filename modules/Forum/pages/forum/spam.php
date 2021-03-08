@@ -9,12 +9,12 @@
  *  Mark a post as spam
  */
 
-if (!$user->isLoggedIn()) {
+if (! $user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
+    exit();
 }
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
+require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
 
 // Always define page name
 define('PAGE', 'forum');
@@ -23,16 +23,16 @@ define('PAGE', 'forum');
 $forum = new Forum();
 
 // Get the post
-if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
+if (! isset($_POST['post']) || ! is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/forum'));
-    die();
+    exit();
 }
 
-$post = $queries->getWhere('posts', array('id', '=', $_POST['post']));
-if (!count($post)) {
+$post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
+if (! count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
-    die();
+    exit();
 }
 $post = $post[0];
 
@@ -50,44 +50,44 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         // Ensure user is not admin
         if ($is_admin) {
             Session::flash('failure_post', $language->get('moderator', 'cant_ban_admin'));
-            Redirect::to(URL::build('/forum/topic/' . $post->topic_id, 'pid=' . $post->id));
-            die();
+            Redirect::to(URL::build('/forum/topic/'.$post->topic_id, 'pid='.$post->id));
+            exit();
         }
 
         // Delete all posts from the user
-        $queries->delete('posts', array('post_creator', '=', $post->post_creator));
+        $queries->delete('posts', ['post_creator', '=', $post->post_creator]);
 
         // Delete all topics from the user
-        $queries->delete('topics', array('topic_creator', '=', $post->post_creator));
+        $queries->delete('topics', ['topic_creator', '=', $post->post_creator]);
 
         // Log user out
         $banned_user_ip = $banned_user->data()->lastip;
         $banned_user->logout();
 
         // Ban IP
-        $queries->create('ip_bans', array(
+        $queries->create('ip_bans', [
             'ip' => $banned_user_ip,
             'banned_by' => $user->data()->id,
             'banned_at' => date('U'),
-            'reason' => 'Spam'
-        ));
+            'reason' => 'Spam',
+        ]);
 
         // Ban user
-        $queries->update('users', $post->post_creator, array(
-            'isbanned' => 1
-        ));
+        $queries->update('users', $post->post_creator, [
+            'isbanned' => 1,
+        ]);
 
         // Redirect
         Session::flash('spam_info', $language->get('moderator', 'user_marked_as_spam'));
         Redirect::to(URL::build('/forum'));
-        die();
+        exit();
     } else {
         // Invalid token
-        Redirect::to(URL::build('/forum/topic/' . $post->topic_id, 'pid=' . $post->id));
-        die();
+        Redirect::to(URL::build('/forum/topic/'.$post->topic_id, 'pid='.$post->id));
+        exit();
     }
 } else {
     // Can't moderate forum
     Redirect::to(URL::build('/forum'));
-    die();
+    exit();
 }

@@ -8,13 +8,14 @@
  *
  *  Twitter Widget
  */
-class TwitterWidget extends WidgetBase {
-
-    public function __construct($pages = array(), $twitter = '', $theme = '') {
+class TwitterWidget extends WidgetBase
+{
+    public function __construct($pages = [], $twitter = '', $theme = '')
+    {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Twitter'))->first();
+        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Twitter'])->first();
 
         // Set widget variables
         $this->_module = 'Core';
@@ -25,13 +26,14 @@ class TwitterWidget extends WidgetBase {
 
         // Generate HTML code for widget
         $this->_content = '
-            <a class="twitter-timeline" ' . (($theme == 'dark') ? 'data-theme="dark" ' : '') . ' data-height="600" href="' . Output::getClean($twitter) . '">Tweets</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a class="twitter-timeline" '.(($theme == 'dark') ? 'data-theme="dark" ' : '').' data-height="600" href="'.Output::getClean($twitter).'">Tweets</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
         <br>
         ';
     }
 
-    public function initialise() {
+    public function initialise()
+    {
         // Do nothing
     }
 }

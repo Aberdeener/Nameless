@@ -9,7 +9,7 @@
  *  Spanish Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -43,7 +43,7 @@ $language = array(
     'notices' => 'Noticias',
     'no_notices' => 'No hay noticias.',
     'email_errors_logged' => 'Se han registrado los errores de correo electrónico',
-    
+
     // Core
     'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Ajustes',
@@ -503,7 +503,7 @@ $language = array(
     'action_info' => 'Información de la Acción',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Actualizar',
     'current_version_x' => 'Versión actual: <strong>{x}</strong>', // Don't replaec {x}
@@ -641,7 +641,7 @@ $language = array(
     'creating_new_hook' => 'Creando un nuevo Webhook',
     'editing_hook' => 'Editando un Webhook',
     'delete_hook' => '¿Estás seguro de que deseas eliminar este Webhook?',
-  'hook_deleted' => 'El Hook fue eliminado correctamente',
+    'hook_deleted' => 'El Hook fue eliminado correctamente',
     'hook_name' => 'Nombre del Webhook',
     'hook_created' => 'Hook creado correctamente.',
     'hook_edited' => 'Hook editado correctamente',
@@ -742,6 +742,6 @@ $language = array(
     'discord_bot_error_notlinked' => 'El bot no está vinculado a este sitio web para la identificación del servidor proporcionada.',
     'discord_bot_error_unauthorized' => 'La clave de API del sitio web no es válida',
     'discord_bot_error_invrole' => 'El ID del role proporcionado no es válido.',
-    'discord_bot_error_hierarchy' => 'El bot no puede editar los roles de este usuario.'
+    'discord_bot_error_hierarchy' => 'El bot no puede editar los roles de este usuario.',
 
-);
+];

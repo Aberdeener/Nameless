@@ -10,7 +10,7 @@
  *  Czech Language - Admin
  */
 
-$language = array (
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -480,7 +480,7 @@ $language = array (
     'action_info' => 'Informace o akci',
     'groups_removed' => 'Skupiny odebrány',
     'groups_added' => 'Skupiny přidány',
-    
+
     // Updates
     'update' => 'Aktualizovat',
     'current_version_x' => 'Současná verze: <strong>{x}</strong>', // Don't replace {x}
@@ -513,7 +513,7 @@ $language = array (
     'show_nickname_instead_of_username' => 'Zobrazit přezdívku uživatele namísto jeho uživatelského jména?',
 
     // Custom Pages
-	'pages' => 'Stránky',
+    'pages' => 'Stránky',
     'custom_pages' => 'Vlastní stránky',
     'new_page' => '<i class="fa fa-plus-circle"></i> Nová stránka',
     'no_custom_pages' => 'Nebyly vytvořeny žádné stránky.',
@@ -719,5 +719,5 @@ $language = array (
     'discord_bot_error_notlinked' => 'Bot není propojen s tímto webem u zadaného ID serveru.',
     'discord_bot_error_unauthorized' => 'API klíč webu je neplatný',
     'discord_bot_error_invrole' => 'Zadané ID role je neplatné.',
-    'discord_bot_error_hierarchy' => 'Bot nemůže upravit role tohoto uživatele.'
-);
+    'discord_bot_error_hierarchy' => 'Bot nemůže upravit role tohoto uživatele.',
+];

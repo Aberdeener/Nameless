@@ -10,7 +10,7 @@
  *  SwedishSE Language - Table
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -18,5 +18,5 @@ $language = array(
     'nothing_found' => 'Inga resultat hittat',
     'page_x_of_y' => 'Visar sida _PAGE_ av _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Inga uppgifter tillgängliga',
-    'filtered' => '(filtreras från _MAX_ totala uppgifter)' // Don't replace "_MAX_"
-);
+    'filtered' => '(filtreras från _MAX_ totala uppgifter)', // Don't replace "_MAX_"
+];

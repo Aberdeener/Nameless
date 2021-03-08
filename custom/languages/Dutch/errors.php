@@ -11,7 +11,7 @@
  *  Nederlandse taal - Problemen
  */
 
-$language = array(
+$language = [
     /*
      *  Problemen
      */
@@ -32,5 +32,5 @@ $language = array(
     'fatal_error_message_user' => 'Sorry, maar er is iets misgegaan tijdens het laden van de pagina. Neem contact op met een admin.',
     'fatal_error_message_admin' => 'Sorry, maar er is iets misgegaan tijdens het laden van de pagina. Error gegevens:',
     'in_file' => 'in bestand <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'op regel <strong>{x}</strong>' // Don't replace {x}
-);
+    'on_line' => 'op regel <strong>{x}</strong>', // Don't replace {x}
+];

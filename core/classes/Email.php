@@ -9,19 +9,18 @@
 *  Email class
 */
 
-class Email {
-
+class Email
+{
     // Send an email
     // Params:  $email - array containing all necessary email information to send as per the sendPHP and sendMailer functions
     //          $method - email sending method to use (php or mailer)
-    public static function send($email, $method = 'php') {
+    public static function send($email, $method = 'php')
+    {
         if ($method == 'php') {
             return self::sendPHP($email);
-        } 
-        else if ($method == 'mailer') {
+        } elseif ($method == 'mailer') {
             return self::sendMailer($email);
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -32,29 +31,33 @@ class Email {
     //                  - subject = subject line
     //                  - message = email contents
     //                  - headers = email headers
-    private static function sendPHP($email) {
+    private static function sendPHP($email)
+    {
         try {
             $mail = mail($email['to'], $email['subject'], $email['message'], $email['headers']);
-            if ($mail)
+            if ($mail) {
                 return true;
-            else {
+            } else {
                 $error = error_get_last();
-                if (isset($error['message']))
-                    return array('error' => $error['message']);
-                else
-                    return array('error' => 'Unknown');
+                if (isset($error['message'])) {
+                    return ['error' => $error['message']];
+                } else {
+                    return ['error' => 'Unknown'];
+                }
             }
         } catch (Exception $e) {
             // Error
-            return array('error' => $e->getMessage());
+            return ['error' => $e->getMessage()];
         }
+
         return false;
     }
 
     // Send an email using the PHPMailer library
-    private static function sendMailer($email) {
-        require_once(ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
-        require(ROOT_PATH . '/core/email.php');
+    private static function sendMailer($email)
+    {
+        require_once ROOT_PATH.'/core/includes/phpmailer/PHPMailerAutoload.php';
+        require ROOT_PATH.'/core/email.php';
 
         // Initialise PHPMailer
         $mail = new PHPMailer(true);
@@ -74,8 +77,8 @@ class Email {
                 $mail->AddReplyTo($email['replyto']['email'], $email['replyto']['name']);
             }
 
-            $mail->CharSet = "UTF-8";
-            $mail->Encoding = "base64";
+            $mail->CharSet = 'UTF-8';
+            $mail->Encoding = 'base64';
             $mail->setFrom($GLOBALS['email']['email'], $GLOBALS['email']['name']);
             $mail->From = $GLOBALS['email']['email'];
             $mail->FromName = $GLOBALS['email']['name'];
@@ -85,21 +88,22 @@ class Email {
             $mail->msgHTML($email['message']);
             $mail->Body = $email['message'];
 
-            if (!$mail->send()) {
-                return array('error' => $mail->ErrorInfo);
+            if (! $mail->send()) {
+                return ['error' => $mail->ErrorInfo];
             } else {
                 return true;
             }
         } catch (Exception $e) {
-            return array('error' => $e->getMessage());
+            return ['error' => $e->getMessage()];
         }
     }
 
-    public static function formatEmail($email, $viewing_language) {
+    public static function formatEmail($email, $viewing_language)
+    {
         return str_replace(
             ['[Sitename]', '[Greeting]', '[Message]', '[Thanks]'],
-            [SITE_NAME, $viewing_language->get('emails', 'greeting'), $viewing_language->get('emails', $email . '_message'), $viewing_language->get('emails', 'thanks')],
-            file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
+            [SITE_NAME, $viewing_language->get('emails', 'greeting'), $viewing_language->get('emails', $email.'_message'), $viewing_language->get('emails', 'thanks')],
+            file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email.'.html']))
         );
     }
 }

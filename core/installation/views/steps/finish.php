@@ -1,26 +1,22 @@
 <?php
 
-if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
-	Redirect::to('?step=admin_account_setup');
-	die();
+if (! isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
+    Redirect::to('?step=admin_account_setup');
+    exit();
 }
 
 try {
+    if (! is_writable('core/config.php')) {
+        $error = $language['config_not_writable'];
+    } else {
+        file_put_contents('core/config.php', PHP_EOL.'$CONFIG[\'installed\'] = true;', FILE_APPEND);
+    }
 
-	if (!is_writable('core/config.php')) {
-		$error = $language['config_not_writable'];
-	} else {
-		file_put_contents('core/config.php', PHP_EOL . '$CONFIG[\'installed\'] = true;', FILE_APPEND);
-	}
-
-	unset($_SESSION['admin_setup']);
-	unset($_SESSION['database_initialized']);
-	unset($_SESSION['site_initialized']);
-
+    unset($_SESSION['admin_setup']);
+    unset($_SESSION['database_initialized']);
+    unset($_SESSION['site_initialized']);
 } catch (Exception $e) {
-
-	$error = $e->getMessage();
-
+    $error = $e->getMessage();
 }
 
 ?>

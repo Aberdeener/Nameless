@@ -9,7 +9,7 @@
  *  Spanish/Spain Language - Language version
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -188,7 +188,7 @@ $language = array(
     'no_about_fields' => 'Este usuario no ha aádido ningún campo de información todavía.',
     'reply' => 'Responder',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'No se puede enviar el informe. Asegúrese de que la razón posee entre 2 y 1024 caracteres.',
     'report_post_content' => 'Introduzca una razón para su reporte',
@@ -234,7 +234,7 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} se ha registado ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{x} se ha registado '.SITE_NAME.'!',
     'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
@@ -251,5 +251,5 @@ $language = array(
     'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
     'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
     'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
-);
+    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>',
+];

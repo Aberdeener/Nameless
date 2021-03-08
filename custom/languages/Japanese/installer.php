@@ -14,7 +14,7 @@
  *  Japanese Language - Installation
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -107,5 +107,5 @@ $language = array(
     'no_converters_available' => 'コンバーターはありません。',
     'config_not_writable' => '設定ファイルは書き込み可能ではありません。',
 
-    'session_doesnt_exist' => 'セッションを検出できません。セッションの保存はNamelessを使用するための要件です。再度試してみて、問題が解決しない場合は、ウェブホストに連絡してください。'
-);
+    'session_doesnt_exist' => 'セッションを検出できません。セッションの保存はNamelessを使用するための要件です。再度試してみて、問題が解決しない場合は、ウェブホストに連絡してください。',
+];

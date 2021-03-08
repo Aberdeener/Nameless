@@ -9,7 +9,7 @@
  *  Norwegian translation (norsk bokmål) - User
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -100,8 +100,8 @@ $language = array(
     // Registration - Authme
     'connect_with_authme' => 'Koble til brukeren din med AuthMe.',
     'authme_help' => 'Vennligst skriv inn ditt ingame AuthMe-brukers påloggingsinformasjon. Hvis du ikke har en bruker ingame, logg inn på serveren og følg instruksjonene.',
-       'unable_to_connect_to_authme_db' => 'En feil oppstod under tilkoblingen til AuthMe-databasen. Hvis denne feilen gjentar seg, vennligst kontakt en administrator.',
-       'authme_account_linked' => 'Bruker suksessfullt tilkoblet.',
+    'unable_to_connect_to_authme_db' => 'En feil oppstod under tilkoblingen til AuthMe-databasen. Hvis denne feilen gjentar seg, vennligst kontakt en administrator.',
+    'authme_account_linked' => 'Bruker suksessfullt tilkoblet.',
     'authme_email_help_1' => 'Til slutt, vennligst skriv inn din e-postadresse.',
     'authme_email_help_2' => 'Til slutt, vennligst skriv inn din e-postadresse, og velg et nytt brukernavn til din bruker.',
     // Registration errors
@@ -187,7 +187,7 @@ $language = array(
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
     'discord_username' => 'Discord-brukernavn',
-    
+
     // Reports
     'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Pass på at den er mellom 2 og 1024 tegn.',
     'report_post_content' => 'Vennligst oppgi grunnlaget for rapporteringen.',
@@ -233,7 +233,7 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{x} har registert seg hos '.SITE_NAME.'!',
     'user_x_has_validated' => '{x} har validert kontoen deres!',
 
     // Discord
@@ -250,5 +250,5 @@ $language = array(
     'discord_database_error' => 'Nameless Link-databasen er nede for øyeblikket. Prøv igjen senere.',
     'discord_communication_error' => 'Det oppstod en feil under kommuniseringen med Discord-boten. Sjekk om boten er oppe, og at bot-URL-en er korrekt.',
     'discord_unknown_error' => 'Det oppstod en ukjent feil under synkroniseringen av Discord-rollene. Vennligst kontakt en administrator.',
-    'discord_id_help' => 'For mer informasjon om hvordan man finner Discord-bruker-ID, vennligst les <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">denne artikkelen.</a>'
-);
+    'discord_id_help' => 'For mer informasjon om hvordan man finner Discord-bruker-ID, vennligst les <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">denne artikkelen.</a>',
+];

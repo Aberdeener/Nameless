@@ -9,7 +9,7 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
@@ -153,5 +153,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.', // Don't replace {x} which is the redirect URL
+];
