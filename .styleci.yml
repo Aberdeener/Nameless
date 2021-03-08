@@ -1,7 +1,5 @@
-php:
-  preset: laravel
-  finder:
-  exclude:
-    - "core/assets"
-    - "core/includes"
-css: true
+preset: laravel
+finder:
+exclude:
+  - "core/assets"
+  - "core/includes"
