@@ -11,7 +11,7 @@
  *  Last Update: 01/03/2021
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -104,5 +104,5 @@ $language = array(
     'no_converters_available' => 'Não há conversores disponíveis.',
     'config_not_writable' => 'O arquivo de configuração não é gravável.',
 
-    'session_doesnt_exist' => 'Não foi possível detectar a sessão. Salvar sessões é um requisito para usar o Nameless. Tente novamente e, se o problema persistir, entre em contato com sua hospedagem para obter suporte.'
-);
+    'session_doesnt_exist' => 'Não foi possível detectar a sessão. Salvar sessões é um requisito para usar o Nameless. Tente novamente e, se o problema persistir, entre em contato com sua hospedagem para obter suporte.',
+];

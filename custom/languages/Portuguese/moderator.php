@@ -9,7 +9,7 @@
  *  Portuguese Language - Moderator terms
  *  Translation By Douglas Teles & dasilvaj4
  */
-$language = array(
+$language = [
     'mod_cp' => 'ModCP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Visão Geral',
@@ -102,5 +102,5 @@ $language = array(
 
     // Users
     'recent_registrations' => 'Cadastros Recentes',
-    'reset_profile_banner' => 'Redefinir Banner do Perfil'
-);
+    'reset_profile_banner' => 'Redefinir Banner do Perfil',
+];

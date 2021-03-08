@@ -11,7 +11,7 @@
  *  Nederlandse taal - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin controle paneel
      */
@@ -223,7 +223,7 @@ $language = array(
     'display_field_on_forum' => 'Veld laten zien in het forum?',
     'profile_field_forum_help' => 'Als dit aan staat, wordt het veld weergegeven bij de gebruiker naast de forum berichten.',
     'profile_field_editable_help' => 'Indien ingeschakeld, hebben gebruikers toestemming om het veld in hun profielinstellingen te bewerken.',
-     'no_custom_fields' => 'Er zijn nog geen aangepaste velden.',
+    'no_custom_fields' => 'Er zijn nog geen aangepaste velden.',
     'profile_field_updated_successfully' => 'Het profielveld is met succes bijgewerkt.',
     'profile_field_created_successfully' => 'Het profielveld is met succes aangemaakt.',
     'profile_field_deleted_successfully' => 'Het profielveld is met succes verwijderd.',
@@ -504,7 +504,7 @@ $language = array(
     'action_info' => 'Actie Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Bijwerken',
     'current_version_x' => 'Huidige versie: <strong>{x}</strong>', // Verander "{x}" niet
@@ -520,7 +520,7 @@ $language = array(
     'install_confirm' => 'Zorg ervoor dat je het bestand hebt gedownload en de bestanden hebt geupload voordat je verder gaat!',
     'check_again' => 'Controleer opnieuw',
 
-     // Widgets
+    // Widgets
     'widgets' => 'Widgets',
     'widget_enabled' => 'Widget ingeschakeld.',
     'widget_disabled' => 'Widget uitgeschakeld.',
@@ -742,6 +742,6 @@ $language = array(
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'Website API-sleutel is ongeldig',
     'discord_bot_error_invrole' => 'Opgegeven rol-ID is ongeldig.',
-    'discord_bot_error_hierarchy' => 'De bot kan de rollen van deze gebruiker niet bewerken.'
+    'discord_bot_error_hierarchy' => 'De bot kan de rollen van deze gebruiker niet bewerken.',
 
-);
+];

@@ -9,32 +9,48 @@
  *  Error page
  */
 
-if(!defined('ERRORHANDLER'))
-    die();
+if (! defined('ERRORHANDLER')) {
+    exit();
+}
 
-if (!defined('LANGUAGE'))
+if (! defined('LANGUAGE')) {
     define('LANGUAGE', 'EnglishUK');
+}
 
 $language = new Language('core', LANGUAGE);
 $user = new User();
 ?>
 
 <!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>" <?php if(defined('HTML_RTL') && HTML_RTL === true) echo ' dir="rtl"'; ?>>
+<html lang="<?php echo defined('HTML_LANG') ? HTML_LANG : 'en'; ?>" <?php if (defined('HTML_RTL') && HTML_RTL === true) {
+    echo ' dir="rtl"';
+} ?>>
     <head>
-        <meta charset="<?php echo (defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'); ?>">
+        <meta charset="<?php echo defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'; ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="<?php echo $language->get('errors', 'fatal_error') . ' - ' . SITE_NAME; ?>">
+        <meta name="description" content="<?php echo $language->get('errors', 'fatal_error').' - '.SITE_NAME; ?>">
 
         <!-- Page Title -->
         <title><?php echo $language->get('errors', 'fatal_error'); ?> &bull; <?php echo SITE_NAME; ?></title>
 
         <meta name="author" content="<?php echo SITE_NAME; ?>">
 
-        <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/css/custom.css">
-        <link rel="stylesheet" href="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<?php if (defined('CONFIG_PATH')) {
+    echo CONFIG_PATH.'/';
+} else {
+    echo '/';
+} ?>core/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php if (defined('CONFIG_PATH')) {
+    echo CONFIG_PATH.'/';
+} else {
+    echo '/';
+} ?>core/assets/css/custom.css">
+        <link rel="stylesheet" href="<?php if (defined('CONFIG_PATH')) {
+    echo CONFIG_PATH.'/';
+} else {
+    echo '/';
+} ?>core/assets/css/font-awesome.min.css">
 
     </head>
     <body>
@@ -46,8 +62,8 @@ $user = new User();
                         <div style="text-align:center">
                             <h2><?php echo $language->get('errors', 'fatal_error_title'); ?></h2>
                             <?php
-                            if($user->isLoggedIn() && $user->hasPermission('admincp.errors')){
-                            ?>
+                            if ($user->isLoggedIn() && $user->hasPermission('admincp.errors')) {
+                                ?>
                             <h4><?php echo $language->get('errors', 'fatal_error_message_admin'); ?></h4>
                             <div class="card card-default">
                                 <div class="card-body">
@@ -55,9 +71,9 @@ $user = new User();
                 </div>
               </div>
               <?php
-                  echo '<div style="overflow-x: scroll;">' . str_replace('{x}', Output::getClean($errfile), $language->get('errors', 'in_file')) . '</div>' . str_replace('{x}', Output::getClean($errline), $language->get('errors', 'on_line')) . '<hr />';
+                  echo '<div style="overflow-x: scroll;">'.str_replace('{x}', Output::getClean($errfile), $language->get('errors', 'in_file')).'</div>'.str_replace('{x}', Output::getClean($errline), $language->get('errors', 'on_line')).'<hr />';
                             } else {
-                            ?>
+                                ?>
                             <h4><?php echo $language->get('errors', 'fatal_error_message_user'); ?></h4>
                             <?php
                             }

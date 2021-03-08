@@ -10,7 +10,7 @@
  *  SwedishSE Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -506,7 +506,7 @@ $language = array(
     'action_info' => 'Action Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Uppdatera',
     'current_version_x' => 'Nuvarande version: <strong>{x}</strong>', // Don't replaec {x}
@@ -746,6 +746,6 @@ $language = array(
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
 
-);
+];

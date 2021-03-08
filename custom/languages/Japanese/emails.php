@@ -14,7 +14,7 @@
  *  Japanese Language - Emails
  */
 
-$language = array(
+$language = [
 
     // General Options
     'greeting' => 'こんにちは！',
@@ -30,5 +30,5 @@ $language = array(
 
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} は {y} に返信しました', // Don't remove {x} or {y}
-    'forum_topic_reply_message' => '{x} がフォローしているトピックに返信しました。内容: {z}' // Don't remove {x} or {z}
-);
+    'forum_topic_reply_message' => '{x} がフォローしているトピックに返信しました。内容: {z}', // Don't remove {x} or {z}
+];

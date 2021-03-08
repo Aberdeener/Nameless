@@ -11,7 +11,7 @@
  *  Last Update: 16/06/2018
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is disabled',
@@ -64,5 +64,5 @@ $language = array(
     'account_validated' => 'Contul a fost validat cu succes',
     'discord_id_set' => 'Discord ID set successfully',
     'discord_settings_updated' => 'Discord settings updated successfully',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
-);
+    'discord_usernames_updated' => 'Discord usernames updated successfully',
+];

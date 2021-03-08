@@ -9,34 +9,34 @@
  *  Stick/unstick a topic
  */
 
-require_once(ROOT_PATH . '/modules/Forum/classes/Forum.php');
+require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 
 // User must be logged in to proceed
-if (!$user->isLoggedIn()) {
+if (! $user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
-    die();
+    exit();
 }
 
 // Ensure a topic is set via URL parameters
-if (isset($_GET["tid"])) {
-    if (is_numeric($_GET["tid"])) {
-        $topic_id = $_GET["tid"];
+if (isset($_GET['tid'])) {
+    if (is_numeric($_GET['tid'])) {
+        $topic_id = $_GET['tid'];
     } else {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-        die();
+        exit();
     }
 } else {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
+    exit();
 }
 
 // Check topic exists and get forum ID
-$topic = $queries->getWhere('topics', array('id', '=', $topic_id));
+$topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
 
-if (!count($topic)) {
+if (! count($topic)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    die();
+    exit();
 }
 
 $forum_id = $topic[0]->forum_id;
@@ -51,14 +51,14 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         $status = $forum_language->get('forum', 'topic_unstuck');
     }
 
-    $queries->update("topics", $topic_id, array(
-        "sticky" => $sticky
-    ));
+    $queries->update('topics', $topic_id, [
+        'sticky' => $sticky,
+    ]);
 
     Log::getInstance()->log(($sticky == 1) ? Log::Action('forums/topic/stick') : Log::Action('forums/topic/unstick'), $topic[0]->topic_title);
 
     Session::flash('success_post', $status);
 }
 
-Redirect::to(URL::build('/forum/topic/' . $topic_id));
-die();
+Redirect::to(URL::build('/forum/topic/'.$topic_id));
+exit();

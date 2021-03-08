@@ -10,7 +10,7 @@
  *  Russian Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'Возможности API отключены',
@@ -63,5 +63,5 @@ $language = array(
     'account_validated' => 'Учетная запись успешно подтверждена',
     'discord_id_set' => 'Discord ID установлен',
     'discord_settings_updated' => 'Настройки в Discord обновлены',
-    'discord_usernames_updated' => 'Никнеймы в Discord обновлены'
-);
+    'discord_usernames_updated' => 'Никнеймы в Discord обновлены',
+];

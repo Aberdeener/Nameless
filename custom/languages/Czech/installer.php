@@ -10,7 +10,7 @@
  *  Czech Language - Installation
  */
 
-$language = array (
+$language = [
     /*
      *  Installation
      */
@@ -103,5 +103,5 @@ $language = array (
     'no_converters_available' => 'Nejsou dostupné žádné konvertory.',
     'config_not_writable' => 'Konfigurační soubor není zapisovatelný.',
 
-    'session_doesnt_exist' => 'Nepodařilo se detekovat relaci. Pro správnou funkci Nameless je potřeba funkce ukládání relací. Zkuste to prosím znovu. Pokud chyba přetrvává, kontaktujte podporu vašeho webhostingu.'
-);
+    'session_doesnt_exist' => 'Nepodařilo se detekovat relaci. Pro správnou funkci Nameless je potřeba funkce ukládání relací. Zkuste to prosím znovu. Pokud chyba přetrvává, kontaktujte podporu vašeho webhostingu.',
+];

@@ -9,7 +9,7 @@
  *  Italian Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -134,7 +134,7 @@ $language = array(
     // Login
     'successful_login' => 'Hai effettuato il log in con successo.',
     'incorrect_details' => 'Hai inserito dati errati.',
-    'inactive_account' => "Il tuo account è inattivo. Si prega di controllare le e-mail per un link di convalida, controlla anche la tua cartella di posta indesiderata.",
+    'inactive_account' => 'Il tuo account è inattivo. Si prega di controllare le e-mail per un link di convalida, controlla anche la tua cartella di posta indesiderata.',
     'account_banned' => "Quell'account è bannato.",
     'forgot_password' => 'Ha dimenticato la password?',
     'remember_me' => 'Ricordati di me',
@@ -188,7 +188,7 @@ $language = array(
     'no_about_fields' => 'Questo utente non ha ancora aggiunto informazioni su se stesso',
     'reply' => 'Rispondi',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Impossibile creare una segnalazione. Assicurati che il motivo della segnalazione sia compreso tra 2 e 1024 caratteri.',
     'report_post_content' => 'Per favore, inserisci un motivo per la segnalazione',
@@ -234,7 +234,7 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} si è unito ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{x} si è unito '.SITE_NAME.'!',
     'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
@@ -251,5 +251,5 @@ $language = array(
     'discord_database_error' => 'Il database dei collegamenti di Nameless è attualmente inattivo. Riprova più tardi.',
     'discord_communication_error' => "Si è verificato un errore durante la comunicazione con il Bot di Discord. Assicurati che il bot sia in esecuzione e che l'URL del tuo Bot sia corretto.",
     'discord_unknown_error' => 'Si è verificato un errore sconosciuto durante la sincronizzazione dei ruoli di Discord. Contatta un amministratore.',
-    'discord_id_help' => 'Per informazioni su dove trovare gli ID Discord, leggi <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">questo.</a>'
-);
+    'discord_id_help' => 'Per informazioni su dove trovare gli ID Discord, leggi <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">questo.</a>',
+];

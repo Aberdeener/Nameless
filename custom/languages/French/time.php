@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -25,5 +25,5 @@ $language = array(
     'about_1_month' => 'il y a 1 mois',
     '_months' => 'il y a {x} mois',
     'about_1_year' => 'il y a 1 ans',
-    'over_x_years' => 'il y a {x} ans'
-);
+    'over_x_years' => 'il y a {x} ans',
+];

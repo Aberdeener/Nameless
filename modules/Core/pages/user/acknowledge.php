@@ -9,31 +9,31 @@
  *  User warning acknowledgement page
  */
 
-if(!$user->isLoggedIn()){
+if (! $user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
-    die();
+    exit();
 }
 
 // Get warning ID
 $wid = explode('/', $route);
 $wid = $wid[count($wid) - 1];
 
-if(!isset($wid[count($wid) - 1]) || !is_numeric($wid)){
+if (! isset($wid[count($wid) - 1]) || ! is_numeric($wid)) {
     Redirect::to(URL::build('/'));
-    die();
+    exit();
 }
 
 // Ensure warning belongs to user
-$warning = $queries->getWhere('infractions', array('id', '=', $wid));
-if(count($warning)){
-    if($warning[0]->acknowledged == 0 && $warning[0]->punished == $user->data()->id){
-        $queries->update('infractions', $warning[0]->id, array(
-            'acknowledged' => 1
-        ));
+$warning = $queries->getWhere('infractions', ['id', '=', $wid]);
+if (count($warning)) {
+    if ($warning[0]->acknowledged == 0 && $warning[0]->punished == $user->data()->id) {
+        $queries->update('infractions', $warning[0]->id, [
+            'acknowledged' => 1,
+        ]);
 
-       Log::getInstance()->log(Log::Action('user/acknowledge'), $result);
+        Log::getInstance()->log(Log::Action('user/acknowledge'), $result);
     }
 }
 
 Redirect::to(URL::build('/'));
-die();
+exit();

@@ -9,24 +9,27 @@
  *  Recent users dashboard collection item
  */
 
-class RecentUsersItem extends CollectionItemBase {
+class RecentUsersItem extends CollectionItemBase
+{
+    private $_smarty;
+    private $_language;
 
-    private $_smarty, 
-            $_language;
-
-    public function __construct($smarty, $language, $cache) {
+    public function __construct($smarty, $language, $cache)
+    {
         $cache->setCache('dashboard_stats_collection');
         if ($cache->isCached('recent_users')) {
             $from_cache = $cache->retrieve('recent_users');
-            if (isset($from_cache['order']))
+            if (isset($from_cache['order'])) {
                 $order = $from_cache['order'];
-            else
+            } else {
                 $order = 2;
+            }
 
-            if (isset($from_cache['enabled']))
+            if (isset($from_cache['enabled'])) {
                 $enabled = $from_cache['enabled'];
-            else
+            } else {
                 $enabled = 1;
+            }
         } else {
             $order = 2;
             $enabled = 1;
@@ -38,16 +41,17 @@ class RecentUsersItem extends CollectionItemBase {
         $this->_language = $language;
     }
 
-    public function getContent() {
+    public function getContent()
+    {
         // Get the number of recent users
         $queries = new Queries();
-        $users_query = $queries->getWhere('users', array('joined', '>', strtotime('7 days ago')));
+        $users_query = $queries->getWhere('users', ['joined', '>', strtotime('7 days ago')]);
 
-        $this->_smarty->assign(array(
+        $this->_smarty->assign([
             'ICON' => $this->_language->get('admin', 'recent_users_statistic_icon'),
             'TITLE' => $this->_language->get('admin', 'recent_users'),
-            'VALUE' => count($users_query)
-        ));
+            'VALUE' => count($users_query),
+        ]);
 
         return $this->_smarty->fetch('collections/dashboard_stats/recent_users.tpl');
     }

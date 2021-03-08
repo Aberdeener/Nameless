@@ -9,7 +9,7 @@
  *  Norwegian translation (norsk bokmål) - General
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'Denne tidssonen er ugyldig.',
     'link' => 'Koble til',
     'unlink' => 'Koble fra',
-    
+
     /*
      *  Contact form
      */
@@ -93,7 +93,6 @@ $language = array(
      *  Homepage
      */
     'social' => 'Sosiale medier',
-
 
     /*
      *  Help dialogues
@@ -155,5 +154,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.', // Don't replace {x} which is the redirect URL
+];

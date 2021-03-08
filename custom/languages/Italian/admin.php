@@ -9,7 +9,7 @@
  *  Italian Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -43,7 +43,7 @@ $language = array(
     'notices' => 'Avvisi',
     'no_notices' => 'Nessun avviso.',
     'email_errors_logged' => "Gli errori dell'email sono stati registrati",
-    
+
     // Core
     'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Impostazioni',
@@ -293,7 +293,7 @@ $language = array(
     'server_deleted' => 'Server eliminato con successo',
     'unable_to_delete_server' => 'Impossibile eliminare il server.',
     'leave_port_empty_for_srv' => 'Puoi lasciare la porta vuota se è 25565 o se il tuo dominio utilizza un record SRV',
-    'viewing_query_error' => "Visualizzazione degli errori della query",
+    'viewing_query_error' => 'Visualizzazione degli errori della query',
     'confirm_query_error_deletion' => 'Sei sicuro di voler eliminare questo errore query?',
     'no_query_errors' => 'Nessun errore query registrato.',
     'new_banner' => '<i class="fa fa-plus-circle"></i> Nuovo Banner',
@@ -419,7 +419,7 @@ $language = array(
     'confirm_user_deletion' => "Sei sicuro di voler eliminare l'utente <strong>{x}</strong>?", // Don't replace {x}
     'validate_user' => "Convalidare l'utente",
     'update_uuid' => 'Aggiorna UUID',
-    'update_mc_name' => "Aggiorna il nome utente di Minecraft",
+    'update_mc_name' => 'Aggiorna il nome utente di Minecraft',
     'reset_password' => 'Reimposta la password',
     'punish_user' => 'Punisci utente',
     'delete_user' => 'Elimina utente',
@@ -505,7 +505,7 @@ $language = array(
     'action_info' => "Informazioni sull'azione",
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Aggiorna',
     'current_version_x' => 'Versione corrente: <strong>{x}</strong>', // Don't replace {x}
@@ -699,8 +699,8 @@ $language = array(
     'announcements' => 'Annunci',
     'new_announcement' => 'Nuovo annuncio',
     'announcement_info' => 'Crea annunci per mostrare un messaggio a gruppi specifici su pagine specifiche del tuo sito web.',
-    'creating_announcement' => "Crea annuncio",
-    'editing_announcement' => "Modifica annuncio",
+    'creating_announcement' => 'Crea annuncio',
+    'editing_announcement' => 'Modifica annuncio',
     'creating_announcement_success' => 'Annuncio creato con successo.',
     'editing_announcement_success' => 'Annuncio aggiornato con successo.',
     'creating_announcement_failure' => "Creazione dell'annuncio non riuscita.",
@@ -745,6 +745,6 @@ $language = array(
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
 
-);
+];

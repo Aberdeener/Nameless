@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -17,5 +17,5 @@ $language = array(
     'nothing_found' => 'Aucun résultat trouvé',
     'page_x_of_y' => 'Afficher la page _PAGE_ sur _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Pas d\'enregistrements disponible',
-    'filtered' => '(fFlitré sur _MAX_ enregistrements au total)' // Don't replace "_MAX_"
-);
+    'filtered' => '(fFlitré sur _MAX_ enregistrements au total)', // Don't replace "_MAX_"
+];

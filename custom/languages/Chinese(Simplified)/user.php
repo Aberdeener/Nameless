@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr8) : 100%
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -190,7 +190,7 @@ $language = array(
     'no_about_fields' => '该用户很懒，并没有填写个性签名。',
     'reply' => '回复',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => '无法创建报告。请确保您的反馈内容在 2 到 1024 个字符之间。',
     'report_post_content' => '请输入反馈原因',
@@ -236,7 +236,7 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{x} 加入了 '.SITE_NAME.'!',
     'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
@@ -253,5 +253,5 @@ $language = array(
     'discord_database_error' => 'Nameless Link 数据库目前掉线了。请您稍后再试。',
     'discord_communication_error' => '无法与 Discord 机器人交流。请您确保机器人正在运行并且您的机器人链接是正确的。',
     'discord_unknown_error' => '在同步 Discord 身份组时出现了错误。请联系管理员。',
-    'discord_id_help' => '您可阅读 <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">此文章</a> 来了解如何获得您的用户 ID。'
-);
+    'discord_id_help' => '您可阅读 <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">此文章</a> 来了解如何获得您的用户 ID。',
+];

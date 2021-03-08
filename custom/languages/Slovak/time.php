@@ -9,7 +9,7 @@
  *  EnglishUK Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -25,5 +25,5 @@ $language = array(
     'about_1_month' => 'about 1 month ago',
     '_months' => '{x} months ago',
     'about_1_year' => 'about 1 year ago',
-    'over_x_years' => 'over {x} years ago'
-);
+    'over_x_years' => 'over {x} years ago',
+];

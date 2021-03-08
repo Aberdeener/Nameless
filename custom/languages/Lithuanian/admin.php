@@ -10,7 +10,7 @@
  *  Lithuanian Language - Admin
  */
 
-$language = array(
+$language = [
     // Login
     're-authenticate' => 'Prašome patvirtinkite dar kartą',
 
@@ -503,7 +503,7 @@ $language = array(
     'action_info' => 'Veiksmų Informacija',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Atnaujinti',
     'current_version_x' => 'Dabartinė versija: <strong>{x}</strong>', // Don't replace {x}
@@ -743,6 +743,6 @@ $language = array(
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
 
-);
+];

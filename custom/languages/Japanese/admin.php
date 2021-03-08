@@ -14,7 +14,7 @@
  *  Japanese Language - Admin
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -322,7 +322,7 @@ $language = array(
     'player_count_cronjob_info' => '次のコマンドを使用して {x} 分ごとにサーバーに照会するようにジョブを設定できます。',
     'status_page' => 'ステータスページを表示しますか？',
     'minecraft_settings_updated_successfully' => '設定が正常に更新されました。',
-    'server_id_x' => 'サーバーID：{x}',// {x}を置き換えない
+    'server_id_x' => 'サーバーID：{x}', // {x}を置き換えない
     'server_information' => 'サーバー情報',
     'query_information' => 'クエリ情報',
     'query_errors_purged_successfully' => 'クエリエラーが正常にパージされました。',
@@ -510,7 +510,7 @@ $language = array(
     'action_info' => '操作情報',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'アップデート',
     'current_version_x' => '現在のバージョン: <strong>{x}</strong>', // Don't replaec {x}
@@ -664,18 +664,18 @@ $language = array(
     'delete_hook_info' => 'ユーザー削除',
 
     //サイトマップ
-    'unable_to_load_sitemap_file_x' => 'サイトマップファイル {x} を読み込むことができませんでした。',// {x}を置き換えない
+    'unable_to_load_sitemap_file_x' => 'サイトマップファイル {x} を読み込むことができませんでした。', // {x}を置き換えない
     'sitemap_generated' => 'サイトマップが正常に生成されました。',
     'sitemap_not_writable' => '<strong>cache/sitemaps</strong> ディレクトリに書き込みができません。アクセス権限を確認してください。',
     'cache_not_writable' => '<strong>cache</strong>　ディレクトリに書き込みができません。アクセス権限を確認してください。',
     'generate_sitemap' => 'サイトマップ生成',
     'download_sitemap' => 'ダウンロードサイトマップ',
     'sitemap_not_generated_yet' => '生成済みのサイトマップが存在しません。',
-    'sitemap_last_generated_x' => '最終サイトマップ生成:{x}',// {x}を置き換えない
+    'sitemap_last_generated_x' => '最終サイトマップ生成:{x}', // {x}を置き換えない
 
     //ページメタデータ
     'page_metadata' => 'ページメタデータ',
-    'metadata_page_x' => '{x} のメタデータを表示',// {x}を置き換えない
+    'metadata_page_x' => '{x} のメタデータを表示', // {x}を置き換えない
     'keywords' => 'キーワード',
     'description_max_500' => '説明は　<strong>500文字</strong>　以下にする必要があります。',
     'page' => 'Page',
@@ -689,7 +689,7 @@ $language = array(
     'average_players' => '平均ユーザー',
     'nameless_news' => 'NamelessMC ニュース',
     'unable_to_retrieve_nameless_news' => '最新のニュースを取得できませんでした。',
-    'confirm_leave_site' => 'サイトを離れようとしています。 <strong id = "leaveSiteURL"> {x} </strong> にアクセスしてもよろしいですか？ ',// {x}を置き換えずに、そのIDがleaveSiteURLであることを確認してください
+    'confirm_leave_site' => 'サイトを離れようとしています。 <strong id = "leaveSiteURL"> {x} </strong> にアクセスしてもよろしいですか？ ', // {x}を置き換えずに、そのIDがleaveSiteURLであることを確認してください
     'server_compatibility' => 'サーバーの互換性',
     'issues' => '問題',
 
@@ -750,6 +750,6 @@ $language = array(
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
 
-);
+];

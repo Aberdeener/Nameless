@@ -9,7 +9,7 @@
  *  Polish Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -69,12 +69,12 @@ $language = array(
     'invalid_timezone' => 'Ta strefa czasowa nie istnieje',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
-  'contact' => 'Kontakt',
-  'message' => 'Wiadomość',
+    'contact' => 'Kontakt',
+    'message' => 'Wiadomość',
     'email_address' => 'Adres email',
     'contact_email_subject' => 'Nowe zgłoszenie formularza kontaktowego',
     'contact_message_failed' => 'Nie można wysłać wiadomości. Upewnij się że twoja wiadomość ma od 10 do 5000 znaków długości.',
@@ -154,5 +154,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Przekierowywanie...<br />Jeżeli nie przenieśliśmy cię automatycznie kliknij <a href="{x}" rel="nofollow noopener">tutaj</a>.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Przekierowywanie...<br />Jeżeli nie przenieśliśmy cię automatycznie kliknij <a href="{x}" rel="nofollow noopener">tutaj</a>.', // Don't replace {x} which is the redirect URL
+];

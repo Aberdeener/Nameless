@@ -10,7 +10,7 @@
  *  SwedishSE Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'ModKP',
     'staff_cp' => 'StaffCP',
     'overview' => 'Översikt',
@@ -104,6 +104,6 @@ $language = array(
 
     // Users
     'recent_registrations' => 'Recent Registrations',
-    'reset_profile_banner' => 'Reset Profile Banner'
+    'reset_profile_banner' => 'Reset Profile Banner',
 
-);
+];

@@ -11,7 +11,7 @@
  *  Greek Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -27,5 +27,5 @@ $language = array(
     'about_1_month' => 'περίπου 1 μήνα πριν',
     '_months' => '{x} μήνες πριν',
     'about_1_year' => 'Πριν από περίπου 1 χρόνο',
-    'over_x_years' => 'πάνω από {x} χρόνια πριν'
-);
+    'over_x_years' => 'πάνω από {x} χρόνια πριν',
+];

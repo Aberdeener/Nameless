@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr8) : 100%
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is disabled',
@@ -64,5 +64,5 @@ $language = array(
     'account_validated' => '账号校验成功',
     'discord_id_set' => 'Discord ID 更新成功',
     'discord_settings_updated' => 'Discord settings updated successfully',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
-);
+    'discord_usernames_updated' => 'Discord usernames updated successfully',
+];

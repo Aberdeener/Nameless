@@ -14,7 +14,7 @@
  *  Japanese Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is disabled',
@@ -67,5 +67,5 @@ $language = array(
     'account_validated' => 'アカウントの検証が完了しました。',
     'discord_id_set' => 'Discord IDの設定に成功しました。',
     'discord_bot_url_updated' => 'Discord botのURLが更新されました。',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
-);
+    'discord_usernames_updated' => 'Discord usernames updated successfully',
+];

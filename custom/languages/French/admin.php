@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -480,7 +480,7 @@ $language = array(
     'action_info' => 'Infos actions',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Mise à jour',
     'current_version_x' => 'Version actuelle: <strong>{x}</strong>', // Don't replace {x}
@@ -684,5 +684,5 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'discord_bot_error_notlinked' => 'The bot is not linked to this website for provided Guild ID.',
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
-    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
-);
+    'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.',
+];

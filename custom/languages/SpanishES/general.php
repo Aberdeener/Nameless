@@ -9,7 +9,7 @@
  *  Spanish/Spain Language - Language version
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'That timezone is invalid',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
@@ -93,7 +93,6 @@ $language = array(
      *  Homepage
      */
     'social' => 'Social',
-
 
     /*
      *  Help dialogues
@@ -155,5 +154,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, haga click <a href="{x}" rel="nofollow noopener">aquí</a>.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Redirigiendo...<br />Si no es redirigido automáticamente, haga click <a href="{x}" rel="nofollow noopener">aquí</a>.', // Don't replace {x} which is the redirect URL
+];

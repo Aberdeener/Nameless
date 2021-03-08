@@ -10,7 +10,7 @@
  *  Russian Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -31,5 +31,5 @@ $language = array(
     'fatal_error_message_user' => 'Простите, но что-то пошло не так при загрузке страницы. Пожалуйста, свяжитесь с администратором.',
     'fatal_error_message_admin' => 'Простите, но что-то пошло не так при загрузке страницы. Сведения об ошибке:',
     'in_file' => 'в файле <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'на строке <strong>{x}</strong>' // Don't replace {x}
-);
+    'on_line' => 'на строке <strong>{x}</strong>', // Don't replace {x}
+];

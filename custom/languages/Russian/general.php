@@ -10,7 +10,7 @@
  *  Russian Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -83,7 +83,6 @@ $language = array(
     'contact_message_sent' => 'Сообщение успешно отправлено.',
     'contact_message_limit' => 'Вы можете отправлять только одно сообщение в час. Отправьте следующее сообщение через {x} минут.', // Don't replace {x}
 
-
     /*
      *  Navbar
      */
@@ -95,7 +94,6 @@ $language = array(
      *  Homepage
      */
     'social' => 'Мы в социальных сетях',
-
 
     /*
      *  Help dialogues
@@ -157,5 +155,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.', // Don't replace {x} which is the redirect URL
+];

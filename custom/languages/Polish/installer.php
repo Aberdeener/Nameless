@@ -9,7 +9,7 @@
  *  Polish Language - Installation
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -102,5 +102,5 @@ $language = array(
     'no_converters_available' => 'Brak dostępnych konwersji.',
     'config_not_writable' => 'Plik konfiguracyjny jest zablokowany.',
 
-    'session_doesnt_exist' => 'Nie można zapisać sesji. Jest to wymagane to korzystania z NamelessMC. Spróbuj ponownie, jeśli problem się powtarza skontaktuj się ze swoim hostingiem.'
-);
+    'session_doesnt_exist' => 'Nie można zapisać sesji. Jest to wymagane to korzystania z NamelessMC. Spróbuj ponownie, jeśli problem się powtarza skontaktuj się ze swoim hostingiem.',
+];

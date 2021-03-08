@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr8) : 100%
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -71,7 +71,7 @@ $language = array(
     'invalid_timezone' => '此时区不可用',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
@@ -84,7 +84,6 @@ $language = array(
     'contact_message_sent' => '消息发送成功。',
     'contact_message_limit' => '您每小时只能发送一条消息。距您可再次发送还有 {x} 分钟。', // Don't replace {x}
 
-
     /*
      *  Navbar
      */
@@ -96,7 +95,6 @@ $language = array(
      *  Homepage
      */
     'social' => '社区',
-
 
     /*
      *  Help dialogues
@@ -158,5 +156,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.', // Don't replace {x} which is the redirect URL
+];

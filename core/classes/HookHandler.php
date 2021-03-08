@@ -7,18 +7,19 @@
  *  Hook handler class
  */
 
-class HookHandler {
-
-    private static $_events = array();
-    private static $_hooks = array();
+class HookHandler
+{
+    private static $_events = [];
+    private static $_hooks = [];
 
     // Register an event name
     // Params:  $event - name of event to add
     //          $description - human readable description
     //          $params - array of available parameters and their descriptions
-    public static function registerEvent($event, $description, $params = array()) {
-        if (!isset(self::$_events[$event])) {
-            self::$_events[$event] = array();
+    public static function registerEvent($event, $description, $params = [])
+    {
+        if (! isset(self::$_events[$event])) {
+            self::$_events[$event] = [];
         }
 
         self::$_events[$event]['description'] = $description;
@@ -27,7 +28,8 @@ class HookHandler {
         return true;
     }
 
-    public static function registerHooks($hooks) {
+    public static function registerHooks($hooks)
+    {
         self::$_hooks = $hooks;
 
         return true;
@@ -36,9 +38,10 @@ class HookHandler {
     // Register an event hook
     // Params:  $event - event name to hook into
     //          $hook - function name to execute, eg Class::method
-    public static function registerHook($event, $hook) {
-        if (!isset(self::$_events[$event])) {
-            self::$_events[$event] = array();
+    public static function registerHook($event, $hook)
+    {
+        if (! isset(self::$_events[$event])) {
+            self::$_events[$event] = [];
         }
 
         self::$_events[$event]['hooks'][] = $hook;
@@ -48,17 +51,19 @@ class HookHandler {
 
     // Execute an event
     // Params:  $event - event name to call
-    public static function executeEvent($event, $params = null) {
-        if (!isset(self::$_events[$event])) {
+    public static function executeEvent($event, $params = null)
+    {
+        if (! isset(self::$_events[$event])) {
             return false;
         }
 
-        if (!is_array($params)) {
-            $params = array();
+        if (! is_array($params)) {
+            $params = [];
         }
 
-        if (!isset($params['event']))
+        if (! isset($params['event'])) {
             $params['event'] = $event;
+        }
 
         // Execute system hooks
         if (isset(self::$_events[$event]['hooks'])) {
@@ -86,24 +91,29 @@ class HookHandler {
     }
 
     // Get a list of hooks
-    public static function getHooks() {
-        $return = array();
-        foreach (self::$_events as $key => $item)
+    public static function getHooks()
+    {
+        $return = [];
+        foreach (self::$_events as $key => $item) {
             $return[$key] = $item['description'];
+        }
 
         return $return;
     }
 
     // Get a certain hook
-    public static function getHook($hook) {
-        if (isset(self::$_events[$hook]))
+    public static function getHook($hook)
+    {
+        if (isset(self::$_events[$hook])) {
             return self::$_events[$hook];
-        else
+        } else {
             return null;
+        }
     }
 
     // Get parameters
-    public static function getParameters($event) {
+    public static function getParameters($event)
+    {
         if (isset(self::$_events[$event]['parameters'])) {
             return self::$_events[$event]['parameters'];
         } else {

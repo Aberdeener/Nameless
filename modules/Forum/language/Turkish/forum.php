@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -9,10 +10,10 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
+$language = [
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Forum',
     'forums' => 'Forum',
     'forum_index' => 'Ana Sayfa',
@@ -95,11 +96,11 @@ $language = array(
     'new_reply_in_topic' => '{x}, {y} konusunu yanıtladı', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => '{x} tarafından başlatıldı!', // Don't replace {x}
     'sticky_topics' => 'Sabit Konular',
-    
+
     // Homepage
     'latest_announcements' => 'Son Duyurular',
     'read_full_post' => 'Konunun tamamını oku',
-    
+
     // Admin tab
     'labels' => 'Etiketler',
     'new_forum' => '<i class="fa fa-plus-circle"></i> Forum ekle',
@@ -182,7 +183,7 @@ $language = array(
     'new_search' => 'Yeni Arama',
     'invalid_search_query' => 'Lütfen 3 ila 128 karakter uzunluğunda bir arama sorgusu girin.',
     'no_results_found' => 'Sonuç bulunamadı.',
-    
+
     // Profile tab
     'user_no_posts' => 'Bu kullanıcı henüz hiç forum mesajı göndermedi.',
     'latest_posts' => 'Son Mesajlar',
@@ -211,4 +212,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Konular',
     'posts_title' => 'Mesajlar',
-);
+];

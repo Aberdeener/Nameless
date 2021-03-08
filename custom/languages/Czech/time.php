@@ -10,7 +10,7 @@
  *  Czech Language - Time
  */
 
-$language = array (
+$language = [
     /*
      *  Time
      */
@@ -25,5 +25,5 @@ $language = array (
     'about_1_month' => 'před měsícem',
     '_months' => 'před {x} měsíci',
     'about_1_year' => 'před rokem',
-    'over_x_years' => 'před {x} lety'
-);
+    'over_x_years' => 'před {x} lety',
+];

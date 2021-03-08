@@ -10,7 +10,7 @@
  *  Russian Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'Панель модератора',
     'staff_cp' => 'Админ панель',
     'overview' => 'Обзор',
@@ -104,6 +104,6 @@ $language = array(
 
     // Users
     'recent_registrations' => 'Последние регистрации',
-    'reset_profile_banner' => 'Сбросить баннер профиля'
+    'reset_profile_banner' => 'Сбросить баннер профиля',
 
-);
+];
