@@ -1,5 +1,5 @@
 preset: laravel
 finder:
-exclude:
-  - "core/assets"
-  - "core/includes"
+  exclude:
+    - "core/assets"
+    - "core/includes"
