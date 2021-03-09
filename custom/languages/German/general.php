@@ -10,7 +10,7 @@
  *  German Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -95,7 +95,6 @@ $language = array(
      */
     'social' => 'Soziale Medien',
 
-
     /*
      *  Help dialogues
      */
@@ -156,5 +155,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.', // Don't replace {x} which is the redirect URL
+];

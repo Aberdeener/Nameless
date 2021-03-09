@@ -9,8 +9,8 @@
  *
  *
  */
-class Log {
-    
+class Log
+{
     private static $_actions = [
         'admin' => [
             'login' => 'acp_login',
@@ -30,13 +30,13 @@ class Log {
                 'email' => [
                     'update' => 'acp_email_update',
                     'test' => 'acp_email_test',
-                    'mass_message' => 'acp_email_mass_message'
+                    'mass_message' => 'acp_email_mass_message',
                 ],
                 'nav' => 'admin_nav_update',
                 'reaction' => [
                     'update' => 'acp_reaction_update',
                     'add' => 'acp_reaction_add',
-                    'delete' => 'acp_reaction_remove'
+                    'delete' => 'acp_reaction_remove',
                 ],
                 'social' => 'acp_social_update',
                 'term' => 'acp_term_update',
@@ -54,7 +54,7 @@ class Log {
                 'reset' => 'acp_bgimage_reset',
             ],
             'mc'=> [
-                "update" => 'acp_mc_update',
+                'update' => 'acp_mc_update',
             ],
             'authme' => [
                 'update' => 'acp_authme_update',
@@ -64,7 +64,7 @@ class Log {
                 'delete' => 'acp_server_delete',
                 'add' => 'acp_server_add',
                 'default' => 'acp_server_default_update',
-                'banner' => "acp_server_banner_update",
+                'banner' => 'acp_server_banner_update',
             ],
             'module' => [
                 'install' => 'acp_module_install',
@@ -160,41 +160,45 @@ class Log {
         ],
         'misc' => [
             'report' => 'report',
-            'curl_error' => 'curl_error'
+            'curl_error' => 'curl_error',
         ],
         'api' => [
             //TODO API STUFF
         ],
         'discord' => [
             'role_set' => 'discord_role_set',
-            'upon_validation_error' => 'upon_validation_error'
+            'upon_validation_error' => 'upon_validation_error',
         ],
         'mc_group_sync' => [
-            'role_set' => 'mc_group_sync_set'
-        ]
+            'role_set' => 'mc_group_sync_set',
+        ],
     ];
 
     private static $_instance = null;
 
     private $_db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_db = DB::getInstance();
     }
 
-    public static function getInstance() {
-        if (!isset(self::$_instance)) {
+    public static function getInstance()
+    {
+        if (! isset(self::$_instance)) {
             self::$_instance = new Log();
         }
+
         return self::$_instance;
     }
 
     /**
-     * Get an action from the Action array
-     * @param  String $path the path to the action
+     * Get an action from the Action array.
+     * @param  string $path the path to the action
      * @return String/Array       The keys
      */
-    public static function Action($path) {
+    public static function Action($path)
+    {
         $path = explode('/', $path);
         $config = self::$_actions;
         foreach ($path as $bit) {
@@ -207,26 +211,27 @@ class Log {
     }
 
     /**
-     * Logs an action
-     * @param  String $action The action being logged
-     * @param  String $info   Some more information about what the action is about
-     * @param  Int $user   The User ID who is doing the action
-     * @param  String $ip The ip of the user
-     * @return boolean         Return true or false if inserted into the database.
+     * Logs an action.
+     * @param  string $action The action being logged
+     * @param  string $info   Some more information about what the action is about
+     * @param  int $user   The User ID who is doing the action
+     * @param  string $ip The ip of the user
+     * @return bool         Return true or false if inserted into the database.
      */
-    public function log($action, $info = '', $user = null, $ip = null) {
+    public function log($action, $info = '', $user = null, $ip = null)
+    {
         $userTemp = new User();
         $ip = $userTemp->getIP();
         if ($user == null) {
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
 
-        return $this->_db->insert('logs', array(
+        return $this->_db->insert('logs', [
             'time' => date('U'),
             'action' => $action,
             'user_id' => $user,
             'ip' => $ip,
             'info' => $info,
-        ));
+        ]);
     }
 }

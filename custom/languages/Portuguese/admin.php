@@ -10,7 +10,7 @@
  *  Translation By Douglas Teles & dasilvaj4
  *  Last Update: 24/04/2019
  */
-$language = array(
+$language = [
     /*
      *  Admin Control Panel
      */
@@ -507,7 +507,7 @@ $language = array(
     'action_info' => 'Informação de Ação',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Atualizar',
     'current_version_x' => 'Versão atual: <strong>{x}</strong>', // Don't replaec {x}
@@ -747,6 +747,6 @@ $language = array(
     'discord_bot_error_notlinked' => 'O bot não está vinculado a este site para fornecer a Guild ID.',
     'discord_bot_error_unauthorized' => 'A chave da API do site é inválida',
     'discord_bot_error_invrole' => 'A Role ID fornecida é inválida.',
-    'discord_bot_error_hierarchy' => 'O bot não pode editar as funções deste usuário.'
+    'discord_bot_error_hierarchy' => 'O bot não pode editar as funções deste usuário.',
 
-);
+];

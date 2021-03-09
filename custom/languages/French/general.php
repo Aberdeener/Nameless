@@ -9,7 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -66,7 +66,7 @@ $language = array(
     'spoiler' => 'Spoiler',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
@@ -79,7 +79,6 @@ $language = array(
     'contact_message_sent' => 'Message envoyé avec succès.',
     'contact_message_limit' => 'Vous ne pouvez envoyer qu’un message par heure. Vous pourrez ensuite envoyer un message dans {x} minutes.', // Don't replace {x}
 
-
     /*
      *  Navbar
      */
@@ -91,7 +90,6 @@ $language = array(
      *  Homepage
      */
     'social' => 'Social',
-
 
     /*
      *  Help dialogues
@@ -151,5 +149,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redirection... Si vous n\'êtes pas redirigé automatiquement, veuillez cliquer sur <a href="{x}" rel="nofollow noopener">ici</a>' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Redirection... Si vous n\'êtes pas redirigé automatiquement, veuillez cliquer sur <a href="{x}" rel="nofollow noopener">ici</a>', // Don't replace {x} which is the redirect URL
+];

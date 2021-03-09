@@ -6,16 +6,18 @@
  *
  * @return string JSON Array
  */
-class VerifyMinecraftEndpoint extends EndpointBase {
-
-    public function __construct() {
+class VerifyMinecraftEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'verifyMinecraft';
         $this->_module = 'Core';
         $this->_description = 'Validate/Activate a NamelessMC account by confirming their reset code';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['user', 'code']);
 
         $user = $api->getUser('id', $_POST['user']);
@@ -31,22 +33,22 @@ class VerifyMinecraftEndpoint extends EndpointBase {
         $api->getDb()->update(
             'users',
             $user->data()->id,
-            array(
+            [
                 'reset_code' => '',
-                'active' => 1
-            )
+                'active' => 1,
+            ]
         );
 
         try {
-            HookHandler::executeEvent('validateUser', array(
+            HookHandler::executeEvent('validateUser', [
                 'event' => 'validateUser',
                 'user_id' => $user->data()->id,
                 'username' => Output::getClean($user->username),
-                'language' => $api->getLanguage()
-            ));
+                'language' => $api->getLanguage(),
+            ]);
         } catch (Exception $e) {
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'account_validated')));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'account_validated')]);
     }
 }

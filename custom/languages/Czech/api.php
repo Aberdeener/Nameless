@@ -10,7 +10,7 @@
  *  Czech Language - API
  */
 
-$language = array (
+$language = [
 
     // Errors
     'api_disabled' => 'API je zakázáno',
@@ -61,5 +61,5 @@ $language = array (
     'account_validated' => 'Účet úspěšně ověřen',
     'discord_id_set' => 'ID Discordu úspěšně nastaveno',
     'discord_settings_updated' => 'Nastavení Discordu úspěšně aktualizována',
-    'discord_usernames_updated' => 'Uživatelská jména na Discordu úspěšně aktualizována'
-);
+    'discord_usernames_updated' => 'Uživatelská jména na Discordu úspěšně aktualizována',
+];

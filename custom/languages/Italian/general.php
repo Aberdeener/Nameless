@@ -9,7 +9,7 @@
  *  Italian Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'Quel fuso orario non è valido',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
@@ -82,7 +82,6 @@ $language = array(
     'contact_message_sent' => 'Messaggio inviato con successo.',
     'contact_message_limit' => "È possibile inviare solo un messaggio all'ora. Puoi inviare un messaggio tra {x} minuti.", // Don't replace {x}
 
-
     /*
      *  Navbar
      */
@@ -94,7 +93,6 @@ $language = array(
      *  Homepage
      */
     'social' => 'Social',
-
 
     /*
      *  Help dialogues
@@ -156,5 +154,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Reindirizzamento in corso...<br />Se non vieni reindirizzato automaticamente, clicca <a href="{x}" rel="nofollow noopener">qui</a>.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Reindirizzamento in corso...<br />Se non vieni reindirizzato automaticamente, clicca <a href="{x}" rel="nofollow noopener">qui</a>.', // Don't replace {x} which is the redirect URL
+];

@@ -1,4 +1,5 @@
 <?php
+
  /*
  *  Made by Samerton
  *  Translation  by Hi_Michael
@@ -13,7 +14,7 @@
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -29,5 +30,5 @@ $language = array(
     'about_1_month' => '大約 1 個月以前',
     '_months' => '{x} 個月以前',
     'about_1_year' => '大約 1 年以前',
-    'over_x_years' => '超過 {x} 年'
-);
+    'over_x_years' => '超過 {x} 年',
+];

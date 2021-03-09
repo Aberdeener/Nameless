@@ -15,34 +15,34 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'general_settings');
 $page_title = $language->get('admin', 'general_settings');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH.'/core/templates/backend_init.php';
 
 // Handle input
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'installLanguage') {
         // Install new language
-        $languages = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+        $languages = glob(ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'languages'.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
         foreach ($languages as $item) {
-            if (file_exists($item . DIRECTORY_SEPARATOR . 'version.php')) {
+            if (file_exists($item.DIRECTORY_SEPARATOR.'version.php')) {
                 $folders = explode(DIRECTORY_SEPARATOR, $item);
                 $folder_name = $folders[count($folders) - 1];
 
                 // Is it already in the database?
-                $exists = $queries->getWhere('languages', array('name', '=', Output::getClean($folder_name)));
-                if (!count($exists)) {
+                $exists = $queries->getWhere('languages', ['name', '=', Output::getClean($folder_name)]);
+                if (! count($exists)) {
                     // No, add it now
-                    $queries->create('languages', array(
-                        'name' => Output::getClean($folder_name)
-                    ));
+                    $queries->create('languages', [
+                        'name' => Output::getClean($folder_name),
+                    ]);
                 }
             }
         }
 
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
-    } else if ($_GET['do'] == 'updateLanguages') {
-        $active_language = $queries->getWhere('languages', array('is_default', '=', 1));
+    } elseif ($_GET['do'] == 'updateLanguages') {
+        $active_language = $queries->getWhere('languages', ['is_default', '=', 1]);
         if (count($active_language)) {
-            DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', array($active_language[0]->id));
+            DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
             $language = new Language('core', $active_language[0]->name);
         }
 
@@ -50,7 +50,7 @@ if (isset($_GET['do'])) {
     }
 
     Redirect::to(URL::build('/panel/core/general_settings'));
-    die();
+    exit();
 }
 
 // Deal with input
@@ -59,59 +59,59 @@ if (Input::exists()) {
         // Validate input
         $validate = new Validate();
 
-        $validation = $validate->check($_POST, array(
-            'sitename' => array(
+        $validation = $validate->check($_POST, [
+            'sitename' => [
                 'required' => true,
                 'min' => 2,
-                'max' => 64
-            ),
-            'contact_email' => array(
+                'max' => 64,
+            ],
+            'contact_email' => [
                 'required' => true,
                 'min' => 3,
-                'max' => 255
-            )
-        ));
+                'max' => 255,
+            ],
+        ]);
 
         if ($validation->passed()) {
             // Update settings
             // Sitename
-            $sitename_id = $queries->getWhere('settings', array('name', '=', 'sitename'));
+            $sitename_id = $queries->getWhere('settings', ['name', '=', 'sitename']);
             $sitename_id = $sitename_id[0]->id;
 
-            $queries->update('settings', $sitename_id, array(
-                'value' => Output::getClean(Input::get('sitename'))
-            ));
+            $queries->update('settings', $sitename_id, [
+                'value' => Output::getClean(Input::get('sitename')),
+            ]);
 
             // Update cache
             $cache->setCache('sitenamecache');
             $cache->store('sitename', Output::getClean(Input::get('sitename')));
 
             // Email address
-            $contact_id = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
+            $contact_id = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
             $contact_id = $contact_id[0]->id;
 
-            $queries->update('settings', $contact_id, array(
-                'value' => Output::getClean(Input::get('contact_email'))
-            ));
+            $queries->update('settings', $contact_id, [
+                'value' => Output::getClean(Input::get('contact_email')),
+            ]);
 
             // Language
             // Get current default language
-            $default_language = $queries->getWhere('languages', array('is_default', '=', 1));
+            $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
             $default_language = $default_language[0];
 
             if ($default_language->name != Input::get('language')) {
                 // The default language has been changed
-                $queries->update('languages', $default_language->id, array(
-                    'is_default' => 0
-                ));
+                $queries->update('languages', $default_language->id, [
+                    'is_default' => 0,
+                ]);
 
-                $language_id = $queries->getWhere('languages', array('id', '=', Input::get('language')));
+                $language_id = $queries->getWhere('languages', ['id', '=', Input::get('language')]);
                 $language_name = Output::getClean($language_id[0]->name);
                 $language_id = $language_id[0]->id;
 
-                $queries->update('languages', $language_id, array(
-                    'is_default' => 1
-                ));
+                $queries->update('languages', $language_id, [
+                    'is_default' => 1,
+                ]);
 
                 // Update cache
                 $cache->setCache('languagecache');
@@ -119,81 +119,87 @@ if (Input::exists()) {
             }
 
             // Timezone
-            $timezone_id = $queries->getWhere('settings', array('name', '=', 'timezone'));
+            $timezone_id = $queries->getWhere('settings', ['name', '=', 'timezone']);
             $timezone_id = $timezone_id[0]->id;
 
             try {
-                $queries->update('settings', $timezone_id, array(
-                    'value' => Output::getClean($_POST['timezone'])
-                ));
+                $queries->update('settings', $timezone_id, [
+                    'value' => Output::getClean($_POST['timezone']),
+                ]);
 
                 // Cache
                 $cache->setCache('timezone_cache');
                 $cache->store('timezone', Output::getClean($_POST['timezone']));
             } catch (Exception $e) {
-                $errors = array($e->getMessage());
+                $errors = [$e->getMessage()];
             }
 
             // Portal
-            $portal_id = $queries->getWhere('settings', array('name', '=', 'portal'));
+            $portal_id = $queries->getWhere('settings', ['name', '=', 'portal']);
             $portal_id = $portal_id[0]->id;
 
             if ($_POST['homepage'] == 'portal') {
                 $use_portal = 1;
-            } else $use_portal = 0;
+            } else {
+                $use_portal = 0;
+            }
 
-            $queries->update('settings', $portal_id, array(
-                'value' => $use_portal
-            ));
+            $queries->update('settings', $portal_id, [
+                'value' => $use_portal,
+            ]);
 
             // Update cache
             $cache->setCache('portal_cache');
             $cache->store('portal', $use_portal);
 
             // Private profile
-            $private_profile_id = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+            $private_profile_id = $queries->getWhere('settings', ['name', '=', 'private_profile']);
             $private_profile_id = $private_profile_id[0]->id;
 
-            if ($_POST['privateProfile'])
+            if ($_POST['privateProfile']) {
                 $private_profile = 1;
-            else
+            } else {
                 $private_profile = 0;
+            }
 
-            $queries->update('settings', $private_profile_id, array(
-                'value' => $private_profile
-            ));
+            $queries->update('settings', $private_profile_id, [
+                'value' => $private_profile,
+            ]);
 
             // Registration displaynames
-            $displaynames_id = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+            $displaynames_id = $queries->getWhere('settings', ['name', '=', 'displaynames']);
             $displaynames_id = $displaynames_id[0]->id;
 
-            $queries->update('settings', $displaynames_id, array(
-                'value' => $_POST['displaynames']
-            ));
+            $queries->update('settings', $displaynames_id, [
+                'value' => $_POST['displaynames'],
+            ]);
 
             // Post formatting
-            $formatting_id = $queries->getWhere('settings', array('name', '=', 'formatting_type'));
+            $formatting_id = $queries->getWhere('settings', ['name', '=', 'formatting_type']);
             $formatting_id = $formatting_id[0]->id;
 
-            $queries->update('settings', $formatting_id, array(
-                'value' => Output::getClean(Input::get('formatting'))
-            ));
+            $queries->update('settings', $formatting_id, [
+                'value' => Output::getClean(Input::get('formatting')),
+            ]);
 
             // Update cache
             $cache->setCache('post_formatting');
             $cache->store('formatting', Output::getClean(Input::get('formatting')));
 
             // Friendly URLs
-            if (Input::get('friendlyURL') == 'true') $friendly = true;
-            else $friendly = false;
+            if (Input::get('friendlyURL') == 'true') {
+                $friendly = true;
+            } else {
+                $friendly = false;
+            }
 
-            if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
+            if (is_writable(ROOT_PATH.'/'.join(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
 
                 // Require config
-                if (isset($path) && file_exists($path . 'core/config.php')) {
-                    $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
+                if (isset($path) && file_exists($path.'core/config.php')) {
+                    $loadedConfig = json_decode(file_get_contents($path.'core/config.php'), true);
                 } else {
-                    $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
+                    $loadedConfig = json_decode(file_get_contents(ROOT_PATH.'/core/config.php'), true);
                 }
 
                 if (is_array($loadedConfig)) {
@@ -202,44 +208,48 @@ if (Input::exists()) {
 
                 // Make string to input
                 Config::set('core/friendly', $friendly);
-            } else $errors = array($language->get('admin', 'config_not_writable'));
+            } else {
+                $errors = [$language->get('admin', 'config_not_writable')];
+            }
 
             // Force HTTPS?
-            if (Input::get('forceHTTPS') == 'true')
+            if (Input::get('forceHTTPS') == 'true') {
                 $https = 'true';
-            else
+            } else {
                 $https = 'false';
+            }
 
-            $force_https_id = $queries->getWhere('settings', array('name', '=', 'force_https'));
+            $force_https_id = $queries->getWhere('settings', ['name', '=', 'force_https']);
             if (count($force_https_id)) {
                 $force_https_id = $force_https_id[0]->id;
-                $queries->update('settings', $force_https_id, array(
-                    'value' => $https
-                ));
+                $queries->update('settings', $force_https_id, [
+                    'value' => $https,
+                ]);
             } else {
-                $queries->create('settings', array(
+                $queries->create('settings', [
                     'name' => 'force_https',
-                    'value' => $https
-                ));
+                    'value' => $https,
+                ]);
             }
 
             // Force WWW?
-            if (Input::get('forceWWW') == 'true')
+            if (Input::get('forceWWW') == 'true') {
                 $www = 'true';
-            else
+            } else {
                 $www = 'false';
+            }
 
-            $force_www_id = $queries->getWhere('settings', array('name', '=', 'force_www'));
+            $force_www_id = $queries->getWhere('settings', ['name', '=', 'force_www']);
             if (count($force_www_id)) {
                 $force_www_id = $force_www_id[0]->id;
-                $queries->update('settings', $force_www_id, array(
-                    'value' => $www
-                ));
+                $queries->update('settings', $force_www_id, [
+                    'value' => $www,
+                ]);
             } else {
-                $queries->create('settings', array(
+                $queries->create('settings', [
                     'name' => 'force_www',
-                    'value' => $www
-                ));
+                    'value' => $www,
+                ]);
             }
 
             /*
@@ -256,12 +266,12 @@ if (Input::exists()) {
             */
 
             // Login method
-            $login_method_id = $queries->getWhere('settings', array('name', '=', 'login_method'));
+            $login_method_id = $queries->getWhere('settings', ['name', '=', 'login_method']);
             $login_method_id = $login_method_id[0]->id;
 
-            $queries->update('settings', $login_method_id, array(
-                'value' => $_POST['login_method']
-            ));
+            $queries->update('settings', $login_method_id, [
+                'value' => $_POST['login_method'],
+            ]);
 
             Log::getInstance()->log(Log::Action('admin/core/general'));
 
@@ -275,69 +285,71 @@ if (Input::exists()) {
             Session::flash('general_language', $language->get('admin', 'settings_updated_successfully'));
 
             // Redirect in case URL type has changed
-            if (!isset($errors)) {
+            if (! isset($errors)) {
                 if ($friendly == 'true') {
                     $redirect = URL::build('/panel/core/general_settings', '', 'friendly');
                 } else {
                     $redirect = URL::build('/panel/core/general_settings', '', 'non-friendly');
                 }
                 Redirect::to($redirect);
-                die();
+                exit();
             }
         } else {
-            $errors = array();
+            $errors = [];
 
             foreach ($validation->errors() as $error) {
                 if (strpos($error, 'sitename') !== false) {
                     $errors[] = $language->get('admin', 'missing_sitename');
-                } else if (strpos($error, 'email') !== false) {
+                } elseif (strpos($error, 'email') !== false) {
                     $errors[] = $language->get('admin', 'missing_contact_address');
                 }
             }
         }
     } else {
         // Invalid token
-        $errors = array($language->get('general', 'invalid_token'));
+        $errors = [$language->get('general', 'invalid_token')];
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
-if (Session::exists('general_language'))
+if (Session::exists('general_language')) {
     $success = Session::flash('general_language');
+}
 
 if (isset($success)) {
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS_TITLE' => $language->get('general', 'success'),
-        'SUCCESS' => $success
-    ));
+        'SUCCESS' => $success,
+    ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS_TITLE' => $language->get('general', 'error'),
-        'ERRORS' => $errors
-    ));
+        'ERRORS' => $errors,
+    ]);
 }
 
 // Get form values
-$contact_email = $queries->getWhere('settings', array('name', '=', 'incoming_email'));
+$contact_email = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
 $contact_email = Output::getClean($contact_email[0]->value);
 
-$languages = $queries->getWhere('languages', array('id', '<>', 0));
+$languages = $queries->getWhere('languages', ['id', '<>', 0]);
 $count = count($languages);
 
 for ($i = 0; $i < $count; $i++) {
-    $language_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php'));
-    if (!file_exists($language_path))
+    $language_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php']);
+    if (! file_exists($language_path)) {
         unset($languages[$i]);
+    }
 }
 
-$timezone = $queries->getWhere('settings', array('name', '=', 'timezone'));
+$timezone = $queries->getWhere('settings', ['name', '=', 'timezone']);
 $timezone = $timezone[0]->value;
 
-$portal = $queries->getWhere('settings', array('name', '=', 'portal'));
+$portal = $queries->getWhere('settings', ['name', '=', 'portal']);
 $portal = $portal[0]->value;
 
 $cache->setCache('post_formatting');
@@ -345,16 +357,16 @@ $formatting = $cache->retrieve('formatting');
 
 $friendly_url = Config::get('core/friendly');
 
-$private_profile = $queries->getWhere('settings', array('name', '=', 'private_profile'));
+$private_profile = $queries->getWhere('settings', ['name', '=', 'private_profile']);
 $private_profile = $private_profile[0]->value;
 
-$displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+$displaynames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
 $displaynames = $displaynames[0]->value;
 
-$method = $queries->getWhere('settings', array('name', '=', 'login_method'));
+$method = $queries->getWhere('settings', ['name', '=', 'login_method']);
 $method = $method[0]->value;
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -403,15 +415,15 @@ $smarty->assign(array(
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'LOGIN_METHOD_VALUE' => $method,
     'EMAIL' => $language->get('user', 'email'),
-    'USERNAME' => $language->get('user', 'username')
-));
+    'USERNAME' => $language->get('user', 'username'),
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH.'/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('core/general_settings.tpl', $smarty);

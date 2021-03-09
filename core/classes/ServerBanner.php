@@ -25,9 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class ServerBanner {
+class ServerBanner
+{
     /**
-     *
      * @param string $address the server address
      * @param string $motd message of the day which should be displayed
      * @param int $players not implemented
@@ -37,11 +37,12 @@ class ServerBanner {
      * @param int $ping not implemented
      * @return resource the rendered banner
      */
-    public static function server($address, $motd = "§cOffline Server", $players = -1, $max_players = -1, $favicon = null, $background = null, $ping = 150) {
+    public static function server($address, $motd = '§cOffline Server', $players = -1, $max_players = -1, $favicon = null, $background = null, $ping = 150)
+    {
         $canvas = MinecraftBanner::getBackgroundCanvas(650, 80, $background);
 
         if ($favicon == null) {
-            $favicon = imagecreatefrompng(ROOT_PATH . '/core/assets/img/favicon.png');
+            $favicon = imagecreatefrompng(ROOT_PATH.'/core/assets/img/favicon.png');
         }
 
         //center the image in y-direction and add padding to the left side
@@ -54,7 +55,7 @@ class ServerBanner {
         $titleY = $favicon_posY + 3 * 2 + 13;
         imagettftext($canvas, 13, 0, $startX, $titleY, $white, MinecraftBanner::getFontFile(), $address);
 
-        $motd = str_replace(array('§k', '§l', '§m', '§o', '§r'), '', $motd);
+        $motd = str_replace(['§k', '§l', '§m', '§o', '§r'], '', $motd);
 
         $components = explode(MinecraftBanner::getColourChar(), $motd);
 
@@ -71,7 +72,7 @@ class ServerBanner {
 
             //default to white
             $text = $component;
-            if (!empty($color_code)) {
+            if (! empty($color_code)) {
                 //try to find the color rgb to the colro code
                 if (isset($colors[$color_code])) {
                     $color_rgb = $colors[$color_code];
@@ -98,23 +99,23 @@ class ServerBanner {
         }
 
         if ($ping < 0) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/-1.png');
-        } else if ($ping > 0 && $ping <= 150) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/5.png');
-        } else if ($ping <= 300) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/4.png');
-        } else if ($ping <= 400) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/3.png');
-        } else if ($ping <= 400) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/2.png');
-        } else if ($ping > 400) {
-            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/1.png');
+            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/-1.png');
+        } elseif ($ping > 0 && $ping <= 150) {
+            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/5.png');
+        } elseif ($ping <= 300) {
+            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/4.png');
+        } elseif ($ping <= 400) {
+            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/3.png');
+        } elseif ($ping <= 400) {
+            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/2.png');
+        } elseif ($ping > 400) {
+            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/1.png');
         }
 
         $ping_posX = 650 - 36 - 3;
         imagecopy($canvas, $image, $ping_posX, $favicon_posY, 0, 0, 36, 29);
 
-        $text = $players . ' / ' . $max_players;
+        $text = $players.' / '.$max_players;
         $box = imagettfbbox(14, 0, MinecraftBanner::getFontFile(), $text);
         $text_width = abs($box[4] - $box[0]);
 

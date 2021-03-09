@@ -11,7 +11,7 @@
  *  Greek Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -32,5 +32,5 @@ $language = array(
     'fatal_error_message_user' => 'Sorry, but something went wrong while loading the page. Please contact an administrator.',
     'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
     'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
-);
+    'on_line' => 'on line <strong>{x}</strong>', // Don't replace {x}
+];

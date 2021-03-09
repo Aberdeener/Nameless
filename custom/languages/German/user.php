@@ -10,7 +10,7 @@
  *  German Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -235,7 +235,7 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} ist beigetreten ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{x} ist beigetreten '.SITE_NAME.'!',
     'user_x_has_validated' => '{x} hat das Konto validiert!',
 
     // Discord
@@ -252,5 +252,5 @@ $language = array(
     'discord_database_error' => 'Die Nameless Link-Datenbank ist derzeit nicht verfügbar. Bitte versuchen Sie es später noch einmal.',
     'discord_communication_error' => 'Bei der Kommunikation mit dem Discord Bot ist ein Fehler aufgetreten. Bitte stellen Sie sicher, dass der Bot ausgeführt wird und Ihre Bot-URL korrekt ist.',
     'discord_unknown_error' => 'Beim Synchronisieren der Discord-Rollen ist ein unbekannter Fehler aufgetreten. Bitte wenden Sie sich an einen Administrator.',
-    'discord_id_help' => 'Informationen dazu, wo Discord IDs zu finden sind, finden Sie unter <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
-);
+    'discord_id_help' => 'Informationen dazu, wo Discord IDs zu finden sind, finden Sie unter <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>',
+];

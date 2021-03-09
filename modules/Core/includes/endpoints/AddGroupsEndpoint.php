@@ -6,29 +6,31 @@
  *
  * @return string JSON Array
  */
-class AddGroupsEndpoint extends EndpointBase {
-
-    public function __construct() {
+class AddGroupsEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'addGroups';
         $this->_module = 'Core';
         $this->_description = 'Add groups to user';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['user', 'groups']);
 
         // Ensure user exists
         $user = new User($_POST['user']);
 
         $groups = $_POST['groups'];
-        if ($groups == null || !count($groups)) {
+        if ($groups == null || ! count($groups)) {
             $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'), 'No groups provided');
         }
 
         foreach ($groups as $group) {
-            $group_query = $api->getDb()->get('groups', array('id', '=', $group));
-            if (!$group_query->count()) {
+            $group_query = $api->getDb()->get('groups', ['id', '=', $group]);
+            if (! $group_query->count()) {
                 continue;
             }
 
@@ -38,6 +40,6 @@ class AddGroupsEndpoint extends EndpointBase {
             Discord::addDiscordRole($user, $group, $api->getLanguage(), false);
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'group_updated')]);
     }
 }

@@ -10,7 +10,7 @@
  *  Translation By Douglas Teles & dasilvaj4
  *  Last Update: 11/04/2018
  */
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -26,5 +26,5 @@ $language = array(
     'about_1_month' => 'cerca de 1 mês atrás',
     '_months' => '{x} meses atrás',
     'about_1_year' => 'cerca de 1 ano atrás',
-    'over_x_years' => 'mais de {x} anos atrás'
-);
+    'over_x_years' => 'mais de {x} anos atrás',
+];

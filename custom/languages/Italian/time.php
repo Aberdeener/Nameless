@@ -9,7 +9,7 @@
  *  Italian Language - Time
  */
 
-$language = array(
+$language = [
     /*
      *  Time
      */
@@ -25,5 +25,5 @@ $language = array(
     'about_1_month' => 'circa 1 mese fa',
     '_months' => '{x} mesi fa',
     'about_1_year' => 'circa 1 anno fa',
-    'over_x_years' => 'oltre {x} anni fa'
-);
+    'over_x_years' => 'oltre {x} anni fa',
+];

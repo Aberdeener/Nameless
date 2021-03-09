@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr8) : 100%
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -32,5 +32,5 @@ $language = array(
     'fatal_error_message_user' => '抱歉，加载页面时出了点问题。请与管理员联系。',
     'fatal_error_message_admin' => '抱歉，加载页面时出了点问题。错误详情:',
     'in_file' => '在文件 <strong>{x}</strong> 的', // Don't replace {x}
-    'on_line' => '第 <strong>{x}</strong> 行' // Don't replace {x}
-);
+    'on_line' => '第 <strong>{x}</strong> 行', // Don't replace {x}
+];

@@ -9,7 +9,7 @@
  *  Dutch Language - API
  */
 
-$language = array(
+$language = [
 
     // Errors
     'api_disabled' => 'API is disabled',
@@ -62,5 +62,5 @@ $language = array(
     'account_validated' => 'Account succesvol gevalideerd',
     'discord_id_set' => 'Discord ID met succes ingesteld',
     'discord_settings_updated' => 'Discord settings updated successfully',
-    'discord_usernames_updated' => 'Discord usernames updated successfully'
-);
+    'discord_usernames_updated' => 'Discord usernames updated successfully',
+];

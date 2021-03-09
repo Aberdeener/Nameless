@@ -1,17 +1,17 @@
 <?php
 
 if (isset($_SESSION['site_initialized']) && $_SESSION['site_initialized'] == true) {
-	Redirect::to('?step=admin_account_setup');
-	die();
+    Redirect::to('?step=admin_account_setup');
+    exit();
 }
 
-if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
-	Redirect::to('?step=database_configuration');
-	die();
+if (! isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
+    Redirect::to('?step=database_configuration');
+    exit();
 }
 
-$scripts = array(
-	'
+$scripts = [
+    '
 	<script>
 		$(document).ready(function() {
 			$.post("?step=ajax_initialise&initialise=site", {perform: "true"}, function(response) {
@@ -24,14 +24,14 @@ $scripts = array(
 						$("#continue-button").removeClass("disabled");
 					}
 					if (response.error) {
-						$("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">' . $language['reload'] . '</button>");
+						$("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">'.$language['reload'].'</button>");
 					}
 				}
 			});
 		});
 	</script>
-	'
-);
+	',
+];
 ?>
 
 <div class="ui segments">

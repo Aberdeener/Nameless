@@ -10,7 +10,7 @@
  *  Translation By Douglas Teles, dasilvaj4 and Mansffer
  *  Last Update: 01/03/2021
  */
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -31,5 +31,5 @@ $language = array(
     'fatal_error_message_user' => 'Desculpe, mas algo deu errado ao carregar a página. Por favor contate um administrador.',
     'fatal_error_message_admin' => 'Desculpe, mas algo deu errado ao carregar a página. Detalhes do erro:',
     'in_file' => 'no arquivo <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'na linha <strong>{x}</strong>' // Don't replace {x}
-);
+    'on_line' => 'na linha <strong>{x}</strong>', // Don't replace {x}
+];

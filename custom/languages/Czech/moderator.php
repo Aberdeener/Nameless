@@ -10,7 +10,7 @@
  *  Czech Language - Moderator terms
  */
 
-$language = array (
+$language = [
     'staff_cp' => 'Panel',
     'overview' => 'Nástěnka',
 
@@ -104,6 +104,6 @@ $language = array (
 
     // Users
     'recent_registrations' => 'Poslední registrace',
-    'reset_profile_banner' => 'Obnovit profilový obrázek'
+    'reset_profile_banner' => 'Obnovit profilový obrázek',
 
-);
+];

@@ -10,7 +10,7 @@
  *  Russian Language - Table
  */
 
-$language = array(
+$language = [
     /*
      *  Tables
      */
@@ -18,5 +18,5 @@ $language = array(
     'nothing_found' => 'Результаты не найдены.',
     'page_x_of_y' => 'Отображена страница _PAGE_ из _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
     'no_records' => 'Нет доступных записей',
-    'filtered' => '(filtered from _MAX_ total records)' // Don't replace "_MAX_"
-);
+    'filtered' => '(filtered from _MAX_ total records)', // Don't replace "_MAX_"
+];

@@ -9,7 +9,7 @@
  *  Spanish Language - Errors
  */
 
-$language = array(
+$language = [
     /*
      *  Errors
      */
@@ -30,5 +30,5 @@ $language = array(
     'fatal_error_message_user' => 'Se ha producido un error al cargar la página. Inténtelo de nuevo.',
     'fatal_error_message_admin' => 'Se ha producido un error al cargar la página. Detalles del error:',
     'in_file' => 'En el archivo <strong>{x}</strong>', // Don't replace {x}
-    'on_line' => 'En la línea <strong>{x}</strong>' // Don't replace {x}
-);
+    'on_line' => 'En la línea <strong>{x}</strong>', // Don't replace {x}
+];

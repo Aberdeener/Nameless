@@ -9,7 +9,7 @@
  *  Italian Language - Installation
  */
 
-$language = array(
+$language = [
     /*
      *  Installation
      */
@@ -102,5 +102,5 @@ $language = array(
     'no_converters_available' => 'Non ci sono convertitori disponibili.',
     'config_not_writable' => 'Il file di configurazione non è scrivibile.',
 
-    'session_doesnt_exist' => 'Impossibile rilevare la sessione. Il salvataggio delle sessioni è un requisito per utilizzare Nameless. Prova di nuovo, e se il problema persiste, contatta il tuo host web per assistenza.'
-);
+    'session_doesnt_exist' => 'Impossibile rilevare la sessione. Il salvataggio delle sessioni è un requisito per utilizzare Nameless. Prova di nuovo, e se il problema persiste, contatta il tuo host web per assistenza.',
+];

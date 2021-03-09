@@ -10,7 +10,7 @@
  *  Lithuanian Language - Users
  */
 
-$language = array(
+$language = [
     // Change this for the account validation message
     'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/validate {x}</strong> žaidime.', // Don't replace {x}
 
@@ -94,13 +94,13 @@ $language = array(
     'signature' => 'Parašas',
     'signature_max_900' => 'Jūsų parašas turi būti ne daugiau kaip 900 simbolių.',
 
-  // Registration - AuthMe
-  'connect_with_authme' => 'Prijunkite savo paskyra su AuthMe',
-  'authme_help' => 'Įveskite savo žaidimo AuthMe paskyros duomenis. Jei dar neturite paskyros, prisijunkite prie serverio dabar ir vykdykite pateiktas instrukcijas.',
-  'unable_to_connect_to_authme_db' => 'Nepavyko prisijungti prie AuthMe duomenų bazės. Jei ši klaida išlieka, susisiekite su svetainės administratoriumi.',
-  'authme_account_linked' => 'Paskyra sėkmingai susieta.',
-  'authme_email_help_1' => 'Galiausiai, prašome įvesti savo el. Pašto adresą.',
-  'authme_email_help_2' => 'Galiausiai, prašome įvesti savo el. Pašto adresą, taip pat pasirinkti savo paskyros pavadinimą.',
+    // Registration - AuthMe
+    'connect_with_authme' => 'Prijunkite savo paskyra su AuthMe',
+    'authme_help' => 'Įveskite savo žaidimo AuthMe paskyros duomenis. Jei dar neturite paskyros, prisijunkite prie serverio dabar ir vykdykite pateiktas instrukcijas.',
+    'unable_to_connect_to_authme_db' => 'Nepavyko prisijungti prie AuthMe duomenų bazės. Jei ši klaida išlieka, susisiekite su svetainės administratoriumi.',
+    'authme_account_linked' => 'Paskyra sėkmingai susieta.',
+    'authme_email_help_1' => 'Galiausiai, prašome įvesti savo el. Pašto adresą.',
+    'authme_email_help_2' => 'Galiausiai, prašome įvesti savo el. Pašto adresą, taip pat pasirinkti savo paskyros pavadinimą.',
 
     // Registration errors
     'username_required' => 'Vartotojo vardas yra privalomas.',
@@ -139,13 +139,13 @@ $language = array(
     'must_input_username' => 'Jūs turite įvesti vartotojo vardą.',
     'must_input_password' => 'Jūs turite įvesti slaptažodį.',
 
-  // Forgot password
-  'forgot_password_instructions' => 'Įveskite savo el. pašto adresą, kad galėtume atsiųsti jums daugiau instrukcijų, kaip iš naujo nustatyti slaptažodį.',
-  'forgot_password_email_sent' => 'Jei paskyra su tuo el. pašto adresu jau egzistuoja, bus išsiųstas el. laiškas su papildomomis instrukcijomis. Jei negalėsite jo rasti, pabandykite patikrinti šlamšto aplanką.',
-  'unable_to_send_forgot_password_email' => 'Nepavyko išsiųsti pamiršto slaptažodžio el. laišku. Susisiekite su administratoriumi.',
-  'enter_new_password' => 'Patvirtinkite savo el. pašto adresą ir žemiau įveskite naują slaptažodį.',
-  'incorrect_email' => 'Įvestas el. pašto adresas neatitinka prašymo.',
-  'forgot_password_change_successful' => 'Jūsų slaptažodis sėkmingai pakeistas. Dabar galite prisijungti.',
+    // Forgot password
+    'forgot_password_instructions' => 'Įveskite savo el. pašto adresą, kad galėtume atsiųsti jums daugiau instrukcijų, kaip iš naujo nustatyti slaptažodį.',
+    'forgot_password_email_sent' => 'Jei paskyra su tuo el. pašto adresu jau egzistuoja, bus išsiųstas el. laiškas su papildomomis instrukcijomis. Jei negalėsite jo rasti, pabandykite patikrinti šlamšto aplanką.',
+    'unable_to_send_forgot_password_email' => 'Nepavyko išsiųsti pamiršto slaptažodžio el. laišku. Susisiekite su administratoriumi.',
+    'enter_new_password' => 'Patvirtinkite savo el. pašto adresą ir žemiau įveskite naują slaptažodį.',
+    'incorrect_email' => 'Įvestas el. pašto adresas neatitinka prašymo.',
+    'forgot_password_change_successful' => 'Jūsų slaptažodis sėkmingai pakeistas. Dabar galite prisijungti.',
 
     // Profile pages
     'profile' => 'Profilis',
@@ -185,7 +185,7 @@ $language = array(
     'no_about_fields' => 'Šis vartotojas dar nepateikė jokių “apie” laukų.',
     'reply' => 'Atsakyti',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Neįmanoma kurti ataskaitos. Patikrinkite, ar ataskaitos priežasties ilgis yra nuo 2 iki 1024 simbolių.',
     'report_post_content' => 'Įveskite savo atąskaitos priežastį',
@@ -227,7 +227,7 @@ $language = array(
     'acknowledge' => 'Pripažinti',
 
     // Hooks
-    'user_x_has_registered' => '{x} prisijungė prie ' . SITE_NAME . '!',
+    'user_x_has_registered' => '{x} prisijungė prie '.SITE_NAME.'!',
     'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
@@ -244,5 +244,5 @@ $language = array(
     'discord_database_error' => 'The Nameless Link database is currently down. Please try again later.',
     'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
     'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
-    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
-);
+    'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>',
+];

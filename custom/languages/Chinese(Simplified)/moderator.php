@@ -11,7 +11,7 @@
  *  Translation progress(v2-pr8) : 100%
  */
 
-$language = array(
+$language = [
     'mod_cp' => '社区工作人员面板',
     'staff_cp' => '管理人员面板',
     'overview' => '总览',
@@ -105,6 +105,6 @@ $language = array(
 
     // Users
     'recent_registrations' => '最近的注册',
-    'reset_profile_banner' => '重置个人资料背景'
+    'reset_profile_banner' => '重置个人资料背景',
 
-);
+];

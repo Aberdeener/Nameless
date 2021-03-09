@@ -10,7 +10,7 @@
  *  Lithuanian Language - Time
  */
 
-$language = array(
+$language = [
     // Time
     'time' => 'time', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
@@ -24,5 +24,5 @@ $language = array(
     'about_1_month' => 'Maždaug prieš 1 mėnėsį',
     '_months' => 'Prieš {x} mėnesius',
     'about_1_year' => 'Maždaug prieš 1 metus',
-    'over_x_years' => 'Prieš {x} metus'
-);
+    'over_x_years' => 'Prieš {x} metus',
+];

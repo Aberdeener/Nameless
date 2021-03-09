@@ -9,7 +9,7 @@
  *  Spanish Language - General terms
  */
 
-$language = array(
+$language = [
     /*
      *  General terms
      */
@@ -17,7 +17,7 @@ $language = array(
     'submit' => 'Enviar',
     'register' => 'Registro',
     'already_registered' => 'Ya te encuentras registrado?',
-  'custom_fields' => 'Campos Personalizados',
+    'custom_fields' => 'Campos Personalizados',
     'not_registered_yet' => 'No estas registrado?',
     'sign_in' => 'Iniciar sesión',
     'log_out' => 'Cerrar sesión',
@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'Esa zona horaria no es válida.',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */
@@ -93,7 +93,6 @@ $language = array(
      *  Homepage
      */
     'social' => 'Social',
-
 
     /*
      *  Help dialogues
@@ -155,5 +154,5 @@ $language = array(
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Redireccionando...<br />Si la redireccion tarda mucho, puede hacer <a href="{x}" rel="nofollow noopener">Click aqui</a> para continuar.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Redireccionando...<br />Si la redireccion tarda mucho, puede hacer <a href="{x}" rel="nofollow noopener">Click aqui</a> para continuar.', // Don't replace {x} which is the redirect URL
+];

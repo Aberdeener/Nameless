@@ -14,7 +14,7 @@
  *  Japanese Language - Users
  */
 
-$language = array(
+$language = [
     /*
      *  Change this for the account validation message
      */
@@ -188,12 +188,12 @@ $language = array(
     'user_unblocked' => 'ユーザーのブロックを解除しました。',
     'views' => 'プロフィールビュー:',
     'private_profile_page' => '表示しているユーザはプライベートプロファイルに設定されています。',
-    'new_wall_post_reply' => '{x}さんが{y}のプロフィールの投稿に返信しました。',// {x}か{y}
-    'new_wall_post_reply_your_profile' => '{x}さんがプロフィールの投稿に返信しました。',// {x}を置き換えないでください
+    'new_wall_post_reply' => '{x}さんが{y}のプロフィールの投稿に返信しました。', // {x}か{y}
+    'new_wall_post_reply_your_profile' => '{x}さんがプロフィールの投稿に返信しました。', // {x}を置き換えないでください
     'no_about_fields' => 'フィールドの内容を追加していません。',
     'reply' => 'Reply',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'レポートを作成できません。 レポートの理由が 2~1024 文字であることを確認してください。',
     'report_post_content' => 'レポートの理由を入力してください。',
@@ -239,7 +239,7 @@ $language = array(
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} が ' . SITE_NAME . ' に登録しました。',
+    'user_x_has_registered' => '{x} が '.SITE_NAME.' に登録しました。',
     'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord
@@ -256,5 +256,5 @@ $language = array(
     'discord_database_error' => 'Nameless Link データベースが現在ダウンしています。後でもう一度お試しください。',
     'discord_communication_error' => 'Discordボットとの通信中にエラーが発生しました。ボットが動作しているかどうか、ボットのURLが正しいかどうかを確認してください。',
     'discord_unknown_error' => 'Discordロールの同期中に不明なエラーが発生しました。管理者に連絡してください。',
-    'discord_id_help' => 'DiscordのIDがどこにあるかについては、<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">こちら</a>をご確認ください。'
-);
+    'discord_id_help' => 'DiscordのIDがどこにあるかについては、<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">こちら</a>をご確認ください。',
+];

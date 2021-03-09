@@ -42,7 +42,6 @@
             <?php
             if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
                 echo '<div class="alert alert-success">Rewrite enabled!</div>';
-
             } else {
                 echo '<div class="alert alert-danger">Rewrite disabled!</div>';
             }

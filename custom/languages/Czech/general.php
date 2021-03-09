@@ -10,7 +10,7 @@
  *  Czech Language - General terms
  */
 
-$language = array (
+$language = [
     /*
      *  General terms
      */
@@ -155,5 +155,5 @@ $language = array (
     /*
      *  Custom page redirect
      */
-    'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.' // Don't replace {x} which is the redirect URL
-);
+    'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.', // Don't replace {x} which is the redirect URL
+];

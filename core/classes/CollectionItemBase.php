@@ -9,23 +9,26 @@
  *  Base collection item class
  */
 
-abstract class CollectionItemBase {
+abstract class CollectionItemBase
+{
+    private $_order;
+    private $_enabled;
 
-    private $_order, 
-            $_enabled;
-
-    public function __construct($order, $enabled) {
+    public function __construct($order, $enabled)
+    {
         $this->_order = $order;
         $this->_enabled = $enabled;
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return $this->_order;
     }
 
-    public function isEnabled() {
+    public function isEnabled()
+    {
         return $this->_enabled;
     }
 
-    public abstract function getContent();
+    abstract public function getContent();
 }
