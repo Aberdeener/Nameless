@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						<p><?php echo $language['nameless_path_info']; ?></p>
 						<div class="ui divider"></div>
 						<?php create_field('select', $language['friendly_urls'], 'friendly', 'inputFriendly', getenv('NAMELESS_FRIENDLY_URLS') ?: 'false', [
-						    'true' => $language['enabled'],
-						    'false' => $language['disabled'],
-						]); ?>
+                            'true' => $language['enabled'],
+                            'false' => $language['disabled'],
+                        ]); ?>
 						<p><?php echo $language['friendly_urls_info']; ?></p>
 					</div>
 				</div>
