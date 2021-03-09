@@ -1,4 +1,4 @@
-preset: laravel
+preset: recommended
 finder:
   exclude:
     - "core/assets"
