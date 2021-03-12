@@ -1,4 +1,4 @@
-preset: psr-2
+preset: recommended
 finder:
   exclude:
     - "core/assets"
