@@ -15,7 +15,7 @@ $page_title = $forum_language->get('forum', 'new_topic');
 require_once ROOT_PATH.'/core/templates/frontend_init.php';
 
 // User must be logged in to proceed
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
     exit();
 }
@@ -26,7 +26,7 @@ $mentionsParser = new MentionsParser();
 
 require ROOT_PATH.'/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
 
-if (! isset($_GET['fid']) || ! is_numeric($_GET['fid'])) {
+if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     exit();
 }
@@ -38,14 +38,14 @@ $user_groups = $user->getAllGroupIds();
 
 // Does the forum exist, and can the user view it?
 $list = $forum->forumExist($fid, $user_groups);
-if (! $list) {
+if (!$list) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     exit();
 }
 
 // Can the user post a topic in this forum?
 $can_reply = $forum->canPostTopic($fid, $user_groups);
-if (! $can_reply) {
+if (!$can_reply) {
     Redirect::to(URL::build('/forum/view/'.$fid));
     exit();
 }
@@ -76,21 +76,21 @@ if (count($forum_labels)) {
                 }
             }
 
-            if (! $hasperm) {
+            if (!$hasperm) {
                 continue;
             }
 
             // Get label HTML
             $label_html = $queries->getWhere('forums_labels', ['id', '=', $label->label]);
-            if (! count($label_html)) {
+            if (!count($label_html)) {
                 continue;
             } else {
                 $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
             }
 
             $labels[] = [
-                'id' => $label->id,
-                'html' => $label_html,
+                'id'      => $label->id,
+                'html'    => $label_html,
                 'checked' => in_array($label->id, $default_labels),
             ];
         }
@@ -108,26 +108,26 @@ if (Input::exists()) {
             }
         }
 
-        if (! isset($spam_check)) {
+        if (!isset($spam_check)) {
             // Spam check passed
             $validate = new Validate();
             $validation = $validate->check($_POST, [
                 'title' => [
                     'required' => true,
-                    'min' => 2,
-                    'max' => 64,
+                    'min'      => 2,
+                    'max'      => 64,
                 ],
                 'content' => [
                     'required' => true,
-                    'min' => 2,
-                    'max' => 50000,
+                    'min'      => 2,
+                    'max'      => 50000,
                 ],
             ]);
             if ($validation->passed()) {
                 try {
                     $post_labels = [];
 
-                    if (isset($_POST['topic_label']) && ! empty($_POST['topic_label']) && is_array($_POST['topic_label']) && count($_POST['topic_label'])) {
+                    if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label']) && count($_POST['topic_label'])) {
                         foreach ($_POST['topic_label'] as $topic_label) {
                             $label = $queries->getWhere('forums_topic_labels', ['id', '=', $topic_label]);
                             if (count($label)) {
@@ -151,13 +151,13 @@ if (Input::exists()) {
                     }
 
                     $queries->create('topics', [
-                        'forum_id' => $fid,
-                        'topic_title' => Input::get('title'),
-                        'topic_creator' => $user->data()->id,
-                        'topic_last_user' => $user->data()->id,
-                        'topic_date' => date('U'),
+                        'forum_id'         => $fid,
+                        'topic_title'      => Input::get('title'),
+                        'topic_creator'    => $user->data()->id,
+                        'topic_last_user'  => $user->data()->id,
+                        'topic_date'       => date('U'),
                         'topic_reply_date' => date('U'),
-                        'labels' => implode(',', $post_labels),
+                        'labels'           => implode(',', $post_labels),
                     ]);
                     $topic_id = $queries->getLastId();
 
@@ -173,12 +173,12 @@ if (Input::exists()) {
                     }
 
                     $queries->create('posts', [
-                        'forum_id' => $fid,
-                        'topic_id' => $topic_id,
+                        'forum_id'     => $fid,
+                        'topic_id'     => $topic_id,
                         'post_creator' => $user->data()->id,
                         'post_content' => $content,
-                        'post_date' => date('Y-m-d H:i:s'),
-                        'created' => date('U'),
+                        'post_date'    => date('Y-m-d H:i:s'),
+                        'created'      => date('U'),
                     ]);
 
                     // Get last post ID
@@ -190,8 +190,8 @@ if (Input::exists()) {
                     ]);
 
                     $queries->update('forums', $fid, [
-                        'last_post_date' => date('U'),
-                        'last_user_posted' => $user->data()->id,
+                        'last_post_date'    => date('U'),
+                        'last_user_posted'  => $user->data()->id,
                         'last_topic_posted' => $topic_id,
                     ]);
 
@@ -202,15 +202,15 @@ if (Input::exists()) {
                     $available_hooks = json_decode($available_hooks[0]->hooks);
                     if ($available_hooks != null) {
                         HookHandler::executeEvent('newTopic', [
-                            'event' => 'newTopic',
-                            'uuid' => Output::getClean($user->data()->uuid),
-                            'username' => $user->getDisplayname(true),
-                            'nickname' => $user->getDisplayname(),
-                            'content' => str_replace(['{x}', '{y}'], [$forum_title, $user->getDisplayname()], $forum_language->get('forum', 'new_topic_text')),
-                            'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
-                            'avatar_url' => $user->getAvatar(null, 128, true),
-                            'title' => Input::get('title'),
-                            'url' => Util::getSelfURL().ltrim(URL::build('/forum/topic/'.$topic_id.'-'.$forum->titleToURL(Input::get('title'))), '/'),
+                            'event'           => 'newTopic',
+                            'uuid'            => Output::getClean($user->data()->uuid),
+                            'username'        => $user->getDisplayname(true),
+                            'nickname'        => $user->getDisplayname(),
+                            'content'         => str_replace(['{x}', '{y}'], [$forum_title, $user->getDisplayname()], $forum_language->get('forum', 'new_topic_text')),
+                            'content_full'    => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
+                            'avatar_url'      => $user->getAvatar(null, 128, true),
+                            'title'           => Input::get('title'),
+                            'url'             => Util::getSelfURL().ltrim(URL::build('/forum/topic/'.$topic_id.'-'.$forum->titleToURL(Input::get('title'))), '/'),
                             'available_hooks' => $available_hooks,
                         ]);
                     }
@@ -267,11 +267,11 @@ if (Input::exists()) {
 $token = Token::get();
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css'                         => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css'              => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.sprites.css'          => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css'   => [],
 ]);
 
 // Generate content for template
@@ -293,21 +293,21 @@ if ($forum_query->topic_placeholder) {
 
 // Smarty variables
 $smarty->assign([
-    'LABELS' => $labels,
-    'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title'),
-    'LABEL' => $forum_language->get('forum', 'label'),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'CANCEL' => $language->get('general', 'cancel'),
-    'CLOSE' => $language->get('general', 'close'),
-    'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'YES' => $language->get('general', 'yes'),
-    'NO' => $language->get('general', 'no'),
-    'TOKEN' => '<input type="hidden" name="token" value="'.$token.'">',
-    'FORUM_LINK' => URL::build('/forum'),
-    'CONTENT' => ((isset($_POST['content']) && $_POST['content']) ? Output::getPurified(Input::get('content')) : (isset($placeholder) ? $placeholder : '')),
-    'FORUM_TITLE' => Output::getClean($forum_title),
+    'LABELS'            => $labels,
+    'TOPIC_TITLE'       => $forum_language->get('forum', 'topic_title'),
+    'LABEL'             => $forum_language->get('forum', 'label'),
+    'SUBMIT'            => $language->get('general', 'submit'),
+    'CANCEL'            => $language->get('general', 'cancel'),
+    'CLOSE'             => $language->get('general', 'close'),
+    'CONFIRM_CANCEL'    => $language->get('general', 'confirm_cancel'),
+    'YES'               => $language->get('general', 'yes'),
+    'NO'                => $language->get('general', 'no'),
+    'TOKEN'             => '<input type="hidden" name="token" value="'.$token.'">',
+    'FORUM_LINK'        => URL::build('/forum'),
+    'CONTENT'           => ((isset($_POST['content']) && $_POST['content']) ? Output::getPurified(Input::get('content')) : (isset($placeholder) ? $placeholder : '')),
+    'FORUM_TITLE'       => Output::getClean($forum_title),
     'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),
-    'NEWS_FORUM' => $forum_query->news,
+    'NEWS_FORUM'        => $forum_query->news,
 ]);
 
 // Get post formatting type (HTML or Markdown)
@@ -320,7 +320,7 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js'            => [],
         (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
     ]);
 
@@ -333,9 +333,9 @@ if ($formatting == 'markdown') {
 	');
 } else {
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js'                        => [],
         (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js'                => [],
     ]);
 
     $template->addJSScript(Input::createTinyEditor($language, 'reply'));

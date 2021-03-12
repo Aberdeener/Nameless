@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             require realpath(__DIR__.'/../includes/upgrade_perform.php');
             $redirect_url = ($s < 9 ? '?step=upgrade_perform&s='.($s + 1) : '?step=finish');
 
-            if (! empty($errors)) {
-                if (! isset($message)) {
+            if (!empty($errors)) {
+                if (!isset($message)) {
                     $message = '<p>'.$language['errors_logged'].'</p>';
                     $message .= '<div class="ui bulleted list">'.implode('', array_map(function ($err) {
                         return '<div class="item">'.$err.'</div>';
@@ -17,21 +17,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
 
                 $json = [
-                    'error' => true,
-                    'message' => $message,
+                    'error'        => true,
+                    'message'      => $message,
                     'redirect_url' => $redirect_url,
                 ];
             } else {
                 $json = [
-                    'success' => true,
-                    'message' => $message,
+                    'success'      => true,
+                    'message'      => $message,
                     'redirect_url' => $redirect_url,
                 ];
             }
         } catch (Exception $e) {
             $json = [
-                'error' => true,
-                'message' => $e->getMessage(),
+                'error'        => true,
+                'message'      => $e->getMessage(),
                 'redirect_url' => '',
             ];
         }

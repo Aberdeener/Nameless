@@ -9,20 +9,20 @@
  *  Forum module - forum profile tab
  */
 
-if (! isset($forum) || (isset($forum) && ! $forum instanceof Forum)) {
+if (!isset($forum) || (isset($forum) && !$forum instanceof Forum)) {
     require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
     $forum = new Forum();
 }
 
 // Get latest posts
 $latest_posts = $queries->orderWhere('posts', 'post_creator = '.$query->id.' AND deleted = 0', 'post_date', 'DESC LIMIT 15');
-if (! count($latest_posts)) {
+if (!count($latest_posts)) {
     $smarty->assign('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
 } else {
     // Check permissions
     $n = 0;
 
-    if (! $user->isLoggedIn()) {
+    if (!$user->isLoggedIn()) {
         $groups = [0];
     } else {
         $groups = $user->getAllGroups();
@@ -59,7 +59,7 @@ if (! count($latest_posts)) {
 
         // Get topic title
         $topic_title = $queries->getWhere('topics', ['id', '=', $latest_post->topic_id]);
-        if (! count($topic_title)) {
+        if (!count($topic_title)) {
             continue;
         }
         $topic_title = htmlspecialchars($topic_title[0]->topic_title);
@@ -73,11 +73,11 @@ if (! count($latest_posts)) {
         }
 
         $posts[] = [
-            'link' => URL::build('/forum/topic/'.$latest_post->topic_id.'-'.$forum->titleToURL($topic_title), 'pid='.$latest_post->id),
-            'title' => $topic_title,
-            'content' => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($latest_post->post_content))),
+            'link'          => URL::build('/forum/topic/'.$latest_post->topic_id.'-'.$forum->titleToURL($topic_title), 'pid='.$latest_post->id),
+            'title'         => $topic_title,
+            'content'       => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($latest_post->post_content))),
             'date_friendly' => $date_friendly,
-            'date_full' => $date_full,
+            'date_full'     => $date_full,
         ];
 
         $n++;
@@ -86,7 +86,7 @@ if (! count($latest_posts)) {
 
 // Smarty
 $smarty->assign([
-    'PF_LATEST_POSTS' => (isset($posts)) ? $posts : [],
+    'PF_LATEST_POSTS'       => (isset($posts)) ? $posts : [],
     'PF_LATEST_POSTS_TITLE' => $forum_language->get('forum', 'latest_posts'),
-    'FORUM_TAB_TITLE' => $forum_language->get('forum', 'forum'),
+    'FORUM_TAB_TITLE'       => $forum_language->get('forum', 'forum'),
 ]);

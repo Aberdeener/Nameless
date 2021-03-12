@@ -15,7 +15,7 @@ class CollectionManager
 
     public static function addItemToCollection($collection, $item)
     {
-        if (! isset(self::$_collections[$collection])) {
+        if (!isset(self::$_collections[$collection])) {
             self::$_collections[$collection] = new Collection();
         }
 

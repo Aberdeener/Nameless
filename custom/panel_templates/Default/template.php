@@ -13,7 +13,7 @@
  */
 
 // Always have the following if statement around your class
-if (! class_exists('Default_Panel_Template')) {
+if (!class_exists('Default_Panel_Template')) {
     class Default_Panel_Template extends TemplateBase
     {
         // Private variable to store language + user
@@ -36,19 +36,19 @@ if (! class_exists('Default_Panel_Template')) {
             );
 
             $this->addCSSFiles([
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' => ['integrity' => 'sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==', 'crossorigin' => 'anonymous'],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/sb-admin-2.min.css' => [],
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'                                    => ['integrity' => 'sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==', 'crossorigin' => 'anonymous'],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/sb-admin-2.min.css'     => [],
                 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/custom.css?v=2' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/switchery/switchery.min.css' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/custom.css?v=2'         => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/switchery/switchery.min.css'                  => [],
             ]);
 
             $this->addJSFiles([
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/plugins/jquery/jquery.min.js' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/jquery.cookie.js' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/plugins/jquery/jquery.min.js'                 => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/jquery.cookie.js'                                                    => [],
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/sb-admin-2.js' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/switchery/switchery.min.js' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/sb-admin-2.js'                             => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/switchery/switchery.min.js'                                     => [],
             ]);
 
             $this->addJSScript('
@@ -159,7 +159,7 @@ if (! class_exists('Default_Panel_Template')) {
                     case 'dashboard':
                         $this->addJSFiles([
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/moment/moment.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/charts/Chart.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/charts/Chart.min.js'  => [],
                         ]);
                         $this->addJSScript('
 						$(".stats-card i").addClass("fa-2x text-gray-300");
@@ -187,12 +187,12 @@ if (! class_exists('Default_Panel_Template')) {
 
                     case 'avatars':
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.css'     => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.css' => [],
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.js'         => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.min.js' => [],
                         ]);
 
@@ -305,7 +305,7 @@ if (! class_exists('Default_Panel_Template')) {
 
                         $this->addJSFiles([
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/jquery-ui.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/jquery-ui.min.js'                                           => [],
                         ]);
 
                         $this->addJSScript('
@@ -325,9 +325,9 @@ if (! class_exists('Default_Panel_Template')) {
                             ]);
 
                             $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/lib/codemirror.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/smarty/smarty.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/css/css.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/lib/codemirror.js'             => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/smarty/smarty.js'         => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/css/css.js'               => [],
                                 (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/javascript/javascript.js' => [],
                                 (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/properties/properties.js' => [],
                             ]);
@@ -368,7 +368,7 @@ if (! class_exists('Default_Panel_Template')) {
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dataTables/jquery.dataTables.min.js'               => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => [],
                         ]);
 
@@ -394,13 +394,13 @@ if (! class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'users':
-                        if (! defined('EDITING_USER')) {
+                        if (!defined('EDITING_USER')) {
                             $this->addCSSFiles([
                                 (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => [],
                             ]);
 
                             $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dataTables/jquery.dataTables.min.js'               => [],
                                 (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => [],
                             ]);
 
@@ -446,7 +446,7 @@ if (! class_exists('Default_Panel_Template')) {
                         break;
 
                     case 'minecraft':
-                        if (! defined('MINECRAFT_PAGE')) {
+                        if (!defined('MINECRAFT_PAGE')) {
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
@@ -560,7 +560,7 @@ if (! class_exists('Default_Panel_Template')) {
                             ]);
 
                             $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dataTables/jquery.dataTables.min.js'               => [],
                                 (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => [],
                             ]);
 
@@ -589,12 +589,12 @@ if (! class_exists('Default_Panel_Template')) {
 
                     case 'images':
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.css'     => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.css' => [],
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.js'         => [],
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.min.js' => [],
                         ]);
 

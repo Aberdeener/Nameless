@@ -24,6 +24,7 @@ class MentionsParser
 
     /**
      * Parse the given HTML to include @username tags.
+     *
      * @param $author_id - user ID of post creator
      * @param $value - post content
      * @param $link - link back to post
@@ -42,7 +43,7 @@ class MentionsParser
             foreach ($matches as $possible_username) {
                 $user = null;
 
-                while ((strlen($possible_username) > 0) && ! $user) {
+                while ((strlen($possible_username) > 0) && !$user) {
                     $user = new user($possible_username, 'nickname');
 
                     if ($user->data()) {

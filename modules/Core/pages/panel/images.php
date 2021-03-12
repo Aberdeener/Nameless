@@ -92,7 +92,7 @@ if (Session::exists('panel_images_success')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
@@ -114,7 +114,7 @@ if ($background_image == '') {
 }
 
 // Get banner from cache
-if (! $cache->isCached('banner_image')) {
+if (!$cache->isCached('banner_image')) {
     $cache->store('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/template_banners/homepage_bg_trimmed.jpg');
     $banner_image = (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/template_banners/homepage_bg_trimmed.jpg';
 } else {
@@ -155,14 +155,14 @@ $n = 1;
 
 foreach ($images as $image) {
     $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (! in_array($ext, $allowed_exts)) {
+    if (!in_array($ext, $allowed_exts)) {
         continue;
     }
     $template_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/backgrounds/'.$image,
-        'value' => $image,
+        'src'      => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/backgrounds/'.$image,
+        'value'    => $image,
         'selected' => ($background_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/backgrounds/'.$image),
-        'n' => $n,
+        'n'        => $n,
     ];
     $n++;
 }
@@ -175,14 +175,14 @@ $n = 1;
 
 foreach ($images as $image) {
     $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (! in_array($ext, $allowed_exts)) {
+    if (!in_array($ext, $allowed_exts)) {
         continue;
     }
     $template_banner_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/template_banners/'.$image,
-        'value' => $image,
+        'src'      => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/template_banners/'.$image,
+        'value'    => $image,
         'selected' => ($banner_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/template_banners/'.$image),
-        'n' => $n,
+        'n'        => $n,
     ];
     $n++;
 }
@@ -195,14 +195,14 @@ $n = 1;
 
 foreach ($images as $image) {
     $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (! in_array($ext, $allowed_exts)) {
+    if (!in_array($ext, $allowed_exts)) {
         continue;
     }
     $logo_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/logos/'.$image,
-        'value' => $image,
+        'src'      => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/logos/'.$image,
+        'value'    => $image,
         'selected' => ($logo_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/logos/'.$image),
-        'n' => $n,
+        'n'        => $n,
     ];
     $n++;
 }
@@ -215,64 +215,64 @@ $n = 1;
 
 foreach ($images as $image) {
     $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (! in_array($ext, $allowed_exts)) {
+    if (!in_array($ext, $allowed_exts)) {
         continue;
     }
     $favicon_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/favicons/'.$image,
-        'value' => $image,
+        'src'      => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/favicons/'.$image,
+        'value'    => $image,
         'selected' => ($favicon_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/favicons/'.$image),
-        'n' => $n,
+        'n'        => $n,
     ];
     $n++;
 }
 
-if (! is_writable(ROOT_PATH.'/uploads/backgrounds')) {
+if (!is_writable(ROOT_PATH.'/uploads/backgrounds')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/backgrounds', $language->get('admin', 'x_directory_not_writable')));
 }
 
-if (! is_writable(ROOT_PATH.'/uploads/template_banners')) {
+if (!is_writable(ROOT_PATH.'/uploads/template_banners')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/template_banners', $language->get('admin', 'x_directory_not_writable')));
 }
 
-if (! is_writable(ROOT_PATH.'/uploads/logos')) {
+if (!is_writable(ROOT_PATH.'/uploads/logos')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/logos', $language->get('admin', 'x_directory_not_writable')));
 }
 
-if (! is_writable(ROOT_PATH.'/uploads/favicons')) {
+if (!is_writable(ROOT_PATH.'/uploads/favicons')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/favicons', $language->get('admin', 'x_directory_not_writable')));
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'LAYOUT' => $language->get('admin', 'layout'),
-    'IMAGES' => $language->get('admin', 'images'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'UPLOAD_NEW_IMAGE' => $language->get('admin', 'upload_new_image'),
-    'UPLOAD_PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/includes/image_upload.php',
-    'CLOSE' => $language->get('general', 'close'),
-    'BACKGROUND_IMAGE' => str_replace('{x}', $bg_img, $language->get('admin', 'background_image_x')),
-    'RESET' => $language->get('admin', 'reset_background'),
-    'RESET_LINK' => URL::build('/panel/core/images/', 'action=reset_bg'),
-    'RESET_BANNER' => $language->get('admin', 'reset_banner'),
-    'RESET_BANNER_LINK' => URL::build('/panel/core/images/', 'action=reset_banner'),
-    'RESET_LOGO' => $language->get('admin', 'reset_logo'),
-    'RESET_LOGO_LINK' => URL::build('/panel/core/images/', 'action=reset_logo'),
-    'RESET_FAVICON' => $language->get('admin', 'reset_favicon'),
-    'RESET_FAVICON_LINK' => URL::build('/panel/core/images/', 'action=reset_favicon'),
+    'PARENT_PAGE'             => PARENT_PAGE,
+    'DASHBOARD'               => $language->get('admin', 'dashboard'),
+    'LAYOUT'                  => $language->get('admin', 'layout'),
+    'IMAGES'                  => $language->get('admin', 'images'),
+    'PAGE'                    => PANEL_PAGE,
+    'TOKEN'                   => Token::get(),
+    'SUBMIT'                  => $language->get('general', 'submit'),
+    'UPLOAD_NEW_IMAGE'        => $language->get('admin', 'upload_new_image'),
+    'UPLOAD_PATH'             => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/includes/image_upload.php',
+    'CLOSE'                   => $language->get('general', 'close'),
+    'BACKGROUND_IMAGE'        => str_replace('{x}', $bg_img, $language->get('admin', 'background_image_x')),
+    'RESET'                   => $language->get('admin', 'reset_background'),
+    'RESET_LINK'              => URL::build('/panel/core/images/', 'action=reset_bg'),
+    'RESET_BANNER'            => $language->get('admin', 'reset_banner'),
+    'RESET_BANNER_LINK'       => URL::build('/panel/core/images/', 'action=reset_banner'),
+    'RESET_LOGO'              => $language->get('admin', 'reset_logo'),
+    'RESET_LOGO_LINK'         => URL::build('/panel/core/images/', 'action=reset_logo'),
+    'RESET_FAVICON'           => $language->get('admin', 'reset_favicon'),
+    'RESET_FAVICON_LINK'      => URL::build('/panel/core/images/', 'action=reset_favicon'),
     'BACKGROUND_IMAGES_ARRAY' => $template_images,
-    'BANNER_IMAGES_ARRAY' => $template_banner_images,
-    'BANNER_IMAGE' => str_replace('{x}', $banner_img, $language->get('admin', 'banner_image_x')),
-    'LOGO_IMAGES_ARRAY' => $logo_images,
-    'LOGO_IMAGE' => str_replace('{x}', $logo_img, $language->get('admin', 'logo_image_x')),
-    'FAVICON_IMAGES_ARRAY' => $favicon_images,
-    'FAVICON_IMAGE' => str_replace('{x}', $favicon_img, $language->get('admin', 'favicon_image_x')),
-    'ERRORS_TITLE' => $language->get('general', 'error'),
-    'INFO' => $language->get('general', 'info'),
-    'BACKGROUND_IMAGE_INFO' => $language->get('admin', 'background_image_info'),
+    'BANNER_IMAGES_ARRAY'     => $template_banner_images,
+    'BANNER_IMAGE'            => str_replace('{x}', $banner_img, $language->get('admin', 'banner_image_x')),
+    'LOGO_IMAGES_ARRAY'       => $logo_images,
+    'LOGO_IMAGE'              => str_replace('{x}', $logo_img, $language->get('admin', 'logo_image_x')),
+    'FAVICON_IMAGES_ARRAY'    => $favicon_images,
+    'FAVICON_IMAGE'           => str_replace('{x}', $favicon_img, $language->get('admin', 'favicon_image_x')),
+    'ERRORS_TITLE'            => $language->get('general', 'error'),
+    'INFO'                    => $language->get('general', 'info'),
+    'BACKGROUND_IMAGE_INFO'   => $language->get('admin', 'background_image_info'),
 ]);
 
 $page_load = microtime(true) - $start;

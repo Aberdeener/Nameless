@@ -14,7 +14,7 @@ $language = [
 
     // General Options
     'greeting' => 'Hey,',
-    'thanks' => 'Liebe Grüße,',
+    'thanks'   => 'Liebe Grüße,',
 
     // Registration Email
     'register_subject' => 'Account verifizieren',

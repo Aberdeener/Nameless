@@ -92,14 +92,14 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
@@ -112,23 +112,23 @@ $discord = $queries->getWhere('settings', ['name', '=', 'discord']);
 $fb_url = $queries->getWhere('settings', ['name', '=', 'fb_url']);
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'SOCIAL_MEDIA' => $language->get('admin', 'social_media'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'YOUTUBE_URL' => $language->get('admin', 'youtube_url'),
-    'YOUTUBE_URL_VALUE' => Output::getClean($youtube_url[0]->value),
-    'TWITTER_URL' => $language->get('admin', 'twitter_url'),
-    'TWITTER_URL_VALUE' => Output::getClean($twitter_url[0]->value),
-    'TWITTER_STYLE' => $language->get('admin', 'twitter_dark_theme'),
-    'TWITTER_STYLE_VALUE' => $twitter_style[0]->value,
-    'DISCORD_SERVER_ID' => $language->get('admin', 'discord_id'),
+    'PARENT_PAGE'             => PARENT_PAGE,
+    'DASHBOARD'               => $language->get('admin', 'dashboard'),
+    'CONFIGURATION'           => $language->get('admin', 'configuration'),
+    'SOCIAL_MEDIA'            => $language->get('admin', 'social_media'),
+    'PAGE'                    => PANEL_PAGE,
+    'TOKEN'                   => Token::get(),
+    'SUBMIT'                  => $language->get('general', 'submit'),
+    'YOUTUBE_URL'             => $language->get('admin', 'youtube_url'),
+    'YOUTUBE_URL_VALUE'       => Output::getClean($youtube_url[0]->value),
+    'TWITTER_URL'             => $language->get('admin', 'twitter_url'),
+    'TWITTER_URL_VALUE'       => Output::getClean($twitter_url[0]->value),
+    'TWITTER_STYLE'           => $language->get('admin', 'twitter_dark_theme'),
+    'TWITTER_STYLE_VALUE'     => $twitter_style[0]->value,
+    'DISCORD_SERVER_ID'       => $language->get('admin', 'discord_id'),
     'DISCORD_SERVER_ID_VALUE' => Output::getClean($discord[0]->value),
-    'FACEBOOK_URL' => $language->get('admin', 'facebook_url'),
-    'FACEBOOK_URL_VALUE' => Output::getClean($fb_url[0]->value),
+    'FACEBOOK_URL'            => $language->get('admin', 'facebook_url'),
+    'FACEBOOK_URL_VALUE'      => Output::getClean($fb_url[0]->value),
 ]);
 
 $page_load = microtime(true) - $start;

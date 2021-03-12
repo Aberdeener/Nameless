@@ -25,7 +25,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 if (isset($_GET['user'])) {
     // Viewing a certain user
     $view_user = new User($_GET['user']);
-    if (! $view_user->data()) {
+    if (!$view_user->data()) {
         Redirect::to(URL::build('/panel/users/punishments'));
         exit();
     }
@@ -33,7 +33,7 @@ if (isset($_GET['user'])) {
 
     if (isset($_GET['do']) && $_GET['do'] == 'revoke' && isset($_GET['id']) && is_numeric($_GET['id'])) {
         $infraction = $queries->getWhere('infractions', ['id', '=', $_GET['id']]);
-        if (! $user->hasPermission('modcp.punishments.revoke') || ! count($infraction) || (count($infraction) && $infraction[0]->punished != $query->id)) {
+        if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || (count($infraction) && $infraction[0]->punished != $query->id)) {
             Redirect::to(URL::build('/panel/users/punishments/', 'user='.$query->id));
             exit();
         }
@@ -46,7 +46,7 @@ if (isset($_GET['user'])) {
             try {
                 $queries->update('users', $query->id, [
                     'isbanned' => 0,
-                    'active' => 1,
+                    'active'   => 1,
                 ]);
             } catch (Exception $e) {
                 // Error
@@ -57,7 +57,7 @@ if (isset($_GET['user'])) {
             try {
                 $queries->update('users', $query->id, [
                     'isbanned' => 0,
-                    'active' => 1,
+                    'active'   => 1,
                 ]);
 
                 $queries->delete('ip_bans', ['ip', '=', $query->lastip]);
@@ -70,9 +70,9 @@ if (isset($_GET['user'])) {
         try {
             $queries->update('infractions', $infraction->id, [
                 'acknowledged' => 1,
-                'revoked' => 1,
-                'revoked_by' => $user->data()->id,
-                'revoked_at' => date('U'),
+                'revoked'      => 1,
+                'revoked_by'   => $user->data()->id,
+                'revoked_at'   => date('U'),
             ]);
         } catch (Exception $e) {
             // Error
@@ -92,7 +92,7 @@ if (isset($_GET['user'])) {
                 switch ($_POST['type']) {
                     case 'reset_avatar':
                         // Reset Avatar
-                        if (! $user->hasPermission('modcp.punishments.reset_avatar')) {
+                        if (!$user->hasPermission('modcp.punishments.reset_avatar')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
                             exit();
                         }
@@ -101,7 +101,7 @@ if (isset($_GET['user'])) {
 
                     case 'ban':
                         // Ban
-                        if (! $user->hasPermission('modcp.punishments.ban')) {
+                        if (!$user->hasPermission('modcp.punishments.ban')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
                             exit();
                         }
@@ -110,7 +110,7 @@ if (isset($_GET['user'])) {
 
                     case 'ban_ip':
                         // Ban IP
-                        if (! $user->hasPermission('modcp.punishments.banip')) {
+                        if (!$user->hasPermission('modcp.punishments.banip')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
                             exit();
                         }
@@ -119,7 +119,7 @@ if (isset($_GET['user'])) {
 
                     default:
                         // Warn
-                        if (! $user->hasPermission('modcp.punishments.warn')) {
+                        if (!$user->hasPermission('modcp.punishments.warn')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
                             exit();
                         }
@@ -135,22 +135,22 @@ if (isset($_GET['user'])) {
                         $is_admin = $banned_user->canViewACP();
 
                         // Ensure user is not admin
-                        if (! $is_admin) {
+                        if (!$is_admin) {
                             $queries->create('infractions', [
-                                'type' => $type,
-                                'punished' => $query->id,
-                                'staff' => $user->data()->id,
-                                'reason' => $_POST['reason'],
+                                'type'            => $type,
+                                'punished'        => $query->id,
+                                'staff'           => $user->data()->id,
+                                'reason'          => $_POST['reason'],
                                 'infraction_date' => date('Y-m-d H:i:s'),
-                                'created' => date('U'),
-                                'acknowledged' => (($type == 2) ? 0 : 1),
+                                'created'         => date('U'),
+                                'acknowledged'    => (($type == 2) ? 0 : 1),
                             ]);
 
                             if ($type == 1 || $type == 3) {
                                 // Ban the user
                                 $queries->update('users', $query->id, [
                                     'isbanned' => 1,
-                                    'active' => 0,
+                                    'active'   => 0,
                                 ]);
 
                                 $banned_user_ip = $banned_user->data()->lastip;
@@ -160,10 +160,10 @@ if (isset($_GET['user'])) {
                                 if ($type == 3) {
                                     // Ban IP
                                     $queries->create('ip_bans', [
-                                        'ip' => $banned_user_ip,
+                                        'ip'        => $banned_user_ip,
                                         'banned_by' => $user->data()->id,
                                         'banned_at' => date('U'),
-                                        'reason' => $_POST['reason'],
+                                        'reason'    => $_POST['reason'],
                                     ]);
                                 }
                             } elseif ($type == 4) {
@@ -179,7 +179,7 @@ if (isset($_GET['user'])) {
                                 }
 
                                 $queries->update('users', $query->id, [
-                                    'has_avatar' => 0,
+                                    'has_avatar'     => 0,
                                     'avatar_updated' => date('U'),
                                 ]);
                             }
@@ -250,18 +250,18 @@ if (isset($_GET['user'])) {
 
             $issued_by_user = new User($punishment->staff);
             $previous_punishments_array[] = [
-                'type' => $type,
-                'type_numeric' => $punishment->type,
-                'revoked' => $punishment->revoked,
-                'acknowledged' => $punishment->acknowledged,
-                'reason' => Output::getClean($punishment->reason),
-                'issued_by_nickname' => $issued_by_user->getDisplayname(),
-                'issued_by_profile' => URL::build('/panel/user/'.Output::getClean($punishment->staff.'-'.$issued_by_user->data()->username)),
-                'issued_by_style' => $issued_by_user->getGroupClass(),
-                'issued_by_avatar' => $issued_by_user->getAvatar('', 128),
-                'date_full' => ($punishment->created ? date('d M Y, H:i', $punishment->created) : date('d M Y, H:i', strtotime($punishment->infraction_date))),
-                'date_friendly' => ($punishment->created ? $timeago->inWords(date('Y-m-d H:i:s', $punishment->created), $language->getTimeLanguage()) : $timeago->inWords($punishment->infraction_date, $language->getTimeLanguage())),
-                'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user='.$query->id.'&do=revoke&id='.$punishment->id) : 'none'),
+                'type'                      => $type,
+                'type_numeric'              => $punishment->type,
+                'revoked'                   => $punishment->revoked,
+                'acknowledged'              => $punishment->acknowledged,
+                'reason'                    => Output::getClean($punishment->reason),
+                'issued_by_nickname'        => $issued_by_user->getDisplayname(),
+                'issued_by_profile'         => URL::build('/panel/user/'.Output::getClean($punishment->staff.'-'.$issued_by_user->data()->username)),
+                'issued_by_style'           => $issued_by_user->getGroupClass(),
+                'issued_by_avatar'          => $issued_by_user->getAvatar('', 128),
+                'date_full'                 => ($punishment->created ? date('d M Y, H:i', $punishment->created) : date('d M Y, H:i', strtotime($punishment->infraction_date))),
+                'date_friendly'             => ($punishment->created ? $timeago->inWords(date('Y-m-d H:i:s', $punishment->created), $language->getTimeLanguage()) : $timeago->inWords($punishment->infraction_date, $language->getTimeLanguage())),
+                'revoke_link'               => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user='.$query->id.'&do=revoke&id='.$punishment->id) : 'none'),
                 'confirm_revoke_punishment' => (($punishment->type == 2) ? $language->get('moderator', 'confirm_revoke_warning') : $language->get('moderator', 'confirm_revoke_ban')),
             ];
         }
@@ -288,27 +288,27 @@ if (isset($_GET['user'])) {
     }
 
     $smarty->assign([
-        'HAS_AVATAR' => $query->has_avatar,
-        'BACK_LINK' => URL::build('/panel/users/punishments'),
-        'BACK' => $language->get('general', 'back'),
-        'VIEWING_USER' => str_replace('{x}', $view_user->getDisplayname(), $language->get('moderator', 'viewing_user_x')),
-        'PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'previous_punishments'),
+        'HAS_AVATAR'                => $query->has_avatar,
+        'BACK_LINK'                 => URL::build('/panel/users/punishments'),
+        'BACK'                      => $language->get('general', 'back'),
+        'VIEWING_USER'              => str_replace('{x}', $view_user->getDisplayname(), $language->get('moderator', 'viewing_user_x')),
+        'PREVIOUS_PUNISHMENTS'      => $language->get('moderator', 'previous_punishments'),
         'PREVIOUS_PUNISHMENTS_LIST' => $previous_punishments_array,
-        'NO_PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'no_previous_punishments'),
-        'CANCEL' => $language->get('general', 'cancel'),
-        'WARN_USER' => $language->get('moderator', 'warn_user'),
-        'BAN_USER' => $language->get('moderator', 'ban_user'),
-        'REASON' => $language->get('moderator', 'reason'),
-        'REVOKED' => $language->get('moderator', 'revoked'),
-        'REVOKE' => $language->get('moderator', 'revoke'),
-        'ACKNOWLEDGED' => $language->get('moderator', 'acknowledged'),
-        'USERNAME' => $view_user->getDisplayname(true),
-        'NICKNAME' => $view_user->getDisplayname(),
-        'USER_STYLE' => $view_user->getGroupClass(),
-        'AVATAR' => $view_user->getAvatar('', 128),
-        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
+        'NO_PREVIOUS_PUNISHMENTS'   => $language->get('moderator', 'no_previous_punishments'),
+        'CANCEL'                    => $language->get('general', 'cancel'),
+        'WARN_USER'                 => $language->get('moderator', 'warn_user'),
+        'BAN_USER'                  => $language->get('moderator', 'ban_user'),
+        'REASON'                    => $language->get('moderator', 'reason'),
+        'REVOKED'                   => $language->get('moderator', 'revoked'),
+        'REVOKE'                    => $language->get('moderator', 'revoke'),
+        'ACKNOWLEDGED'              => $language->get('moderator', 'acknowledged'),
+        'USERNAME'                  => $view_user->getDisplayname(true),
+        'NICKNAME'                  => $view_user->getDisplayname(),
+        'USER_STYLE'                => $view_user->getGroupClass(),
+        'AVATAR'                    => $view_user->getAvatar('', 128),
+        'ARE_YOU_SURE'              => $language->get('general', 'are_you_sure'),
+        'YES'                       => $language->get('general', 'yes'),
+        'NO'                        => $language->get('general', 'no'),
     ]);
 
     $template_file = 'core/users_punishments_user.tpl';
@@ -337,7 +337,7 @@ if (isset($_GET['user'])) {
         // Pagination
         // Get page
         if (isset($_GET['p'])) {
-            if (! is_numeric($_GET['p'])) {
+            if (!is_numeric($_GET['p'])) {
                 Redirect::to(URL::build('/panel/users/punishments'));
                 exit();
             } else {
@@ -377,36 +377,36 @@ if (isset($_GET['user'])) {
             $staff_user = new User($result->staff);
 
             $smarty_results[] = [
-                'username' => $target_user->getDisplayname(true),
-                'nickname' => $target_user->getDisplayname(),
-                'profile' => URL::build('/panel/user/'.Output::getClean($result->punished.'-'.$target_user->data()->username)),
-                'style' => $target_user->getGroupClass(),
-                'avatar' => $target_user->getAvatar('', 128),
+                'username'       => $target_user->getDisplayname(true),
+                'nickname'       => $target_user->getDisplayname(),
+                'profile'        => URL::build('/panel/user/'.Output::getClean($result->punished.'-'.$target_user->data()->username)),
+                'style'          => $target_user->getGroupClass(),
+                'avatar'         => $target_user->getAvatar('', 128),
                 'staff_username' => $staff_user->getDisplayname(true),
                 'staff_nickname' => $staff_user->getDisplayname(),
-                'staff_profile' => URL::build('/panel/user/'.Output::getClean($result->staff.'-'.$staff_user->data()->username)),
-                'staff_style' => $staff_user->getGroupClass(),
-                'staff_avatar' => $staff_user->getAvatar('', 128),
-                'type' => $type,
-                'type_numeric' => $result->type,
-                'revoked' => $result->revoked,
-                'acknowledged' => $result->acknowledged,
-                'time_full' => ($result->created ? date('d M Y, H:i', $result->created) : date('d M Y, H:i', strtotime($result->infraction_date))),
-                'time' => ($result->created ? $timeago->inWords(date('Y-m-d H:i:s', $result->created), $language->getTimeLanguage()) : $timeago->inWords($result->infraction_date, $language->getTimeLanguage())),
-                'link' => URL::build('/panel/users/punishments/', 'user='.$result->punished),
+                'staff_profile'  => URL::build('/panel/user/'.Output::getClean($result->staff.'-'.$staff_user->data()->username)),
+                'staff_style'    => $staff_user->getGroupClass(),
+                'staff_avatar'   => $staff_user->getAvatar('', 128),
+                'type'           => $type,
+                'type_numeric'   => $result->type,
+                'revoked'        => $result->revoked,
+                'acknowledged'   => $result->acknowledged,
+                'time_full'      => ($result->created ? date('d M Y, H:i', $result->created) : date('d M Y, H:i', strtotime($result->infraction_date))),
+                'time'           => ($result->created ? $timeago->inWords(date('Y-m-d H:i:s', $result->created), $language->getTimeLanguage()) : $timeago->inWords($result->infraction_date, $language->getTimeLanguage())),
+                'link'           => URL::build('/panel/users/punishments/', 'user='.$result->punished),
             ];
         }
 
         $smarty->assign([
-            'PAGINATION' => $pagination,
-            'STAFF' => $language->get('moderator', 'staff'),
-            'ACTIONS' => $language->get('moderator', 'actions'),
-            'WHEN' => $language->get('moderator', 'when'),
-            'VIEW_USER' => $language->get('moderator', 'view_user'),
-            'TYPE' => $language->get('moderator', 'type'),
-            'RESULTS' => $smarty_results,
+            'PAGINATION'   => $pagination,
+            'STAFF'        => $language->get('moderator', 'staff'),
+            'ACTIONS'      => $language->get('moderator', 'actions'),
+            'WHEN'         => $language->get('moderator', 'when'),
+            'VIEW_USER'    => $language->get('moderator', 'view_user'),
+            'TYPE'         => $language->get('moderator', 'type'),
+            'RESULTS'      => $smarty_results,
             'ACKNOWLEDGED' => $language->get('moderator', 'acknowledged'),
-            'REVOKED' => $language->get('moderator', 'revoked'),
+            'REVOKED'      => $language->get('moderator', 'revoked'),
         ]);
     } else {
         $smarty->assign('NO_PUNISHMENTS', $language->get('moderator', 'no_punishments_found'));
@@ -414,8 +414,8 @@ if (isset($_GET['user'])) {
 
     $smarty->assign([
         'USERNAME' => $language->get('user', 'username'),
-        'SEARCH' => $language->get('general', 'search'),
-        'CANCEL' => $language->get('general', 'cancel'),
+        'SEARCH'   => $language->get('general', 'search'),
+        'CANCEL'   => $language->get('general', 'cancel'),
     ]);
 
     $template_file = 'core/users_punishments.tpl';
@@ -427,26 +427,26 @@ if (Session::exists('user_punishment_success')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
+    'PARENT_PAGE'     => PARENT_PAGE,
+    'DASHBOARD'       => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
-    'PUNISHMENTS' => $language->get('moderator', 'punishments'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'PUNISHMENTS'     => $language->get('moderator', 'punishments'),
+    'PAGE'            => PANEL_PAGE,
+    'TOKEN'           => Token::get(),
+    'SUBMIT'          => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

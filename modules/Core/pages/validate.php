@@ -17,7 +17,7 @@ require_once ROOT_PATH.'/core/templates/frontend_init.php';
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
-if (! isset($_GET['c'])) {
+if (!isset($_GET['c'])) {
     Redirect::to(URL::build('/'));
     exit();
 } else {
@@ -35,18 +35,18 @@ if (! isset($_GET['c'])) {
 
         $queries->update('users', $user->data()->id, [
             'reset_code' => $reset_code,
-            'active' => 1,
+            'active'     => 1,
         ]);
 
         HookHandler::executeEvent('validateUser', [
-            'event' => 'validateUser',
-            'user_id' => $user->data()->id,
-            'username' => $user->getDisplayname(),
-            'uuid' => Output::getClean($user->data()->uuid),
-            'content' => str_replace('{x}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
+            'event'      => 'validateUser',
+            'user_id'    => $user->data()->id,
+            'username'   => $user->getDisplayname(),
+            'uuid'       => Output::getClean($user->data()->uuid),
+            'content'    => str_replace('{x}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
             'avatar_url' => $user->getAvatar(null, 128, true),
-            'url' => Util::getSelfURL().ltrim($user->getProfileURL(), '/'),
-            'language' => $language,
+            'url'        => Util::getSelfURL().ltrim($user->getProfileURL(), '/'),
+            'language'   => $language,
         ]);
 
         Discord::addDiscordRole($user, $user->getMainGroup()->id, $language, false);

@@ -12,7 +12,7 @@ class Core_Sitemap
 {
     public static function generateSitemap($sitemap = null)
     {
-        if (! $sitemap) {
+        if (!$sitemap) {
             return;
         }
 

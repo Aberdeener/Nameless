@@ -31,7 +31,7 @@ define('PATH', '/');
 define('ROOT_PATH', dirname(__FILE__));
 $page = 'Home';
 
-if (! ini_get('upload_tmp_dir')) {
+if (!ini_get('upload_tmp_dir')) {
     $tmp_dir = sys_get_temp_dir();
 } else {
     $tmp_dir = ini_get('upload_tmp_dir');
@@ -56,13 +56,13 @@ try {
     exit($e->getMessage());
 }
 
-if (! isset($GLOBALS['config']['core']) && is_file(ROOT_PATH.'/install.php')) {
+if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH.'/install.php')) {
     Redirect::to('install.php');
 }
 
 // Get page to load from URL
-if (! isset($_GET['route']) || $_GET['route'] == '/') {
-    if (count($directories) > 1 && (! isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/'))) {
+if (!isset($_GET['route']) || $_GET['route'] == '/') {
+    if (count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/'))) {
         require ROOT_PATH.'/404.php';
     } else {
         // Homepage
@@ -78,10 +78,10 @@ if (! isset($_GET['route']) || $_GET['route'] == '/') {
     // Include the page
     if (array_key_exists($route, $modules)) {
         $pages->setActivePage($modules[$route]);
-        if (! isset($modules[$route]['custom'])) {
+        if (!isset($modules[$route]['custom'])) {
             $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']]);
 
-            if (! file_exists($path)) {
+            if (!file_exists($path)) {
                 require ROOT_PATH.'/404.php';
             } else {
                 require $path;

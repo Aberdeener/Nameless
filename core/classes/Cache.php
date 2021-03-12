@@ -17,9 +17,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
  * API Documentation: https://github.com/cosenary/Simple-PHP-Cache.
  *
  * @author Christian Metz
+ *
  * @since 22.12.2011
+ *
  * @copyright Christian Metz - MetzWeb Networks
+ *
  * @version 1.6-Nameless
+ *
  * @license BSD http://www.opensource.org/licenses/bsd-license.php
  *
  * Modified by Samerton for NamelessMC
@@ -52,6 +56,7 @@ class Cache
      * Default constructor.
      *
      * @param string|array [optional] $config
+     *
      * @return void
      */
     public function __construct($config = null)
@@ -71,6 +76,7 @@ class Cache
      * Check whether data accociated with a key.
      *
      * @param string $key
+     *
      * @return bool
      */
     public function isCached($key)
@@ -91,9 +97,10 @@ class Cache
     /**
      * Store data in the cache.
      *
-     * @param string $key
-     * @param mixed $data
+     * @param string         $key
+     * @param mixed          $data
      * @param int [optional] $expiration
+     *
      * @return object
      */
     public function store($key, $data, $expiration = 0)
@@ -118,18 +125,19 @@ class Cache
     /**
      * Retrieve cached data by its key.
      *
-     * @param string $key
+     * @param string          $key
      * @param bool [optional] $timestamp
+     *
      * @return string
      */
     public function retrieve($key, $timestamp = false)
     {
         $cachedData = $this->_loadCache();
-        (! $timestamp) ? $type = 'data' : $type = 'time';
-        if (! isset($cachedData[$key][$type])) {
+        (!$timestamp) ? $type = 'data' : $type = 'time';
+        if (!isset($cachedData[$key][$type])) {
             return null;
         }
-        if (! $timestamp) {
+        if (!$timestamp) {
             $entry = $cachedData[$key];
             if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
                 return null;
@@ -143,11 +151,12 @@ class Cache
      * Retrieve all cached data.
      *
      * @param bool [optional] $meta
+     *
      * @return array
      */
     public function retrieveAll($meta = false)
     {
-        if (! $meta) {
+        if (!$meta) {
             $results = [];
             $cachedData = $this->_loadCache();
             if ($cachedData) {
@@ -166,6 +175,7 @@ class Cache
      * Erase cached entry by its key.
      *
      * @param string $key
+     *
      * @return object
      */
     public function erase($key)
@@ -271,6 +281,7 @@ class Cache
      *
      * @param int $timestamp
      * @param int $expiration
+     *
      * @return bool
      */
     private function _checkExpired($timestamp, $expiration)
@@ -291,10 +302,10 @@ class Cache
      */
     private function _checkCacheDir()
     {
-        if (! is_dir($this->getCachePath()) && ! mkdir($this->getCachePath(), 0775, true)) {
+        if (!is_dir($this->getCachePath()) && !mkdir($this->getCachePath(), 0775, true)) {
             throw new Exception('Unable to create cache directory '.$this->getCachePath());
-        } elseif (! is_readable($this->getCachePath()) || ! is_writable($this->getCachePath())) {
-            if (! chmod($this->getCachePath(), 0775)) {
+        } elseif (!is_readable($this->getCachePath()) || !is_writable($this->getCachePath())) {
+            if (!chmod($this->getCachePath(), 0775)) {
                 throw new Exception('Your <b>'.$this->getCachePath().'</b> directory must be readable and writeable. Check your file permissions.');
             }
         }
@@ -306,6 +317,7 @@ class Cache
      * Cache path Setter.
      *
      * @param string $path
+     *
      * @return object
      */
     public function setCachePath($path)
@@ -329,6 +341,7 @@ class Cache
      * Cache name Setter.
      *
      * @param string $name
+     *
      * @return object
      */
     public function setCache($name)
@@ -352,6 +365,7 @@ class Cache
      * Cache file extension Setter.
      *
      * @param string $ext
+     *
      * @return object
      */
     public function setExtension($ext)

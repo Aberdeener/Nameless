@@ -20,7 +20,7 @@ require_once ROOT_PATH.'/core/templates/backend_init.php';
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
-if (! isset($_GET['id']) && ! isset($_GET['action'])) {
+if (!isset($_GET['id']) && !isset($_GET['action'])) {
     $profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
     $template_fields = [];
 
@@ -40,35 +40,35 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
         }
 
         $template_fields[] = [
-            'edit_link' => URL::build('/panel/core/profile_fields/', 'id='.Output::getClean($field->id)),
-            'name' => Output::getClean($field->name),
-            'type' => $type,
-            'required' => $field->required,
-            'editable' => $field->editable,
-            'public' => $field->public,
+            'edit_link'   => URL::build('/panel/core/profile_fields/', 'id='.Output::getClean($field->id)),
+            'name'        => Output::getClean($field->name),
+            'type'        => $type,
+            'required'    => $field->required,
+            'editable'    => $field->editable,
+            'public'      => $field->public,
             'forum_posts' => $field->forum_posts,
         ];
     }
 
     $smarty->assign([
-        'FIELDS' => $template_fields,
-        'NO_FIELDS' => $language->get('admin', 'no_custom_fields'),
-        'NEW_FIELD' => $language->get('admin', 'new_field'),
+        'FIELDS'         => $template_fields,
+        'NO_FIELDS'      => $language->get('admin', 'no_custom_fields'),
+        'NEW_FIELD'      => $language->get('admin', 'new_field'),
         'NEW_FIELD_LINK' => URL::build('/panel/core/profile_fields/', 'action=new'),
-        'FIELD_NAME' => $language->get('admin', 'field_name'),
-        'TYPE' => $language->get('admin', 'type'),
-        'REQUIRED' => $language->get('admin', 'required'),
-        'EDITABLE' => $language->get('admin', 'editable'),
-        'PUBLIC' => $language->get('admin', 'public'),
-        'FORUM_POSTS' => $language->get('admin', 'forum_posts'),
+        'FIELD_NAME'     => $language->get('admin', 'field_name'),
+        'TYPE'           => $language->get('admin', 'type'),
+        'REQUIRED'       => $language->get('admin', 'required'),
+        'EDITABLE'       => $language->get('admin', 'editable'),
+        'PUBLIC'         => $language->get('admin', 'public'),
+        'FORUM_POSTS'    => $language->get('admin', 'forum_posts'),
     ]);
 } else {
-    if (isset($_GET['id']) && ! isset($_GET['action'])) {
+    if (isset($_GET['id']) && !isset($_GET['action'])) {
         $id = intval($_GET['id']);
 
         $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
 
-        if (! count($field)) {
+        if (!count($field)) {
             Redirect::to(URL::build('/panel/core/profile_fields'));
             exit();
         }
@@ -84,8 +84,8 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
                 $validation = $validate->check($_POST, [
                     'name' => [
                         'required' => true,
-                        'min' => 2,
-                        'max' => 16,
+                        'min'      => 2,
+                        'max'      => 16,
                     ],
                     'type' => [
                         'required' => true,
@@ -122,13 +122,13 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
 
                         // Update database
                         $queries->update('profile_fields', $field->id, [
-                            'name' => Output::getClean(Input::get('name')),
-                            'type' => Input::get('type'),
-                            'public' => $public,
-                            'required' => $required,
+                            'name'        => Output::getClean(Input::get('name')),
+                            'type'        => Input::get('type'),
+                            'public'      => $public,
+                            'required'    => $required,
                             'description' => Output::getClean(Input::get('description')),
                             'forum_posts' => $forum_posts,
-                            'editable' => $editable,
+                            'editable'    => $editable,
                         ]);
 
                         //Log::getInstance()->log(Log::Action('admin/core/profile/update'), Output::getClean(Input::get('name')));
@@ -150,38 +150,38 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
         }
 
         $smarty->assign([
-            'EDITING_PROFILE_FIELD' => $language->get('admin', 'editing_profile_field'),
-            'CANCEL' => $language->get('general', 'cancel'),
-            'DELETE' => $language->get('general', 'delete'),
-            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-            'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-            'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
-            'YES' => $language->get('general', 'yes'),
-            'NO' => $language->get('general', 'no'),
-            'CANCEL_LINK' => URL::build('/panel/core/profile_fields'),
-            'DELETE_LINK' => URL::build('/panel/core/profile_fields/', 'id='.$field->id.'&amp;action=delete'),
-            'TOKEN' => Token::get(),
-            'SUBMIT' => $language->get('general', 'submit'),
-            'FIELD_NAME' => $language->get('admin', 'field_name'),
-            'FIELD_NAME_VALUE' => Output::getClean($field->name),
-            'TYPE' => $language->get('admin', 'type'),
-            'TYPES' => [1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')],
-            'TYPE_VALUE' => $field->type,
-            'DESCRIPTION' => $language->get('admin', 'description'),
-            'DESCRIPTION_VALUE' => Output::getPurified($field->description),
-            'REQUIRED' => $language->get('admin', 'required'),
-            'REQUIRED_VALUE' => $field->required,
-            'EDITABLE' => $language->get('admin', 'editable'),
-            'EDITABLE_VALUE' => $field->editable,
-            'PUBLIC' => $language->get('admin', 'public'),
-            'PUBLIC_VALUE' => $field->public,
-            'DISPLAY_FIELD_ON_FORUM' => $language->get('admin', 'display_field_on_forum'),
+            'EDITING_PROFILE_FIELD'        => $language->get('admin', 'editing_profile_field'),
+            'CANCEL'                       => $language->get('general', 'cancel'),
+            'DELETE'                       => $language->get('general', 'delete'),
+            'ARE_YOU_SURE'                 => $language->get('general', 'are_you_sure'),
+            'CONFIRM_CANCEL'               => $language->get('general', 'confirm_cancel'),
+            'CONFIRM_DELETE'               => $language->get('general', 'confirm_deletion'),
+            'YES'                          => $language->get('general', 'yes'),
+            'NO'                           => $language->get('general', 'no'),
+            'CANCEL_LINK'                  => URL::build('/panel/core/profile_fields'),
+            'DELETE_LINK'                  => URL::build('/panel/core/profile_fields/', 'id='.$field->id.'&amp;action=delete'),
+            'TOKEN'                        => Token::get(),
+            'SUBMIT'                       => $language->get('general', 'submit'),
+            'FIELD_NAME'                   => $language->get('admin', 'field_name'),
+            'FIELD_NAME_VALUE'             => Output::getClean($field->name),
+            'TYPE'                         => $language->get('admin', 'type'),
+            'TYPES'                        => [1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')],
+            'TYPE_VALUE'                   => $field->type,
+            'DESCRIPTION'                  => $language->get('admin', 'description'),
+            'DESCRIPTION_VALUE'            => Output::getPurified($field->description),
+            'REQUIRED'                     => $language->get('admin', 'required'),
+            'REQUIRED_VALUE'               => $field->required,
+            'EDITABLE'                     => $language->get('admin', 'editable'),
+            'EDITABLE_VALUE'               => $field->editable,
+            'PUBLIC'                       => $language->get('admin', 'public'),
+            'PUBLIC_VALUE'                 => $field->public,
+            'DISPLAY_FIELD_ON_FORUM'       => $language->get('admin', 'display_field_on_forum'),
             'DISPLAY_FIELD_ON_FORUM_VALUE' => $field->forum_posts,
-            'INFO' => $language->get('general', 'info'),
-            'EDITABLE_HELP' => $language->get('admin', 'profile_field_editable_help'),
-            'REQUIRED_HELP' => $language->get('admin', 'profile_field_required_help'),
-            'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
-            'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help'),
+            'INFO'                         => $language->get('general', 'info'),
+            'EDITABLE_HELP'                => $language->get('admin', 'profile_field_editable_help'),
+            'REQUIRED_HELP'                => $language->get('admin', 'profile_field_required_help'),
+            'PUBLIC_HELP'                  => $language->get('admin', 'profile_field_public_help'),
+            'DISPLAY_FIELD_ON_FORUM_HELP'  => $language->get('admin', 'profile_field_forum_help'),
         ]);
     } else {
         if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'delete') {
@@ -203,8 +203,8 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'name' => [
                             'required' => true,
-                            'min' => 2,
-                            'max' => 16,
+                            'min'      => 2,
+                            'max'      => 16,
                         ],
                         'type' => [
                             'required' => true,
@@ -241,13 +241,13 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
 
                             // Insert into database
                             $queries->create('profile_fields', [
-                                'name' => Output::getClean(Input::get('name')),
-                                'type' => Input::get('type'),
-                                'public' => $public,
-                                'required' => $required,
+                                'name'        => Output::getClean(Input::get('name')),
+                                'type'        => Input::get('type'),
+                                'public'      => $public,
+                                'required'    => $required,
                                 'description' => Output::getClean(Input::get('description')),
                                 'forum_posts' => $forum_posts,
-                                'editable' => $editable,
+                                'editable'    => $editable,
                             ]);
 
                             //Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
@@ -270,27 +270,27 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'CREATING_PROFILE_FIELD' => $language->get('admin', 'creating_profile_field'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'CANCEL_LINK' => URL::build('/panel/core/profile_fields'),
-                'TOKEN' => Token::get(),
-                'SUBMIT' => $language->get('general', 'submit'),
-                'FIELD_NAME' => $language->get('admin', 'field_name'),
-                'TYPE' => $language->get('admin', 'type'),
-                'TYPES' => [1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')],
-                'DESCRIPTION' => $language->get('admin', 'description'),
-                'REQUIRED' => $language->get('admin', 'required'),
-                'EDITABLE' => $language->get('admin', 'editable'),
-                'PUBLIC' => $language->get('admin', 'public'),
-                'DISPLAY_FIELD_ON_FORUM' => $language->get('admin', 'display_field_on_forum'),
-                'INFO' => $language->get('general', 'info'),
-                'EDITABLE_HELP' => $language->get('admin', 'profile_field_editable_help'),
-                'REQUIRED_HELP' => $language->get('admin', 'profile_field_required_help'),
-                'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
+                'CREATING_PROFILE_FIELD'      => $language->get('admin', 'creating_profile_field'),
+                'CANCEL'                      => $language->get('general', 'cancel'),
+                'ARE_YOU_SURE'                => $language->get('general', 'are_you_sure'),
+                'CONFIRM_CANCEL'              => $language->get('general', 'confirm_cancel'),
+                'YES'                         => $language->get('general', 'yes'),
+                'NO'                          => $language->get('general', 'no'),
+                'CANCEL_LINK'                 => URL::build('/panel/core/profile_fields'),
+                'TOKEN'                       => Token::get(),
+                'SUBMIT'                      => $language->get('general', 'submit'),
+                'FIELD_NAME'                  => $language->get('admin', 'field_name'),
+                'TYPE'                        => $language->get('admin', 'type'),
+                'TYPES'                       => [1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')],
+                'DESCRIPTION'                 => $language->get('admin', 'description'),
+                'REQUIRED'                    => $language->get('admin', 'required'),
+                'EDITABLE'                    => $language->get('admin', 'editable'),
+                'PUBLIC'                      => $language->get('admin', 'public'),
+                'DISPLAY_FIELD_ON_FORUM'      => $language->get('admin', 'display_field_on_forum'),
+                'INFO'                        => $language->get('general', 'info'),
+                'EDITABLE_HELP'               => $language->get('admin', 'profile_field_editable_help'),
+                'REQUIRED_HELP'               => $language->get('admin', 'profile_field_required_help'),
+                'PUBLIC_HELP'                 => $language->get('admin', 'profile_field_public_help'),
                 'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help'),
             ]);
         }
@@ -303,24 +303,24 @@ if (Session::exists('profile_field_success')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
+    'PARENT_PAGE'    => PARENT_PAGE,
+    'DASHBOARD'      => $language->get('admin', 'dashboard'),
+    'CONFIGURATION'  => $language->get('admin', 'configuration'),
     'PROFILE_FIELDS' => $language->get('admin', 'custom_fields'),
-    'PAGE' => PANEL_PAGE,
+    'PAGE'           => PANEL_PAGE,
 ]);
 
 $page_load = microtime(true) - $start;
@@ -331,10 +331,10 @@ $template->onPageLoad();
 require ROOT_PATH.'/core/templates/panel_navbar.php';
 
 // Display template
-if (! isset($_GET['id']) && ! isset($_GET['action'])) {
+if (!isset($_GET['id']) && !isset($_GET['action'])) {
     $template->displayTemplate('core/profile_fields.tpl', $smarty);
 } else {
-    if (isset($_GET['id']) && ! isset($_GET['action'])) {
+    if (isset($_GET['id']) && !isset($_GET['action'])) {
         $template->displayTemplate('core/profile_fields_edit.tpl', $smarty);
     } elseif (isset($_GET['action']) && $_GET['action'] == 'new') {
         $template->displayTemplate('core/profile_fields_create.tpl', $smarty);

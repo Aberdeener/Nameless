@@ -12,7 +12,7 @@
 define('FRONT_END', true);
 
 // Set current page URL in session, provided it's not the login page
-if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && (! isset($_GET['route']) || strpos($_GET['route'], '/queries') === false)) {
+if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && (!isset($_GET['route']) || strpos($_GET['route'], '/queries') === false)) {
     if (FRIENDLY_URLS === true) {
         $split = explode('?', $_SERVER['REQUEST_URI']);
 
@@ -48,9 +48,9 @@ if ($user->isLoggedIn()) {
         foreach ($warnings as $warning) {
             if ($warning->revoked == 0 && $warning->acknowledged == 0) {
                 $smarty->assign([
-                    'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
-                    'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
-                    'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
+                    'GLOBAL_WARNING_TITLE'            => $language->get('user', 'you_have_received_a_warning'),
+                    'GLOBAL_WARNING_REASON'           => Output::getClean($warning->reason),
+                    'GLOBAL_WARNING_ACKNOWLEDGE'      => $language->get('user', 'acknowledge'),
                     'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/'.$warning->id),
                 ]);
                 break;
@@ -86,18 +86,18 @@ if (isset($_GET['route']) && $_GET['route'] != '/') {
     $route = '/';
 }
 
-if (! defined('PAGE_DESCRIPTION')) {
+if (!defined('PAGE_DESCRIPTION')) {
     $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $route]);
     if (count($page_metadata)) {
         $smarty->assign([
             'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, $page_metadata[0]->description),
-            'PAGE_KEYWORDS' => $page_metadata[0]->tags,
+            'PAGE_KEYWORDS'    => $page_metadata[0]->tags,
         ]);
     }
 } else {
     $smarty->assign([
         'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, PAGE_DESCRIPTION),
-        'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? PAGE_KEYWORDS : ''),
+        'PAGE_KEYWORDS'    => (defined('PAGE_KEYWORDS') ? PAGE_KEYWORDS : ''),
     ]);
 }
 
@@ -107,7 +107,7 @@ $smarty->assign('TITLE', $page_title);
 $cache->setCache('backgroundcache');
 $background_image = $cache->retrieve('background_image');
 
-if (! empty($background_image)) {
+if (!empty($background_image)) {
     $template->addCSSStyle('
 			body {
 				background-image: url(\''.Output::getClean($background_image).'\');
@@ -120,23 +120,23 @@ if (! empty($background_image)) {
 
 $banner_image = $cache->retrieve('banner_image');
 
-if (! empty($banner_image)) {
+if (!empty($banner_image)) {
     $smarty->assign('BANNER_IMAGE', Output::getClean($banner_image));
 }
 
 $logo_image = $cache->retrieve('logo_image');
 
-if (! empty($logo_image)) {
+if (!empty($logo_image)) {
     $smarty->assign('LOGO_IMAGE', Output::getClean($logo_image));
 }
 
 $favicon_image = $cache->retrieve('favicon_image');
 
-if (! empty($favicon_image)) {
+if (!empty($favicon_image)) {
     $smarty->assign('FAVICON', Output::getClean($favicon_image));
 }
 
 $analytics_id = $configuration->get('Core', 'ga_script');
-if ($analytics_id != null && ! empty($analytics_id)) {
+if ($analytics_id != null && !empty($analytics_id)) {
     $smarty->assign('ANALYTICS_ID', $analytics_id);
 }

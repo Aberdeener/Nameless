@@ -18,7 +18,7 @@ if ($cache->isCached('enabled')) {
     $cache->store('enabled', $status_enabled);
 }
 
-if (! defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1) {
+if (!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1) {
     require_once ROOT_PATH.'/403.php';
     exit();
 }
@@ -31,13 +31,13 @@ $servers = $queries->orderWhere('mc_servers', 'display = 1', '`order`', 'ASC');
 
 $smarty->assign(
     [
-        'STATUS' => $language->get('general', 'status'),
-        'IP' => $language->get('general', 'ip'),
-        'TABLE_STATUS' => $language->get('general', 'table_status'),
+        'STATUS'         => $language->get('general', 'status'),
+        'IP'             => $language->get('general', 'ip'),
+        'TABLE_STATUS'   => $language->get('general', 'table_status'),
         'DEFAULT_STATUS' => (isset($result) ? $result : null),
-        'SERVERS' => $servers,
-        'NO_SERVERS' => $language->get('general', 'no_servers'),
-        'BUNGEE' => $language->get('general', 'bungee_instance'),
+        'SERVERS'        => $servers,
+        'NO_SERVERS'     => $language->get('general', 'no_servers'),
+        'BUNGEE'         => $language->get('general', 'bungee_instance'),
     ]
 );
 

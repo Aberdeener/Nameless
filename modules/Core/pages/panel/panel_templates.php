@@ -17,7 +17,7 @@ define('PANEL_PAGE', 'panel_templates');
 $page_title = $language->get('admin', 'panel_templates');
 require_once ROOT_PATH.'/core/templates/backend_init.php';
 
-if (! isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     // Get all templates
     $templates = $queries->getWhere('panel_templates', ['id', '<>', 0]);
 
@@ -39,17 +39,17 @@ if (! isset($_GET['action'])) {
         }
 
         $templates_template[] = [
-            'name' => Output::getClean($item->name),
-            'version' => Output::getClean($template->getVersion()),
-            'author' => $template->getAuthor(),
-            'author_x' => str_replace('{x}', $template->getAuthor(), $language->get('admin', 'author_x')),
+            'name'             => Output::getClean($item->name),
+            'version'          => Output::getClean($template->getVersion()),
+            'author'           => $template->getAuthor(),
+            'author_x'         => str_replace('{x}', $template->getAuthor(), $language->get('admin', 'author_x')),
             'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($template->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'template_outdated')) : false),
-            'enabled' => $item->enabled,
-            'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template='.Output::getClean($item->id))),
-            'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template='.Output::getClean($item->id))),
-            'default' => $item->is_default,
-            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && ! $item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template='.Output::getClean($item->id)) : null),
-            'default_link' => (($item->enabled && ! $item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template='.Output::getClean($item->id)) : null),
+            'enabled'          => $item->enabled,
+            'activate_link'    => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template='.Output::getClean($item->id))),
+            'delete_link'      => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template='.Output::getClean($item->id))),
+            'default'          => $item->is_default,
+            'deactivate_link'  => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template='.Output::getClean($item->id)) : null),
+            'default_link'     => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template='.Output::getClean($item->id)) : null),
         ];
     }
 
@@ -83,24 +83,24 @@ if (! isset($_GET['action'])) {
 
             foreach ($all_templates_query as $item) {
                 $all_templates[] = [
-                    'name' => Output::getClean($item->name),
-                    'description' => Output::getPurified($item->description),
+                    'name'              => Output::getClean($item->name),
+                    'description'       => Output::getPurified($item->description),
                     'description_short' => Util::truncate(Output::getPurified($item->description)),
-                    'author' => Output::getClean($item->author),
-                    'author_x' => str_replace('{x}', Output::getClean($item->author), $language->get('admin', 'author_x')),
-                    'contributors' => Output::getClean($item->contributors),
-                    'created' => $timeago->inWords(date('d M Y, H:i', $item->created), $language->getTimeLanguage()),
-                    'created_full' => date('d M Y, H:i', $item->created),
-                    'updated' => $timeago->inWords(date('d M Y, H:i', $item->updated), $language->getTimeLanguage()),
-                    'updated_full' => date('d M Y, H:i', $item->updated),
-                    'url' => Output::getClean($item->url),
-                    'latest_version' => Output::getClean($item->latest_version),
-                    'rating' => Output::getClean($item->rating),
-                    'downloads' => Output::getClean($item->downloads),
-                    'views' => Output::getClean($item->views),
-                    'rating_full' => str_replace('{x}', Output::getClean($item->rating * 2).'/100', $language->get('admin', 'rating_x')),
-                    'downloads_full' => str_replace('{x}', Output::getClean($item->downloads), $language->get('admin', 'downloads_x')),
-                    'views_full' => str_replace('{x}', Output::getClean($item->views), $language->get('admin', 'views_x')),
+                    'author'            => Output::getClean($item->author),
+                    'author_x'          => str_replace('{x}', Output::getClean($item->author), $language->get('admin', 'author_x')),
+                    'contributors'      => Output::getClean($item->contributors),
+                    'created'           => $timeago->inWords(date('d M Y, H:i', $item->created), $language->getTimeLanguage()),
+                    'created_full'      => date('d M Y, H:i', $item->created),
+                    'updated'           => $timeago->inWords(date('d M Y, H:i', $item->updated), $language->getTimeLanguage()),
+                    'updated_full'      => date('d M Y, H:i', $item->updated),
+                    'url'               => Output::getClean($item->url),
+                    'latest_version'    => Output::getClean($item->latest_version),
+                    'rating'            => Output::getClean($item->rating),
+                    'downloads'         => Output::getClean($item->downloads),
+                    'views'             => Output::getClean($item->views),
+                    'rating_full'       => str_replace('{x}', Output::getClean($item->rating * 2).'/100', $language->get('admin', 'rating_x')),
+                    'downloads_full'    => str_replace('{x}', Output::getClean($item->downloads), $language->get('admin', 'downloads_x')),
+                    'views_full'        => str_replace('{x}', Output::getClean($item->views), $language->get('admin', 'views_x')),
                 ];
             }
 
@@ -116,33 +116,33 @@ if (! isset($_GET['action'])) {
     }
 
     $smarty->assign([
-        'WARNING' => $language->get('admin', 'warning'),
-        'ACTIVATE' => $language->get('admin', 'activate'),
-        'DEACTIVATE' => $language->get('admin', 'deactivate'),
-        'DELETE' => $language->get('admin', 'delete'),
-        'CONFIRM_DELETE_TEMPLATE' => $language->get('admin', 'confirm_delete_template'),
-        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
-        'ACTIVE' => $language->get('admin', 'active'),
-        'DEFAULT' => $language->get('admin', 'default'),
-        'MAKE_DEFAULT' => $language->get('admin', 'make_default'),
-        'TEMPLATE_LIST' => $templates_template,
-        'INSTALL_TEMPLATE' => $language->get('admin', 'install'),
-        'INSTALL_TEMPLATE_LINK' => URL::build('/panel/core/panel_templates/', 'action=install'),
-        'CLEAR_CACHE' => $language->get('admin', 'clear_cache'),
-        'CLEAR_CACHE_LINK' => URL::build('/panel/core/panel_templates/', 'action=clear_cache'),
-        'FIND_TEMPLATES' => $language->get('admin', 'find_templates'),
-        'WEBSITE_TEMPLATES' => $all_templates,
-        'VIEW_ALL_TEMPLATES' => $language->get('admin', 'view_all_templates'),
-        'VIEW_ALL_TEMPLATES_LINK' => 'https://namelessmc.com/resources/category/2-namelessmc-v2-templates/',
-        'VIEW_ALL_PANEL_TEMPLATES' => $language->get('admin', 'view_all_panel_templates'),
+        'WARNING'                       => $language->get('admin', 'warning'),
+        'ACTIVATE'                      => $language->get('admin', 'activate'),
+        'DEACTIVATE'                    => $language->get('admin', 'deactivate'),
+        'DELETE'                        => $language->get('admin', 'delete'),
+        'CONFIRM_DELETE_TEMPLATE'       => $language->get('admin', 'confirm_delete_template'),
+        'ARE_YOU_SURE'                  => $language->get('general', 'are_you_sure'),
+        'YES'                           => $language->get('general', 'yes'),
+        'NO'                            => $language->get('general', 'no'),
+        'ACTIVE'                        => $language->get('admin', 'active'),
+        'DEFAULT'                       => $language->get('admin', 'default'),
+        'MAKE_DEFAULT'                  => $language->get('admin', 'make_default'),
+        'TEMPLATE_LIST'                 => $templates_template,
+        'INSTALL_TEMPLATE'              => $language->get('admin', 'install'),
+        'INSTALL_TEMPLATE_LINK'         => URL::build('/panel/core/panel_templates/', 'action=install'),
+        'CLEAR_CACHE'                   => $language->get('admin', 'clear_cache'),
+        'CLEAR_CACHE_LINK'              => URL::build('/panel/core/panel_templates/', 'action=clear_cache'),
+        'FIND_TEMPLATES'                => $language->get('admin', 'find_templates'),
+        'WEBSITE_TEMPLATES'             => $all_templates,
+        'VIEW_ALL_TEMPLATES'            => $language->get('admin', 'view_all_templates'),
+        'VIEW_ALL_TEMPLATES_LINK'       => 'https://namelessmc.com/resources/category/2-namelessmc-v2-templates/',
+        'VIEW_ALL_PANEL_TEMPLATES'      => $language->get('admin', 'view_all_panel_templates'),
         'VIEW_ALL_PANEL_TEMPLATES_LINK' => 'https://namelessmc.com/resources/category/8-namelessmc-panel-templates/',
-        'UNABLE_TO_RETRIEVE_TEMPLATES' => $language->get('admin', 'unable_to_retrieve_templates'),
-        'VIEW' => $language->get('general', 'view'),
-        'TEMPLATE' => $language->get('admin', 'template'),
-        'STATS' => $language->get('admin', 'stats'),
-        'ACTIONS' => $language->get('general', 'actions'),
+        'UNABLE_TO_RETRIEVE_TEMPLATES'  => $language->get('admin', 'unable_to_retrieve_templates'),
+        'VIEW'                          => $language->get('general', 'view'),
+        'TEMPLATE'                      => $language->get('admin', 'template'),
+        'STATS'                         => $language->get('admin', 'stats'),
+        'ACTIONS'                       => $language->get('general', 'actions'),
     ]);
 
     $template_file = 'core/panel_templates.tpl';
@@ -157,7 +157,7 @@ if (! isset($_GET['action'])) {
 
                 // Is it already in the database?
                 $exists = $queries->getWhere('panel_templates', ['name', '=', htmlspecialchars($folders[count($folders) - 1])]);
-                if (! count($exists) && file_exists(ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'panel_templates'.DIRECTORY_SEPARATOR.str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]).DIRECTORY_SEPARATOR.'template.php')) {
+                if (!count($exists) && file_exists(ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'panel_templates'.DIRECTORY_SEPARATOR.str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]).DIRECTORY_SEPARATOR.'template.php')) {
                     $template = null;
                     require_once ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'panel_templates'.DIRECTORY_SEPARATOR.str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]).DIRECTORY_SEPARATOR.'template.php';
 
@@ -180,7 +180,7 @@ if (! isset($_GET['action'])) {
             // Activate a template
             // Ensure it exists
             $template = $queries->getWhere('panel_templates', ['id', '=', $_GET['template']]);
-            if (! count($template)) {
+            if (!count($template)) {
                 // Doesn't exist
                 Redirect::to(URL::build('/panel/core/panel_templates/'));
                 exit();
@@ -216,7 +216,7 @@ if (! isset($_GET['action'])) {
             // Deactivate a template
             // Ensure it exists
             $template = $queries->getWhere('panel_templates', ['id', '=', $_GET['template']]);
-            if (! count($template)) {
+            if (!count($template)) {
                 // Doesn't exist
                 Redirect::to(URL::build('/panel/core/panel_templates/'));
                 exit();
@@ -237,7 +237,7 @@ if (! isset($_GET['action'])) {
             break;
 
         case 'delete':
-            if (! isset($_GET['template'])) {
+            if (!isset($_GET['template'])) {
                 Redirect::to('/panel/core/panel_templates');
                 exit();
             }
@@ -260,7 +260,7 @@ if (! isset($_GET['action'])) {
                     exit();
                 }
 
-                if (! Util::recursiveRemoveDirectory(ROOT_PATH.'/custom/panel_templates/'.$item)) {
+                if (!Util::recursiveRemoveDirectory(ROOT_PATH.'/custom/panel_templates/'.$item)) {
                     Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
                 } else {
                     Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
@@ -282,7 +282,7 @@ if (! isset($_GET['action'])) {
             // Make a template default
             // Ensure it exists
             $new_default = $queries->getWhere('panel_templates', ['id', '=', $_GET['template']]);
-            if (! count($new_default)) {
+            if (!count($new_default)) {
                 // Doesn't exist
                 Redirect::to(URL::build('/panel/core/panel_templates/'));
                 exit();
@@ -344,26 +344,26 @@ if (Session::exists('admin_templates_error')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'LAYOUT' => $language->get('admin', 'layout'),
+    'PARENT_PAGE'     => PARENT_PAGE,
+    'DASHBOARD'       => $language->get('admin', 'dashboard'),
+    'LAYOUT'          => $language->get('admin', 'layout'),
     'PANEL_TEMPLATES' => $language->get('admin', 'panel_templates'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'PAGE'            => PANEL_PAGE,
+    'TOKEN'           => Token::get(),
+    'SUBMIT'          => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

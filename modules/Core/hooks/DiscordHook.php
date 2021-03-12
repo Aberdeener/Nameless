@@ -19,8 +19,8 @@ class DiscordHook
             $return['content'] = '';
             $return['embeds'] = [[
                 'author' => [
-                    'name' => Output::getClean($params['username']),
-                    'url' => $params['url'],
+                    'name'     => Output::getClean($params['username']),
+                    'url'      => $params['url'],
                     'icon_url' => $params['avatar_url'],
                 ],
                 'description' => str_replace('{x}', Output::getClean($params['username']), $params['language']->get('user', 'user_x_has_registered')),
@@ -34,10 +34,10 @@ class DiscordHook
             $return['username'] = $params['username'].' | '.SITE_NAME;
             $return['avatar_url'] = $params['avatar_url'];
             $return['embeds'] = [[
-                'description' =>  $content,
-                'title' => $params['title'],
-                'url' => $params['url'],
-                'footer' => ['text' => $params['content']],
+                'description' => $content,
+                'title'       => $params['title'],
+                'url'         => $params['url'],
+                'footer'      => ['text' => $params['content']],
             ]];
         }
 

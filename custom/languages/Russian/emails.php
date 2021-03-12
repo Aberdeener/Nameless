@@ -14,7 +14,7 @@ $language = [
 
     // General Options
     'greeting' => 'Привет,',
-    'thanks' => 'Спасибо,',
+    'thanks'   => 'Спасибо,',
 
     // Registration Email
     'register_subject' => 'Проверка аккаунта',

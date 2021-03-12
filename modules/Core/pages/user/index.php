@@ -10,7 +10,7 @@
  */
 
 // Must be logged in
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
     exit();
 }
@@ -28,10 +28,10 @@ $user_details = [
 
 // Language values
 $smarty->assign([
-    'USER_CP' => $language->get('user', 'user_cp'),
-    'USER_DETAILS' => $language->get('user', 'user_details'),
+    'USER_CP'             => $language->get('user', 'user_cp'),
+    'USER_DETAILS'        => $language->get('user', 'user_details'),
     'USER_DETAILS_VALUES' => $user_details,
-    'OVERVIEW' => $language->get('user', 'overview'),
+    'OVERVIEW'            => $language->get('user', 'overview'),
 ]);
 
 // Get graph data
@@ -71,15 +71,15 @@ if (isset($forum_enabled)) {
     $graph_start = strtotime($graph_start);
     $end = strtotime(date('d M Y'));
     while ($graph_start <= $end) {
-        if (! isset($output[$graph_start]['user'])) {
+        if (!isset($output[$graph_start]['user'])) {
             $output[$graph_start]['user'] = 0;
         }
 
-        if (! isset($output[$graph_start]['average'])) {
+        if (!isset($output[$graph_start]['average'])) {
             $output[$graph_start]['average'] = 0;
         }
 
-        if (! isset($output[$graph_start]['total'])) {
+        if (!isset($output[$graph_start]['total'])) {
             $output[$graph_start]['total'] = 0;
         }
 
@@ -110,7 +110,7 @@ if (isset($forum_enabled)) {
 if (isset($forum_enabled)) {
     $template->addJSFiles([
         (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/moment/moment.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/charts/Chart.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/charts/Chart.min.js'  => [],
     ]);
     $template->addJSScript(
         '

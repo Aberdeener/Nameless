@@ -22,11 +22,11 @@ if ($user->isLoggedIn()) {
 
 require ROOT_PATH.'/core/includes/password.php'; // For password hashing
 
-if (! isset($_GET['c'])) {
+if (!isset($_GET['c'])) {
     // Enter email address form
     if (Input::exists()) {
         if (Token::check()) {
-            if (! isset($_POST['email']) || empty($_POST['email'])) {
+            if (!isset($_POST['email']) || empty($_POST['email'])) {
                 $error = $language->get('user', 'email_required');
             } else {
                 // Check to see if the email exists
@@ -44,7 +44,7 @@ if (! isset($_GET['c'])) {
 
                         // PHP Mailer
                         $email = [
-                            'to' => ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],
+                            'to'      => ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],
                             'subject' => SITE_NAME.' - '.$language->get('emails', 'change_password_subject'),
                             'message' => str_replace('[Link]', $link, Email::formatEmail('change_password', $language)),
                         ];
@@ -54,9 +54,9 @@ if (! isset($_GET['c'])) {
                         if (isset($sent['error'])) {
                             // Error, log it
                             $queries->create('email_errors', [
-                                'type' => 3, // 3 = forgot password
+                                'type'    => 3, // 3 = forgot password
                                 'content' => $sent['error'],
-                                'at' => date('U'),
+                                'at'      => date('U'),
                                 'user_id' => $target_user->data()->id,
                             ]);
 
@@ -79,7 +79,7 @@ if (! isset($_GET['c'])) {
                             'Content-type: text/html; charset=UTF-8'."\r\n";
 
                         $email = [
-                            'to' => $to,
+                            'to'      => $to,
                             'subject' => $subject,
                             'message' => $message,
                             'headers' => $headers,
@@ -90,9 +90,9 @@ if (! isset($_GET['c'])) {
                         if (isset($sent['error'])) {
                             // Error, log it
                             $queries->create('email_errors', [
-                                'type' => 3, // 3 = forgot password
+                                'type'    => 3, // 3 = forgot password
                                 'content' => $sent['error'],
-                                'at' => date('U'),
+                                'at'      => date('U'),
                                 'user_id' => $target_user->data()->id,
                             ]);
 
@@ -100,7 +100,7 @@ if (! isset($_GET['c'])) {
                         }
                     }
 
-                    if (! isset($error)) {
+                    if (!isset($error)) {
                         $target_user->update([
                             'reset_code' => $code,
                         ]);
@@ -121,11 +121,11 @@ if (! isset($_GET['c'])) {
     }
 
     $smarty->assign([
-        'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),
+        'FORGOT_PASSWORD'              => str_replace('?', '', $language->get('user', 'forgot_password')),
         'FORGOT_PASSWORD_INSTRUCTIONS' => $language->get('user', 'forgot_password_instructions'),
-        'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
-        'TOKEN' => Token::get(),
-        'SUBMIT' => $language->get('general', 'submit'),
+        'EMAIL_ADDRESS'                => $language->get('user', 'email_address'),
+        'TOKEN'                        => Token::get(),
+        'SUBMIT'                       => $language->get('general', 'submit'),
     ]);
 
     $page_load = microtime(true) - $start;
@@ -143,7 +143,7 @@ if (! isset($_GET['c'])) {
 } else {
     // Check code exists
     $target_user = new User($_GET['c'], 'reset_code');
-    if (! $target_user->data()) {
+    if (!$target_user->data()) {
         Redirect::to('/forgot_password');
         exit();
     }
@@ -157,8 +157,8 @@ if (! isset($_GET['c'])) {
                 ],
                 'password' => [
                     'required' => true,
-                    'min' => 6,
-                    'max' => 30,
+                    'min'      => 6,
+                    'max'      => 30,
                 ],
                 'password_again' => [
                     'matches' => 'password',
@@ -168,9 +168,10 @@ if (! isset($_GET['c'])) {
             if ($validation->passed()) {
                 if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
                     $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
+
                     try {
                         $target_user->update([
-                            'password' => $new_password,
+                            'password'   => $new_password,
                             'reset_code' => null,
                         ]);
 
@@ -218,13 +219,13 @@ if (! isset($_GET['c'])) {
     }
 
     $smarty->assign([
-        'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),
+        'FORGOT_PASSWORD'    => str_replace('?', '', $language->get('user', 'forgot_password')),
         'ENTER_NEW_PASSWORD' => $language->get('user', 'enter_new_password'),
-        'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
-        'PASSWORD' => $language->get('user', 'password'),
-        'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
-        'TOKEN' => Token::get(),
-        'SUBMIT' => $language->get('general', 'submit'),
+        'EMAIL_ADDRESS'      => $language->get('user', 'email_address'),
+        'PASSWORD'           => $language->get('user', 'password'),
+        'CONFIRM_PASSWORD'   => $language->get('user', 'confirm_password'),
+        'TOKEN'              => Token::get(),
+        'SUBMIT'             => $language->get('general', 'submit'),
     ]);
 
     // Load modules + template

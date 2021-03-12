@@ -14,7 +14,7 @@ $language = [
 
     // General Options
     'greeting' => 'Zdravíme,',
-    'thanks' => 'Děkujeme,',
+    'thanks'   => 'Děkujeme,',
 
     // Registration Email
     'register_subject' => 'Ověřit účet',

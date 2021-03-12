@@ -13,7 +13,7 @@ $language = [
 
     // General Options
     'greeting' => '您好,',
-    'thanks' => '致以敬意,',
+    'thanks'   => '致以敬意,',
 
     // Registration Email
     'register_subject' => '验证账号',

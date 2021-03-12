@@ -8,7 +8,7 @@ if (isset($_GET['do'])) {
     exit();
 } elseif (isset($_GET['step'])) {
     $step = strtolower($_GET['step']);
-    if (! file_exists(__DIR__.'/steps/'.$step.'.php')) {
+    if (!file_exists(__DIR__.'/steps/'.$step.'.php')) {
         $error = 'Unknown step.';
     }
 }
@@ -39,7 +39,7 @@ require __DIR__.'/includes/header.php';
 				</div>
 			</div>
 			<div class="sixteen wide tablet eleven wide computer column">
-				<?php if (! isset($step)) { ?>
+				<?php if (!isset($step)) { ?>
 					<div class="ui red message">
 						<?php echo $language['pre-release_warning']; ?>
 					</div>
@@ -71,7 +71,7 @@ require __DIR__.'/includes/header.php';
 					</div>
 				<?php
                 } else {
-                    if (! isset($_SESSION['action'])) {
+                    if (!isset($_SESSION['action'])) {
                         ?>
 						<div class="ui red message">
 							<?php echo $language['session_doesnt_exist']; ?>

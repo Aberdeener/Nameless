@@ -11,12 +11,12 @@ class ValidateHook
 {
     public static function validatePromote($params = [])
     {
-        if (! defined('VALIDATED_DEFAULT')) {
+        if (!defined('VALIDATED_DEFAULT')) {
             define('VALIDATED_DEFAULT', 1);
         }
 
         $validate_user = new User($params['user_id']);
-        if (! $validate_user->data()) {
+        if (!$validate_user->data()) {
             return false;
         }
 

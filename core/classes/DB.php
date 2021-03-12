@@ -33,7 +33,7 @@ class DB
 
     public static function getInstance()
     {
-        if (! isset(self::$_instance)) {
+        if (!isset(self::$_instance)) {
             self::$_instance = new DB();
         }
 
@@ -92,7 +92,7 @@ class DB
         $name = $this->_prefix.$name;
         $sql = "CREATE TABLE `{$name}` ({$table_data}) {$other}";
 
-        if (! $this->createQuery($sql)->error()) {
+        if (!$this->createQuery($sql)->error()) {
             return $this;
         }
 
@@ -113,7 +113,7 @@ class DB
             if (in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
-                if (! $this->query($sql, [$value])->error()) {
+                if (!$this->query($sql, [$value])->error()) {
                     return $this;
                 }
             }
@@ -136,7 +136,7 @@ class DB
             if (in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
-                if (! $this->createQuery($sql, [$value])->error()) {
+                if (!$this->createQuery($sql, [$value])->error()) {
                     return $this;
                 }
             }
@@ -155,7 +155,7 @@ class DB
         $table = $this->_prefix.$table;
         $sql = "SELECT * FROM {$table} WHERE {$column} LIKE '{$like}'";
 
-        if (! $this->query($sql)->error()) {
+        if (!$this->query($sql)->error()) {
             return $this;
         }
 
@@ -184,7 +184,7 @@ class DB
         $table = $this->_prefix.$table;
         $sql = "INSERT INTO {$table} (`".implode('`,`', $keys)."`) VALUES ({$values})";
 
-        return ! $this->createQuery($sql, $fields)->error();
+        return !$this->createQuery($sql, $fields)->error();
     }
 
     public function update($table, $id, $fields)
@@ -203,7 +203,7 @@ class DB
         $table = $this->_prefix.$table;
         $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
 
-        return ! $this->createQuery($sql, $fields)->error();
+        return !$this->createQuery($sql, $fields)->error();
     }
 
     public function increment($table, $id, $field)
@@ -211,7 +211,7 @@ class DB
         $table = $this->_prefix.$table;
         $sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?";
 
-        return ! $this->createQuery($sql, [$id])->error();
+        return !$this->createQuery($sql, [$id])->error();
     }
 
     public function decrement($table, $id, $field)
@@ -219,7 +219,7 @@ class DB
         $table = $this->_prefix.$table;
         $sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 
-        return ! $this->createQuery($sql, [$id])->error();
+        return !$this->createQuery($sql, [$id])->error();
     }
 
     public function results()
@@ -254,7 +254,7 @@ class DB
         $name = $this->_prefix.$name;
         $sql = "ALTER TABLE `{$name}` ADD {$column} {$attributes}";
 
-        if (! $this->createQuery($sql)->error()) {
+        if (!$this->createQuery($sql)->error()) {
             return $this;
         }
 
@@ -270,7 +270,7 @@ class DB
             $sql = "SELECT * FROM {$table} ORDER BY {$order}";
         }
 
-        if (! $this->query($sql)->error()) {
+        if (!$this->query($sql)->error()) {
             return $this;
         }
 
@@ -286,7 +286,7 @@ class DB
             $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order}";
         }
 
-        if (! $this->query($sql)->error()) {
+        if (!$this->query($sql)->error()) {
             return $this;
         }
 
@@ -298,7 +298,7 @@ class DB
         $showTable = $this->_prefix.$showTable;
         $sql = "SHOW TABLES LIKE '{$showTable}'";
 
-        if (! $this->query($sql)->error()) {
+        if (!$this->query($sql)->error()) {
             return $this->_query->rowCount();
         }
 

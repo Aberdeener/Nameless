@@ -74,7 +74,7 @@ class ExternalMCQuery
 
                 curl_close($ch);
 
-                if (! $result->error && $result->response->description->favicon) {
+                if (!$result->error && $result->response->description->favicon) {
                     return $result->response->description->favicon;
                 }
             } catch (Exception $e) {

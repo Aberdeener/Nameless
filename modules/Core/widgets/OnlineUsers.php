@@ -71,27 +71,27 @@ class OnlineUsersWidget extends WidgetBase
             foreach ($online as $item) {
                 $online_user = new User($item->id);
                 $users[] = [
-                    'profile' => $online_user->getProfileURL(),
-                    'style' => $online_user->getGroupClass(),
+                    'profile'  => $online_user->getProfileURL(),
+                    'style'    => $online_user->getGroupClass(),
                     'username' => $online_user->getDisplayname(true),
                     'nickname' => $online_user->getDisplayname(),
-                    'avatar' => $online_user->getAvatar(),
-                    'id' => Output::getClean($online_user->data()->id),
-                    'title' => Output::getClean($online_user->data()->user_title),
-                    'group' => $online_user->getMainGroup()->group_html,
+                    'avatar'   => $online_user->getAvatar(),
+                    'id'       => Output::getClean($online_user->data()->id),
+                    'title'    => Output::getClean($online_user->data()->user_title),
+                    'group'    => $online_user->getMainGroup()->group_html,
                 ];
             }
 
             $this->_smarty->assign([
                 'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
-                'ONLINE_USERS' => $this->_language['title'],
-                'ONLINE_USERS_LIST' => $users,
-                'TOTAL_ONLINE_USERS' => str_replace('{x}', count($users), $this->_language['total_online_users']),
+                'ONLINE_USERS'          => $this->_language['title'],
+                'ONLINE_USERS_LIST'     => $users,
+                'TOTAL_ONLINE_USERS'    => str_replace('{x}', count($users), $this->_language['total_online_users']),
             ]);
         } else {
             $this->_smarty->assign([
-                'ONLINE_USERS' => $this->_language['title'],
-                'NO_USERS_ONLINE' => $this->_language['no_online_users'],
+                'ONLINE_USERS'       => $this->_language['title'],
+                'NO_USERS_ONLINE'    => $this->_language['no_online_users'],
                 'TOTAL_ONLINE_USERS' => str_replace('{x}', 0, $this->_language['total_online_users']),
             ]);
         }

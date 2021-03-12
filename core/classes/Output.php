@@ -32,7 +32,7 @@ class Output
     public static function getPurified($input)
     {
         // Require HTMLPurifier
-        if (! self::$_purifier) {
+        if (!self::$_purifier) {
             require_once join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'core', 'includes', 'htmlpurifier', 'HTMLPurifier.standalone.php']);
 
             $purifierConfig = HTMLPurifier_Config::createDefault();

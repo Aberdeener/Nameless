@@ -27,12 +27,12 @@ if (Input::exists()) {
         $validate->check($_POST, [
             'subject' => [
                 'required' => true,
-                'min' => 1,
+                'min'      => 1,
             ],
             'content' => [
                 'required' => true,
-                'min' => 1,
-                'max' => 75000,
+                'min'      => 1,
+                'max'      => 75000,
             ],
         ]);
 
@@ -52,7 +52,7 @@ if (Input::exists()) {
                         // PHP Mailer
                         $email = [
                             'replyto' => ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)],
-                            'to' => ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
+                            'to'      => ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
                             'subject' => Output::getClean(Input::get('subject')),
                             'message' => str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
                         ];
@@ -61,9 +61,9 @@ if (Input::exists()) {
                         if (isset($sent['error'])) {
                             // Error, log it
                             $queries->create('email_errors', [
-                                'type' => 6, // 6 = mass message
+                                'type'    => 6, // 6 = mass message
                                 'content' => $sent['error'],
-                                'at' => date('U'),
+                                'at'      => date('U'),
                                 'user_id' => $user->data()->id,
                             ]);
                         }
@@ -78,7 +78,7 @@ if (Input::exists()) {
                             'Content-type: text/html; charset=UTF-8'."\r\n";
 
                         $email = [
-                            'to' => $email_user->email,
+                            'to'      => $email_user->email,
                             'subject' => Output::getClean(Input::get('subject')),
                             'message' => str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
                             'headers' => $headers,
@@ -89,9 +89,9 @@ if (Input::exists()) {
                         if (isset($sent['error'])) {
                             // Error, log it
                             $queries->create('email_errors', [
-                                'type' => 6, // 6 = mass message
+                                'type'    => 6, // 6 = mass message
                                 'content' => $sent['error'],
-                                'at' => date('U'),
+                                'at'      => date('U'),
                                 'user_id' => $user->data()->id,
                             ]);
                         }
@@ -104,7 +104,7 @@ if (Input::exists()) {
 
             Log::getInstance()->log(Log::Action('admin/core/email/mass_message'));
 
-            if (! count($errors)) {
+            if (!count($errors)) {
                 Session::flash('emails_success', $language->get('admin', 'emails_mass_message_sent_successfully'));
                 Redirect::to(URL::build('/panel/core/emails'));
                 exit();
@@ -129,18 +129,18 @@ require ROOT_PATH.'/core/email.php';
 
 $smarty->assign([
     'SENDING_MASS_MESSAGE' => $language->get('admin', 'sending_mass_message'),
-    'EMAILS_MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
-    'SUBJECT' => $language->get('admin', 'email_message_subject'),
-    'CONTENT' => $language->get('general', 'content'),
-    'INFO' => $language->get('general', 'info'),
-    'REPLACEMENT_INFO' => $language->get('admin', 'emails_mass_message_replacements'),
-    'LOADING' => $language->get('admin', 'emails_mass_message_loading'),
-    'BACK' => $language->get('general', 'back'),
-    'BACK_LINK' => URL::build('/panel/core/emails'),
+    'EMAILS_MASS_MESSAGE'  => $language->get('admin', 'emails_mass_message'),
+    'SUBJECT'              => $language->get('admin', 'email_message_subject'),
+    'CONTENT'              => $language->get('general', 'content'),
+    'INFO'                 => $language->get('general', 'info'),
+    'REPLACEMENT_INFO'     => $language->get('admin', 'emails_mass_message_replacements'),
+    'LOADING'              => $language->get('admin', 'emails_mass_message_loading'),
+    'BACK'                 => $language->get('general', 'back'),
+    'BACK_LINK'            => URL::build('/panel/core/emails'),
 ]);
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css'            => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
 ]);
 
@@ -154,7 +154,7 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js'            => [],
         (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
     ]);
 
@@ -168,9 +168,9 @@ if ($formatting == 'markdown') {
 } else {
     $template->addJSFiles([
         (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js'                         => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js'  => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js'                 => [],
     ]);
 
     $template->addJSScript(Input::createTinyEditor($language, 'reply'));
@@ -187,26 +187,26 @@ if (Session::exists('emails_success')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
+    'PARENT_PAGE'   => PARENT_PAGE,
+    'DASHBOARD'     => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'EMAILS' => $language->get('admin', 'emails'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'EMAILS'        => $language->get('admin', 'emails'),
+    'PAGE'          => PANEL_PAGE,
+    'TOKEN'         => Token::get(),
+    'SUBMIT'        => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

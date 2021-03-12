@@ -141,7 +141,7 @@ class Core_Module extends Module
                         $redirect = Output::getClean($custom_page->link);
                     }
 
-                    $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), ! $custom_page->basic);
+                    $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                     foreach ($user_groups as $user_group) {
                         $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', '=', $user_group]);
@@ -150,7 +150,7 @@ class Core_Module extends Module
                                 if ($permission->page_id == $custom_page->id) {
                                     if ($permission->view == 1) {
                                         // Check cache for order
-                                        if (! $cache->isCached($custom_page->id.'_order')) {
+                                        if (!$cache->isCached($custom_page->id.'_order')) {
                                             // Create cache entry now
                                             $page_order = 200;
                                             $cache->store($custom_page->id.'_order', 200);
@@ -191,13 +191,13 @@ class Core_Module extends Module
                             $redirect = Output::getClean($custom_page->link);
                         }
 
-                        $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), ! $custom_page->basic);
+                        $pages->addCustom(Output::getClean($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                         foreach ($custom_page_permissions as $permission) {
                             if ($permission->page_id == $custom_page->id) {
                                 if ($permission->view == 1) {
                                     // Check cache for order
-                                    if (! $cache->isCached($custom_page->id.'_order')) {
+                                    if (!$cache->isCached($custom_page->id.'_order')) {
                                         // Create cache entry now
                                         $page_order = 200;
                                         $cache->store($custom_page->id.'_order', 200);
@@ -250,7 +250,7 @@ class Core_Module extends Module
             $hook_array = $cache->retrieve('hooks');
         } else {
             $hook_array = [];
-            if (! empty($queries->tableExists('hooks'))) {
+            if (!empty($queries->tableExists('hooks'))) {
                 $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
                 if (count($hooks)) {
                     foreach ($hooks as $hook) {
@@ -261,8 +261,8 @@ class Core_Module extends Module
                         }
 
                         $hook_array[] = [
-                            'id' => $hook->id,
-                            'url' => Output::getClean($hook->url),
+                            'id'     => $hook->id,
+                            'url'    => Output::getClean($hook->url),
                             'action' => $action,
                             'events' => json_decode($hook->events, true),
                         ];
@@ -304,69 +304,69 @@ class Core_Module extends Module
         // Permissions
         // AdminCP
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
-            'admincp.core' => $language->get('admin', 'core'),
-            'admincp.core.api' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'api'),
-            'admincp.core.seo' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'seo'),
-            'admincp.core.general' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'general_settings'),
-            'admincp.core.avatars' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'avatars'),
-            'admincp.core.fields' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'custom_fields'),
-            'admincp.core.debugging' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'debugging_and_maintenance'),
-            'admincp.errors' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'debugging_and_maintenance').' &raquo; '.$language->get('admin', 'error_logs'),
-            'admincp.core.emails' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'emails'),
+            'admincp.core'                     => $language->get('admin', 'core'),
+            'admincp.core.api'                 => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'api'),
+            'admincp.core.seo'                 => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'seo'),
+            'admincp.core.general'             => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'general_settings'),
+            'admincp.core.avatars'             => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'avatars'),
+            'admincp.core.fields'              => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'custom_fields'),
+            'admincp.core.debugging'           => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'debugging_and_maintenance'),
+            'admincp.errors'                   => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'debugging_and_maintenance').' &raquo; '.$language->get('admin', 'error_logs'),
+            'admincp.core.emails'              => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'emails'),
             'admincp.core.emails_mass_message' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'emails_mass_message'),
-            'admincp.core.navigation' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'navigation'),
-            'admincp.core.reactions' => $language->get('admin', 'core').' &raquo; '.$language->get('user', 'reactions'),
-            'admincp.core.registration' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'registration'),
-            'admincp.core.social_media' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'social_media'),
-            'admincp.core.terms' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'privacy_and_terms'),
-            'admincp.core.hooks' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'hooks'),
-            'admincp.core.announcements' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'announcements'),
-            'admincp.integrations' => $language->get('admin', 'integrations'),
-            'admincp.minecraft' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft'),
-            'admincp.discord' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'discord'),
-            'admincp.minecraft.authme' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'authme_integration'),
-            'admincp.minecraft.verification' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'account_verification'),
-            'admincp.minecraft.servers' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'minecraft_servers'),
-            'admincp.minecraft.query_errors' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'query_errors'),
-            'admincp.minecraft.banners' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'server_banners'),
-            'admincp.modules' => $language->get('admin', 'modules'),
-            'admincp.pages' => $language->get('admin', 'pages'),
-            'admincp.security' => $language->get('admin', 'security'),
-            'admincp.security.acp_logins' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'acp_logins'),
-            'admincp.security.template' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'template_changes'),
-            'admincp.security.emails' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'email_logs'),
-            'admincp.security.group_sync' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'group_sync_logs'),
-            'admincp.security.all' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'all_logs'),
-            'admincp.styles' => $language->get('admin', 'styles'),
-            'admincp.styles.panel_templates' => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'panel_templates'),
-            'admincp.styles.templates' => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'templates'),
-            'admincp.styles.templates.edit' => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'templates').' &raquo; '.$language->get('general', 'edit'),
-            'admincp.styles.images' => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'images'),
-            'admincp.update' => $language->get('admin', 'update'),
-            'admincp.users' => $language->get('admin', 'user_management'),
-            'modcp.ip_lookup' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'ip_lookup'),
-            'modcp.punishments' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments'),
-            'modcp.punishments.reset_avatar' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'reset_avatar'),
-            'modcp.punishments.warn' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'warn_user'),
-            'modcp.punishments.ban' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'ban_user'),
-            'modcp.punishments.banip' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'ban_ip'),
-            'modcp.punishments.revoke' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'revoke'),
-            'modcp.reports' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'reports'),
-            'modcp.profile_banner_reset' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'reset_profile_banner'),
-            'admincp.users.edit' => $language->get('admin', 'user_management').' &raquo; '.$language->get('admin', 'users').' &raquo; '.$language->get('general', 'edit'),
-            'admincp.groups' => $language->get('admin', 'groups'),
-            'admincp.groups.self' => $language->get('admin', 'groups').' &raquo; '.$language->get('admin', 'can_edit_own_group'),
-            'admincp.widgets' => $language->get('admin', 'widgets'),
+            'admincp.core.navigation'          => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'navigation'),
+            'admincp.core.reactions'           => $language->get('admin', 'core').' &raquo; '.$language->get('user', 'reactions'),
+            'admincp.core.registration'        => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'registration'),
+            'admincp.core.social_media'        => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'social_media'),
+            'admincp.core.terms'               => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'privacy_and_terms'),
+            'admincp.core.hooks'               => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'hooks'),
+            'admincp.core.announcements'       => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'announcements'),
+            'admincp.integrations'             => $language->get('admin', 'integrations'),
+            'admincp.minecraft'                => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft'),
+            'admincp.discord'                  => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'discord'),
+            'admincp.minecraft.authme'         => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'authme_integration'),
+            'admincp.minecraft.verification'   => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'account_verification'),
+            'admincp.minecraft.servers'        => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'minecraft_servers'),
+            'admincp.minecraft.query_errors'   => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'query_errors'),
+            'admincp.minecraft.banners'        => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'server_banners'),
+            'admincp.modules'                  => $language->get('admin', 'modules'),
+            'admincp.pages'                    => $language->get('admin', 'pages'),
+            'admincp.security'                 => $language->get('admin', 'security'),
+            'admincp.security.acp_logins'      => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'acp_logins'),
+            'admincp.security.template'        => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'template_changes'),
+            'admincp.security.emails'          => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'email_logs'),
+            'admincp.security.group_sync'      => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'group_sync_logs'),
+            'admincp.security.all'             => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'all_logs'),
+            'admincp.styles'                   => $language->get('admin', 'styles'),
+            'admincp.styles.panel_templates'   => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'panel_templates'),
+            'admincp.styles.templates'         => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'templates'),
+            'admincp.styles.templates.edit'    => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'templates').' &raquo; '.$language->get('general', 'edit'),
+            'admincp.styles.images'            => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'images'),
+            'admincp.update'                   => $language->get('admin', 'update'),
+            'admincp.users'                    => $language->get('admin', 'user_management'),
+            'modcp.ip_lookup'                  => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'ip_lookup'),
+            'modcp.punishments'                => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments'),
+            'modcp.punishments.reset_avatar'   => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'reset_avatar'),
+            'modcp.punishments.warn'           => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'warn_user'),
+            'modcp.punishments.ban'            => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'ban_user'),
+            'modcp.punishments.banip'          => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'ban_ip'),
+            'modcp.punishments.revoke'         => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'revoke'),
+            'modcp.reports'                    => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'reports'),
+            'modcp.profile_banner_reset'       => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'reset_profile_banner'),
+            'admincp.users.edit'               => $language->get('admin', 'user_management').' &raquo; '.$language->get('admin', 'users').' &raquo; '.$language->get('general', 'edit'),
+            'admincp.groups'                   => $language->get('admin', 'groups'),
+            'admincp.groups.self'              => $language->get('admin', 'groups').' &raquo; '.$language->get('admin', 'can_edit_own_group'),
+            'admincp.widgets'                  => $language->get('admin', 'widgets'),
         ]);
 
         // UserCP
         PermissionHandler::registerPermissions('UserCP', [
-            'usercp.messaging' => $language->get('user', 'messaging'),
-            'usercp.signature' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'signature'),
+            'usercp.messaging'       => $language->get('user', 'messaging'),
+            'usercp.signature'       => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'signature'),
             'usercp.private_profile' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'private_profile'),
-            'usercp.nickname' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'nickname'),
-            'usercp.profile_banner' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'upload_profile_banner'),
-            'usercp.gif_avatar' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'gif_avatar'),
+            'usercp.nickname'        => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'nickname'),
+            'usercp.profile_banner'  => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'upload_profile_banner'),
+            'usercp.gif_avatar'      => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'gif_avatar'),
         ]);
 
         // Profile Page
@@ -433,15 +433,15 @@ class Core_Module extends Module
         require_once ROOT_PATH.'/modules/Core/widgets/StatsWidget.php';
         $module_pages = $widgets->getPages('Statistics');
         $widgets->add(new StatsWidget($module_pages, $smarty, [
-            'statistics' => $language->get('general', 'statistics'),
+            'statistics'       => $language->get('general', 'statistics'),
             'users_registered' => $language->get('general', 'users_registered'),
-            'latest_member' => $language->get('general', 'latest_member'),
-            'forum_stats' => $language->get('general', 'forum_statistics'),
-            'total_threads' => $language->get('general', 'total_threads'),
-            'total_posts' => $language->get('general', 'total_posts'),
-            'users_online' => $language->get('general', 'online_users'),
-            'guests_online' => $language->get('general', 'online_guests'),
-            'total_online' => $language->get('general', 'total_online'),
+            'latest_member'    => $language->get('general', 'latest_member'),
+            'forum_stats'      => $language->get('general', 'forum_statistics'),
+            'total_threads'    => $language->get('general', 'total_threads'),
+            'total_posts'      => $language->get('general', 'total_posts'),
+            'users_online'     => $language->get('general', 'online_users'),
+            'guests_online'    => $language->get('general', 'online_guests'),
+            'total_online'     => $language->get('general', 'total_online'),
         ], $cache));
 
         // Validate user hook
@@ -491,14 +491,14 @@ class Core_Module extends Module
 
                 $update_check = json_decode($update_check);
 
-                if (! isset($update_check->error) && ! isset($update_check->no_update) && isset($update_check->new_version)) {
+                if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {
                     $smarty->assign([
-                        'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $language->get('admin', 'new_urgent_update_available') : $language->get('admin', 'new_update_available'),
+                        'NEW_UPDATE'        => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $language->get('admin', 'new_urgent_update_available') : $language->get('admin', 'new_update_available'),
                         'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
-                        'CURRENT_VERSION' => str_replace('{x}', Output::getClean($current_version), $language->get('admin', 'current_version_x')),
-                        'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $language->get('admin', 'new_version_x')),
-                        'UPDATE' => $language->get('admin', 'update'),
-                        'UPDATE_LINK' => URL::build('/panel/update'),
+                        'CURRENT_VERSION'   => str_replace('{x}', Output::getClean($current_version), $language->get('admin', 'current_version_x')),
+                        'NEW_VERSION'       => str_replace('{x}', Output::getClean($update_check->new_version), $language->get('admin', 'new_version_x')),
+                        'UPDATE'            => $language->get('admin', 'update'),
+                        'UPDATE_LINK'       => URL::build('/panel/update'),
                     ]);
                 }
             }
@@ -523,7 +523,7 @@ class Core_Module extends Module
             if ($status_enabled == 1) {
                 // Add status link to navbar
                 $cache->setCache('navbar_order');
-                if (! $cache->isCached('status_order')) {
+                if (!$cache->isCached('status_order')) {
                     $status_order = 3;
                     $cache->store('status_order', 3);
                 } else {
@@ -531,7 +531,7 @@ class Core_Module extends Module
                 }
 
                 $cache->setCache('navbar_icons');
-                if (! $cache->isCached('status_icon')) {
+                if (!$cache->isCached('status_icon')) {
                     $icon = '';
                 } else {
                     $icon = $cache->retrieve('status_icon');
@@ -576,7 +576,7 @@ class Core_Module extends Module
                         }
                     }
 
-                    if (! is_null($default) && isset($default->ip)) {
+                    if (!is_null($default) && isset($default->ip)) {
                         $full_ip = ['ip' => $default->ip.(is_null($default->port) ? '' : ':'.$default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
@@ -646,7 +646,7 @@ class Core_Module extends Module
                     $smarty->assign('SERVER_QUERY', $result);
                 }
 
-                if (! is_null($default) && isset($default->ip)) {
+                if (!is_null($default) && isset($default->ip)) {
                     $smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">'.Output::getClean($default->ip.($default->port && $default->port != 25565 ? ':'.$default->port : '')).'</span>', $language->get('general', 'connect_with_ip_x')));
                     $smarty->assign('DEFAULT_IP', Output::getClean($default->ip.($default->port != 25565 ? ':'.$default->port : '')));
                     $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
@@ -676,14 +676,14 @@ class Core_Module extends Module
         } else {
             // Navigation
             $cache->setCache('panel_sidebar');
-            if (! $cache->isCached('dashboard_order')) {
+            if (!$cache->isCached('dashboard_order')) {
                 $order = 1;
                 $cache->store('dashboard_order', 1);
             } else {
                 $order = $cache->retrieve('dashboard_order');
             }
 
-            if (! $cache->isCached('dashboard_icon')) {
+            if (!$cache->isCached('dashboard_icon')) {
                 $icon = '<i class="nav-icon fas fa-home"></i>';
                 $cache->store('dashboard_icon', $icon);
             } else {
@@ -694,14 +694,14 @@ class Core_Module extends Module
             $navs[2]->add('dashboard', $language->get('admin', 'dashboard'), URL::build('/panel'), 'top', null, $order, $icon);
 
             if ($user->hasPermission('admincp.core')) {
-                if (! $cache->isCached('configuration_order')) {
+                if (!$cache->isCached('configuration_order')) {
                     $order = 2;
                     $cache->store('configuration_order', 2);
                 } else {
                     $order = $cache->retrieve('configuration_order');
                 }
 
-                if (! $cache->isCached('configuration_icon')) {
+                if (!$cache->isCached('configuration_icon')) {
                     $icon = '<i class="nav-icon fas fa-wrench"></i>';
                     $cache->store('configuration_icon', $icon);
                 } else {
@@ -711,7 +711,7 @@ class Core_Module extends Module
                 $navs[2]->addDropdown('core_configuration', $language->get('admin', 'configuration'), 'top', $order, $icon);
 
                 if ($user->hasPermission('admincp.core.general')) {
-                    if (! $cache->isCached('general_settings_icon')) {
+                    if (!$cache->isCached('general_settings_icon')) {
                         $icon = '<i class="nav-icon fas fa-cogs"></i>';
                         $cache->store('general_settings_icon', $icon);
                     } else {
@@ -722,7 +722,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.api')) {
-                    if (! $cache->isCached('api_icon')) {
+                    if (!$cache->isCached('api_icon')) {
                         $icon = '<i class="nav-icon fas fa-code"></i>';
                         $cache->store('api_icon', $icon);
                     } else {
@@ -733,7 +733,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.seo')) {
-                    if (! $cache->isCached('seo_icon')) {
+                    if (!$cache->isCached('seo_icon')) {
                         $icon = '<i class="nav-icon fas fa-globe"></i>';
                         $cache->store('seo_icon', $icon);
                     } else {
@@ -744,7 +744,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.avatars')) {
-                    if (! $cache->isCached('avatars_icon')) {
+                    if (!$cache->isCached('avatars_icon')) {
                         $icon = '<i class="nav-icon fas fa-image"></i>';
                         $cache->store('avatars_icon', $icon);
                     } else {
@@ -755,7 +755,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.fields')) {
-                    if (! $cache->isCached('custom_profile_fields_icon')) {
+                    if (!$cache->isCached('custom_profile_fields_icon')) {
                         $icon = '<i class="nav-icon fas fa-id-card"></i>';
                         $cache->store('custom_profile_fields_icon', $icon);
                     } else {
@@ -766,7 +766,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.debugging')) {
-                    if (! $cache->isCached('debugging_icon')) {
+                    if (!$cache->isCached('debugging_icon')) {
                         $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
                         $cache->store('debugging_icon', $icon);
                     } else {
@@ -777,7 +777,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.emails')) {
-                    if (! $cache->isCached('email_icon')) {
+                    if (!$cache->isCached('email_icon')) {
                         $icon = '<i class="nav-icon fas fa-envelope"></i>';
                         $cache->store('email_icon', $icon);
                     } else {
@@ -788,7 +788,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.navigation')) {
-                    if (! $cache->isCached('navigation_icon')) {
+                    if (!$cache->isCached('navigation_icon')) {
                         $icon = '<i class="nav-icon fas fa-bars"></i>';
                         $cache->store('navigation_icon', $icon);
                     } else {
@@ -799,7 +799,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.terms')) {
-                    if (! $cache->isCached('privacy_and_terms_icon')) {
+                    if (!$cache->isCached('privacy_and_terms_icon')) {
                         $icon = '<i class="nav-icon fas fa-file-alt"></i>';
                         $cache->store('privacy_and_terms_icon', $icon);
                     } else {
@@ -810,7 +810,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.reactions')) {
-                    if (! $cache->isCached('reactions_icon')) {
+                    if (!$cache->isCached('reactions_icon')) {
                         $icon = '<i class="nav-icon fas fa-smile"></i>';
                         $cache->store('reactions_icon', $icon);
                     } else {
@@ -821,7 +821,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.registration')) {
-                    if (! $cache->isCached('registration_icon')) {
+                    if (!$cache->isCached('registration_icon')) {
                         $icon = '<i class="nav-icon fas fa-user-plus"></i>';
                         $cache->store('registration_icon', $icon);
                     } else {
@@ -832,7 +832,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.social_media')) {
-                    if (! $cache->isCached('social_media_icon')) {
+                    if (!$cache->isCached('social_media_icon')) {
                         $icon = '<i class="nav-icon fas fa-users"></i>';
                         $cache->store('social_media_icon', $icon);
                     } else {
@@ -843,7 +843,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.core.hooks')) {
-                    if (! $cache->isCached('hooks_icon')) {
+                    if (!$cache->isCached('hooks_icon')) {
                         $icon = '<i class="nav-icon fas fa-link"></i>';
                         $cache->store('hooks_icon', $icon);
                     } else {
@@ -855,14 +855,14 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.groups')) {
-                if (! $cache->isCached('groups_order')) {
+                if (!$cache->isCached('groups_order')) {
                     $order = 3;
                     $cache->store('groups_order', 3);
                 } else {
                     $order = $cache->retrieve('groups_order');
                 }
 
-                if (! $cache->isCached('groups_icon')) {
+                if (!$cache->isCached('groups_icon')) {
                     $icon = '<i class="nav-icon fas fa-address-book"></i>';
                     $cache->store('group_icon', $icon);
                 } else {
@@ -873,14 +873,14 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.core.announcements')) {
-                if (! $cache->isCached('announcements_order')) {
+                if (!$cache->isCached('announcements_order')) {
                     $order = 4;
                     $cache->store('announcements_order', 4);
                 } else {
                     $order = $cache->retrieve('announcements_order');
                 }
 
-                if (! $cache->isCached('announcements_icon')) {
+                if (!$cache->isCached('announcements_icon')) {
                     $icon = '<i class="nav-icon fas fa-bullhorn"></i>';
                     $cache->store('announcements_icon', $icon);
                 } else {
@@ -891,14 +891,14 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.integrations')) {
-                if (! $cache->isCached('integrations_order')) {
+                if (!$cache->isCached('integrations_order')) {
                     $order = 5;
                     $cache->store('integrations_order', 5);
                 } else {
                     $order = $cache->retrieve('integrations_order');
                 }
 
-                if (! $cache->isCached('integrations_icon')) {
+                if (!$cache->isCached('integrations_icon')) {
                     $icon = '<i class="nav-icon fas fa-plug"></i>';
                     $cache->store('integrations_icon', $icon);
                 } else {
@@ -909,7 +909,7 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.minecraft')) {
-                if (! $cache->isCached('minecraft_icon')) {
+                if (!$cache->isCached('minecraft_icon')) {
                     $icon = '<i class="nav-icon fas fa-cubes"></i>';
                     $cache->store('minecraft_icon', $icon);
                 } else {
@@ -920,7 +920,7 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.discord')) {
-                if (! $cache->isCached('discord_icon')) {
+                if (!$cache->isCached('discord_icon')) {
                     $icon = '<i class="nav-icon fab fa-discord"></i>';
                     $cache->store('discord_icon', $icon);
                 } else {
@@ -931,14 +931,14 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')) {
-                if (! $cache->isCached('layout_order')) {
+                if (!$cache->isCached('layout_order')) {
                     $order = 6;
                     $cache->store('layout_order', 6);
                 } else {
                     $order = $cache->retrieve('layout_order');
                 }
 
-                if (! $cache->isCached('layout_icon')) {
+                if (!$cache->isCached('layout_icon')) {
                     $icon = '<i class="nav-icon fas fa-object-group"></i>';
                     $cache->store('layout_icon', $icon);
                 } else {
@@ -948,7 +948,7 @@ class Core_Module extends Module
                 $navs[2]->addDropdown('layout', $language->get('admin', 'layout'), 'top', $order, $icon);
 
                 if ($user->hasPermission('admincp.styles.images')) {
-                    if (! $cache->isCached('images_icon')) {
+                    if (!$cache->isCached('images_icon')) {
                         $icon = '<i class="nav-icon fas fa-images"></i>';
                         $cache->store('images_icon', $icon);
                     } else {
@@ -959,7 +959,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.styles.panel_templates')) {
-                    if (! $cache->isCached('panel_templates_icon')) {
+                    if (!$cache->isCached('panel_templates_icon')) {
                         $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
                         $cache->store('panel_templates_icon', $icon);
                     } else {
@@ -970,7 +970,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.styles')) {
-                    if (! $cache->isCached('templates_icon')) {
+                    if (!$cache->isCached('templates_icon')) {
                         $icon = '<i class="nav-icon fas fa-paint-brush"></i>';
                         $cache->store('templates_icon', $icon);
                     } else {
@@ -981,7 +981,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('admincp.widgets')) {
-                    if (! $cache->isCached('widgets_icon')) {
+                    if (!$cache->isCached('widgets_icon')) {
                         $icon = '<i class="nav-icon fas fa-th"></i>';
                         $cache->store('widgets_icon', $icon);
                     } else {
@@ -993,14 +993,14 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.modules')) {
-                if (! $cache->isCached('modules_order')) {
+                if (!$cache->isCached('modules_order')) {
                     $order = 7;
                     $cache->store('modules_order', 7);
                 } else {
                     $order = $cache->retrieve('modules_order');
                 }
 
-                if (! $cache->isCached('modules_icon')) {
+                if (!$cache->isCached('modules_icon')) {
                     $icon = '<i class="nav-icon fas fa-puzzle-piece"></i>';
                     $cache->store('modules_icon', $icon);
                 } else {
@@ -1011,14 +1011,14 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.pages')) {
-                if (! $cache->isCached('pages_order')) {
+                if (!$cache->isCached('pages_order')) {
                     $order = 8;
                     $cache->store('pages_order', 8);
                 } else {
                     $order = $cache->retrieve('pages_order');
                 }
 
-                if (! $cache->isCached('pages_icon')) {
+                if (!$cache->isCached('pages_icon')) {
                     $icon = '<i class="nav-icon fas fa-file"></i>';
                     $cache->store('pages_icon', $icon);
                 } else {
@@ -1029,14 +1029,14 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.security')) {
-                if (! $cache->isCached('security_order')) {
+                if (!$cache->isCached('security_order')) {
                     $order = 9;
                     $cache->store('security_order', 9);
                 } else {
                     $order = $cache->retrieve('security_order');
                 }
 
-                if (! $cache->isCached('security_icon')) {
+                if (!$cache->isCached('security_icon')) {
                     $icon = '<i class="nav-icon fas fa-lock"></i>';
                     $cache->store('security_icon', $icon);
                 } else {
@@ -1047,14 +1047,14 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.update')) {
-                if (! $cache->isCached('update_order')) {
+                if (!$cache->isCached('update_order')) {
                     $order = 10;
                     $cache->store('update_order', 10);
                 } else {
                     $order = $cache->retrieve('update_order');
                 }
 
-                if (! $cache->isCached('update_icon')) {
+                if (!$cache->isCached('update_icon')) {
                     $icon = '<i class="nav-icon fas fa-download"></i>';
                     $cache->store('update_icon', $icon);
                 } else {
@@ -1065,14 +1065,14 @@ class Core_Module extends Module
             }
 
             if ($user->hasPermission('admincp.users')) {
-                if (! $cache->isCached('users_order')) {
+                if (!$cache->isCached('users_order')) {
                     $order = 11;
                     $cache->store('users_order', 11);
                 } else {
                     $order = $cache->retrieve('users_order');
                 }
 
-                if (! $cache->isCached('users_icon')) {
+                if (!$cache->isCached('users_icon')) {
                     $icon = '<i class="nav-icon fas fa-user-circle"></i>';
                     $cache->store('users_icon', $icon);
                 } else {
@@ -1081,7 +1081,7 @@ class Core_Module extends Module
 
                 $navs[2]->addDropdown('users', $language->get('admin', 'user_management'), 'top', $order, $icon);
 
-                if (! $cache->isCached('user_icon')) {
+                if (!$cache->isCached('user_icon')) {
                     $icon = '<i class="nav-icon fas fa-users"></i>';
                     $cache->store('user_icon', $icon);
                 } else {
@@ -1091,7 +1091,7 @@ class Core_Module extends Module
                 $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', $order, $icon);
 
                 if ($user->hasPermission('modcp.ip_lookup')) {
-                    if (! $cache->isCached('ip_lookup_icon')) {
+                    if (!$cache->isCached('ip_lookup_icon')) {
                         $icon = '<i class="nav-icon fas fa-binoculars"></i>';
                         $cache->store('ip_lookup_icon', $icon);
                     } else {
@@ -1102,7 +1102,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('modcp.punishments')) {
-                    if (! $cache->isCached('punishments_icon')) {
+                    if (!$cache->isCached('punishments_icon')) {
                         $icon = '<i class="nav-icon fas fa-gavel"></i>';
                         $cache->store('punishments_icon', $icon);
                     } else {
@@ -1113,7 +1113,7 @@ class Core_Module extends Module
                 }
 
                 if ($user->hasPermission('modcp.reports')) {
-                    if (! $cache->isCached('reports_icon')) {
+                    if (!$cache->isCached('reports_icon')) {
                         $icon = '<i class="nav-icon fas fa-exclamation-triangle"></i>';
                         $cache->store('reports_icon', $icon);
                     } else {
@@ -1208,7 +1208,7 @@ class Core_Module extends Module
                             }
                         }
 
-                        if (! isset($player_count_error)) {
+                        if (!isset($player_count_error)) {
                             $data['datasets']['players']['axis'] = 2; // second axis
                             $data['datasets']['players']['axis_side'] = 'right'; // right side
                             $data['datasets']['players']['label'] = 'language/admin/average_players';
@@ -1229,11 +1229,11 @@ class Core_Module extends Module
                     $start = strtotime($start);
                     $end = strtotime(date('d M Y'));
                     while ($start <= $end) {
-                        if (! isset($data['_'.$start]['users'])) {
+                        if (!isset($data['_'.$start]['users'])) {
                             $data['_'.$start]['users'] = 0;
                         }
 
-                        if (! isset($player_count_error) && defined('MINECRAFT') && MINECRAFT && ! isset($data['_'.$start]['players'])) {
+                        if (!isset($player_count_error) && defined('MINECRAFT') && MINECRAFT && !isset($data['_'.$start]['players'])) {
                             $data['_'.$start]['players'] = 0;
                         }
 

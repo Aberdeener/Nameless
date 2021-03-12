@@ -89,7 +89,7 @@ class MinecraftPing
         $connectTimeout = $this->Timeout;
         $this->Socket = @fsockopen($this->ServerAddress, $this->ServerPort, $errno, $errstr, $connectTimeout);
 
-        if (! $this->Socket) {
+        if (!$this->Socket) {
             throw new Exception("Failed to connect or create a socket: $errno ($errstr)");
         }
 
@@ -133,7 +133,7 @@ class MinecraftPing
             $Remainder = $Length - strlen($Data);
             $block = fread($this->Socket, $Remainder); // and finally the json string
             // abort if there is no progress
-            if (! $block) {
+            if (!$block) {
                 throw new MinecraftPingException('Server returned too few data');
             }
 

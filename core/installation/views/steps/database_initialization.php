@@ -4,7 +4,7 @@ if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'
     exit();
 }
 
-if (! isset($_SESSION['charset']) || ! isset($_SESSION['engine'])) {
+if (!isset($_SESSION['charset']) || !isset($_SESSION['engine'])) {
     Redirect::to('?step=database_configuration');
     exit();
 }

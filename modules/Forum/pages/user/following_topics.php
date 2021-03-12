@@ -10,7 +10,7 @@
  */
 
 // Must be logged in
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
     exit();
 }
@@ -58,37 +58,37 @@ for ($n = 0; $n < count($results->data); $n++) {
     $topic = $results->data[$n];
 
     // Topic author/last poster
-    if (! array_key_exists($topic->topic_creator, $authors)) {
+    if (!array_key_exists($topic->topic_creator, $authors)) {
         $authors[$topic->topic_creator] = new User($topic->topic_creator);
     }
-    if (! array_key_exists($topic->topic_last_user, $authors)) {
+    if (!array_key_exists($topic->topic_last_user, $authors)) {
         $authors[$topic->topic_last_user] = new User($topic->topic_last_user);
     }
 
     $last_post = DB::getInstance()->query('SELECT id FROM nl2_posts WHERE deleted = 0 AND topic_id = ? ORDER BY created DESC LIMIT 1', [$topic->id])->first();
 
     $template_array[] = [
-        'topic_title' => Output::getClean($topic->topic_title),
-        'topic_date' => $timeago->inWords(date('d M Y, H:i', $topic->topic_date), $language->getTimeLanguage()),
-        'topic_date_full' => date('d M Y, H:i', $topic->topic_date),
-        'topic_author_id' => Output::getClean($authors[$topic->topic_creator]->data()->id),
+        'topic_title'           => Output::getClean($topic->topic_title),
+        'topic_date'            => $timeago->inWords(date('d M Y, H:i', $topic->topic_date), $language->getTimeLanguage()),
+        'topic_date_full'       => date('d M Y, H:i', $topic->topic_date),
+        'topic_author_id'       => Output::getClean($authors[$topic->topic_creator]->data()->id),
         'topic_author_nickname' => $authors[$topic->topic_creator]->getDisplayname(),
         'topic_author_username' => $authors[$topic->topic_creator]->getDisplayname(true),
-        'topic_author_avatar' => $authors[$topic->topic_creator]->getAvatar(null, 128),
-        'topic_author_style' => $authors[$topic->topic_creator]->getGroupClass(),
-        'topic_author_link' => URL::build('/profile/'.Output::getClean($authors[$topic->topic_creator]->getDisplayname(true))),
-        'reply_author_id' => Output::getClean($authors[$topic->topic_last_user]->data()->id),
+        'topic_author_avatar'   => $authors[$topic->topic_creator]->getAvatar(null, 128),
+        'topic_author_style'    => $authors[$topic->topic_creator]->getGroupClass(),
+        'topic_author_link'     => URL::build('/profile/'.Output::getClean($authors[$topic->topic_creator]->getDisplayname(true))),
+        'reply_author_id'       => Output::getClean($authors[$topic->topic_last_user]->data()->id),
         'reply_author_nickname' => $authors[$topic->topic_last_user]->getDisplayname(),
         'reply_author_username' => $authors[$topic->topic_last_user]->getDisplayname(true),
-        'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(null, 128),
-        'reply_author_style' => $authors[$topic->topic_last_user]->getGroupClass(),
-        'reply_author_link' => URL::build('/profile/'.Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
-        'reply_date' => $timeago->inWords(date('d M Y, H:i', $topic->topic_reply_date), $language->getTimeLanguage()),
-        'reply_date_full' => date('d M Y, H:i', $topic->topic_reply_date),
-        'topic_link' => URL::build('/forum/topic/'.$topic->id.'-'.$forum->titleToURL($topic->topic_title)),
-        'last_post_link' => URL::build('/forum/topic/'.$topic->id.'-'.$forum->titleToURL($topic->topic_title), 'pid='.$last_post->id),
-        'unread' => $topic->existing_alerts == 1,
-        'unfollow_link' => URL::build('/forum/topic/'.$topic->id, 'action=unfollow&return=list'),
+        'reply_author_avatar'   => $authors[$topic->topic_last_user]->getAvatar(null, 128),
+        'reply_author_style'    => $authors[$topic->topic_last_user]->getGroupClass(),
+        'reply_author_link'     => URL::build('/profile/'.Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
+        'reply_date'            => $timeago->inWords(date('d M Y, H:i', $topic->topic_reply_date), $language->getTimeLanguage()),
+        'reply_date_full'       => date('d M Y, H:i', $topic->topic_reply_date),
+        'topic_link'            => URL::build('/forum/topic/'.$topic->id.'-'.$forum->titleToURL($topic->topic_title)),
+        'last_post_link'        => URL::build('/forum/topic/'.$topic->id.'-'.$forum->titleToURL($topic->topic_title), 'pid='.$last_post->id),
+        'unread'                => $topic->existing_alerts == 1,
+        'unfollow_link'         => URL::build('/forum/topic/'.$topic->id, 'action=unfollow&return=list'),
     ];
 }
 
@@ -98,18 +98,18 @@ if (Session::exists('success_post')) {
 
 // Language values
 $smarty->assign([
-    'USER_CP' => $language->get('user', 'user_cp'),
+    'USER_CP'          => $language->get('user', 'user_cp'),
     'FOLLOWING_TOPICS' => $forum_language->get('forum', 'following_topics'),
-    'TOPICS_LIST' => $template_array,
-    'UNFOLLOW_TOPIC' => $forum_language->get('forum', 'unfollow'),
-    'UNFOLLOW_ALL' => $forum_language->get('forum', 'unfollow_all_topics'),
+    'TOPICS_LIST'      => $template_array,
+    'UNFOLLOW_TOPIC'   => $forum_language->get('forum', 'unfollow'),
+    'UNFOLLOW_ALL'     => $forum_language->get('forum', 'unfollow_all_topics'),
     'CONFIRM_UNFOLLOW' => $forum_language->get('forum', 'confirm_unfollow_all_topics'),
-    'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view'),
-    'NO_TOPICS' => $forum_language->get('forum', 'not_following_any_topics'),
-    'YES' => $language->get('general', 'yes'),
-    'NO' => $language->get('general', 'no'),
-    'SUCCESS' => $language->get('general', 'success'),
-    'TOKEN' => Token::get(),
+    'CLICK_TO_VIEW'    => $language->get('user', 'click_here_to_view'),
+    'NO_TOPICS'        => $forum_language->get('forum', 'not_following_any_topics'),
+    'YES'              => $language->get('general', 'yes'),
+    'NO'               => $language->get('general', 'no'),
+    'SUCCESS'          => $language->get('general', 'success'),
+    'TOKEN'            => Token::get(),
 ]);
 
 // Load modules + template

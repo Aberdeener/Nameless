@@ -1,6 +1,6 @@
 <?php
 
-if (! isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
+if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
     Redirect::to('?step=database_configuration');
     exit();
 }
@@ -22,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ],
     ]);
 
-    if (! $validation->passed()) {
+    if (!$validation->passed()) {
         $error = $language['database_error'];
     } else {
         $db_address = $_POST['db_address'];
         $db_port = $_POST['db_port'];
         $db_username = $_POST['db_username'];
-        $db_password = ((isset($_POST['db_password']) && ! empty($_POST['db_password'])) ? $_POST['db_password'] : '');
+        $db_password = ((isset($_POST['db_password']) && !empty($_POST['db_password'])) ? $_POST['db_password'] : '');
         $db_name = $_POST['db_name'];
 
         $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);

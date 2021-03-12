@@ -143,7 +143,7 @@ abstract class Module
             for ($n = 0; $n < count($module_order); $n++) {
                 $before_after = self::findBeforeAfter($module_order, $module_order[$n]);
 
-                if (! array_diff($module->getLoadAfter(), $before_after[0]) && ! array_diff($module->getLoadBefore(), $before_after[1])) {
+                if (!array_diff($module->getLoadAfter(), $before_after[0]) && !array_diff($module->getLoadBefore(), $before_after[1])) {
                     array_splice($module_order, $n + 1, 0, $module->getName());
                     continue 2;
                 }

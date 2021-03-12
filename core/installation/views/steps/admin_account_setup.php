@@ -4,7 +4,7 @@ if (isset($_SESSION['admin_setup']) && $_SESSION['admin_setup'] == true) {
     exit();
 }
 
-if (! isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != true) {
+if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != true) {
     Redirect::to('?step=site_configuration');
     exit();
 }
@@ -16,27 +16,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $validation = $validate->check($_POST, [
         'username' => [
             'required' => true,
-            'min' => 3,
-            'max' => 20,
+            'min'      => 3,
+            'max'      => 20,
         ],
         'email' => [
             'required' => true,
-            'min' => 4,
-            'max' => 64,
-            'email' => true,
+            'min'      => 4,
+            'max'      => 64,
+            'email'    => true,
         ],
         'password' => [
             'required' => true,
-            'min' => 6,
-            'max' => 64,
+            'min'      => 6,
+            'max'      => 64,
         ],
         'password_again' => [
             'required' => true,
-            'matches' => 'password',
+            'matches'  => 'password',
         ],
     ]);
 
-    if (! $validation->passed()) {
+    if (!$validation->passed()) {
         foreach ($validation->errors() as $item) {
             if (strpos($item, 'is required') !== false) {
                 $error = $language['input_required'];
@@ -61,17 +61,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $ip = $user->getIP();
             $user->create([
-                'username' => Output::getClean(Input::get('username')),
-                'nickname' => Output::getClean(Input::get('username')),
-                'password' => $password,
+                'username'    => Output::getClean(Input::get('username')),
+                'nickname'    => Output::getClean(Input::get('username')),
+                'password'    => $password,
                 'pass_method' => 'default',
-                'uuid' => 'none',
-                'joined' => date('U'),
-                'email' => Output::getClean(Input::get('email')),
-                'lastip' => $ip,
-                'active' => 1,
+                'uuid'        => 'none',
+                'joined'      => date('U'),
+                'email'       => Output::getClean(Input::get('email')),
+                'lastip'      => $ip,
+                'active'      => 1,
                 'last_online' => date('U'),
-                'theme_id' => 1,
+                'theme_id'    => 1,
                 'language_id' => $language[0]->id,
             ]);
 

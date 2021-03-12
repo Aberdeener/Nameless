@@ -1,7 +1,7 @@
 <?php
 
 // Check user ID is specified
-if (! isset($_GET['id'])) {
+if (!isset($_GET['id'])) {
     exit(json_encode(['html' => 'Error: Invalid ID']));
 }
 
@@ -9,7 +9,7 @@ define('PAGE', 'user_query');
 $page_title = 'user_query';
 require_once ROOT_PATH.'/core/templates/frontend_init.php';
 
-if (! is_numeric($_GET['id'])) {
+if (!is_numeric($_GET['id'])) {
     // Username
     $username = Output::getClean($_GET['id']);
     $nickname = $username;
@@ -20,7 +20,7 @@ if (! is_numeric($_GET['id'])) {
     $id = 0;
 } else {
     $target_user = new User($_GET['id']);
-    if (! $target_user->data()) {
+    if (!$target_user->data()) {
         exit(json_encode(['html' => 'User not found']));
     } else {
         $user_query = $user_query[0];
@@ -36,13 +36,13 @@ if (! is_numeric($_GET['id'])) {
 }
 
 $smarty->assign([
-    'PROFILE' => $profile,
+    'PROFILE'  => $profile,
     'USERNAME' => $username,
     'NICKNAME' => $nickname,
-    'AVATAR' => $avatar,
-    'STYLE' => $style,
-    'GROUPS' => $groups,
-    'USER_ID' => $id,
+    'AVATAR'   => $avatar,
+    'STYLE'    => $style,
+    'GROUPS'   => $groups,
+    'USER_ID'  => $id,
 ]);
 
 // Load modules + template
@@ -51,12 +51,12 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 $template->onPageLoad();
 
 echo json_encode([
-    'id' => $id,
-    'profile' => $profile,
+    'id'       => $id,
+    'profile'  => $profile,
     'username' => $username,
     'nickname' => $nickname,
-    'avatar' => $avatar,
-    'style' => $style,
-    'groups' => $groups,
-    'html' => $template->getTemplate('user_popover.tpl', $smarty),
+    'avatar'   => $avatar,
+    'style'    => $style,
+    'groups'   => $groups,
+    'html'     => $template->getTemplate('user_popover.tpl', $smarty),
 ], JSON_PRETTY_PRINT);

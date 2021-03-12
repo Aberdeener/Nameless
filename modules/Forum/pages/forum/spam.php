@@ -9,7 +9,7 @@
  *  Mark a post as spam
  */
 
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
     exit();
 }
@@ -23,13 +23,13 @@ define('PAGE', 'forum');
 $forum = new Forum();
 
 // Get the post
-if (! isset($_POST['post']) || ! is_numeric($_POST['post'])) {
+if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/forum'));
     exit();
 }
 
 $post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
-if (! count($post)) {
+if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
     exit();
@@ -66,10 +66,10 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
 
         // Ban IP
         $queries->create('ip_bans', [
-            'ip' => $banned_user_ip,
+            'ip'        => $banned_user_ip,
             'banned_by' => $user->data()->id,
             'banned_at' => date('U'),
-            'reason' => 'Spam',
+            'reason'    => 'Spam',
         ]);
 
         // Ban user

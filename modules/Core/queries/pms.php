@@ -1,6 +1,6 @@
 <?php
 
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     exit(json_encode(['value' => 0]));
 }
 

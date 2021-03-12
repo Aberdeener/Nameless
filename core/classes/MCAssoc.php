@@ -23,7 +23,7 @@ class MCAssoc
 
     private function baseSign($data, $key)
     {
-        if (! $key && ! $this->insecureMode) {
+        if (!$key && !$this->insecureMode) {
             throw new Exception('key must be provided');
         } elseif ($this->insecureMode) {
             $key = 'insecure';
@@ -71,7 +71,7 @@ class MCAssoc
         $signature = substr($signed_data, -20);
         $my_signature = $this->baseSign($data, $key);
 
-        if (! $this->constantCompare($my_signature, $signature)) {
+        if (!$this->constantCompare($my_signature, $signature)) {
             throw new Exception('signature invalid');
         }
 
@@ -102,7 +102,7 @@ class MCAssoc
 
         $mintime = $time - $this->timestampLeeway;
         $maxtime = $time + $this->timestampLeeway;
-        if (! (($mintime < $rdata->now) && ($rdata->now < $maxtime))) {
+        if (!(($mintime < $rdata->now) && ($rdata->now < $maxtime))) {
             throw new Exception('timestamp stale');
         }
 

@@ -14,7 +14,7 @@ $language = [
 
     // General Options
     'greeting' => 'Hei!',
-    'thanks' => 'Takk,',
+    'thanks'   => 'Takk,',
 
     // Registration Email
     'register_subject' => 'Validér bruker',

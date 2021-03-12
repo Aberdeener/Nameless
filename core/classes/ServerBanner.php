@@ -28,13 +28,14 @@ SOFTWARE.
 class ServerBanner
 {
     /**
-     * @param string $address the server address
-     * @param string $motd message of the day which should be displayed
-     * @param int $players not implemented
-     * @param int $max_players not implemented
-     * @param resource $favicon not implemented
-     * @param string $background Image Path or Standard Value
-     * @param int $ping not implemented
+     * @param string   $address     the server address
+     * @param string   $motd        message of the day which should be displayed
+     * @param int      $players     not implemented
+     * @param int      $max_players not implemented
+     * @param resource $favicon     not implemented
+     * @param string   $background  Image Path or Standard Value
+     * @param int      $ping        not implemented
+     *
      * @return resource the rendered banner
      */
     public static function server($address, $motd = '§cOffline Server', $players = -1, $max_players = -1, $favicon = null, $background = null, $ping = 150)
@@ -72,7 +73,7 @@ class ServerBanner
 
             //default to white
             $text = $component;
-            if (! empty($color_code)) {
+            if (!empty($color_code)) {
                 //try to find the color rgb to the colro code
                 if (isset($colors[$color_code])) {
                     $color_rgb = $colors[$color_code];

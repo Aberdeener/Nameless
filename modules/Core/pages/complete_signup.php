@@ -19,7 +19,7 @@ require_once ROOT_PATH.'/core/templates/frontend_init.php';
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
 // Validate code
-if (! isset($_GET['c'])) {
+if (!isset($_GET['c'])) {
     Redirect::to(URL::build('/'));
     exit();
 } else {
@@ -34,7 +34,7 @@ if (! isset($_GET['c'])) {
         }
     }
 
-    if (! $user->isLoggedIn()) {
+    if (!$user->isLoggedIn()) {
         $target_user = new User($_GET['c'], 'reset_code');
         if ($target_user->data()) {
             if (Input::exists()) {
@@ -43,15 +43,15 @@ if (! isset($_GET['c'])) {
                     $to_validation = [
                         'password' => [
                             'required' => true,
-                            'min' => 6,
-                            'max' => 30,
+                            'min'      => 6,
+                            'max'      => 30,
                         ],
                         'password_again' => [
                             'matches' => 'password',
                         ],
                         't_and_c' => [
                             'required' => true,
-                            'agree' => true,
+                            'agree'    => true,
                         ],
                     ];
 
@@ -65,24 +65,24 @@ if (! isset($_GET['c'])) {
 
                         try {
                             $target_user->update([
-                                'password' => $password,
-                                'reset_code' => null,
+                                'password'    => $password,
+                                'reset_code'  => null,
                                 'last_online' => date('U'),
-                                'active' => 1,
+                                'active'      => 1,
                             ]);
                         } catch (Exception $e) {
                             exit($e->getMessage());
                         }
 
                         HookHandler::executeEvent('validateUser', [
-                            'event' => 'validateUser',
-                            'user_id' => $target_user->data()->id,
-                            'username' => $target_user->getDisplayname(),
-                            'uuid' => Output::getClean($target_user->data()->uuid),
-                            'content' => str_replace('{x}', $target_user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
+                            'event'      => 'validateUser',
+                            'user_id'    => $target_user->data()->id,
+                            'username'   => $target_user->getDisplayname(),
+                            'uuid'       => Output::getClean($target_user->data()->uuid),
+                            'content'    => str_replace('{x}', $target_user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
                             'avatar_url' => $target_user->getAvatar(null, 128, true),
-                            'url' => Util::getSelfURL().ltrim($target_user->getProfileURL(), '/'),
-                            'language' => $language,
+                            'url'        => Util::getSelfURL().ltrim($target_user->getProfileURL(), '/'),
+                            'language'   => $language,
                         ]);
 
                         Session::flash('home', $language->get('user', 'validation_complete'));
@@ -134,13 +134,13 @@ if (isset($errors) && count($errors)) {
 }
 
 $smarty->assign([
-    'REGISTER' => $language->get('general', 'register'),
-    'PASSWORD' => $language->get('user', 'password'),
+    'REGISTER'         => $language->get('general', 'register'),
+    'PASSWORD'         => $language->get('user', 'password'),
     'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'I_AGREE' => $language->get('user', 'i_agree'),
-    'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
-    'TOKEN' => Token::get(),
+    'SUBMIT'           => $language->get('general', 'submit'),
+    'I_AGREE'          => $language->get('user', 'i_agree'),
+    'AGREE_TO_TERMS'   => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+    'TOKEN'            => Token::get(),
 ]);
 
 $page_load = microtime(true) - $start;

@@ -15,9 +15,9 @@ class MinecraftProfile
     private $properties;
 
     /**
-     * @param string $username The player's username.
-     * @param string $uuid The player's UUID.
-     * @param array $properties The player's properties specified on their Mojang profile.
+     * @param string $username   The player's username.
+     * @param string $uuid       The player's UUID.
+     * @param array  $properties The player's properties specified on their Mojang profile.
      */
     public function __construct($username, $uuid, $properties = [])
     {
@@ -63,7 +63,8 @@ class ProfileUtils
 {
     /**
      * @param string $identifier Either the player's Username or UUID.
-     * @param int $timeout The length in seconds of the http request timeout.
+     * @param int    $timeout    The length in seconds of the http request timeout.
+     *
      * @return MinecraftProfile|null Returns null if fetching of profile failed. Else returns completed user profile.
      */
     public static function getProfile($identifier, $timeout = 5)
@@ -86,7 +87,7 @@ class ProfileUtils
         // Execute
         $ret = curl_exec($ch);
 
-        if (! empty($ret) && $ret != null && $ret != false) {
+        if (!empty($ret) && $ret != null && $ret != false) {
             $data = json_decode($ret, true);
 
             return new MinecraftProfile($data['name'], $data['id'], $data['properties']);
@@ -98,6 +99,7 @@ class ProfileUtils
     /**
      * @param int $timeout http timeout in seconds
      * @param $username string Minecraft username.
+     *
      * @return array (Key => Value) "username" => Minecraft username (properly capitalized) "uuid" => Minecraft UUID
      */
     public static function getUUIDFromUsername($username, $timeout = 5)
@@ -132,6 +134,7 @@ class ProfileUtils
 
     /**
      * @param $uuid string UUID to format
+     *
      * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
      */
     public static function formatUUID($uuid)

@@ -23,8 +23,8 @@ $timeago = new Timeago(TIMEZONE);
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
 $errors = [];
-if (! is_dir(ROOT_PATH.'/cache/sitemaps')) {
-    if (! is_writable(ROOT_PATH.'/cache')) {
+if (!is_dir(ROOT_PATH.'/cache/sitemaps')) {
+    if (!is_writable(ROOT_PATH.'/cache')) {
         $errors[] = $language->get('admin', 'cache_not_writable');
     } else {
         mkdir(ROOT_PATH.'/cache/sitemaps');
@@ -32,7 +32,7 @@ if (! is_dir(ROOT_PATH.'/cache/sitemaps')) {
     }
 }
 
-if (! isset($_GET['metadata'])) {
+if (!isset($_GET['metadata'])) {
     // Deal with input
     if (Input::exists()) {
         if (Token::check(Input::get('token'))) {
@@ -70,7 +70,7 @@ if (! isset($_GET['metadata'])) {
         }
     }
 
-    if (! is_writable(ROOT_PATH.'/cache/sitemaps')) {
+    if (!is_writable(ROOT_PATH.'/cache/sitemaps')) {
         $errors[] = $language->get('admin', 'sitemap_not_writable');
     } else {
         if (file_exists(ROOT_PATH.'/cache/sitemaps/sitemap-index.xml')) {
@@ -84,10 +84,10 @@ if (! isset($_GET['metadata'])) {
 
             $smarty->assign([
                 'SITEMAP_LAST_GENERATED' => str_replace('{x}', $updated, $language->get('admin', 'sitemap_last_generated_x')),
-                'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/cache/sitemaps/sitemap-index.xml',
-                'SITEMAP_FULL_LINK' => rtrim(Util::getSelfURL(), '/').(defined('CONFIG_PATH') ? CONFIG_PATH : '').'/cache/sitemaps/sitemap-index.xml',
-                'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
-                'LINK' => $language->get('admin', 'sitemap_link'),
+                'SITEMAP_LINK'           => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/cache/sitemaps/sitemap-index.xml',
+                'SITEMAP_FULL_LINK'      => rtrim(Util::getSelfURL(), '/').(defined('CONFIG_PATH') ? CONFIG_PATH : '').'/cache/sitemaps/sitemap-index.xml',
+                'DOWNLOAD_SITEMAP'       => $language->get('admin', 'download_sitemap'),
+                'LINK'                   => $language->get('admin', 'sitemap_link'),
             ]);
         } else {
             $smarty->assign('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
@@ -121,19 +121,19 @@ if (! isset($_GET['metadata'])) {
                 $keywords = null;
             }
 
-            if (! count($errors)) {
+            if (!count($errors)) {
                 if (count($page_metadata)) {
                     $page_id = $page_metadata[0]->id;
 
                     $queries->update('page_descriptions', $page_id, [
                         'description' => $description,
-                        'tags' => $keywords,
+                        'tags'        => $keywords,
                     ]);
                 } else {
                     $queries->create('page_descriptions', [
-                        'page' => $page['key'],
+                        'page'        => $page['key'],
                         'description' => $description,
-                        'tags' => $keywords,
+                        'tags'        => $keywords,
                     ]);
                 }
 
@@ -155,13 +155,13 @@ if (! isset($_GET['metadata'])) {
     }
 
     $smarty->assign([
-        'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/core/seo'),
-        'EDITING_PAGE' => str_replace('{x}', Output::getClean($page['key']), $language->get('admin', 'editing_page_x')),
-        'DESCRIPTION' => $language->get('admin', 'description'),
+        'BACK'              => $language->get('general', 'back'),
+        'BACK_LINK'         => URL::build('/panel/core/seo'),
+        'EDITING_PAGE'      => str_replace('{x}', Output::getClean($page['key']), $language->get('admin', 'editing_page_x')),
+        'DESCRIPTION'       => $language->get('admin', 'description'),
         'DESCRIPTION_VALUE' => $description,
-        'KEYWORDS' => $language->get('admin', 'keywords'),
-        'KEYWORDS_VALUE' => $tags,
+        'KEYWORDS'          => $language->get('admin', 'keywords'),
+        'KEYWORDS_VALUE'    => $tags,
     ]);
 
     $template_file = 'core/seo_metadata_edit.tpl';
@@ -169,36 +169,36 @@ if (! isset($_GET['metadata'])) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'SEO' => $language->get('admin', 'seo'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'GENERATE' => $language->get('admin', 'generate_sitemap'),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'PARENT_PAGE'            => PARENT_PAGE,
+    'DASHBOARD'              => $language->get('admin', 'dashboard'),
+    'CONFIGURATION'          => $language->get('admin', 'configuration'),
+    'SEO'                    => $language->get('admin', 'seo'),
+    'PAGE'                   => PANEL_PAGE,
+    'TOKEN'                  => Token::get(),
+    'GENERATE'               => $language->get('admin', 'generate_sitemap'),
+    'SUBMIT'                 => $language->get('general', 'submit'),
     'GOOGLE_ANALYTICS_VALUE' => $configuration->get('Core', 'ga_script'),
-    'PAGE_TITLE' => $language->get('admin', 'page'),
-    'PAGE_LIST' => $pages->returnPages(),
-    'EDIT_LINK' => URL::build('/panel/core/seo/', 'metadata={x}'),
-    'GOOGLE_ANALYTICS' => $language->get('admin', 'google_analytics'),
-    'GOOGLE_ANALYTICS_HELP' => $language->get('admin', 'google_analytics_help'),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'SITEMAP' => $language->get('admin', 'sitemap'),
-    'PAGE_METADATA' => $language->get('admin', 'page_metadata'),
+    'PAGE_TITLE'             => $language->get('admin', 'page'),
+    'PAGE_LIST'              => $pages->returnPages(),
+    'EDIT_LINK'              => URL::build('/panel/core/seo/', 'metadata={x}'),
+    'GOOGLE_ANALYTICS'       => $language->get('admin', 'google_analytics'),
+    'GOOGLE_ANALYTICS_HELP'  => $language->get('admin', 'google_analytics_help'),
+    'SUBMIT'                 => $language->get('general', 'submit'),
+    'SITEMAP'                => $language->get('admin', 'sitemap'),
+    'PAGE_METADATA'          => $language->get('admin', 'page_metadata'),
 ]);
 
 $page_load = microtime(true) - $start;

@@ -17,12 +17,12 @@ require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 
 // User must be logged in to proceed
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to('/forum');
     exit();
 }
 
-if (! isset($_GET['tid']) || ! is_numeric($_GET['tid'])) {
+if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     exit();
 } else {
@@ -77,14 +77,14 @@ $topics = $queries->orderWhere('topics', 'forum_id = '.$forum_id.' AND deleted =
 
 // Smarty
 $smarty->assign([
-    'MERGE_TOPICS' => $forum_language->get('forum', 'merge_topics'),
+    'MERGE_TOPICS'       => $forum_language->get('forum', 'merge_topics'),
     'MERGE_INSTRUCTIONS' => $forum_language->get('forum', 'merge_instructions'),
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'CANCEL' => $language->get('general', 'cancel'),
-    'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/'.$topic_id),
-    'TOPICS' => $topics,
+    'TOKEN'              => Token::get(),
+    'SUBMIT'             => $language->get('general', 'submit'),
+    'CANCEL'             => $language->get('general', 'cancel'),
+    'CONFIRM_CANCEL'     => $language->get('general', 'confirm_cancel'),
+    'CANCEL_LINK'        => URL::build('/forum/topic/'.$topic_id),
+    'TOPICS'             => $topics,
 ]);
 
 // Load modules + template

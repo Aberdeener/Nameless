@@ -13,7 +13,7 @@ $language = [
 
     // General Options
     'greeting' => '嗨,',
-    'thanks' => '謝謝,',
+    'thanks'   => '謝謝,',
 
     // Registration Email
     'register_subject' => 'Validate Account',

@@ -9,11 +9,11 @@
  *  Error page
  */
 
-if (! defined('ERRORHANDLER')) {
+if (!defined('ERRORHANDLER')) {
     exit();
 }
 
-if (! defined('LANGUAGE')) {
+if (!defined('LANGUAGE')) {
     define('LANGUAGE', 'EnglishUK');
 }
 

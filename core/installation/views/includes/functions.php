@@ -12,7 +12,7 @@ function create_step($name, $icon, $child_steps = [])
     global $step;
 
     $active = '';
-    if (! isset($step)) {
+    if (!isset($step)) {
         if (in_array('welcome', $child_steps)) {
             $active = 'active ';
         }
@@ -76,7 +76,7 @@ function validate_requirement($text, $condition)
         ";
     }
 
-    if (! isset($_SESSION['requirements_validated'])) {
+    if (!isset($_SESSION['requirements_validated'])) {
         $_SESSION['requirements_validated'] = $condition;
     } else {
         if ($_SESSION['requirements_validated'] == 'true') {

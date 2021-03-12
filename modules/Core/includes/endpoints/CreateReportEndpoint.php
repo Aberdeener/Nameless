@@ -3,7 +3,7 @@
 /**
  * @param string $reporter The NamelessMC username of the user who is creating the report
  * @param string $reported The NamelessMC username of the user who is getting reported
- * @param string $content The content of the report
+ * @param string $content  The content of the report
  *
  * @return string JSON Array
  */
@@ -28,7 +28,7 @@ class CreateReportEndpoint extends EndpointBase
 
         // Ensure user reporting has website account, and has not been banned
         $user_reporting = $api->getDb()->get('users', ['id', '=', Output::getClean($_POST['reporter'])]);
-        if (! $user_reporting->count()) {
+        if (!$user_reporting->count()) {
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
         }
 
@@ -39,7 +39,7 @@ class CreateReportEndpoint extends EndpointBase
 
         // See if reported user exists
         $user_reported_id = $api->getDb()->get('users', ['id', '=', Output::getClean($_POST['reported'])]);
-        if (! $user_reported_id->count()) {
+        if (!$user_reported_id->count()) {
             $user_reported_id = 0;
         } else {
             $user_reported_id = $user_reported_id->first()->id;
@@ -64,15 +64,15 @@ class CreateReportEndpoint extends EndpointBase
             $report = new Report();
             $report->create(
                 [
-                    'type' => 0,
-                    'reporter_id' => $user_reporting->id,
-                    'reported_id' => $user_reported_id,
+                    'type'          => 0,
+                    'reporter_id'   => $user_reporting->id,
+                    'reported_id'   => $user_reported_id,
                     'date_reported' => date('Y-m-d H:i:s'),
-                    'date_updated' => date('Y-m-d H:i:s'),
+                    'date_updated'  => date('Y-m-d H:i:s'),
                     'report_reason' => Output::getClean($_POST['content']),
-                    'updated_by' => $user_reporting->id,
-                    'reported' => date('U'),
-                    'updated' => date('U'),
+                    'updated_by'    => $user_reporting->id,
+                    'reported'      => date('U'),
+                    'updated'       => date('U'),
                 ]
             );
 

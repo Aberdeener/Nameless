@@ -42,14 +42,14 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
@@ -59,49 +59,49 @@ $minecraft_enabled = $queries->getWhere('settings', ['name', '=', 'mc_integratio
 $minecraft_enabled = $minecraft_enabled[0]->value;
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'INTEGRATIONS' => $language->get('admin', 'integrations'),
-    'MINECRAFT' => $language->get('admin', 'minecraft'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'PARENT_PAGE'                  => PARENT_PAGE,
+    'DASHBOARD'                    => $language->get('admin', 'dashboard'),
+    'INTEGRATIONS'                 => $language->get('admin', 'integrations'),
+    'MINECRAFT'                    => $language->get('admin', 'minecraft'),
+    'PAGE'                         => PANEL_PAGE,
+    'TOKEN'                        => Token::get(),
+    'SUBMIT'                       => $language->get('general', 'submit'),
     'ENABLE_MINECRAFT_INTEGRATION' => $language->get('admin', 'enable_minecraft_integration'),
-    'MINECRAFT_ENABLED' => $minecraft_enabled,
+    'MINECRAFT_ENABLED'            => $minecraft_enabled,
 ]);
 
 if ($minecraft_enabled == 1) {
     if ($user->hasPermission('admincp.minecraft.authme')) {
         $smarty->assign([
-            'AUTHME' => $language->get('admin', 'authme_integration'),
+            'AUTHME'      => $language->get('admin', 'authme_integration'),
             'AUTHME_LINK' => URL::build('/panel/minecraft/authme'),
         ]);
     }
 
     if ($user->hasPermission('admincp.minecraft.verification')) {
         $smarty->assign([
-            'ACCOUNT_VERIFICATION' => $language->get('admin', 'account_verification'),
+            'ACCOUNT_VERIFICATION'      => $language->get('admin', 'account_verification'),
             'ACCOUNT_VERIFICATION_LINK' => URL::build('/panel/minecraft/account_verification'),
         ]);
     }
 
     if ($user->hasPermission('admincp.minecraft.servers')) {
         $smarty->assign([
-            'SERVERS' => $language->get('admin', 'minecraft_servers'),
+            'SERVERS'      => $language->get('admin', 'minecraft_servers'),
             'SERVERS_LINK' => URL::build('/panel/minecraft/servers'),
         ]);
     }
 
     if ($user->hasPermission('admincp.minecraft.query_errors')) {
         $smarty->assign([
-            'QUERY_ERRORS' => $language->get('admin', 'query_errors'),
+            'QUERY_ERRORS'      => $language->get('admin', 'query_errors'),
             'QUERY_ERRORS_LINK' => URL::build('/panel/minecraft/query_errors'),
         ]);
     }
 
     if ($user->hasPermission('admincp.minecraft.banners') && function_exists('exif_imagetype')) {
         $smarty->assign([
-            'BANNERS' => $language->get('admin', 'server_banners'),
+            'BANNERS'      => $language->get('admin', 'server_banners'),
             'BANNERS_LINK' => URL::build('/panel/minecraft/banners'),
         ]);
     }

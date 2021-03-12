@@ -63,7 +63,7 @@ if (Input::exists()) {
                 'value' => $enabled,
             ]);
 
-            if (isset($_POST['message']) && ! empty($_POST['message'])) {
+            if (isset($_POST['message']) && !empty($_POST['message'])) {
                 $message = Input::get('message');
             } else {
                 $message = 'Maintenance mode is enabled.';
@@ -81,7 +81,7 @@ if (Input::exists()) {
             $cache->setCache('maintenance_cache');
             $cache->store('maintenance', [
                 'maintenance' => $enabled,
-                'message' => Output::getClean($message),
+                'message'     => Output::getClean($message),
             ]);
 
             // Page load timer
@@ -119,14 +119,14 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (Session::exists('debugging_success')) {
     $smarty->assign([
-        'SUCCESS' => Session::flash('debugging_success'),
+        'SUCCESS'       => Session::flash('debugging_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
@@ -143,26 +143,26 @@ if ($cache->isCached('page_load')) {
 
 if ($user->hasPermission('admincp.errors')) {
     $smarty->assign([
-        'ERROR_LOGS' => $language->get('admin', 'error_logs'),
+        'ERROR_LOGS'      => $language->get('admin', 'error_logs'),
         'ERROR_LOGS_LINK' => URL::build('/panel/core/errors'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'DEBUGGING_AND_MAINTENANCE' => $language->get('admin', 'debugging_and_maintenance'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'ENABLE_DEBUG_MODE' => $language->get('admin', 'enable_debug_mode'),
-    'ENABLE_DEBUG_MODE_VALUE' => (defined('DEBUGGING') ? DEBUGGING : 0),
-    'ENABLE_MAINTENANCE_MODE' => $language->get('admin', 'enable_maintenance_mode'),
-    'ENABLE_MAINTENANCE_MODE_VALUE' => ((isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') ? 1 : 0),
-    'ENABLE_PAGE_LOAD_TIMER' => $language->get('admin', 'enable_page_load_timer'),
-    'ENABLE_PAGE_LOAD_TIMER_VALUE' => $page_loading,
-    'MAINTENANCE_MODE_MESSAGE' => $language->get('admin', 'maintenance_mode_message'),
+    'PARENT_PAGE'                    => PARENT_PAGE,
+    'DASHBOARD'                      => $language->get('admin', 'dashboard'),
+    'CONFIGURATION'                  => $language->get('admin', 'configuration'),
+    'DEBUGGING_AND_MAINTENANCE'      => $language->get('admin', 'debugging_and_maintenance'),
+    'PAGE'                           => PANEL_PAGE,
+    'TOKEN'                          => Token::get(),
+    'SUBMIT'                         => $language->get('general', 'submit'),
+    'ENABLE_DEBUG_MODE'              => $language->get('admin', 'enable_debug_mode'),
+    'ENABLE_DEBUG_MODE_VALUE'        => (defined('DEBUGGING') ? DEBUGGING : 0),
+    'ENABLE_MAINTENANCE_MODE'        => $language->get('admin', 'enable_maintenance_mode'),
+    'ENABLE_MAINTENANCE_MODE_VALUE'  => ((isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') ? 1 : 0),
+    'ENABLE_PAGE_LOAD_TIMER'         => $language->get('admin', 'enable_page_load_timer'),
+    'ENABLE_PAGE_LOAD_TIMER_VALUE'   => $page_loading,
+    'MAINTENANCE_MODE_MESSAGE'       => $language->get('admin', 'maintenance_mode_message'),
     'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified(htmlspecialchars_decode($maintenance['message'])),
 ]);
 

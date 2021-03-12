@@ -1,6 +1,6 @@
 <?php
 
-if (! isset($_SESSION['action'])) {
+if (!isset($_SESSION['action'])) {
     Redirect::to('install.php');
     exit();
 }

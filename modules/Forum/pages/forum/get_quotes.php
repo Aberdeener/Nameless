@@ -9,7 +9,7 @@
  *  Get a list of quotes
  */
 
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     exit(json_encode(['error' => 'Not logged in']));
 }
 
@@ -22,7 +22,7 @@ define('PAGE', 'forum');
 $forum = new Forum();
 
 // Get the post data
-if (! isset($_POST) || empty($_POST)) {
+if (!isset($_POST) || empty($_POST)) {
     exit(json_encode(['error' => 'No post data']));
 }
 
@@ -51,10 +51,10 @@ foreach ($_POST['posts'] as $item) {
     if ($post['topic_id'] == $_POST['topic']) {
         $post_author = new User($post['creator']);
         $posts[] = [
-            'content' => Output::getPurified($content),
+            'content'         => Output::getPurified($content),
             'author_username' => $post_author->getDisplayname(),
             'author_nickname' => $post_author->getDisplayname(true),
-            'link' => URL::build('/forum/topic/'.$post['topic_id'], 'pid='.htmlspecialchars($item)),
+            'link'            => URL::build('/forum/topic/'.$post['topic_id'], 'pid='.htmlspecialchars($item)),
         ];
     }
 }

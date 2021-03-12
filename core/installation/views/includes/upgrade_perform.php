@@ -19,14 +19,14 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('alerts', [
-                        'id' => $item->id,
-                        'user_id' => $item->user_id,
-                        'type' => $item->type,
-                        'url' => $item->url,
-                        'content' => $item->content,
+                        'id'            => $item->id,
+                        'user_id'       => $item->user_id,
+                        'type'          => $item->type,
+                        'url'           => $item->url,
+                        'content'       => $item->content,
                         'content_short' => ((strlen($item->content) > 64) ? substr($item->content, 0, 64) : $item->content),
-                        'created' => $item->created,
-                        'read' => $item->read,
+                        'created'       => $item->created,
+                        'read'          => $item->read,
                     ]);
                 }
             }
@@ -42,13 +42,13 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('custom_pages', [
-                        'id' => $item->id,
-                        'url' => $item->url,
-                        'title' => $item->title,
-                        'content' => $item->content,
+                        'id'            => $item->id,
+                        'url'           => $item->url,
+                        'title'         => $item->title,
+                        'content'       => $item->content,
                         'link_location' => $item->link_location,
-                        'redirect' => $item->redirect,
-                        'link' => $item->link,
+                        'redirect'      => $item->redirect,
+                        'link'          => $item->link,
                     ]);
                 }
             }
@@ -64,10 +64,10 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('custom_pages_permissions', [
-                        'id' => $item->id,
-                        'page_id' => $item->page_id,
+                        'id'       => $item->id,
+                        'page_id'  => $item->page_id,
                         'group_id' => $item->group_id,
-                        'view' => $item->view,
+                        'view'     => $item->view,
                     ]);
                 }
             }
@@ -87,16 +87,16 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('forums', [
-                        'id' => $item->id,
-                        'forum_title' => $item->forum_title,
+                        'id'                => $item->id,
+                        'forum_title'       => $item->forum_title,
                         'forum_description' => $item->forum_description,
-                        'forum_type' => $item->forum_type,
-                        'last_post_date' => ($item->last_post_date) ? strtotime($item->last_post_date) : null,
-                        'last_user_posted' => $item->last_user_posted,
+                        'forum_type'        => $item->forum_type,
+                        'last_post_date'    => ($item->last_post_date) ? strtotime($item->last_post_date) : null,
+                        'last_user_posted'  => $item->last_user_posted,
                         'last_topic_posted' => $item->last_topic_posted,
-                        'parent' => $item->parent,
-                        'forum_order' => $item->forum_order,
-                        'news' => $item->news,
+                        'parent'            => $item->parent,
+                        'forum_order'       => $item->forum_order,
+                        'news'              => $item->news,
                     ]);
                 }
             }
@@ -112,12 +112,12 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('forums_permissions', [
-                        'id' => $item->id,
-                        'group_id' => $item->group_id,
-                        'forum_id' => $item->forum_id,
-                        'view' => $item->view,
-                        'create_topic' => $item->create_topic,
-                        'create_post' => $item->create_post,
+                        'id'                => $item->id,
+                        'group_id'          => $item->group_id,
+                        'forum_id'          => $item->forum_id,
+                        'view'              => $item->view,
+                        'create_topic'      => $item->create_topic,
+                        'create_post'       => $item->create_post,
                         'view_other_topics' => 1,
                     ]);
                 }
@@ -134,9 +134,9 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('forums_topic_labels', [
-                        'id' => $item->id,
-                        'fids' => $item->fids,
-                        'name' => $item->name,
+                        'id'    => $item->id,
+                        'fids'  => $item->fids,
+                        'name'  => $item->name,
                         'label' => $item->label,
                     ]);
                 }
@@ -153,8 +153,8 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('friends', [
-                        'id' => $item->id,
-                        'user_id' => $item->user_id,
+                        'id'        => $item->id,
+                        'user_id'   => $item->user_id,
                         'friend_id' => $item->friend_id,
                     ]);
                 }
@@ -171,11 +171,11 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('groups', [
-                        'id' => $item->id,
-                        'name' => $item->name,
-                        'group_html' => $item->group_html,
+                        'id'            => $item->id,
+                        'name'          => $item->name,
+                        'group_html'    => $item->group_html,
                         'group_html_lg' => $item->group_html_lg,
-                        'admin_cp' => (($item->staff) ? 1 : 0),
+                        'admin_cp'      => (($item->staff) ? 1 : 0),
                         'default_group' => (($item->id == 1) ? 1 : 0),
                     ]);
                 }
@@ -200,13 +200,13 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('infractions', [
-                        'id' => $item->id,
-                        'type' => $item->type,
-                        'punished' => $item->punished,
-                        'staff' => $item->staff,
-                        'reason' => $item->reason,
+                        'id'              => $item->id,
+                        'type'            => $item->type,
+                        'punished'        => $item->punished,
+                        'staff'           => $item->staff,
+                        'reason'          => $item->reason,
                         'infraction_date' => $item->infraction_date,
-                        'acknowledged' => $item->acknowledged,
+                        'acknowledged'    => $item->acknowledged,
                     ]);
                 }
             }
@@ -222,13 +222,13 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('mc_servers', [
-                        'id' => $item->id,
-                        'ip' => $item->ip,
-                        'query_ip' => $item->query_ip,
-                        'name' => $item->name,
-                        'is_default' => $item->is_default,
-                        'display' => $item->display,
-                        'pre' => $item->pre,
+                        'id'          => $item->id,
+                        'ip'          => $item->ip,
+                        'query_ip'    => $item->query_ip,
+                        'name'        => $item->name,
+                        'is_default'  => $item->is_default,
+                        'display'     => $item->display,
+                        'pre'         => $item->pre,
                         'player_list' => $item->player_list,
                     ]);
                 }
@@ -245,13 +245,13 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('posts', [
-                        'id' => $item->id,
-                        'forum_id' => $item->forum_id,
-                        'topic_id' => $item->topic_id,
+                        'id'           => $item->id,
+                        'forum_id'     => $item->forum_id,
+                        'topic_id'     => $item->topic_id,
                         'post_creator' => $item->post_creator,
                         'post_content' => $item->post_content,
-                        'created' => strtotime($item->post_date),
-                        'deleted' => $item->deleted,
+                        'created'      => strtotime($item->post_date),
+                        'deleted'      => $item->deleted,
                     ]);
                 }
             }
@@ -271,10 +271,10 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('private_messages', [
-                        'id' => $item->id,
-                        'author_id' => $item->author_id,
-                        'title' => $item->title,
-                        'created' => 0, // will update later
+                        'id'              => $item->id,
+                        'author_id'       => $item->author_id,
+                        'title'           => $item->title,
+                        'created'         => 0, // will update later
                         'last_reply_user' => $item->author_id, // will update later
                         'last_reply_date' => $item->updated,
                     ]);
@@ -286,16 +286,17 @@ switch ($s) {
 
         // Private message replies
         $private_messages = [];
+
         try {
             $old = $conn->get('nl1_private_messages_replies', ['id', '<>', 0]);
             if ($old->count()) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    if (! isset($private_messages[$item->pm_id])) {
+                    if (!isset($private_messages[$item->pm_id])) {
                         $private_messages[$item->pm_id] = [
-                            'created' => $item->created,
-                            'updated' => $item->created,
+                            'created'         => $item->created,
+                            'updated'         => $item->created,
                             'last_reply_user' => $item->user_id,
                         ];
                     } else {
@@ -308,11 +309,11 @@ switch ($s) {
                     }
 
                     $queries->create('private_messages_replies', [
-                        'id' => $item->id,
-                        'pm_id' => $item->pm_id,
+                        'id'        => $item->id,
+                        'pm_id'     => $item->pm_id,
                         'author_id' => $item->user_id,
-                        'created' => $item->created,
-                        'content' => $item->content,
+                        'created'   => $item->created,
+                        'content'   => $item->content,
                     ]);
                 }
             }
@@ -328,10 +329,10 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('private_messages_users', [
-                        'id' => $item->id,
-                        'pm_id' => $item->pm_id,
+                        'id'      => $item->id,
+                        'pm_id'   => $item->pm_id,
                         'user_id' => $item->user_id,
-                        'read' => $item->read,
+                        'read'    => $item->read,
                     ]);
                 }
             }
@@ -343,7 +344,7 @@ switch ($s) {
         foreach ($private_messages as $key => $message) {
             try {
                 $queries->update('private_messages', $key, [
-                    'created' => $message['created'],
+                    'created'         => $message['created'],
                     'last_reply_user' => $message['last_reply_user'],
                 ]);
             } catch (Exception $e) {
@@ -363,11 +364,11 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('query_errors', [
-                        'id' => $item->id,
-                        'date' => $item->date,
+                        'id'    => $item->id,
+                        'date'  => $item->date,
                         'error' => $item->error,
-                        'ip' => $item->ip,
-                        'port' => $item->port,
+                        'ip'    => $item->ip,
+                        'port'  => $item->port,
                     ]);
                 }
             }
@@ -383,18 +384,18 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('reports', [
-                        'id' => $item->id,
-                        'type' => $item->type,
-                        'reporter_id' => $item->reporter_id,
-                        'reported_id' => $item->reported_id,
-                        'status' => $item->status,
-                        'date_reported' => $item->date_reported,
-                        'date_updated' => $item->date_updated,
-                        'report_reason' => $item->report_reason,
-                        'updated_by' => $item->updated_by,
-                        'reported_post' => $item->reported_post,
+                        'id'              => $item->id,
+                        'type'            => $item->type,
+                        'reporter_id'     => $item->reporter_id,
+                        'reported_id'     => $item->reported_id,
+                        'status'          => $item->status,
+                        'date_reported'   => $item->date_reported,
+                        'date_updated'    => $item->date_updated,
+                        'report_reason'   => $item->report_reason,
+                        'updated_by'      => $item->updated_by,
+                        'reported_post'   => $item->reported_post,
                         'reported_mcname' => $item->reported_mcname,
-                        'reported_uuid' => $item->reported_uuid,
+                        'reported_uuid'   => $item->reported_uuid,
                     ]);
                 }
             }
@@ -410,10 +411,10 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('reports_comments', [
-                        'id' => $item->id,
-                        'report_id' => $item->report_id,
-                        'commenter_id' => $item->commenter_id,
-                        'comment_date' => $item->comment_date,
+                        'id'              => $item->id,
+                        'report_id'       => $item->report_id,
+                        'commenter_id'    => $item->commenter_id,
+                        'comment_date'    => $item->comment_date,
                         'comment_content' => $item->comment_content,
                     ]);
                 }
@@ -430,12 +431,12 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('forums_reactions', [
-                        'id' => $item->id,
-                        'post_id' => $item->post_id,
+                        'id'            => $item->id,
+                        'post_id'       => $item->post_id,
                         'user_received' => $item->user_received,
-                        'user_given' => $item->user_given,
-                        'reaction_id' => 1,
-                        'time' => strtotime($item->time_given),
+                        'user_given'    => $item->user_given,
+                        'reaction_id'   => 1,
+                        'time'          => strtotime($item->time_given),
                     ]);
                 }
             }
@@ -451,8 +452,8 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('settings', [
-                        'id' => $item->id,
-                        'name' => $item->name,
+                        'id'    => $item->id,
+                        'name'  => $item->name,
                         'value' => $item->value,
                     ]);
                 }
@@ -472,17 +473,17 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('topics', [
-                        'id' => $item->id,
-                        'forum_id' => $item->forum_id,
-                        'topic_title' => $item->topic_title,
-                        'topic_creator' => $item->topic_creator,
-                        'topic_last_user' => $item->topic_last_user,
-                        'topic_date' => $item->topic_date,
+                        'id'               => $item->id,
+                        'forum_id'         => $item->forum_id,
+                        'topic_title'      => $item->topic_title,
+                        'topic_creator'    => $item->topic_creator,
+                        'topic_last_user'  => $item->topic_last_user,
+                        'topic_date'       => $item->topic_date,
                         'topic_reply_date' => $item->topic_reply_date,
-                        'topic_views' => $item->topic_views,
-                        'locked' => $item->locked,
-                        'sticky' => $item->sticky,
-                        'label' => $item->label,
+                        'topic_views'      => $item->topic_views,
+                        'locked'           => $item->locked,
+                        'sticky'           => $item->sticky,
+                        'label'            => $item->label,
                     ]);
                 }
             }
@@ -498,33 +499,33 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('users', [
-                        'id' => $item->id,
-                        'username' => $item->mcname,
-                        'nickname' => $item->username,
-                        'password' => $item->password,
-                        'pass_method' => $item->pass_method,
-                        'uuid' => $item->uuid,
-                        'joined' => $item->joined,
-                        'email' => $item->email,
-                        'isbanned' => $item->isbanned,
-                        'lastip' => (is_null($item->lastip) ? 'none' : $item->lastip),
-                        'active' => $item->active,
-                        'signature' => $item->signature,
-                        'reputation' => $item->reputation,
-                        'reset_code' => $item->reset_code,
-                        'has_avatar' => $item->has_avatar,
-                        'gravatar' => $item->gravatar,
-                        'last_online' => $item->last_online,
+                        'id'                   => $item->id,
+                        'username'             => $item->mcname,
+                        'nickname'             => $item->username,
+                        'password'             => $item->password,
+                        'pass_method'          => $item->pass_method,
+                        'uuid'                 => $item->uuid,
+                        'joined'               => $item->joined,
+                        'email'                => $item->email,
+                        'isbanned'             => $item->isbanned,
+                        'lastip'               => (is_null($item->lastip) ? 'none' : $item->lastip),
+                        'active'               => $item->active,
+                        'signature'            => $item->signature,
+                        'reputation'           => $item->reputation,
+                        'reset_code'           => $item->reset_code,
+                        'has_avatar'           => $item->has_avatar,
+                        'gravatar'             => $item->gravatar,
+                        'last_online'          => $item->last_online,
                         'last_username_update' => $item->last_username_update,
-                        'user_title' => $item->user_title,
-                        'tfa_enabled' => $item->tfa_enabled,
-                        'tfa_type' => $item->tfa_type,
-                        'tfa_secret' => $item->tfa_secret,
-                        'tfa_complete' => $item->tfa_complete,
+                        'user_title'           => $item->user_title,
+                        'tfa_enabled'          => $item->tfa_enabled,
+                        'tfa_type'             => $item->tfa_type,
+                        'tfa_secret'           => $item->tfa_secret,
+                        'tfa_complete'         => $item->tfa_complete,
                     ]);
 
                     $queries->create('users_groups', [
-                        'user_id' => $item->id,
+                        'user_id'  => $item->id,
                         'group_id' => $item->group_id,
                     ]);
                 }
@@ -545,9 +546,9 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('users_admin_session', [
-                        'id' => $item->id,
+                        'id'      => $item->id,
                         'user_id' => $item->user_id,
-                        'hash' => $item->hash,
+                        'hash'    => $item->hash,
                     ]);
                 }
             }
@@ -563,9 +564,9 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('users_session', [
-                        'id' => $item->id,
+                        'id'      => $item->id,
                         'user_id' => $item->user_id,
-                        'hash' => $item->hash,
+                        'hash'    => $item->hash,
                     ]);
                 }
             }
@@ -581,11 +582,11 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('users_username_history', [
-                        'id' => $item->id,
-                        'user_id' => $item->user_id,
+                        'id'         => $item->id,
+                        'user_id'    => $item->user_id,
                         'changed_to' => $item->changed_to,
                         'changed_at' => $item->changed_at,
-                        'original' => $item->original,
+                        'original'   => $item->original,
                     ]);
                 }
             }
@@ -601,11 +602,11 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('user_profile_wall_posts', [
-                        'id' => $item->id,
-                        'user_id' => $item->user_id,
+                        'id'        => $item->id,
+                        'user_id'   => $item->user_id,
                         'author_id' => $item->author_id,
-                        'time' => $item->time,
-                        'content' => $item->content,
+                        'time'      => $item->time,
+                        'content'   => $item->content,
                     ]);
                 }
             }
@@ -621,11 +622,11 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('user_profile_wall_posts_reactions', [
-                        'id' => $item->id,
-                        'user_id' => $item->user_id,
-                        'post_id' => $item->post_id,
+                        'id'          => $item->id,
+                        'user_id'     => $item->user_id,
+                        'post_id'     => $item->post_id,
                         'reaction_id' => 1,
-                        'time' => 0,
+                        'time'        => 0,
                     ]);
                 }
             }
@@ -641,11 +642,11 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('user_profile_wall_posts_replies', [
-                        'id' => $item->id,
-                        'post_id' => $item->post_id,
+                        'id'        => $item->id,
+                        'post_id'   => $item->post_id,
                         'author_id' => $item->author_id,
-                        'time' => $item->time,
-                        'content' => $item->content,
+                        'time'      => $item->time,
+                        'content'   => $item->content,
                     ]);
                 }
             }
@@ -664,9 +665,9 @@ switch ($s) {
 
                 foreach ($old as $item) {
                     $queries->create('uuid_cache', [
-                        'id' => $item->id,
+                        'id'     => $item->id,
                         'mcname' => $item->mcname,
-                        'uuid' => $item->uuid,
+                        'uuid'   => $item->uuid,
                     ]);
                 }
             }
@@ -680,7 +681,7 @@ switch ($s) {
         // New settings/initialise cache
         // Site name
         $sitename = $queries->getWhere('settings', ['name', '=', 'sitename']);
-        if (! count($sitename)) {
+        if (!count($sitename)) {
             $cache->setCache('sitenamecache');
             $cache->store('sitename', 'NamelessMC');
         } else {
@@ -690,71 +691,71 @@ switch ($s) {
 
         // Languages
         $queries->create('languages', [
-            'name' => 'EnglishUK',
+            'name'       => 'EnglishUK',
             'is_default' => 1,
         ]);
         $queries->create('languages', [
-            'name' => 'Chinese',
+            'name'       => 'Chinese',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Czech',
+            'name'       => 'Czech',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Dutch',
+            'name'       => 'Dutch',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'EnglishUS',
+            'name'       => 'EnglishUS',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'German',
+            'name'       => 'German',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Greek',
+            'name'       => 'Greek',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Japanese',
+            'name'       => 'Japanese',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Lithuanian',
+            'name'       => 'Lithuanian',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Norwegian',
+            'name'       => 'Norwegian',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Polish',
+            'name'       => 'Polish',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Portuguese',
+            'name'       => 'Portuguese',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Romanian',
+            'name'       => 'Romanian',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Slovak',
+            'name'       => 'Slovak',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Spanish',
+            'name'       => 'Spanish',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'SwedishSE',
+            'name'       => 'SwedishSE',
             'is_default' => 0,
         ]);
         $queries->create('languages', [
-            'name' => 'Turkish',
+            'name'       => 'Turkish',
             'is_default' => 0,
         ]);
         $cache->setCache('languagecache');
@@ -762,11 +763,11 @@ switch ($s) {
 
         // Modules
         $queries->create('modules', [
-            'name' => 'Core',
+            'name'    => 'Core',
             'enabled' => 1,
         ]);
         $queries->create('modules', [
-            'name' => 'Forum',
+            'name'    => 'Forum',
             'enabled' => 1,
         ]);
         $cache->setCache('modulescache');
@@ -779,22 +780,22 @@ switch ($s) {
 
         // Reactions
         $queries->create('reactions', [
-            'name' => 'Like',
-            'html' => '<i class="fas fa-thumbs-up text-success"></i>',
+            'name'    => 'Like',
+            'html'    => '<i class="fas fa-thumbs-up text-success"></i>',
             'enabled' => 1,
-            'type' => 2,
+            'type'    => 2,
         ]);
         $queries->create('reactions', [
-            'name' => 'Dislike',
-            'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
+            'name'    => 'Dislike',
+            'html'    => '<i class="fas fa-thumbs-down text-danger"></i>',
             'enabled' => 1,
-            'type' => 0,
+            'type'    => 0,
         ]);
         $queries->create('reactions', [
-            'name' => 'Meh',
-            'html' => '<i class="fas fa-meh text-warning"></i>',
+            'name'    => 'Meh',
+            'html'    => '<i class="fas fa-meh text-warning"></i>',
             'enabled' => 1,
-            'type' => 1,
+            'type'    => 1,
         ]);
 
         // Forum Labels
@@ -825,29 +826,29 @@ switch ($s) {
 
         // Settings
         $queries->create('settings', [
-            'name' => 'registration_enabled',
+            'name'  => 'registration_enabled',
             'value' => 1,
         ]);
 
         $queries->create('settings', [
-            'name' => 'recaptcha_login',
+            'name'  => 'recaptcha_login',
             'value' => 'false',
         ]);
 
         $queries->create('settings', [
-            'name' => 'recaptcha_type',
+            'name'  => 'recaptcha_type',
             'value' => 'reCaptcha',
         ]);
 
         $version = $queries->getWhere('settings', ['name', '=', 'version']);
         if (count($version)) {
             $queries->update('settings', $version[0]->id, [
-                'name' => 'nameless_version',
+                'name'  => 'nameless_version',
                 'value' => '2.0.0-pr9',
             ]);
         } else {
             $queries->create('settings', [
-                'name' => 'nameless_version',
+                'name'  => 'nameless_version',
                 'value' => '2.0.0-pr9',
             ]);
         }
@@ -859,7 +860,7 @@ switch ($s) {
             ]);
         } else {
             $queries->create('settings', [
-                'name' => 'version_update',
+                'name'  => 'version_update',
                 'value' => 'false',
             ]);
         }
@@ -871,7 +872,7 @@ switch ($s) {
             ]);
         } else {
             $queries->create('settings', [
-                'name' => 'verify_accounts',
+                'name'  => 'verify_accounts',
                 'value' => 0,
             ]);
         }
@@ -883,30 +884,30 @@ switch ($s) {
             ]);
         } else {
             $queries->create('settings', [
-                'name' => 'avatar_site',
+                'name'  => 'avatar_site',
                 'value' => 'cravatar',
             ]);
         }
 
         $queries->create('settings', [
-            'name' => 'mc_integration',
+            'name'  => 'mc_integration',
             'value' => 1,
         ]);
 
         $queries->create('settings', [
-            'name' => 'portal',
+            'name'  => 'portal',
             'value' => 0,
         ]);
         $cache->setCache('portal_cache');
         $cache->store('portal', 0);
 
         $queries->create('settings', [
-            'name' => 'forum_reactions',
+            'name'  => 'forum_reactions',
             'value' => 1,
         ]);
 
         $queries->create('settings', [
-            'name' => 'formatting_type',
+            'name'  => 'formatting_type',
             'value' => 'html',
         ]);
         $cache->setCache('post_formatting');
@@ -918,7 +919,7 @@ switch ($s) {
             $cache->store('error_reporting', $error_reporting[0]->value);
         } else {
             $queries->create('settings', [
-                'name' => 'error_reporting',
+                'name'  => 'error_reporting',
                 'value' => 0,
             ]);
             $cache->setCache('error_cache');
@@ -926,7 +927,7 @@ switch ($s) {
         }
 
         $queries->create('settings', [
-            'name' => 'page_loading',
+            'name'  => 'page_loading',
             'value' => 0,
         ]);
         $cache->setCache('page_load_cache');
@@ -939,128 +940,128 @@ switch ($s) {
             ]);
         } else {
             $queries->create('settings', [
-                'name' => 'use_api',
+                'name'  => 'use_api',
                 'value' => 0,
             ]);
         }
 
         $queries->create('settings', [
-            'name' => 'timezone',
+            'name'  => 'timezone',
             'value' => 'Europe/London',
         ]);
         $cache->setCache('timezone_cache');
         $cache->store('timezone', 'Europe/London');
 
         $queries->create('settings', [
-            'name' => 'maintenance_message',
+            'name'  => 'maintenance_message',
             'value' => 'This website is currently in maintenance mode.',
         ]);
         $cache->setCache('maintenance_cache');
         $cache->store('maintenance', ['maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.']);
 
         $queries->create('settings', [
-            'name' => 'authme',
+            'name'  => 'authme',
             'value' => 0,
         ]);
 
         $queries->create('settings', [
-            'name' => 'authme_db',
+            'name'  => 'authme_db',
             'value' => null,
         ]);
 
         $queries->create('settings', [
-            'name' => 'force_https',
+            'name'  => 'force_https',
             'value' => 'false',
         ]);
 
         $queries->create('settings', [
-            'name' => 'default_avatar_type',
+            'name'  => 'default_avatar_type',
             'value' => 'minecraft',
         ]);
 
         $queries->create('settings', [
-            'name' => 'custom_default_avatar',
+            'name'  => 'custom_default_avatar',
             'value' => null,
         ]);
 
         $queries->create('settings', [
-            'name' => 'private_profile',
+            'name'  => 'private_profile',
             'value' => 1,
         ]);
 
         $queries->create('settings', [
-            'name' => 'registration_disabled_message',
+            'name'  => 'registration_disabled_message',
             'value' => null,
         ]);
 
         $queries->create('settings', [
-            'name' => 'discord_hooks',
+            'name'  => 'discord_hooks',
             'value' => '{}',
         ]);
 
         $queries->create('settings', [
-            'name' => 'api_verification',
+            'name'  => 'api_verification',
             'value' => '1',
         ]);
 
         $queries->create('settings', [
-            'name' => 'validate_user_action',
+            'name'  => 'validate_user_action',
             'value' => '{"action":"activate"}',
         ]);
 
         $queries->create('settings', [
-            'name' => 'login_method',
+            'name'  => 'login_method',
             'value' => 'email',
         ]);
 
         $queries->create('settings', [
-            'name' => 'username_sync',
+            'name'  => 'username_sync',
             'value' => '1',
         ]);
 
         $queries->create('privacy_terms', [
-            'name' => 'privacy',
+            'name'  => 'privacy',
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.',
         ]);
 
         $terms = $queries->getWhere('settings', ['name', '=', 't_and_c_site']);
         if (count($terms)) {
             $queries->create('privacy_terms', [
-                'name' => 'terms',
+                'name'  => 'terms',
                 'value' => $terms[0]->value,
             ]);
         }
 
         $queries->create('settings', [
-            'name' => 'status_page',
+            'name'  => 'status_page',
             'value' => '1',
         ]);
 
         $queries->create('settings', [
-            'name' => 'discord_integration',
+            'name'  => 'discord_integration',
             'value' => 0,
         ]);
 
         $queries->create('settings', [
-            'name' => 'discord_bot_url',
+            'name'  => 'discord_bot_url',
             'value' => null,
         ]);
 
         $queries->create('settings', [
-            'name' => 'discord_bot_username',
+            'name'  => 'discord_bot_username',
             'value' => null,
         ]);
 
         // Templates
         $queries->create('templates', [
-            'name' => 'Default',
-            'enabled' => 1,
+            'name'       => 'Default',
+            'enabled'    => 1,
             'is_default' => 0,
         ]);
 
         $queries->create('templates', [
-            'name' => 'DefaultRevamp',
-            'enabled' => 1,
+            'name'       => 'DefaultRevamp',
+            'enabled'    => 1,
             'is_default' => 1,
         ]);
 
@@ -1068,36 +1069,36 @@ switch ($s) {
         $cache->store('default', 'DefaultRevamp');
 
         $queries->create('panel_templates', [
-            'name' => 'Default',
-            'enabled' => 1,
+            'name'       => 'Default',
+            'enabled'    => 1,
             'is_default' => 1,
         ]);
         $cache->store('panel_default', 'Default');
 
         // Widgets - initialise just a few default ones for now
         $queries->create('widgets', [
-            'name' => 'Online Staff',
+            'name'    => 'Online Staff',
             'enabled' => 1,
-            'pages' => '["index","forum"]',
+            'pages'   => '["index","forum"]',
         ]);
 
         $queries->create('widgets', [
-            'name' => 'Online Users',
+            'name'    => 'Online Users',
             'enabled' => 1,
-            'pages' => '["index","forum"]',
+            'pages'   => '["index","forum"]',
         ]);
 
         $queries->create('widgets', [
-            'name' => 'Statistics',
+            'name'    => 'Statistics',
             'enabled' => 1,
-            'pages' => '["index","forum"]',
+            'pages'   => '["index","forum"]',
         ]);
 
         $cache->setCache('Core-widgets');
         $cache->store('enabled', [
             'Online Staff' => 1,
             'Online Users' => 1,
-            'Statistics' => 1,
+            'Statistics'   => 1,
         ]);
 
         $cache->setCache('backgroundcache');

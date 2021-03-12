@@ -18,7 +18,7 @@ $language = [
 
     // General Options
     'greeting' => 'こんにちは！',
-    'thanks' => 'ありがとうございます。',
+    'thanks'   => 'ありがとうございます。',
 
     // Registration Email
     'register_subject' => 'アカウント検証',

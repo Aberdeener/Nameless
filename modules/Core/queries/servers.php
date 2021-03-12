@@ -22,7 +22,7 @@ if ($cache->isCached('query_interval')) {
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
     $key = $queries->getWhere('settings', ['name', '=', 'unique_id']);
-    if (! count($key)) {
+    if (!count($key)) {
         exit();
     }
 
@@ -80,8 +80,8 @@ if (count($servers)) {
     foreach ($results as $id => $result) {
         // Insert into db
         $queries->create('query_results', [
-            'server_id' => $id,
-            'queried_at' => date('U'),
+            'server_id'      => $id,
+            'queried_at'     => date('U'),
             'players_online' => (isset($result['player_count']) ? $result['player_count'] : 0),
         ]);
     }

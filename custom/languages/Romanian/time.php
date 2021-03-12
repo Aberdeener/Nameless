@@ -15,17 +15,17 @@ $language = [
     /*
      *  Time
      */
-    'time' => 'time', // Placeholder, no need to translate
-    'seconds_short' => 's', // Shortened "seconds", eg "s"
+    'time'               => 'time', // Placeholder, no need to translate
+    'seconds_short'      => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'În urmă cu mai puțin de un minut',
-    '1_minute' => 'Acum 1 minut',
-    '_minutes' => 'Acum {x} minute',
-    'about_1_hour' => 'Acum o oră',
-    '_hours' => 'Acum {x} ore',
-    '1_day' => 'Acum o zi',
-    '_days' => 'Acum {x} zile',
-    'about_1_month' => 'Acum o lună',
-    '_months' => 'Acum {x} luni',
-    'about_1_year' => 'Acum un an',
-    'over_x_years' => 'Acum {x} ani',
+    '1_minute'           => 'Acum 1 minut',
+    '_minutes'           => 'Acum {x} minute',
+    'about_1_hour'       => 'Acum o oră',
+    '_hours'             => 'Acum {x} ore',
+    '1_day'              => 'Acum o zi',
+    '_days'              => 'Acum {x} zile',
+    'about_1_month'      => 'Acum o lună',
+    '_months'            => 'Acum {x} luni',
+    'about_1_year'       => 'Acum un an',
+    'over_x_years'       => 'Acum {x} ani',
 ];

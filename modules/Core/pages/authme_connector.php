@@ -30,7 +30,7 @@ if (Input::exists()) {
         // Valid token
         if (isset($_GET['step']) && $_GET['step'] == 2) {
             // Step 2
-            if (! isset($_SESSION['authme'])) {
+            if (!isset($_SESSION['authme'])) {
                 Redirect::to(URL::build('/register'));
                 exit();
             }
@@ -45,24 +45,24 @@ if (Input::exists()) {
                 $validation = $validate->check($_POST, [
                     'nickname' => [
                         'required' => true,
-                        'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users',
+                        'min'      => 3,
+                        'max'      => 20,
+                        'unique'   => 'users',
                     ],
                     'email' => [
                         'required' => true,
-                        'min' => 4,
-                        'max' => 64,
-                        'unique' => 'users',
+                        'min'      => 4,
+                        'max'      => 64,
+                        'unique'   => 'users',
                     ],
                 ]);
             } else {
                 $validation = $validate->check($_POST, [
                     'email' => [
                         'required' => true,
-                        'min' => 4,
-                        'max' => 64,
-                        'unique' => 'users',
+                        'min'      => 4,
+                        'max'      => 64,
+                        'unique'   => 'users',
                     ],
                 ]);
             }
@@ -103,13 +103,13 @@ if (Input::exists()) {
                 // UUID
                 if ($uuid_linking == '1') {
                     require ROOT_PATH.'/core/integration/uuid.php'; // For UUID stuff
-                    if (! isset($mcname_result)) {
+                    if (!isset($mcname_result)) {
                         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
                         if ($profile && method_exists($profile, 'getProfileAsArray')) {
                             $mcname_result = $profile->getProfileAsArray();
                         }
                     }
-                    if (isset($mcname_result['uuid']) && ! empty($mcname_result['uuid'])) {
+                    if (isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])) {
                         $uuid = $mcname_result['uuid'];
                     } else {
                         $errors[] = $language->get('user', 'mcname_lookup_error');
@@ -126,7 +126,7 @@ if (Input::exists()) {
                         $default_group = $cache->retrieve('default_group');
                     } else {
                         $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
-                        if (! count($default_group)) {
+                        if (!count($default_group)) {
                             $default_group = 1;
                         } else {
                             $default_group = $default_group[0]->id;
@@ -136,15 +136,15 @@ if (Input::exists()) {
                     }
 
                     $user->create([
-                        'username' => $_SESSION['authme']['user'],
-                        'nickname' => $nickname,
-                        'password' => $_SESSION['authme']['pass'],
+                        'username'    => $_SESSION['authme']['user'],
+                        'nickname'    => $nickname,
+                        'password'    => $_SESSION['authme']['pass'],
                         'pass_method' => $authme_hash['hash'],
-                        'uuid' => $uuid,
-                        'joined' => date('U'),
-                        'email' => Output::getClean(Input::get('email')),
-                        'lastip' => $ip,
-                        'active' => 1,
+                        'uuid'        => $uuid,
+                        'joined'      => date('U'),
+                        'email'       => Output::getClean(Input::get('email')),
+                        'lastip'      => $ip,
+                        'active'      => 1,
                         'last_online' => date('U'),
                     ]);
 
@@ -197,7 +197,7 @@ if (Input::exists()) {
                         }
                     } elseif (strpos($validation_error, 'already exists') !== false) {
                         // already exists
-                        if (! in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
+                        if (!in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
                             $errors[] = $language->get('user', 'username_mcname_email_exists');
                         }
                     }
@@ -233,14 +233,14 @@ if (Input::exists()) {
                 $validation = $validate->check($_POST, [
                     'username' => [
                         'required' => true,
-                        'unique' => 'users',
+                        'unique'   => 'users',
                     ],
                     'password' => [
                         'required' => true,
                     ],
                     't_and_c' => [
                         'required' => true,
-                        'agree' => true,
+                        'agree'    => true,
                     ],
                 ]);
 
@@ -286,7 +286,7 @@ if (Input::exists()) {
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
                                                 'pass' => $password,
-                                                'ip' => $ip,
+                                                'ip'   => $ip,
                                             ];
                                         }
 
@@ -298,7 +298,7 @@ if (Input::exists()) {
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
                                                 'pass' => $password,
-                                                'ip' => $ip,
+                                                'ip'   => $ip,
                                             ];
                                         }
 
@@ -313,7 +313,7 @@ if (Input::exists()) {
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
                                                 'pass' => ($salt.'$'.$exploded[3]),
-                                                'ip' => $ip,
+                                                'ip'   => $ip,
                                             ];
                                         }
 
@@ -333,7 +333,7 @@ if (Input::exists()) {
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
                                                 'pass' => ($iterations.'$'.$salt.'$'.$pass),
-                                                'ip' => $ip,
+                                                'ip'   => $ip,
                                             ];
                                         }
 
@@ -390,17 +390,17 @@ if (count($errors)) {
     $smarty->assign('ERRORS', $errors);
 }
 
-if (! isset($_GET['step'])) {
+if (!isset($_GET['step'])) {
     // Smarty
     $smarty->assign([
         'CONNECT_WITH_AUTHME' => $language->get('user', 'connect_with_authme'),
-        'AUTHME_INFO' => $language->get('user', 'authme_help'),
-        'USERNAME' => $language->get('user', 'username'),
-        'PASSWORD' => $language->get('user', 'password'),
-        'TOKEN' => Token::generate(),
-        'SUBMIT' => $language->get('general', 'submit'),
-        'I_AGREE' => $language->get('user', 'i_agree'),
-        'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+        'AUTHME_INFO'         => $language->get('user', 'authme_help'),
+        'USERNAME'            => $language->get('user', 'username'),
+        'PASSWORD'            => $language->get('user', 'password'),
+        'TOKEN'               => Token::generate(),
+        'SUBMIT'              => $language->get('general', 'submit'),
+        'I_AGREE'             => $language->get('user', 'i_agree'),
+        'AGREE_TO_TERMS'      => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
     ]);
 
     // Recaptcha
@@ -424,11 +424,11 @@ if (! isset($_GET['step'])) {
 
     $smarty->assign([
         'CONNECT_WITH_AUTHME' => $language->get('user', 'connect_with_authme'),
-        'AUTHME_SUCCESS' => $language->get('user', 'authme_account_linked'),
-        'AUTHME_INFO' => $info,
-        'EMAIL' => $language->get('user', 'email'),
-        'TOKEN' => Token::generate(),
-        'SUBMIT' => $language->get('general', 'submit'),
+        'AUTHME_SUCCESS'      => $language->get('user', 'authme_account_linked'),
+        'AUTHME_INFO'         => $info,
+        'EMAIL'               => $language->get('user', 'email'),
+        'TOKEN'               => Token::generate(),
+        'SUBMIT'              => $language->get('general', 'submit'),
     ]);
 
     $template_file = ROOT_PATH.'/custom/templates/'.TEMPLATE.'/authme_email.tpl';

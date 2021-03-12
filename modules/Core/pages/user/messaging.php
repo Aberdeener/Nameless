@@ -10,7 +10,7 @@
  */
 
 // Must be logged in
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
     exit();
 }
@@ -22,10 +22,10 @@ require_once ROOT_PATH.'/core/templates/frontend_init.php';
 
 $template->addCSSFiles(
     [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css'                         => [],
         (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css'              => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css'   => [],
     ]
 );
 
@@ -36,7 +36,7 @@ $formatting = $cache->retrieve('formatting');
 if ($formatting == 'markdown') {
     $template->addJSFiles(
         [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js'            => [],
             (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
         ]
     );
@@ -51,9 +51,9 @@ if ($formatting == 'markdown') {
 } else {
     $template->addJSFiles(
         [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js'                        => [],
             (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js'                => [],
         ]
     );
 
@@ -74,7 +74,7 @@ $smarty->assign(
 
 // Get page
 if (isset($_GET['p'])) {
-    if (! is_numeric($_GET['p'])) {
+    if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/user/messaging'));
         exit();
     } else {
@@ -93,7 +93,7 @@ if (isset($_GET['p'])) {
     $p = 1;
 }
 
-if (! isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     // Get private messages
     $messages = $user->listPMs($user->data()->id);
 
@@ -119,31 +119,31 @@ if (! isset($_GET['action'])) {
 
         $target_user = new User($results->data[$n]['user_updated']);
         $template_array[] = [
-            'id' => $results->data[$n]['id'],
-            'title' => Output::getClean($results->data[$n]['title']),
-            'participants' => $participants,
-            'link' => URL::build('/user/messaging/', 'action=view&amp;message='.$results->data[$n]['id']),
-            'last_message_user_id' => Output::getClean($results->data[$n]['user_updated']),
-            'last_message_user' => $target_user->getDisplayname(),
+            'id'                        => $results->data[$n]['id'],
+            'title'                     => Output::getClean($results->data[$n]['title']),
+            'participants'              => $participants,
+            'link'                      => URL::build('/user/messaging/', 'action=view&amp;message='.$results->data[$n]['id']),
+            'last_message_user_id'      => Output::getClean($results->data[$n]['user_updated']),
+            'last_message_user'         => $target_user->getDisplayname(),
             'last_message_user_profile' => $target_user->getProfileURL(),
-            'last_message_user_avatar' => $target_user->getAvatar('../', 30),
-            'last_message_user_style' => $target_user->getGroupClass(),
-            'last_message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]['updated']), $language->getTimeLanguage()),
-            'last_message_date_full' => date('d M Y, H:i', $results->data[$n]['updated']),
+            'last_message_user_avatar'  => $target_user->getAvatar('../', 30),
+            'last_message_user_style'   => $target_user->getGroupClass(),
+            'last_message_date'         => $timeago->inWords(date('d M Y, H:i', $results->data[$n]['updated']), $language->getTimeLanguage()),
+            'last_message_date_full'    => date('d M Y, H:i', $results->data[$n]['updated']),
         ];
     }
 
     // Assign Smarty variables
     $smarty->assign(
         [
-            'USER_CP' => $language->get('user', 'user_cp'),
-            'MESSAGING' => $language->get('user', 'messaging'),
-            'MESSAGES' => $template_array,
-            'NO_MESSAGES' => $language->get('user', 'no_messages_full'),
+            'USER_CP'       => $language->get('user', 'user_cp'),
+            'MESSAGING'     => $language->get('user', 'messaging'),
+            'MESSAGES'      => $template_array,
+            'NO_MESSAGES'   => $language->get('user', 'no_messages_full'),
             'MESSAGE_TITLE' => $language->get('user', 'message_title'),
-            'PARTICIPANTS' => $language->get('user', 'participants'),
-            'LAST_MESSAGE' => $language->get('user', 'last_message'),
-            'BY' => $language->get('user', 'by'),
+            'PARTICIPANTS'  => $language->get('user', 'participants'),
+            'LAST_MESSAGE'  => $language->get('user', 'last_message'),
+            'BY'            => $language->get('user', 'by'),
         ]
     );
 
@@ -151,7 +151,7 @@ if (! isset($_GET['action'])) {
         // Can send messages
         $smarty->assign(
             [
-                'NEW_MESSAGE' => $language->get('user', 'new_message'),
+                'NEW_MESSAGE'      => $language->get('user', 'new_message'),
                 'NEW_MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new'),
             ]
         );
@@ -174,7 +174,7 @@ if (! isset($_GET['action'])) {
     $template->displayTemplate('user/messaging.tpl', $smarty);
 } else {
     if ($_GET['action'] == 'new') {
-        if (! $user->hasPermission('usercp.messaging')) {
+        if (!$user->hasPermission('usercp.messaging')) {
             Redirect::to(URL::build('/user/messaging'));
             exit();
         }
@@ -189,13 +189,13 @@ if (! isset($_GET['action'])) {
                     [
                         'title' => [
                             'required' => true,
-                            'min' => 2,
-                            'max' => 64,
+                            'min'      => 2,
+                            'max'      => 64,
                         ],
                         'content' => [
                             'required' => true,
-                            'min' => 2,
-                            'max' => 20480,
+                            'min'      => 2,
+                            'max'      => 20480,
                         ],
                         'to' => [
                             'required' => true,
@@ -225,7 +225,7 @@ if (! isset($_GET['action'])) {
 
                         $user_id = $user->nameToId($item);
                         if ($user_id) {
-                            if ($user->isBlocked($user_id, $user->data()->id) && ! $user->canViewACP()) {
+                            if ($user->isBlocked($user_id, $user->data()->id) && !$user->canViewACP()) {
                                 $blocked = true;
                                 unset($users[$n]);
                                 continue;
@@ -241,21 +241,21 @@ if (! isset($_GET['action'])) {
 
                     if (isset($blocked)) {
                         $error = $language->get('user', 'one_or_more_users_blocked');
-                    } elseif (! count($users)) {
+                    } elseif (!count($users)) {
                         $error = $language->get('user', 'cant_send_to_self');
                     } else {
                         // Ensure people haven't been added twice
                         $users = array_unique($users);
 
-                        if (! isset($max_users)) {
+                        if (!isset($max_users)) {
                             try {
                                 // Input the content
                                 $queries->create(
                                     'private_messages',
                                     [
-                                        'author_id' => $user->data()->id,
-                                        'title' => Output::getClean(Input::get('title')),
-                                        'created' => date('U'),
+                                        'author_id'       => $user->data()->id,
+                                        'title'           => Output::getClean(Input::get('title')),
+                                        'created'         => date('U'),
                                         'last_reply_user' => $user->data()->id,
                                         'last_reply_date' => date('U'),
                                     ]
@@ -279,10 +279,10 @@ if (! isset($_GET['action'])) {
                                 $queries->create(
                                     'private_messages_replies',
                                     [
-                                        'pm_id' => $last_id,
+                                        'pm_id'     => $last_id,
                                         'author_id' => $user->data()->id,
-                                        'created' => date('U'),
-                                        'content' => $content,
+                                        'created'   => date('U'),
+                                        'content'   => $content,
                                     ]
                                 );
 
@@ -296,7 +296,7 @@ if (! isset($_GET['action'])) {
                                         $queries->create(
                                             'private_messages_users',
                                             [
-                                                'pm_id' => $last_id,
+                                                'pm_id'   => $last_id,
                                                 'user_id' => $user_id,
                                             ]
                                         );
@@ -307,9 +307,9 @@ if (! isset($_GET['action'])) {
                                 $queries->create(
                                     'private_messages_users',
                                     [
-                                        'pm_id' => $last_id,
+                                        'pm_id'   => $last_id,
                                         'user_id' => $user->data()->id,
-                                        'read' => 1,
+                                        'read'    => 1,
                                     ]
                                 );
 
@@ -390,18 +390,18 @@ if (! isset($_GET['action'])) {
         // Assign Smarty variables
         $smarty->assign(
             [
-                'NEW_MESSAGE' => $language->get('user', 'new_message'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'CANCEL_LINK' => URL::build('/user/messaging'),
-                'SUBMIT' => $language->get('general', 'submit'),
-                'TOKEN' => Token::get(),
-                'MESSAGE_TITLE' => $language->get('user', 'message_title'),
-                'MESSAGE_TITLE_VALUE' => (isset($_POST['title']) ? Output::getPurified($_POST['title']) : ''),
-                'CONTENT' => (isset($_POST['content']) ? Output::getPurified($_POST['content']) : ''),
-                'TO' => $language->get('user', 'to'),
+                'NEW_MESSAGE'                => $language->get('user', 'new_message'),
+                'CANCEL'                     => $language->get('general', 'cancel'),
+                'CONFIRM_CANCEL'             => $language->get('general', 'confirm_cancel'),
+                'CANCEL_LINK'                => URL::build('/user/messaging'),
+                'SUBMIT'                     => $language->get('general', 'submit'),
+                'TOKEN'                      => Token::get(),
+                'MESSAGE_TITLE'              => $language->get('user', 'message_title'),
+                'MESSAGE_TITLE_VALUE'        => (isset($_POST['title']) ? Output::getPurified($_POST['title']) : ''),
+                'CONTENT'                    => (isset($_POST['content']) ? Output::getPurified($_POST['content']) : ''),
+                'TO'                         => $language->get('user', 'to'),
                 'SEPARATE_USERS_WITH_COMMAS' => $language->get('user', 'separate_users_with_commas'),
-                'ALL_USERS' => $user->listAllUsers(),
+                'ALL_USERS'                  => $user->listAllUsers(),
             ]
         );
 
@@ -422,7 +422,7 @@ if (! isset($_GET['action'])) {
         $template->displayTemplate('user/new_message.tpl', $smarty);
     } elseif ($_GET['action'] == 'view') {
         // Ensure message is specified
-        if (! isset($_GET['message']) || ! is_numeric($_GET['message'])) {
+        if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));
             exit();
         }
@@ -430,7 +430,7 @@ if (! isset($_GET['action'])) {
         // Ensure message exists
         $pm = $user->getPM($_GET['message'], $user->data()->id); // Get the PM - this also handles setting it as "read"
 
-        if (! $pm) { // Either PM doesn't exist, or the user doesn't have permission to view it
+        if (!$pm) { // Either PM doesn't exist, or the user doesn't have permission to view it
             Redirect::to(URL::build('/user/messaging'));
             exit();
         }
@@ -448,8 +448,8 @@ if (! isset($_GET['action'])) {
                     [
                         'content' => [
                             'required' => true,
-                            'min' => 2,
-                            'max' => 20480,
+                            'min'      => 2,
+                            'max'      => 20480,
                         ],
                     ]
                 );
@@ -470,10 +470,10 @@ if (! isset($_GET['action'])) {
                     $queries->create(
                         'private_messages_replies',
                         [
-                            'pm_id' => $pm[0]->id,
+                            'pm_id'     => $pm[0]->id,
                             'author_id' => $user->data()->id,
-                            'created' => date('U'),
-                            'content' => $content,
+                            'created'   => date('U'),
+                            'content'   => $content,
                         ]
                     );
 
@@ -545,16 +545,16 @@ if (! isset($_GET['action'])) {
             $target_user = new User($results->data[$n]->author_id);
 
             $template_array[] = [
-                'id' => $results->data[$n]->id,
-                'author_id' => $results->data[$n]->author_id,
-                'author_username' => $target_user->getDisplayname(),
-                'author_profile' => $target_user->getProfileURL(),
-                'author_avatar' => $target_user->getAvatar('../', 100),
-                'author_style' => $target_user->getGroupClass(),
-                'author_groups' => $target_user->getAllGroups('true'),
-                'message_date' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
+                'id'                => $results->data[$n]->id,
+                'author_id'         => $results->data[$n]->author_id,
+                'author_username'   => $target_user->getDisplayname(),
+                'author_profile'    => $target_user->getProfileURL(),
+                'author_avatar'     => $target_user->getAvatar('../', 100),
+                'author_style'      => $target_user->getGroupClass(),
+                'author_groups'     => $target_user->getAllGroups('true'),
+                'message_date'      => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->created), $language->getTimeLanguage()),
                 'message_date_full' => date('d M Y, H:i', $results->data[$n]->created),
-                'content' => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($results->data[$n]->content))),
+                'content'           => Output::getPurified($emojione->unicodeToImage(Output::getDecoded($results->data[$n]->content))),
             ];
         }
 
@@ -568,20 +568,20 @@ if (! isset($_GET['action'])) {
 
         // Smarty variables
         $smarty->assign([
-            'MESSAGE_TITLE' => Output::getClean($pm[0]->title),
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/user/messaging'),
-            'LEAVE_CONVERSATION' => $language->get('user', 'leave_conversation'),
-            'CONFIRM_LEAVE' => $language->get('user', 'confirm_leave'),
+            'MESSAGE_TITLE'           => Output::getClean($pm[0]->title),
+            'BACK'                    => $language->get('general', 'back'),
+            'BACK_LINK'               => URL::build('/user/messaging'),
+            'LEAVE_CONVERSATION'      => $language->get('user', 'leave_conversation'),
+            'CONFIRM_LEAVE'           => $language->get('user', 'confirm_leave'),
             'LEAVE_CONVERSATION_LINK' => URL::build('/user/messaging/', 'action=leave&amp;message='.$pm[0]->id),
-            'PAGINATION' => $pagination,
-            'PARTICIPANTS_TEXT' => $language->get('user', 'participants'),
-            'PARTICIPANTS' => $participants,
-            'MESSAGES' => $template_array,
-            'NEW_REPLY' => $language->get('user', 'new_reply'),
-            'TOKEN' => Token::get(),
-            'SUBMIT' => $language->get('general', 'submit'),
-            'SUCCESS_TITLE' => $language->get('general', 'success'),
+            'PAGINATION'              => $pagination,
+            'PARTICIPANTS_TEXT'       => $language->get('user', 'participants'),
+            'PARTICIPANTS'            => $participants,
+            'MESSAGES'                => $template_array,
+            'NEW_REPLY'               => $language->get('user', 'new_reply'),
+            'TOKEN'                   => Token::get(),
+            'SUBMIT'                  => $language->get('general', 'submit'),
+            'SUCCESS_TITLE'           => $language->get('general', 'success'),
         ]);
 
         // Markdown or HTML?
@@ -616,7 +616,7 @@ if (! isset($_GET['action'])) {
         $template->displayTemplate('user/view_message.tpl', $smarty);
     } elseif ($_GET['action'] == 'leave') {
         // Try to remove the user from the conversation
-        if (! isset($_GET['message']) || ! is_numeric($_GET['message'])) {
+        if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));
             exit();
         }

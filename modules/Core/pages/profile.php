@@ -18,7 +18,7 @@ require ROOT_PATH.'/core/includes/emojione/autoload.php'; // Emojione
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 $profile = explode('/', rtrim($_GET['route'], '/'));
-if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && ! isset($_GET['error'])) {
+if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
     // User specified
     $md_profile = $profile[count($profile) - 1];
 
@@ -37,15 +37,15 @@ require_once ROOT_PATH.'/core/templates/frontend_init.php';
 
 $template->addCSSFiles(
     [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.css'           => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css'                         => [],
         (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
     ]
 );
 
 $template->addJSFiles(
     [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js'                        => [],
         (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
     ]
 );
@@ -56,12 +56,12 @@ $template->addCSSStyle(
     }'
 );
 
-if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && ! isset($_GET['error'])) {
+if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
     // User specified
     $profile = $profile[count($profile) - 1];
 
     $profile_user = new User($profile, 'username');
-    if (! $profile_user->data()) {
+    if (!$profile_user->data()) {
         Redirect::to(URL::build('/profile/?error=not_exist'));
         exit();
     }
@@ -110,8 +110,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             [
                                 'post' => [
                                     'required' => true,
-                                    'min' => 1,
-                                    'max' => 10000,
+                                    'min'      => 1,
+                                    'max'      => 10000,
                                 ],
                             ]
                         );
@@ -122,10 +122,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $queries->create(
                                 'user_profile_wall_posts',
                                 [
-                                    'user_id' => $query->id,
+                                    'user_id'   => $query->id,
                                     'author_id' => $user->data()->id,
-                                    'time' => date('U'),
-                                    'content' => Output::getClean(Input::get('post')),
+                                    'time'      => date('U'),
+                                    'content'   => Output::getClean(Input::get('post')),
                                 ]
                             );
 
@@ -159,8 +159,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             [
                                 'reply' => [
                                     'required' => true,
-                                    'min' => 1,
-                                    'max' => 10000,
+                                    'min'      => 1,
+                                    'max'      => 10000,
                                 ],
                                 'post' => [
                                     'required' => true,
@@ -173,7 +173,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             // Ensure post exists
                             $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_POST['post']]);
-                            if (! count($post)) {
+                            if (!count($post)) {
                                 Redirect::to($profile_user->getProfileURL());
                                 exit();
                             }
@@ -182,10 +182,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $queries->create(
                                 'user_profile_wall_posts_replies',
                                 [
-                                    'post_id' => $_POST['post'],
+                                    'post_id'   => $_POST['post'],
                                     'author_id' => $user->data()->id,
-                                    'time' => date('U'),
-                                    'content' => Output::getClean(Input::get('reply')),
+                                    'time'      => date('U'),
+                                    'content'   => Output::getClean(Input::get('reply')),
                                 ]
                             );
 
@@ -233,7 +233,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         } else {
                             // Block
                             $queries->create('blocked_users', [
-                                'user_id' => $user->data()->id,
+                                'user_id'         => $user->data()->id,
                                 'user_blocked_id' => $query->id,
                             ]);
                             $success = $language->get('user', 'user_blocked');
@@ -321,7 +321,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
             case 'react':
-                if (! isset($_GET['post']) || ! is_numeric($_GET['post'])) {
+                if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
                     // Post ID required
                     Redirect::to($profile_user->getProfileURL());
                     exit();
@@ -329,7 +329,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 // Does the post exist?
                 $post = $queries->getWhere('user_profile_wall_posts', ['id', '=', $_GET['post']]);
-                if (! count($post)) {
+                if (!count($post)) {
                     Redirect::to($profile_user->getProfileURL());
                     exit();
                 }
@@ -357,10 +357,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 } else {
                     // Like
                     $queries->create('user_profile_wall_posts_reactions', [
-                        'user_id' => $user->data()->id,
-                        'post_id' => $_GET['post'],
+                        'user_id'     => $user->data()->id,
+                        'post_id'     => $_GET['post'],
                         'reaction_id' => 1,
-                        'time' => date('U'),
+                        'time'        => date('U'),
                     ]);
                 }
 
@@ -385,7 +385,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     // Get page
     if (isset($_GET['p'])) {
-        if (! is_numeric($_GET['p'])) {
+        if (!is_numeric($_GET['p'])) {
             Redirect::to($profile_user->getProfileURL());
             exit();
         } else {
@@ -404,13 +404,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // Check if user is logged in and the viewer is not the owner of this profile.
     if (($user->isLoggedIn() && $user->data()->id != $query->id)
         // If no one is logged in check if they have accepted the cookies.
-        || (! $user->isLoggedIn() && Cookie::exists('alert-box'))
+        || (!$user->isLoggedIn() && Cookie::exists('alert-box'))
     ) {
-        if (! Cookie::exists('nl-profile-'.$query->id)) {
+        if (!Cookie::exists('nl-profile-'.$query->id)) {
             $queries->increment('users', $query->id, 'profile_views');
             Cookie::put('nl-profile-'.$query->id, 'true', 3600);
         }
-    } elseif (! Session::exists('nl-profile-'.$query->id)) {
+    } elseif (!Session::exists('nl-profile-'.$query->id)) {
         $queries->increment('users', $query->id, 'profile_views');
         Session::put('nl-profile-'.$query->id, 'true');
     }
@@ -419,7 +419,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if ($user->isPrivateProfile() && $user->canPrivateProfile()) {
         $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
-            'CAN_VIEW' => false,
+            'CAN_VIEW'        => false,
         ]);
     } else {
         $smarty->assign([
@@ -431,10 +431,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if ($user->isLoggedIn()) {
         // Form token
         $smarty->assign([
-            'TOKEN' => Token::get(),
-            'LOGGED_IN' => true,
-            'SUBMIT' => $language->get('general', 'submit'),
-            'CANCEL' => $language->get('general', 'cancel'),
+            'TOKEN'        => Token::get(),
+            'LOGGED_IN'    => true,
+            'SUBMIT'       => $language->get('general', 'submit'),
+            'CANCEL'       => $language->get('general', 'cancel'),
             'CAN_MODERATE' => $user->canViewACP(),
         ]);
 
@@ -456,13 +456,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             foreach ($images as $image) {
                 $ext = pathinfo($image, PATHINFO_EXTENSION);
-                if (! in_array($ext, $allowed_exts)) {
+                if (!in_array($ext, $allowed_exts)) {
                     continue;
                 }
 
                 $banners[] = [
-                    'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/profile_images/'.Output::getClean($image),
-                    'name' => Output::getClean($image),
+                    'src'    => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/profile_images/'.Output::getClean($image),
+                    'name'   => Output::getClean($image),
                     'active' => ($user->data()->banner == $image) ? true : false,
                 ];
             }
@@ -474,59 +474,59 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 foreach ($images as $image) {
                     $ext = pathinfo($image, PATHINFO_EXTENSION);
-                    if (! in_array($ext, $allowed_exts)) {
+                    if (!in_array($ext, $allowed_exts)) {
                         continue;
                     }
 
                     $banners[] = [
-                        'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/profile_images/'.Output::getClean($user->data()->id).'/'.Output::getClean($image),
-                        'name' => Output::getClean($user->data()->id).'/'.Output::getClean($image),
+                        'src'    => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/profile_images/'.Output::getClean($user->data()->id).'/'.Output::getClean($image),
+                        'name'   => Output::getClean($user->data()->id).'/'.Output::getClean($image),
                         'active' => ($user->data()->banner == $image) ? true : false,
                     ];
                 }
             }
 
             $smarty->assign([
-                'SELF' => true,
+                'SELF'          => true,
                 'SETTINGS_LINK' => URL::build('/user/settings'),
                 'CHANGE_BANNER' => $language->get('user', 'change_banner'),
-                'BANNERS' => $banners,
-                'CAN_VIEW' => true,
+                'BANNERS'       => $banners,
+                'CAN_VIEW'      => true,
             ]);
 
             if ($user->hasPermission('usercp.profile_banner')) {
                 $smarty->assign([
                     'UPLOAD_PROFILE_BANNER' => $language->get('user', 'upload_profile_banner'),
-                    'PROFILE_BANNER' => $language->get('user', 'profile_banner'),
-                    'BROWSE' => $language->get('general', 'browse'),
-                    'UPLOAD' => $language->get('user', 'upload'),
-                    'UPLOAD_BANNER_URL' => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'core/includes/image_upload.php',
+                    'PROFILE_BANNER'        => $language->get('user', 'profile_banner'),
+                    'BROWSE'                => $language->get('general', 'browse'),
+                    'UPLOAD'                => $language->get('user', 'upload'),
+                    'UPLOAD_BANNER_URL'     => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'core/includes/image_upload.php',
                 ]);
             }
         } else {
             $smarty->assign([
                 'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid='.$query->id),
-                'FOLLOW_LINK' => URL::build('/user/follow/', 'user='.$query->id),
-                'CONFIRM' => $language->get('general', 'confirm'),
+                'FOLLOW_LINK'  => URL::build('/user/follow/', 'user='.$query->id),
+                'CONFIRM'      => $language->get('general', 'confirm'),
                 'MOD_OR_ADMIN' => $profile_user->canViewACP(),
             ]);
 
             // Is the user blocked?
             if ($user->isBlocked($user->data()->id, $query->id)) {
                 $smarty->assign([
-                    'UNBLOCK_USER' => $language->get('user', 'unblock_user'),
+                    'UNBLOCK_USER'         => $language->get('user', 'unblock_user'),
                     'CONFIRM_UNBLOCK_USER' => $language->get('user', 'confirm_unblock_user'),
                 ]);
             } else {
                 $smarty->assign([
-                    'BLOCK_USER' => $language->get('user', 'block_user'),
+                    'BLOCK_USER'         => $language->get('user', 'block_user'),
                     'CONFIRM_BLOCK_USER' => $language->get('user', 'confirm_block_user'),
                 ]);
             }
 
             if ($user->hasPermission('modcp.profile_banner_reset')) {
                 $smarty->assign([
-                    'RESET_PROFILE_BANNER' => $language->get('moderator', 'reset_profile_banner'),
+                    'RESET_PROFILE_BANNER'      => $language->get('moderator', 'reset_profile_banner'),
                     'RESET_PROFILE_BANNER_LINK' => URL::build('/profile/'.Output::getClean($query->username).'/', 'action=reset_banner'),
                 ]);
             }
@@ -534,31 +534,31 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     $smarty->assign([
-        'NICKNAME' => $profile_user->getDisplayname(true),
-        'USERNAME' => $profile_user->getDisplayname(),
-        'GROUPS' => (isset($query) ? $profile_user->getAllGroups('true') : [Output::getPurified($group)]),
+        'NICKNAME'        => $profile_user->getDisplayname(true),
+        'USERNAME'        => $profile_user->getDisplayname(),
+        'GROUPS'          => (isset($query) ? $profile_user->getAllGroups('true') : [Output::getPurified($group)]),
         'USERNAME_COLOUR' => $profile_user->getGroupClass(),
-        'USER_TITLE' => Output::getClean($query->user_title),
-        'FOLLOW' => $language->get('user', 'follow'),
-        'AVATAR' => $profile_user->getAvatar('../', 500),
-        'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/profile_images/'.(($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
-        'POST_ON_WALL' => str_replace('{x}', Output::getClean($profile_user->getDisplayname()), $language->get('user', 'post_on_wall')),
-        'FEED' => $language->get('user', 'feed'),
-        'ABOUT' => $language->get('user', 'about'),
+        'USER_TITLE'      => Output::getClean($query->user_title),
+        'FOLLOW'          => $language->get('user', 'follow'),
+        'AVATAR'          => $profile_user->getAvatar('../', 500),
+        'BANNER'          => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/profile_images/'.(($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
+        'POST_ON_WALL'    => str_replace('{x}', Output::getClean($profile_user->getDisplayname()), $language->get('user', 'post_on_wall')),
+        'FEED'            => $language->get('user', 'feed'),
+        'ABOUT'           => $language->get('user', 'about'),
         'REACTIONS_TITLE' => $language->get('user', 'likes'),
         //'REACTIONS' => $reactions,
-        'CLOSE' => $language->get('general', 'close'),
-        'REPLIES_TITLE' => $language->get('user', 'replies'),
-        'NO_REPLIES' => $language->get('user', 'no_replies_yet'),
-        'NEW_REPLY' => $language->get('user', 'new_reply'),
-        'DELETE' => $language->get('general', 'delete'),
+        'CLOSE'          => $language->get('general', 'close'),
+        'REPLIES_TITLE'  => $language->get('user', 'replies'),
+        'NO_REPLIES'     => $language->get('user', 'no_replies_yet'),
+        'NEW_REPLY'      => $language->get('user', 'new_reply'),
+        'DELETE'         => $language->get('general', 'delete'),
         'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
-        'EDIT' => $language->get('general', 'edit'),
-        'SUCCESS_TITLE' => $language->get('general', 'success'),
-        'ERROR_TITLE' => $language->get('general', 'error'),
-        'REPLY' => $language->get('user', 'reply'),
-        'EDIT_POST' => $language->get('general', 'edit'),
-        'VIEWER_ID' => $user->data()->id,
+        'EDIT'           => $language->get('general', 'edit'),
+        'SUCCESS_TITLE'  => $language->get('general', 'success'),
+        'ERROR_TITLE'    => $language->get('general', 'error'),
+        'REPLY'          => $language->get('user', 'reply'),
+        'EDIT_POST'      => $language->get('general', 'edit'),
+        'VIEWER_ID'      => $user->data()->id,
     ]);
 
     // Wall posts
@@ -577,7 +577,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         for ($n = 0; $n < count($results->data); $n++) {
             $post_user = $queries->getWhere('users', ['id', '=', $results->data[$n]->author_id]);
 
-            if (! count($post_user)) {
+            if (!count($post_user)) {
                 continue;
             }
 
@@ -606,12 +606,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                     $target_user = new User($reaction->user_id);
                     $reactions['reactions'][] = [
-                        'user_id' => Output::getClean($reaction->user_id),
+                        'user_id'  => Output::getClean($reaction->user_id),
                         'username' => $target_user->getDisplayname(true),
                         'nickname' => $target_user->getDisplayname(),
-                        'style' => $target_user->getGroupClass(),
-                        'profile' => $target_user->getProfileURL(),
-                        'avatar' => $target_user->getAvatar('../', 500),
+                        'style'    => $target_user->getGroupClass(),
+                        'profile'  => $target_user->getProfileURL(),
+                        'avatar'   => $target_user->getAvatar('../', 500),
                         //'reaction_name' => $reaction_name,
                         //'reaction_html' => $reaction_html
                     ];
@@ -632,17 +632,17 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 foreach ($replies_query as $reply) {
                     $target_user = new User($reply->author_id);
                     $replies['replies'][] = [
-                        'user_id' => Output::getClean($reply->author_id),
-                        'username' => $target_user->getDisplayname(true),
-                        'nickname' => $target_user->getDisplayname(),
-                        'style' => $target_user->getGroupClass(),
-                        'profile' => $target_user->getProfileURL(),
-                        'avatar' => $target_user->getAvatar('../', 500),
+                        'user_id'       => Output::getClean($reply->author_id),
+                        'username'      => $target_user->getDisplayname(true),
+                        'nickname'      => $target_user->getDisplayname(),
+                        'style'         => $target_user->getGroupClass(),
+                        'profile'       => $target_user->getProfileURL(),
+                        'avatar'        => $target_user->getAvatar('../', 500),
                         'time_friendly' => $timeago->inWords(date('d M Y, H:i', $reply->time), $language->getTimeLanguage()),
-                        'time_full' => date('d M Y, H:i', $reply->time),
-                        'content' => Output::getPurified($reply->content),
-                        'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
-                        'id' => $reply->id,
+                        'time_full'     => date('d M Y, H:i', $reply->time),
+                        'content'       => Output::getPurified($reply->content),
+                        'self'          => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
+                        'id'            => $reply->id,
                     ];
                 }
             } else {
@@ -652,19 +652,19 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             $target_user = new User($post_user[0]->id);
             $wall_posts[] = [
-                'id' => $results->data[$n]->id,
-                'user_id' => Output::getClean($post_user[0]->id),
-                'username' => $target_user->getDisplayname(true),
-                'nickname' => $target_user->getDisplayname(),
-                'profile' => $target_user->getProfileURL(),
-                'user_style' => $target_user->getGroupClass(),
-                'avatar' => $target_user->getAvatar('../', 500),
-                'content' => Output::getPurified(htmlspecialchars_decode($results->data[$n]->content)),
-                'date_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->time), $language->getTimeLanguage()),
-                'date' => date('d M Y, H:i', $results->data[$n]->time),
-                'reactions' => $reactions,
-                'replies' => $replies,
-                'self' => (($user->isLoggedIn() && $user->data()->id == $results->data[$n]->author_id) ? true : false),
+                'id'             => $results->data[$n]->id,
+                'user_id'        => Output::getClean($post_user[0]->id),
+                'username'       => $target_user->getDisplayname(true),
+                'nickname'       => $target_user->getDisplayname(),
+                'profile'        => $target_user->getProfileURL(),
+                'user_style'     => $target_user->getGroupClass(),
+                'avatar'         => $target_user->getAvatar('../', 500),
+                'content'        => Output::getPurified(htmlspecialchars_decode($results->data[$n]->content)),
+                'date_rough'     => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->time), $language->getTimeLanguage()),
+                'date'           => date('d M Y, H:i', $results->data[$n]->time),
+                'reactions'      => $reactions,
+                'replies'        => $replies,
+                'self'           => (($user->isLoggedIn() && $user->data()->id == $results->data[$n]->author_id) ? true : false),
                 'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/'.Output::getClean($query->username).'/', 'action=react&amp;post='.$results->data[$n]->id) : '#'),
             ];
         }
@@ -691,13 +691,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         foreach ($profile_fields as $field) {
             // Get field
             $profile_field = $queries->getWhere('profile_fields', ['id', '=', $field->field_id]);
-            if (! count($profile_field)) {
+            if (!count($profile_field)) {
                 continue;
             } else {
                 $profile_field = $profile_field[0];
             }
 
-            if ($profile_field->public == 0 || ! $field->value) {
+            if ($profile_field->public == 0 || !$field->value) {
                 continue;
             }
 
@@ -716,7 +716,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             $fields[] = [
                 'title' => Output::getClean($profile_field->name),
-                'type' => $type,
+                'type'  => $type,
                 'value' => Output::getPurified(Util::urlToAnchorTag(htmlspecialchars_decode($field->value))),
             ];
         }
@@ -726,12 +726,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if ($profile_user->data()->discord_username != null) {
         $fields[] = [
             'title' => $language->get('user', 'discord_username').':',
-            'type' => 'text',
+            'type'  => 'text',
             'value' => $profile_user->data()->discord_username,
         ];
     }
 
-    if (! count($fields)) {
+    if (!count($fields)) {
         $smarty->assign('NO_ABOUT_FIELDS', $language->get('user', 'no_about_fields'));
     }
 
@@ -742,7 +742,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if ($minecraft_integration->value == '1') {
         $fields['minecraft'] = [
             'title' => 'IGN',
-            'type' => 'text',
+            'type'  => 'text',
             'value' => Output::getClean($query->username),
             'image' => 'https://crafatar.com/renders/body/'.$query->uuid.'?overlay',
         ];
@@ -750,22 +750,22 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     // Add date registered and last seen
     $fields['registered'] = [
-        'title' => $language->get('user', 'registered'),
-        'type' => 'text',
-        'value' => $timeago->inWords(date('d M Y, H:i', $query->joined), $language->getTimeLanguage()),
+        'title'   => $language->get('user', 'registered'),
+        'type'    => 'text',
+        'value'   => $timeago->inWords(date('d M Y, H:i', $query->joined), $language->getTimeLanguage()),
         'tooltip' => date('d M Y, H:i', $query->joined),
     ];
     $fields['last_seen'] = [
-        'title' => $language->get('user', 'last_seen'),
-        'type' => 'text',
-        'value' => $timeago->inWords(date('d M Y, H:i', $query->last_online), $language->getTimeLanguage()),
+        'title'   => $language->get('user', 'last_seen'),
+        'type'    => 'text',
+        'value'   => $timeago->inWords(date('d M Y, H:i', $query->last_online), $language->getTimeLanguage()),
         'tooltip' => date('d M Y, H:i', $query->last_online),
     ];
 
     // Add Profile views
     $fields['profile_views'] = [
         'title' => $language->get('user', 'views'),
-        'type' => 'text',
+        'type'  => 'text',
         'value' => $query->profile_views,
     ];
 
@@ -785,7 +785,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // Assign profile tabs
     $smarty->assign('TABS', $tabs);
 
-    if (isset($directories[1]) && ! empty($directories[1]) && ! isset($_GET['error']) && $user->isLoggedIn()) {
+    if (isset($directories[1]) && !empty($directories[1]) && !isset($_GET['error']) && $user->isLoggedIn()) {
         if ($user->data()->username == $profile) {
             // Script for banner selector
             $template->addJSFiles(
@@ -816,8 +816,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     if (isset($_GET['error'])) {
         // User not exist
         $smarty->assign([
-            'BACK' => $language->get('general', 'back'),
-            'HOME' => $language->get('general', 'home'),
+            'BACK'      => $language->get('general', 'back'),
+            'HOME'      => $language->get('general', 'home'),
             'NOT_FOUND' => $language->get('user', 'couldnt_find_that_user'),
         ]);
         // Load modules + template

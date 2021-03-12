@@ -20,13 +20,13 @@ $timeago = new Timeago(TIMEZONE);
 $fid = explode('/', $route);
 $fid = $fid[count($fid) - 1];
 
-if (! strlen($fid)) {
+if (!strlen($fid)) {
     require_once ROOT_PATH.'/404.php';
     exit();
 }
 
 $fid = explode('-', $fid);
-if (! is_numeric($fid[0])) {
+if (!is_numeric($fid[0])) {
     require_once ROOT_PATH.'/404.php';
     exit();
 }
@@ -37,7 +37,7 @@ $user_groups = $user->getAllGroupIds();
 
 // Does the forum exist, and can the user view it?
 $list = $forum->canViewForum($fid, $user_groups);
-if (! $list) {
+if (!$list) {
     require_once ROOT_PATH.'/403.php';
     exit();
 }
@@ -48,7 +48,7 @@ $forum_query = $forum_query[0];
 
 // Get page
 if (isset($_GET['p'])) {
-    if (! is_numeric($_GET['p'])) {
+    if (!is_numeric($_GET['p'])) {
         Redirect::to(URL::build('/forum'));
         exit();
     } else {
@@ -77,17 +77,17 @@ require_once ROOT_PATH.'/core/templates/frontend_init.php';
 
 // Redirect forum?
 if ($forum_query->redirect_forum == 1) {
-    if (! Util::isExternalURL($forum_query->redirect_url)) {
+    if (!Util::isExternalURL($forum_query->redirect_url)) {
         Redirect::to(Output::getClean(Output::getDecoded($forum_query->redirect_url)));
         exit();
     }
 
     $smarty->assign([
         'CONFIRM_REDIRECT' => str_replace('{x}', $forum_query->redirect_url, $forum_language->get('forum', 'forum_redirect_warning')),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
-        'REDIRECT_URL' => Output::getClean(htmlspecialchars_decode($forum_query->redirect_url)),
-        'FORUM_INDEX' => URL::build('/forum'),
+        'YES'              => $language->get('general', 'yes'),
+        'NO'               => $language->get('general', 'no'),
+        'REDIRECT_URL'     => Output::getClean(htmlspecialchars_decode($forum_query->redirect_url)),
+        'FORUM_INDEX'      => URL::build('/forum'),
     ]);
 
     // Load modules + template
@@ -126,39 +126,39 @@ if ($forum_query->redirect_forum == 1) {
     // Search bar
     $smarty->assign([
         'SEARCH_URL' => URL::build('/forum/search'),
-        'SEARCH' => $language->get('general', 'search'),
-        'TOKEN' => Token::get(),
+        'SEARCH'     => $language->get('general', 'search'),
+        'TOKEN'      => Token::get(),
     ]);
 
     // Breadcrumbs and search bar - same for latest discussions view + table view
     $parent_category = $queries->getWhere('forums', ['id', '=', $forum_query->parent]);
     $breadcrumbs = [0 => [
-        'id' => $forum_query->id,
+        'id'          => $forum_query->id,
         'forum_title' => Output::getClean($forum_query->forum_title),
-        'active' => 1,
-        'link' => URL::build('/forum/view/'.$forum_query->id.'-'.$forum->titleToURL($forum_query->forum_title)),
+        'active'      => 1,
+        'link'        => URL::build('/forum/view/'.$forum_query->id.'-'.$forum->titleToURL($forum_query->forum_title)),
     ]];
-    if (! empty($parent_category) && $parent_category[0]->parent == 0) {
+    if (!empty($parent_category) && $parent_category[0]->parent == 0) {
         // Category
         $breadcrumbs[] = [
-            'id' => $parent_category[0]->id,
+            'id'          => $parent_category[0]->id,
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
-            'link' => URL::build('/forum/view/'.$parent_category[0]->id.'-'.$forum->titleToURL($parent_category[0]->forum_title)),
+            'link'        => URL::build('/forum/view/'.$parent_category[0]->id.'-'.$forum->titleToURL($parent_category[0]->forum_title)),
         ];
-    } elseif (! empty($parent_category)) {
+    } elseif (!empty($parent_category)) {
         // Parent forum, get its category
         $breadcrumbs[] = [
-            'id' => $parent_category[0]->id,
+            'id'          => $parent_category[0]->id,
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
-            'link' => URL::build('/forum/view/'.$parent_category[0]->id.'-'.$forum->titleToURL($parent_category[0]->forum_title)),
+            'link'        => URL::build('/forum/view/'.$parent_category[0]->id.'-'.$forum->titleToURL($parent_category[0]->forum_title)),
         ];
         $parent = false;
         while ($parent == false) {
             $parent_category = $queries->getWhere('forums', ['id', '=', $parent_category[0]->parent]);
             $breadcrumbs[] = [
-                'id' => $parent_category[0]->id,
+                'id'          => $parent_category[0]->id,
                 'forum_title' => Output::getClean($parent_category[0]->forum_title),
-                'link' => URL::build('/forum/view/'.$parent_category[0]->id.'-'.$forum->titleToURL($parent_category[0]->forum_title)),
+                'link'        => URL::build('/forum/view/'.$parent_category[0]->id.'-'.$forum->titleToURL($parent_category[0]->forum_title)),
             ];
             if ($parent_category[0]->parent == 0) {
                 $parent = true;
@@ -167,9 +167,9 @@ if ($forum_query->redirect_forum == 1) {
     }
 
     $breadcrumbs[] = [
-        'id' => 'index',
+        'id'          => 'index',
         'forum_title' => $forum_language->get('forum', 'forum_index'),
-        'link' => URL::build('/forum'),
+        'link'        => URL::build('/forum'),
     ];
 
     $smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
@@ -223,29 +223,29 @@ if ($forum_query->redirect_forum == 1) {
                     $latest_post_user_id = Output::getClean($latest_post->topic_last_user);
 
                     $latest_post = [
-                        'link' => $latest_post_link,
-                        'title' => $latest_post_title,
+                        'link'             => $latest_post_link,
+                        'title'            => $latest_post_title,
                         'last_user_avatar' => $latest_post_avatar,
-                        'last_user' => $latest_post_user_displayname,
-                        'last_user_style' => $latest_post_style,
-                        'last_user_link' => $latest_post_user_link,
-                        'timeago' => $latest_post_date_timeago,
-                        'time' => $latest_post_time,
-                        'last_user_id' => $latest_post_user_id,
+                        'last_user'        => $latest_post_user_displayname,
+                        'last_user_style'  => $latest_post_style,
+                        'last_user_link'   => $latest_post_user_link,
+                        'timeago'          => $latest_post_date_timeago,
+                        'time'             => $latest_post_time,
+                        'last_user_id'     => $latest_post_user_id,
                     ];
                 } else {
                     $latest_post = [];
                 }
 
                 $subforum_array[] = [
-                    'id' => $subforum->id,
-                    'title' => Output::getPurified(Output::getDecoded($subforum->forum_title)),
+                    'id'          => $subforum->id,
+                    'title'       => Output::getPurified(Output::getDecoded($subforum->forum_title)),
                     'description' => Output::getPurified(Output::getDecoded($subforum->forum_description)),
-                    'topics' => $subforum_topics,
-                    'link' => URL::build('/forum/view/'.$subforum->id.'-'.$forum->titleToURL($subforum->forum_title)),
+                    'topics'      => $subforum_topics,
+                    'link'        => URL::build('/forum/view/'.$subforum->id.'-'.$forum->titleToURL($subforum->forum_title)),
                     'latest_post' => $latest_post,
-                    'icon' => Output::getDecoded($subforum->icon),
-                    'redirect' => $subforum->redirect_forum,
+                    'icon'        => Output::getDecoded($subforum->icon),
+                    'redirect'    => $subforum->redirect_forum,
                 ];
             }
         }
@@ -281,7 +281,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('NEW_TOPIC', $forum_language->get('forum', 'new_topic'));
 
     // Topics
-    if (! count($stickies) && ! count($topics)) {
+    if (!count($stickies) && !count($topics)) {
         // No topics yet
         $smarty->assign('NO_TOPICS_FULL', $forum_language->get('forum', 'no_topics'));
 
@@ -360,29 +360,29 @@ if ($forum_query->redirect_forum == 1) {
 
             // Add to array
             $sticky_array[] = [
-                'topic_title' => Output::getClean($sticky->topic_title),
-                'topic_id' => $sticky->id,
-                'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $sticky->topic_date), $language->getTimeLanguage()),
-                'topic_created' => date('d M Y, H:i', $sticky->topic_date),
+                'topic_title'            => Output::getClean($sticky->topic_title),
+                'topic_id'               => $sticky->id,
+                'topic_created_rough'    => $timeago->inWords(date('d M Y, H:i', $sticky->topic_date), $language->getTimeLanguage()),
+                'topic_created'          => date('d M Y, H:i', $sticky->topic_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
-                'topic_created_mcname' => $topic_user->getDisplayname(true),
-                'topic_created_style' => $topic_user->getGroupClass(),
-                'topic_created_user_id' => Output::getClean($sticky->topic_creator),
-                'views' => $sticky->topic_views,
-                'locked' => $sticky->locked,
-                'posts' => $replies,
-                'last_reply_avatar' => $last_reply_user->getAvatar('../', 128),
-                'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $sticky->topic_reply_date), $language->getTimeLanguage()),
-                'last_reply' => date('d M Y, H:i', $sticky->topic_reply_date),
-                'last_reply_username' => $last_reply_user->getDisplayname(),
-                'last_reply_mcname' => $last_reply_user->getDisplayname(true),
-                'last_reply_style' => $last_reply_user->getGroupClass(),
-                'last_reply_user_id' => Output::getClean($sticky->topic_last_user),
-                'label' => $label,
-                'labels' => $labels,
-                'author_link' => $topic_user->getProfileURL(),
-                'link' => URL::build('/forum/topic/'.$sticky->id.'-'.$forum->titleToURL($sticky->topic_title)),
-                'last_reply_link' => $last_reply_user->getProfileURL(),
+                'topic_created_mcname'   => $topic_user->getDisplayname(true),
+                'topic_created_style'    => $topic_user->getGroupClass(),
+                'topic_created_user_id'  => Output::getClean($sticky->topic_creator),
+                'views'                  => $sticky->topic_views,
+                'locked'                 => $sticky->locked,
+                'posts'                  => $replies,
+                'last_reply_avatar'      => $last_reply_user->getAvatar('../', 128),
+                'last_reply_rough'       => $timeago->inWords(date('d M Y, H:i', $sticky->topic_reply_date), $language->getTimeLanguage()),
+                'last_reply'             => date('d M Y, H:i', $sticky->topic_reply_date),
+                'last_reply_username'    => $last_reply_user->getDisplayname(),
+                'last_reply_mcname'      => $last_reply_user->getDisplayname(true),
+                'last_reply_style'       => $last_reply_user->getGroupClass(),
+                'last_reply_user_id'     => Output::getClean($sticky->topic_last_user),
+                'label'                  => $label,
+                'labels'                 => $labels,
+                'author_link'            => $topic_user->getProfileURL(),
+                'link'                   => URL::build('/forum/topic/'.$sticky->id.'-'.$forum->titleToURL($sticky->topic_title)),
+                'last_reply_link'        => $last_reply_user->getProfileURL(),
             ];
         }
         // Clear out variables
@@ -465,29 +465,29 @@ if ($forum_query->redirect_forum == 1) {
 
             // Add to array
             $template_array[] = [
-                'topic_title' => Output::getClean($results->data[$n]->topic_title),
-                'topic_id' => $results->data[$n]->id,
-                'topic_created_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_date), $language->getTimeLanguage()),
-                'topic_created' => date('d M Y, H:i', $results->data[$n]->topic_date),
+                'topic_title'            => Output::getClean($results->data[$n]->topic_title),
+                'topic_id'               => $results->data[$n]->id,
+                'topic_created_rough'    => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_date), $language->getTimeLanguage()),
+                'topic_created'          => date('d M Y, H:i', $results->data[$n]->topic_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
-                'topic_created_mcname' => $topic_user->getDisplayname(true),
-                'topic_created_style' => $topic_user->getGroupClass(),
-                'topic_created_user_id' => Output::getClean($results->data[$n]->topic_creator),
-                'locked' => $results->data[$n]->locked,
-                'views' => $results->data[$n]->topic_views,
-                'posts' => $replies,
-                'last_reply_avatar' => $last_reply_user->getAvatar(),
-                'last_reply_rough' => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_reply_date), $language->getTimeLanguage()),
-                'last_reply' => date('d M Y, H:i', $results->data[$n]->topic_reply_date),
-                'last_reply_username' => $last_reply_user->getDisplayname(),
-                'last_reply_mcname' => $last_reply_user->getDisplayname(true),
-                'last_reply_style' => $last_reply_user->getGroupClass(),
-                'label' => $label,
-                'labels' => $labels,
-                'author_link' => $topic_user->getProfileURL(),
-                'link' => URL::build('/forum/topic/'.$results->data[$n]->id.'-'.$forum->titleToURL($results->data[$n]->topic_title)),
-                'last_reply_link' => $last_reply_user->getProfileURL(),
-                'last_reply_user_id' => Output::getClean($results->data[$n]->topic_last_user),
+                'topic_created_mcname'   => $topic_user->getDisplayname(true),
+                'topic_created_style'    => $topic_user->getGroupClass(),
+                'topic_created_user_id'  => Output::getClean($results->data[$n]->topic_creator),
+                'locked'                 => $results->data[$n]->locked,
+                'views'                  => $results->data[$n]->topic_views,
+                'posts'                  => $replies,
+                'last_reply_avatar'      => $last_reply_user->getAvatar(),
+                'last_reply_rough'       => $timeago->inWords(date('d M Y, H:i', $results->data[$n]->topic_reply_date), $language->getTimeLanguage()),
+                'last_reply'             => date('d M Y, H:i', $results->data[$n]->topic_reply_date),
+                'last_reply_username'    => $last_reply_user->getDisplayname(),
+                'last_reply_mcname'      => $last_reply_user->getDisplayname(true),
+                'last_reply_style'       => $last_reply_user->getGroupClass(),
+                'label'                  => $label,
+                'labels'                 => $labels,
+                'author_link'            => $topic_user->getProfileURL(),
+                'link'                   => URL::build('/forum/topic/'.$results->data[$n]->id.'-'.$forum->titleToURL($results->data[$n]->topic_title)),
+                'last_reply_link'        => $last_reply_user->getProfileURL(),
+                'last_reply_user_id'     => Output::getClean($results->data[$n]->topic_last_user),
             ];
         }
 

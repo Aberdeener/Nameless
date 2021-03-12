@@ -27,7 +27,7 @@ class Forum
             $user_id = 0;
         }
 
-        if (! $user_id) {
+        if (!$user_id) {
             $user_id = 0;
         }
 
@@ -81,13 +81,13 @@ class Forum
                                     }
                                 }
 
-                                if (isset($last_reply) && ! is_null($last_reply) && count($last_reply)) {
+                                if (isset($last_reply) && !is_null($last_reply) && count($last_reply)) {
                                     $n = 0;
                                     while (isset($last_reply[$n]) && $last_reply[$n]->deleted == 1) {
                                         $n++;
                                     }
 
-                                    if (! isset($last_reply[$n])) {
+                                    if (!isset($last_reply[$n])) {
                                         continue;
                                     }
 
@@ -104,7 +104,7 @@ class Forum
                                 if (count($subforums)) {
                                     foreach ($subforums as $subforum) {
                                         if ($this->forumExist($subforum->id, $groups)) {
-                                            if (! isset($return[$forum->id]['subforums'][$item->id]->subforums)) {
+                                            if (!isset($return[$forum->id]['subforums'][$item->id]->subforums)) {
                                                 $return[$forum->id]['subforums'][$item->id]->subforums = [];
                                             }
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id] = new stdClass();
@@ -128,7 +128,7 @@ class Forum
     // Params: $groups (array) - user groups
     public function getLatestDiscussions($groups = [0], $user_id = null)
     {
-        if (! $user_id) {
+        if (!$user_id) {
             $user_id = 0;
         }
 
@@ -140,7 +140,7 @@ class Forum
             $own_topics_forums = [];
         }
 
-        if (! count($all_topics_forums) && ! count($own_topics_forums)) {
+        if (!count($all_topics_forums) && !count($own_topics_forums)) {
             return [];
         }
 
@@ -250,7 +250,7 @@ class Forum
             if ($item->parent != 0) {
                 $latest_post_query = $this->_db->orderWhere('posts', 'forum_id = '.$item->id, 'post_date', 'DESC')->results();
 
-                if (! empty($latest_post_query)) {
+                if (!empty($latest_post_query)) {
                     foreach ($latest_post_query as $latest_post) {
                         if ($latest_post->deleted != 1) {
                             // Ensure topic isn't deleted
@@ -274,7 +274,7 @@ class Forum
                     }
                 }
 
-                if (! isset($latest_posts[$n])) {
+                if (!isset($latest_posts[$n])) {
                     $latest_posts[$n]['forum_id'] = $item->id;
                     $latest_posts[$n]['date'] = null;
                     $latest_posts[$n]['author'] = null;
@@ -290,8 +290,8 @@ class Forum
         if (count($latest_posts)) {
             foreach ($latest_posts as $latest_post) {
                 $this->_db->update('forums', $latest_post['forum_id'], [
-                    'last_post_date' => $latest_post['date'],
-                    'last_user_posted' => $latest_post['author'],
+                    'last_post_date'    => $latest_post['date'],
+                    'last_user_posted'  => $latest_post['author'],
                     'last_topic_posted' => $latest_post['topic_id'],
                 ]);
             }
@@ -334,10 +334,10 @@ class Forum
         }
 
         foreach ($latest_posts as $latest_post) {
-            if (! empty($latest_post['date'])) {
+            if (!empty($latest_post['date'])) {
                 $this->_db->update('topics', $latest_post['topic_id'], [
                     'topic_reply_date' => $latest_post['date'],
-                    'topic_last_user' => $latest_post['author'],
+                    'topic_last_user'  => $latest_post['author'],
                 ]);
             }
         }
@@ -361,9 +361,9 @@ class Forum
         $data = $this->_db->get('posts', ['id', '=', $post_id])->results();
         if (count($data)) {
             return [
-                'creator' => $data[0]->post_creator,
-                'content' => $data[0]->post_content,
-                'date' => $data[0]->post_date,
+                'creator'  => $data[0]->post_creator,
+                'content'  => $data[0]->post_content,
+                'date'     => $data[0]->post_date,
                 'forum_id' => $data[0]->forum_id,
                 'topic_id' => $data[0]->topic_id,
             ];
@@ -427,15 +427,15 @@ class Forum
 
             $post = $news_post[0]->post_content;
             $return[] = [
-                'topic_id' => $item->id,
-                'topic_date' => $post_date,
+                'topic_id'    => $item->id,
+                'topic_date'  => $post_date,
                 'topic_title' => $item->topic_title,
                 'topic_views' => $item->topic_views,
-                'author' => $item->topic_creator,
-                'content' => Util::truncate(Output::getDecoded($post)),
-                'replies' => $posts,
-                'label' => $labels[0],
-                'labels' => $labels,
+                'author'      => $item->topic_creator,
+                'content'     => Util::truncate(Output::getDecoded($post)),
+                'replies'     => $posts,
+                'label'       => $labels[0],
+                'labels'      => $labels,
             ];
         }
 
@@ -452,7 +452,7 @@ class Forum
     //			$groups (array) - user groups
     public function canModerateForum($forum_id = null, $groups = [0])
     {
-        if (in_array(0, $groups) || ! $forum_id) {
+        if (in_array(0, $groups) || !$forum_id) {
             return false;
         }
 
@@ -541,7 +541,7 @@ class Forum
 
         $subforums_query = $this->_db->query('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', [$forum_id]);
 
-        if (! $subforums_query->count()) {
+        if (!$subforums_query->count()) {
             return $ret;
         }
 

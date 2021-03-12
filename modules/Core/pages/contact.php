@@ -28,7 +28,7 @@ $recaptcha_secret = $queries->getWhere('settings', ['name', '=', 'recaptcha_secr
 if (Input::exists()) {
     if (Token::check()) {
         // Check last contact message sending time
-        if (! isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))) {
+        if (!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))) {
             // Check recaptcha
             if ($recaptcha == 'true') {
                 // Check captcha
@@ -58,13 +58,13 @@ if (Input::exists()) {
                 $validation = $validate->check($_POST, [
                     'content' => [
                         'required' => true,
-                        'min' => 10,
-                        'max' => 5000,
+                        'min'      => 10,
+                        'max'      => 5000,
                     ],
                     'email' => [
                         'required' => true,
-                        'min' => 4,
-                        'max' => 64,
+                        'min'      => 4,
+                        'max'      => 64,
                     ],
                 ]);
 
@@ -82,7 +82,7 @@ if (Input::exists()) {
 
                             $email = [
                                 'replyto' => ['email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('email'))],
-                                'to' => ['email' => Output::getClean($contactemail), 'name' => Output::getClean(SITE_NAME)],
+                                'to'      => ['email' => Output::getClean($contactemail), 'name' => Output::getClean(SITE_NAME)],
                                 'subject' => SITE_NAME.' - '.$language->get('general', 'contact_email_subject'),
                                 'message' => $html,
                             ];
@@ -92,9 +92,9 @@ if (Input::exists()) {
                             if (isset($sent['error'])) {
                                 // Error, log it
                                 $queries->create('email_errors', [
-                                    'type' => 2, // 2 = contact
+                                    'type'    => 2, // 2 = contact
                                     'content' => $sent['error'],
-                                    'at' => date('U'),
+                                    'at'      => date('U'),
                                     'user_id' => ($user->isLoggedIn() ? $user->data()->id : null),
                                 ]);
                             }
@@ -116,7 +116,7 @@ if (Input::exists()) {
                             'Content-type: text/html; charset=UTF-8'."\r\n";
 
                             $email = [
-                                'to' => $to,
+                                'to'      => $to,
                                 'subject' => $subject,
                                 'message' => $message,
                                 'headers' => $headers,
@@ -127,9 +127,9 @@ if (Input::exists()) {
                             if (isset($sent['error'])) {
                                 // Error, log it
                                 $queries->create('email_errors', [
-                                    'type' => 2, // 2 = contact
+                                    'type'    => 2, // 2 = contact
                                     'content' => $sent['error'],
-                                    'at' => date('U'),
+                                    'at'      => date('U'),
                                     'user_id' => ($user->isLoggedIn() ? $user->data()->id : null),
                                 ]);
                             }
@@ -199,12 +199,12 @@ if (isset($success)) {
 }
 
 $smarty->assign([
-    'EMAIL' => $language->get('general', 'email_address'),
-    'CONTACT' => $language->get('general', 'contact'),
-    'MESSAGE' => $language->get('general', 'message'),
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'ERROR_TITLE' => $language->get('general', 'error'),
+    'EMAIL'         => $language->get('general', 'email_address'),
+    'CONTACT'       => $language->get('general', 'contact'),
+    'MESSAGE'       => $language->get('general', 'message'),
+    'TOKEN'         => Token::get(),
+    'SUBMIT'        => $language->get('general', 'submit'),
+    'ERROR_TITLE'   => $language->get('general', 'error'),
     'SUCCESS_TITLE' => $language->get('general', 'success'),
     'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha',
 ]);

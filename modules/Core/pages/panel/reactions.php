@@ -22,12 +22,12 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (Session::exists('api_reactions')) {
     $smarty->assign([
-        'SUCCESS' => Session::flash('api_reactions'),
+        'SUCCESS'       => Session::flash('api_reactions'),
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
-if (! isset($_GET['id']) && ! isset($_GET['action'])) {
+if (!isset($_GET['id']) && !isset($_GET['action'])) {
     // Get all reactions
     $reactions = $queries->getWhere('reactions', ['id', '<>', 0]);
 
@@ -50,24 +50,24 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
 
             $template_reactions[] = [
                 'edit_link' => URL::build('/panel/core/reactions/', 'id='.Output::getClean($reaction->id)),
-                'name' => Output::getClean($reaction->name),
-                'html' => $reaction->html,
-                'type_id' => $reaction->type,
-                'type' => $type,
-                'enabled' => $reaction->enabled,
+                'name'      => Output::getClean($reaction->name),
+                'html'      => $reaction->html,
+                'type_id'   => $reaction->type,
+                'type'      => $type,
+                'enabled'   => $reaction->enabled,
             ];
         }
     }
 
     $smarty->assign([
-        'NEW_REACTION' => $language->get('admin', 'new_reaction'),
+        'NEW_REACTION'      => $language->get('admin', 'new_reaction'),
         'NEW_REACTION_LINK' => URL::build('/panel/core/reactions/', 'action=new'),
-        'NAME' => $language->get('admin', 'name'),
-        'ICON' => $language->get('admin', 'icon'),
-        'TYPE' => $language->get('admin', 'type'),
-        'ENABLED' => $language->get('admin', 'enabled'),
-        'REACTIONS_LIST' => $template_reactions,
-        'NO_REACTIONS' => $language->get('admin', 'no_reactions'),
+        'NAME'              => $language->get('admin', 'name'),
+        'ICON'              => $language->get('admin', 'icon'),
+        'TYPE'              => $language->get('admin', 'type'),
+        'ENABLED'           => $language->get('admin', 'enabled'),
+        'REACTIONS_LIST'    => $template_reactions,
+        'NO_REACTIONS'      => $language->get('admin', 'no_reactions'),
     ]);
 
     $template_file = 'core/reactions.tpl';
@@ -83,13 +83,13 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
                         $validation = $validate->check($_POST, [
                             'name' => [
                                 'required' => true,
-                                'min' => 1,
-                                'max' => 16,
+                                'min'      => 1,
+                                'max'      => 16,
                             ],
                             'html' => [
                                 'required' => true,
-                                'min' => 1,
-                                'max' => 255,
+                                'min'      => 1,
+                                'max'      => 255,
                             ],
                             'type' => [
                                 'required' => true,
@@ -118,9 +118,9 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
 
                             // Update database
                             $queries->create('reactions', [
-                                'name' => Output::getClean(Input::get('name')),
-                                'html' => Output::getPurified(htmlspecialchars_decode(Input::get('html'))),
-                                'type' => $type,
+                                'name'    => Output::getClean(Input::get('name')),
+                                'html'    => Output::getPurified(htmlspecialchars_decode(Input::get('html'))),
+                                'type'    => $type,
                                 'enabled' => $enabled,
                             ]);
 
@@ -161,22 +161,22 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
                 }
 
                 $smarty->assign([
-                    'CANCEL' => $language->get('general', 'cancel'),
-                    'CANCEL_LINK' => URL::build('/panel/core/reactions'),
-                    'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                    'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                    'YES' => $language->get('general', 'yes'),
-                    'NO' => $language->get('general', 'no'),
+                    'CANCEL'            => $language->get('general', 'cancel'),
+                    'CANCEL_LINK'       => URL::build('/panel/core/reactions'),
+                    'ARE_YOU_SURE'      => $language->get('general', 'are_you_sure'),
+                    'CONFIRM_CANCEL'    => $language->get('general', 'confirm_cancel'),
+                    'YES'               => $language->get('general', 'yes'),
+                    'NO'                => $language->get('general', 'no'),
                     'CREATING_REACTION' => $language->get('admin', 'creating_reaction'),
-                    'NAME' => $language->get('admin', 'name'),
-                    'NAME_VALUE' => Output::getClean(Input::get('name')),
-                    'HTML' => $language->get('admin', 'html'),
-                    'HTML_VALUE' => Output::getClean(Input::get('html')),
-                    'TYPE' => $language->get('admin', 'type'),
-                    'POSITIVE' => $language->get('admin', 'positive'),
-                    'NEGATIVE' => $language->get('admin', 'negative'),
-                    'NEUTRAL' => $language->get('admin', 'neutral'),
-                    'ENABLED' => $language->get('admin', 'enabled'),
+                    'NAME'              => $language->get('admin', 'name'),
+                    'NAME_VALUE'        => Output::getClean(Input::get('name')),
+                    'HTML'              => $language->get('admin', 'html'),
+                    'HTML_VALUE'        => Output::getClean(Input::get('html')),
+                    'TYPE'              => $language->get('admin', 'type'),
+                    'POSITIVE'          => $language->get('admin', 'positive'),
+                    'NEGATIVE'          => $language->get('admin', 'negative'),
+                    'NEUTRAL'           => $language->get('admin', 'neutral'),
+                    'ENABLED'           => $language->get('admin', 'enabled'),
                 ]);
 
                 $template_file = 'core/reactions_new.tpl';
@@ -185,7 +185,7 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
 
             case 'delete':
                 // Check reaction is specified
-                if (! isset($_GET['reaction']) || ! is_numeric($_GET['reaction'])) {
+                if (!isset($_GET['reaction']) || !is_numeric($_GET['reaction'])) {
                     Redirect::to(URL::build('/panel/core/reactions'));
                     exit();
                 }
@@ -209,7 +209,7 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
     } else {
         // Get reaction
         $reaction = $queries->getWhere('reactions', ['id', '=', $_GET['id']]);
-        if (! count($reaction)) {
+        if (!count($reaction)) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));
             exit();
@@ -227,13 +227,13 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
                 $validation = $validate->check($_POST, [
                     'name' => [
                         'required' => true,
-                        'min' => 1,
-                        'max' => 16,
+                        'min'      => 1,
+                        'max'      => 16,
                     ],
                     'html' => [
                         'required' => true,
-                        'min' => 1,
-                        'max' => 255,
+                        'min'      => 1,
+                        'max'      => 255,
                     ],
                     'type' => [
                         'required' => true,
@@ -262,9 +262,9 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
 
                     // Update database
                     $queries->update('reactions', $_GET['id'], [
-                        'name' => Output::getClean(Input::get('name')),
-                        'html' => Output::getPurified(Output::getDecoded(Input::get('html'))),
-                        'type' => $type,
+                        'name'    => Output::getClean(Input::get('name')),
+                        'html'    => Output::getPurified(Output::getDecoded(Input::get('html'))),
+                        'type'    => $type,
                         'enabled' => $enabled,
                     ]);
 
@@ -305,27 +305,27 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
         }
 
         $smarty->assign([
-            'CANCEL' => $language->get('general', 'cancel'),
-            'CANCEL_LINK' => URL::build('/panel/core/reactions'),
-            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-            'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-            'YES' => $language->get('general', 'yes'),
-            'NO' => $language->get('general', 'no'),
-            'DELETE' => $language->get('general', 'delete'),
-            'DELETE_LINK' => URL::build('/panel/core/reactions/', 'action=delete&reaction='.$reaction->id),
-            'CONFIRM_DELETE' => $language->get('admin', 'confirm_delete_reaction'),
+            'CANCEL'           => $language->get('general', 'cancel'),
+            'CANCEL_LINK'      => URL::build('/panel/core/reactions'),
+            'ARE_YOU_SURE'     => $language->get('general', 'are_you_sure'),
+            'CONFIRM_CANCEL'   => $language->get('general', 'confirm_cancel'),
+            'YES'              => $language->get('general', 'yes'),
+            'NO'               => $language->get('general', 'no'),
+            'DELETE'           => $language->get('general', 'delete'),
+            'DELETE_LINK'      => URL::build('/panel/core/reactions/', 'action=delete&reaction='.$reaction->id),
+            'CONFIRM_DELETE'   => $language->get('admin', 'confirm_delete_reaction'),
             'EDITING_REACTION' => $language->get('admin', 'editing_reaction'),
-            'NAME' => $language->get('admin', 'name'),
-            'NAME_VALUE' => Output::getClean($reaction->name),
-            'HTML' => $language->get('admin', 'html'),
-            'HTML_VALUE' => Output::getClean($reaction->html),
-            'TYPE' => $language->get('admin', 'type'),
-            'POSITIVE' => $language->get('admin', 'positive'),
-            'NEUTRAL' => $language->get('admin', 'neutral'),
-            'NEGATIVE' => $language->get('admin', 'negative'),
-            'TYPE_VALUE' => $reaction->type,
-            'ENABLED' => $language->get('admin', 'enabled'),
-            'ENABLED_VALUE' => $reaction->enabled,
+            'NAME'             => $language->get('admin', 'name'),
+            'NAME_VALUE'       => Output::getClean($reaction->name),
+            'HTML'             => $language->get('admin', 'html'),
+            'HTML_VALUE'       => Output::getClean($reaction->html),
+            'TYPE'             => $language->get('admin', 'type'),
+            'POSITIVE'         => $language->get('admin', 'positive'),
+            'NEUTRAL'          => $language->get('admin', 'neutral'),
+            'NEGATIVE'         => $language->get('admin', 'negative'),
+            'TYPE_VALUE'       => $reaction->type,
+            'ENABLED'          => $language->get('admin', 'enabled'),
+            'ENABLED_VALUE'    => $reaction->enabled,
         ]);
 
         $template_file = 'core/reactions_edit.tpl';
@@ -334,19 +334,19 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
+    'PARENT_PAGE'   => PARENT_PAGE,
+    'DASHBOARD'     => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'REACTIONS' => $language->get('user', 'reactions'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'REACTIONS'     => $language->get('user', 'reactions'),
+    'PAGE'          => PANEL_PAGE,
+    'TOKEN'         => Token::get(),
+    'SUBMIT'        => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

@@ -51,27 +51,27 @@ class OnlineStaffWidget extends WidgetBase
             foreach ($online as $staff) {
                 $staff_user = new User($staff->id);
                 $staff_members[] = [
-                    'profile' => $staff_user->getProfileURL(),
-                    'style' => $staff_user->getGroupClass(),
-                    'username' => $staff_user->getDisplayname(true),
-                    'nickname' => $staff_user->getDisplayname(),
-                    'avatar' => $staff_user->getAvatar(),
-                    'id' => Output::getClean($staff_user->data()->id),
-                    'title' => Output::getClean($staff_user->data()->user_title),
-                    'group' => $staff_user->getMainGroup()->group_html,
+                    'profile'     => $staff_user->getProfileURL(),
+                    'style'       => $staff_user->getGroupClass(),
+                    'username'    => $staff_user->getDisplayname(true),
+                    'nickname'    => $staff_user->getDisplayname(),
+                    'avatar'      => $staff_user->getAvatar(),
+                    'id'          => Output::getClean($staff_user->data()->id),
+                    'title'       => Output::getClean($staff_user->data()->user_title),
+                    'group'       => $staff_user->getMainGroup()->group_html,
                     'group_order' => $staff_user->getMainGroup()->order,
                 ];
             }
 
             $this->_smarty->assign([
-                'ONLINE_STAFF' => $this->_language['title'],
-                'ONLINE_STAFF_LIST' => $staff_members,
+                'ONLINE_STAFF'       => $this->_language['title'],
+                'ONLINE_STAFF_LIST'  => $staff_members,
                 'TOTAL_ONLINE_STAFF' => str_replace('{x}', count($staff_members), $this->_language['total_online_staff']),
             ]);
         } else {
             $this->_smarty->assign([
-                'ONLINE_STAFF' => $this->_language['title'],
-                'NO_STAFF_ONLINE' => $this->_language['no_online_staff'],
+                'ONLINE_STAFF'       => $this->_language['title'],
+                'NO_STAFF_ONLINE'    => $this->_language['no_online_staff'],
                 'TOTAL_ONLINE_STAFF' => str_replace('{x}', '0', $this->_language['total_online_staff']),
             ]);
         }

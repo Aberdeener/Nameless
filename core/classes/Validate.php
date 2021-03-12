@@ -28,7 +28,7 @@ class Validate
             $host = null;
         }
 
-        if (! empty($host)) {
+        if (!empty($host)) {
             $this->_db = DB::getInstance();
         }
     }
@@ -53,7 +53,7 @@ class Validate
                 if ($rule === 'required' && empty($value)) {
                     // The post array does not include this value, return an error
                     $this->addError("{$item} is required");
-                } elseif (! empty($value)) {
+                } elseif (!empty($value)) {
                     // The post array does include this value, continue validating
                     switch ($rule) {
                             // Minimum of $rule_value characters
@@ -111,14 +111,14 @@ class Validate
 
                             // Check if email is valid
                         case 'email':
-                            if (! filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                                 // Value is not a valid email
                                 $this->addError("{$value} is not a valid email.");
                             }
                             break;
 
                         case 'timezone':
-                            if (! in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
+                            if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
                                 $this->addError("The timezone {$item} is invalid.");
                             }
                             break;
@@ -152,14 +152,14 @@ class Validate
                             break;
 
                         case 'alphanumeric':
-                            if (! ctype_alnum($value)) {
+                            if (!ctype_alnum($value)) {
                                 // $value is not alphanumeric
                                 $this->addError("{$item} must be alphanumeric.");
                             }
                             break;
 
                         case 'numeric':
-                            if (! is_numeric($value)) {
+                            if (!is_numeric($value)) {
                                 // $value is not numeric
                                 $this->addError("{$item} must be numeric.");
                             }

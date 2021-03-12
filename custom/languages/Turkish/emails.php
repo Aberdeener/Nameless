@@ -13,7 +13,7 @@ $language = [
 
     // General Options
     'greeting' => 'Merhaba,',
-    'thanks' => 'Teşekkürler,',
+    'thanks'   => 'Teşekkürler,',
 
     // Registration Email
     'register_subject' => 'Hesabı Doğrula',

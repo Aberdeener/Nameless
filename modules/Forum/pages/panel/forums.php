@@ -11,17 +11,17 @@
 
 // Can the user view the panel?
 if ($user->isLoggedIn()) {
-    if (! $user->canViewACP()) {
+    if (!$user->canViewACP()) {
         // No
         Redirect::to(URL::build('/'));
         exit();
     }
-    if (! $user->isAdmLoggedIn()) {
+    if (!$user->isAdmLoggedIn()) {
         // Needs to authenticate
         Redirect::to(URL::build('/panel/auth'));
         exit();
     } else {
-        if (! $user->hasPermission('admincp.forums')) {
+        if (!$user->hasPermission('admincp.forums')) {
             require_once ROOT_PATH.'/403.php';
             exit();
         }
@@ -38,7 +38,7 @@ define('PANEL_PAGE', 'forums');
 $page_title = $forum_language->get('forum', 'forums');
 require_once ROOT_PATH.'/core/templates/backend_init.php';
 
-if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
+if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     if (Input::exists()) {
         if (Token::check()) {
             try {
@@ -97,14 +97,14 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
             }
 
             $template_array[] = [
-                'edit_link' => URL::build('/panel/forums/', 'forum='.Output::getClean($item->id)),
-                'delete_link' => URL::build('/panel/forums/', 'action=delete&fid='.Output::getClean($item->id)),
-                'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid='.Output::getClean($item->id)) : null),
-                'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid='.Output::getClean($item->id)) : null),
-                'title' => Output::getClean(Output::getDecoded($item->forum_title)),
-                'description' => Output::getPurified(Output::getDecoded($item->forum_description)),
-                'id' => Output::getClean($item->id),
-                'parent_forum' => (($item->parent > 0) ? $parent_forum : null),
+                'edit_link'          => URL::build('/panel/forums/', 'forum='.Output::getClean($item->id)),
+                'delete_link'        => URL::build('/panel/forums/', 'action=delete&fid='.Output::getClean($item->id)),
+                'up_link'            => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid='.Output::getClean($item->id)) : null),
+                'down_link'          => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid='.Output::getClean($item->id)) : null),
+                'title'              => Output::getClean(Output::getDecoded($item->forum_title)),
+                'description'        => Output::getPurified(Output::getDecoded($item->forum_description)),
+                'id'                 => Output::getClean($item->id),
+                'parent_forum'       => (($item->parent > 0) ? $parent_forum : null),
                 'parent_forum_count' => $parent_forum_count,
             ];
             $i++;
@@ -115,20 +115,20 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
     $forum_reactions = $forum_reactions[0]->value;
 
     $smarty->assign([
-        'NEW_FORUM' => $forum_language->get('forum', 'new_forum'),
-        'NEW_FORUM_LINK' => URL::build('/panel/forums/', 'action=new'),
-        'FORUMS_ARRAY' => $template_array,
-        'USE_REACTIONS' => $forum_language->get('forum', 'use_reactions'),
+        'NEW_FORUM'           => $forum_language->get('forum', 'new_forum'),
+        'NEW_FORUM_LINK'      => URL::build('/panel/forums/', 'action=new'),
+        'FORUMS_ARRAY'        => $template_array,
+        'USE_REACTIONS'       => $forum_language->get('forum', 'use_reactions'),
         'USE_REACTIONS_VALUE' => ($forum_reactions == 1),
-        'NO_FORUMS' => $forum_language->get('forum', 'no_forums'),
-        'REORDER_DRAG_URL' => URL::build('/panel/forums'),
+        'NO_FORUMS'           => $forum_language->get('forum', 'no_forums'),
+        'REORDER_DRAG_URL'    => URL::build('/panel/forums'),
     ]);
 
     $template_file = 'forum/forums.tpl';
 } elseif (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'new':
-            if (! isset($_GET['step'])) {
+            if (!isset($_GET['step'])) {
                 // Step 1
                 if (Input::exists()) {
                     $errors = [];
@@ -139,8 +139,8 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                         $validation = $validate->check($_POST, [
                             'forumname' => [
                                 'required' => true,
-                                'min' => 2,
-                                'max' => 150,
+                                'min'      => 2,
+                                'max'      => 150,
                             ],
                             'forumdesc' => [
                                 'max' => 255,
@@ -163,11 +163,11 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                                 }
 
                                 $queries->create('forums', [
-                                    'forum_title' => Output::getClean(Input::get('forumname')),
+                                    'forum_title'       => Output::getClean(Input::get('forumname')),
                                     'forum_description' => Output::getClean($description),
-                                    'forum_order' => $last_forum_order + 1,
-                                    'forum_type' => Output::getClean(Input::get('forum_type')),
-                                    'icon' => Output::getClean(Input::get('forum_icon')),
+                                    'forum_order'       => $last_forum_order + 1,
+                                    'forum_type'        => Output::getClean(Input::get('forum_type')),
+                                    'icon'              => Output::getClean(Input::get('forum_icon')),
                                 ]);
 
                                 $forum_id = $queries->getLastId();
@@ -213,28 +213,28 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                 }
 
                 $smarty->assign([
-                    'FORUM_TYPE' => $forum_language->get('forum', 'forum_type'),
-                    'FORUM_TYPE_FORUM' => $forum_language->get('forum', 'forum_type_forum'),
-                    'FORUM_TYPE_CATEGORY' => $forum_language->get('forum', 'forum_type_category'),
-                    'FORUM_NAME' => $forum_language->get('forum', 'forum_name'),
-                    'FORUM_NAME_VALUE' => Output::getClean(Input::get('forumname')),
-                    'FORUM_DESCRIPTION' => $forum_language->get('forum', 'forum_description'),
+                    'FORUM_TYPE'              => $forum_language->get('forum', 'forum_type'),
+                    'FORUM_TYPE_FORUM'        => $forum_language->get('forum', 'forum_type_forum'),
+                    'FORUM_TYPE_CATEGORY'     => $forum_language->get('forum', 'forum_type_category'),
+                    'FORUM_NAME'              => $forum_language->get('forum', 'forum_name'),
+                    'FORUM_NAME_VALUE'        => Output::getClean(Input::get('forumname')),
+                    'FORUM_DESCRIPTION'       => $forum_language->get('forum', 'forum_description'),
                     'FORUM_DESCRIPTION_VALUE' => Output::getClean(Input::get('forumdesc')),
-                    'FORUM_ICON' => $forum_language->get('forum', 'forum_icon'),
-                    'FORUM_ICON_VALUE' => Output::getClean(Input::get('forum_icon')),
+                    'FORUM_ICON'              => $forum_language->get('forum', 'forum_icon'),
+                    'FORUM_ICON_VALUE'        => Output::getClean(Input::get('forum_icon')),
                 ]);
 
                 $template_file = 'forum/forums_new_step_1.tpl';
             } else {
                 // Parent category, for type forum only
-                if (! isset($_GET['forum']) || ! is_numeric($_GET['forum'])) {
+                if (!isset($_GET['forum']) || !is_numeric($_GET['forum'])) {
                     Redirect::to(URL::build('/panel/forums'));
                     exit();
                 }
 
                 // Get forum from database
                 $forum = $queries->getWhere('forums', ['id', '=', $_GET['forum']]);
-                if (! count($forum)) {
+                if (!count($forum)) {
                     Redirect::to(URL::build('/panel/forums'));
                     exit();
                 } else {
@@ -271,7 +271,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                                 $hooks = null;
                             }
 
-                            if (! isset($redirect_error)) {
+                            if (!isset($redirect_error)) {
                                 if (isset($_POST['parent'])) {
                                     $parent = $_POST['parent'];
                                 } else {
@@ -279,11 +279,11 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                                 }
 
                                 $queries->update('forums', $forum->id, [
-                                    'parent' => $parent,
-                                    'news' => Input::get('news_forum'),
+                                    'parent'         => $parent,
+                                    'news'           => Input::get('news_forum'),
                                     'redirect_forum' => $redirect,
-                                    'redirect_url' => $redirect_url,
-                                    'hooks' => $hooks,
+                                    'redirect_url'   => $redirect_url,
+                                    'hooks'          => $hooks,
                                 ]);
 
                                 Redirect::to(URL::build('/panel/forums/', 'forum='.$forum->id));
@@ -306,7 +306,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                 if (count($forums)) {
                     foreach ($forums as $item) {
                         $template_array[] = [
-                            'id' => Output::getClean($item->id),
+                            'id'   => Output::getClean($item->id),
                             'name' => Output::getClean(Output::getDecoded($item->forum_title)),
                         ];
                     }
@@ -317,23 +317,23 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                     foreach ($hooks_query as $hook) {
                         if (in_array('newTopic', json_decode($hook->events))) {
                             $hooks_array[] = [
-                                'id' => $hook->id,
+                                'id'   => $hook->id,
                                 'name' => Output::getClean($hook->name),
                             ];
                         }
                     }
                 }
                 $smarty->assign([
-                    'SELECT_PARENT_FORUM' => $forum_language->get('forum', 'select_a_parent_forum'),
-                    'PARENT_FORUMS' => $template_array,
+                    'SELECT_PARENT_FORUM'    => $forum_language->get('forum', 'select_a_parent_forum'),
+                    'PARENT_FORUMS'          => $template_array,
                     'DISPLAY_TOPICS_AS_NEWS' => $forum_language->get('forum', 'display_topics_as_news'),
-                    'REDIRECT_FORUM' => $forum_language->get('forum', 'redirect_forum'),
-                    'REDIRECT_URL' => $forum_language->get('forum', 'redirect_url'),
-                    'REDIRECT_URL_VALUE' => Output::getClean(Input::get('redirect_url')),
-                    'INCLUDE_IN_HOOK' => $forum_language->get('forum', 'include_in_hook'),
-                    'HOOKS_ARRAY' => $hooks_array,
-                    'INFO' => $language->get('general', 'info'),
-                    'HOOK_SELECT_INFO' => $language->get('admin', 'hook_select_info'),
+                    'REDIRECT_FORUM'         => $forum_language->get('forum', 'redirect_forum'),
+                    'REDIRECT_URL'           => $forum_language->get('forum', 'redirect_url'),
+                    'REDIRECT_URL_VALUE'     => Output::getClean(Input::get('redirect_url')),
+                    'INCLUDE_IN_HOOK'        => $forum_language->get('forum', 'include_in_hook'),
+                    'HOOKS_ARRAY'            => $hooks_array,
+                    'INFO'                   => $language->get('general', 'info'),
+                    'HOOK_SELECT_INFO'       => $language->get('admin', 'hook_select_info'),
                 ]);
 
                 $template_file = 'forum/forums_new_step_2.tpl';
@@ -341,23 +341,23 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
 
             $smarty->assign([
                 'CREATING_FORUM' => $forum_language->get('forum', 'creating_forum'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
+                'CANCEL'         => $language->get('general', 'cancel'),
+                'CANCEL_LINK'    => URL::build('/panel/forums'),
+                'ARE_YOU_SURE'   => $language->get('general', 'are_you_sure'),
+                'YES'            => $language->get('general', 'yes'),
+                'NO'             => $language->get('general', 'no'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
             ]);
 
             break;
 
         case 'order':
-            if (! isset($_GET['dir'])) {
+            if (!isset($_GET['dir'])) {
                 echo $forum_language->get('forum', 'invalid_action').' - <a href="'.URL::build('/panel/forums').'">'.$language->get('general', 'back').'</a>';
                 exit();
             }
             if ($_GET['dir'] == 'up' || $_GET['dir'] == 'down') {
-                if (! isset($_GET['fid']) || ! is_numeric($_GET['fid'])) {
+                if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
                     echo $forum_language->get('forum', 'invalid_action').' - <a href="'.URL::build('/panel/forums').'">'.$language->get('general', 'back').'</a>';
                     exit();
                 }
@@ -408,6 +408,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                         }
                         $n++;
                     }
+
                     try {
                         if (isset($previous_fid) && isset($previous_f_order)) {
                             $queries->update('forums', $forum_id, [
@@ -447,14 +448,14 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
             break;
 
         case 'delete':
-            if (! isset($_GET['fid']) || ! is_numeric($_GET['fid'])) {
+            if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
                 Redirect::to(URL::build('/panel/forums'));
                 exit();
             }
 
             // Ensure forum exists
             $forum = $queries->getWhere('forums', ['id', '=', $_GET['fid']]);
-            if (! count($forum)) {
+            if (!count($forum)) {
                 Redirect::to(URL::build('/panel/forums'));
                 exit();
             }
@@ -534,16 +535,16 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                 }
 
                 $template_array[] = [
-                    'id' => Output::getClean($item->id),
+                    'id'   => Output::getClean($item->id),
                     'name' => Output::getClean(Output::getDecoded($item->forum_title)),
                 ];
             }
 
             $smarty->assign([
-                'DELETE_FORUM' => $forum_language->get('forum', 'delete_forum'),
+                'DELETE_FORUM'             => $forum_language->get('forum', 'delete_forum'),
                 'MOVE_TOPICS_AND_POSTS_TO' => $forum_language->get('forum', 'move_topics_and_posts_to'),
-                'DELETE_TOPICS_AND_POSTS' => $forum_language->get('forum', 'delete_topics_and_posts'),
-                'OTHER_FORUMS' => $template_array,
+                'DELETE_TOPICS_AND_POSTS'  => $forum_language->get('forum', 'delete_topics_and_posts'),
+                'OTHER_FORUMS'             => $template_array,
             ]);
 
             $template_file = 'forum/forums_delete.tpl';
@@ -557,13 +558,13 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
     }
 } elseif (isset($_GET['forum'])) {
     // Editing forum
-    if (! is_numeric($_GET['forum'])) {
+    if (!is_numeric($_GET['forum'])) {
         exit();
     } else {
         $forum = $queries->getWhere('forums', ['id', '=', $_GET['forum']]);
     }
 
-    if (! count($forum)) {
+    if (!count($forum)) {
         Redirect::to(URL::build('/panel/forums'));
         exit();
     }
@@ -580,8 +581,8 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                 $validation = $validate->check($_POST, [
                     'title' => [
                         'required' => true,
-                        'min' => 2,
-                        'max' => 150,
+                        'min'      => 2,
+                        'max'      => 150,
                     ],
                     'description' => [
                         'max' => 255,
@@ -627,19 +628,19 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
 
                         // Update the forum
                         $to_update = [
-                            'forum_title' => Output::getClean(Input::get('title')),
+                            'forum_title'       => Output::getClean(Input::get('title')),
                             'forum_description' => Output::getClean(Input::get('description')),
-                            'news' => Input::get('display'),
-                            'parent' => $parent,
-                            'redirect_forum' => $redirect,
-                            'icon' => Output::getClean(Input::get('icon')),
-                            'forum_type' => Output::getClean(Input::get('forum_type')),
+                            'news'              => Input::get('display'),
+                            'parent'            => $parent,
+                            'redirect_forum'    => $redirect,
+                            'icon'              => Output::getClean(Input::get('icon')),
+                            'forum_type'        => Output::getClean(Input::get('forum_type')),
                             'topic_placeholder' => Input::get('topic_placeholder'),
-                            'hooks' => $hooks,
-                            'default_labels' => $default_labels,
+                            'hooks'             => $hooks,
+                            'default_labels'    => $default_labels,
                         ];
 
-                        if (! isset($redirect_error)) {
+                        if (!isset($redirect_error)) {
                             $to_update['redirect_url'] = $redirect_url;
                         }
 
@@ -656,7 +657,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                     $view_others = Input::get('perm-view_others-0');
                     $moderate = 0;
 
-                    if (! ($view)) {
+                    if (!($view)) {
                         $view = 0;
                     }
 
@@ -677,23 +678,23 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                         if ($forum_perm_exists != 0) { // Permission already exists, update
                             // Update the forum
                             $queries->update('forums_permissions', $update_id, [
-                                'view' => $view,
-                                'create_topic' => $create,
-                                'edit_topic' => $edit,
-                                'create_post' => $post,
+                                'view'              => $view,
+                                'create_topic'      => $create,
+                                'edit_topic'        => $edit,
+                                'create_post'       => $post,
                                 'view_other_topics' => $view_others,
-                                'moderate' => $moderate,
+                                'moderate'          => $moderate,
                             ]);
                         } else { // Permission doesn't exist, create
                             $queries->create('forums_permissions', [
-                                'group_id' => 0,
-                                'forum_id' => $_GET['forum'],
-                                'view' => $view,
-                                'create_topic' => $create,
-                                'edit_topic' => $edit,
-                                'create_post' => $post,
+                                'group_id'          => 0,
+                                'forum_id'          => $_GET['forum'],
+                                'view'              => $view,
+                                'create_topic'      => $create,
+                                'edit_topic'        => $edit,
+                                'create_post'       => $post,
                                 'view_other_topics' => $view_others,
-                                'moderate' => $moderate,
+                                'moderate'          => $moderate,
                             ]);
                         }
                     } catch (Exception $e) {
@@ -709,22 +710,22 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                         $view_others = Input::get('perm-view_others-'.$group->id);
                         $moderate = Input::get('perm-moderate-'.$group->id);
 
-                        if (! ($view)) {
+                        if (!($view)) {
                             $view = 0;
                         }
-                        if (! ($create)) {
+                        if (!($create)) {
                             $create = 0;
                         }
-                        if (! ($edit)) {
+                        if (!($edit)) {
                             $edit = 0;
                         }
-                        if (! ($post)) {
+                        if (!($post)) {
                             $post = 0;
                         }
-                        if (! ($view_others)) {
+                        if (!($view_others)) {
                             $view_others = 0;
                         }
-                        if (! ($moderate)) {
+                        if (!($moderate)) {
                             $moderate = 0;
                         }
 
@@ -744,23 +745,23 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                             if ($forum_perm_exists != 0) { // Permission already exists, update
                                 // Update the forum
                                 $queries->update('forums_permissions', $update_id, [
-                                    'view' => $view,
-                                    'create_topic' => $create,
-                                    'edit_topic' => $edit,
-                                    'create_post' => $post,
+                                    'view'              => $view,
+                                    'create_topic'      => $create,
+                                    'edit_topic'        => $edit,
+                                    'create_post'       => $post,
                                     'view_other_topics' => $view_others,
-                                    'moderate' => $moderate,
+                                    'moderate'          => $moderate,
                                 ]);
                             } else { // Permission doesn't exist, create
                                 $queries->create('forums_permissions', [
-                                    'group_id' => $group->id,
-                                    'forum_id' => $_GET['forum'],
-                                    'view' => $view,
-                                    'create_topic' => $create,
-                                    'edit_topic' => $edit,
-                                    'create_post' => $post,
+                                    'group_id'          => $group->id,
+                                    'forum_id'          => $_GET['forum'],
+                                    'view'              => $view,
+                                    'create_topic'      => $create,
+                                    'edit_topic'        => $edit,
+                                    'create_post'       => $post,
                                     'view_other_topics' => $view_others,
-                                    'moderate' => $moderate,
+                                    'moderate'          => $moderate,
                                 ]);
                             }
                         } catch (Exception $e) {
@@ -812,7 +813,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
         foreach ($hooks_query as $hook) {
             if (in_array('newTopic', json_decode($hook->events))) {
                 $hooks_array[] = [
-                    'id' => $hook->id,
+                    'id'   => $hook->id,
                     'name' => Output::getClean($hook->name),
                 ];
             }
@@ -828,7 +829,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                 continue;
             }
             $template_forums_array[] = [
-                'id' => $item->id,
+                'id'    => $item->id,
                 'title' => Output::getClean($item->forum_title),
             ];
         }
@@ -848,8 +849,8 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
 
             if (in_array($forum[0]->id, $forum_ids)) {
                 $available_labels[] = [
-                    'id' => Output::getClean($label->id),
-                    'name' => Output::getClean($label->name),
+                    'id'         => Output::getClean($label->id),
+                    'name'       => Output::getClean($label->name),
                     'is_enabled' => in_array($label->id, $enabled_labels),
                 ];
             }
@@ -857,53 +858,53 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
     }
 
     $smarty->assign([
-        'CANCEL' => $language->get('general', 'cancel'),
-        'CANCEL_LINK' => URL::build('/panel/forums'),
-        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
-        'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-        'FORUM_TYPE' => $forum_language->get('forum', 'forum_type'),
-        'FORUM_TYPE_FORUM' => $forum_language->get('forum', 'forum_type_forum'),
-        'FORUM_TYPE_CATEGORY' => $forum_language->get('forum', 'forum_type_category'),
-        'FORUM_TYPE_VALUE' => ($forum[0]->forum_type == 'category') ? 'category' : 'forum',
-        'FORUM_TITLE' => $forum_language->get('forum', 'forum_name'),
-        'FORUM_TITLE_VALUE' => Output::getClean(Output::getDecoded($forum[0]->forum_title)),
-        'FORUM_DESCRIPTION' => $forum_language->get('forum', 'forum_description'),
-        'FORUM_DESCRIPTION_VALUE' => Output::getClean(Output::getDecoded($forum[0]->forum_description)),
-        'FORUM_ICON' => $forum_language->get('forum', 'forum_icon'),
-        'FORUM_ICON_VALUE' => Output::getClean(Output::getDecoded($forum[0]->icon)),
-        'PARENT_FORUM' => $forum_language->get('forum', 'parent_forum'),
-        'PARENT_FORUM_VALUE' => $forum[0]->parent,
-        'NO_PARENT' => $forum_language->get('forum', 'has_no_parent'),
-        'PARENT_FORUM_LIST' => $template_forums_array,
-        'DISPLAY_TOPICS_AS_NEWS' => $forum_language->get('forum', 'display_topics_as_news'),
+        'CANCEL'                       => $language->get('general', 'cancel'),
+        'CANCEL_LINK'                  => URL::build('/panel/forums'),
+        'ARE_YOU_SURE'                 => $language->get('general', 'are_you_sure'),
+        'YES'                          => $language->get('general', 'yes'),
+        'NO'                           => $language->get('general', 'no'),
+        'CONFIRM_CANCEL'               => $language->get('general', 'confirm_cancel'),
+        'FORUM_TYPE'                   => $forum_language->get('forum', 'forum_type'),
+        'FORUM_TYPE_FORUM'             => $forum_language->get('forum', 'forum_type_forum'),
+        'FORUM_TYPE_CATEGORY'          => $forum_language->get('forum', 'forum_type_category'),
+        'FORUM_TYPE_VALUE'             => ($forum[0]->forum_type == 'category') ? 'category' : 'forum',
+        'FORUM_TITLE'                  => $forum_language->get('forum', 'forum_name'),
+        'FORUM_TITLE_VALUE'            => Output::getClean(Output::getDecoded($forum[0]->forum_title)),
+        'FORUM_DESCRIPTION'            => $forum_language->get('forum', 'forum_description'),
+        'FORUM_DESCRIPTION_VALUE'      => Output::getClean(Output::getDecoded($forum[0]->forum_description)),
+        'FORUM_ICON'                   => $forum_language->get('forum', 'forum_icon'),
+        'FORUM_ICON_VALUE'             => Output::getClean(Output::getDecoded($forum[0]->icon)),
+        'PARENT_FORUM'                 => $forum_language->get('forum', 'parent_forum'),
+        'PARENT_FORUM_VALUE'           => $forum[0]->parent,
+        'NO_PARENT'                    => $forum_language->get('forum', 'has_no_parent'),
+        'PARENT_FORUM_LIST'            => $template_forums_array,
+        'DISPLAY_TOPICS_AS_NEWS'       => $forum_language->get('forum', 'display_topics_as_news'),
         'DISPLAY_TOPICS_AS_NEWS_VALUE' => ($forum[0]->news == 1),
-        'REDIRECT_FORUM' => $forum_language->get('forum', 'redirect_forum'),
-        'REDIRECT_FORUM_VALUE' => ($forum[0]->redirect_forum == 1),
-        'REDIRECT_URL' => $forum_language->get('forum', 'redirect_url'),
-        'REDIRECT_URL_VALUE' => Output::getClean(Output::getDecoded($forum[0]->redirect_url)),
-        'INCLUDE_IN_HOOK' => $forum_language->get('forum', 'include_in_hook'),
-        'HOOKS_ARRAY' => $hooks_array,
-        'FORUM_HOOKS' => json_decode($forum_hooks),
-        'INFO' => $language->get('general', 'info'),
-        'HOOK_SELECT_INFO' => $language->get('admin', 'hook_select_info'),
-        'FORUM_PERMISSIONS' => $forum_language->get('forum', 'forum_permissions'),
-        'GUESTS' => $language->get('user', 'guests'),
-        'GUEST_PERMISSIONS' => (count($guest_query) ? $guest_query[0] : []),
-        'GROUP_PERMISSIONS' => $group_query,
-        'GROUP' => $forum_language->get('forum', 'group'),
-        'CAN_VIEW_FORUM' => $forum_language->get('forum', 'can_view_forum'),
-        'CAN_CREATE_TOPIC' => $forum_language->get('forum', 'can_create_topic'),
-        'CAN_EDIT_TOPIC' => $forum_language->get('forum', 'can_edit_topic'),
-        'CAN_POST_REPLY' => $forum_language->get('forum', 'can_post_reply'),
-        'CAN_VIEW_OTHER_TOPICS' => $forum_language->get('forum', 'can_view_other_topics'),
-        'CAN_MODERATE_FORUM' => $forum_language->get('forum', 'can_moderate_forum'),
-        'TOPIC_PLACEHOLDER' => $forum_language->get('forum', 'topic_placeholder'),
-        'TOPIC_PLACEHOLDER_VALUE' => Output::getPurified($forum[0]->topic_placeholder),
-        'DEFAULT_LABELS' => $forum_language->get('forum', 'default_labels'),
-        'DEFAULT_LABELS_INFO' => $forum_language->get('forum', 'default_labels_info'),
-        'AVAILABLE_DEFAULT_LABELS' => $available_labels,
+        'REDIRECT_FORUM'               => $forum_language->get('forum', 'redirect_forum'),
+        'REDIRECT_FORUM_VALUE'         => ($forum[0]->redirect_forum == 1),
+        'REDIRECT_URL'                 => $forum_language->get('forum', 'redirect_url'),
+        'REDIRECT_URL_VALUE'           => Output::getClean(Output::getDecoded($forum[0]->redirect_url)),
+        'INCLUDE_IN_HOOK'              => $forum_language->get('forum', 'include_in_hook'),
+        'HOOKS_ARRAY'                  => $hooks_array,
+        'FORUM_HOOKS'                  => json_decode($forum_hooks),
+        'INFO'                         => $language->get('general', 'info'),
+        'HOOK_SELECT_INFO'             => $language->get('admin', 'hook_select_info'),
+        'FORUM_PERMISSIONS'            => $forum_language->get('forum', 'forum_permissions'),
+        'GUESTS'                       => $language->get('user', 'guests'),
+        'GUEST_PERMISSIONS'            => (count($guest_query) ? $guest_query[0] : []),
+        'GROUP_PERMISSIONS'            => $group_query,
+        'GROUP'                        => $forum_language->get('forum', 'group'),
+        'CAN_VIEW_FORUM'               => $forum_language->get('forum', 'can_view_forum'),
+        'CAN_CREATE_TOPIC'             => $forum_language->get('forum', 'can_create_topic'),
+        'CAN_EDIT_TOPIC'               => $forum_language->get('forum', 'can_edit_topic'),
+        'CAN_POST_REPLY'               => $forum_language->get('forum', 'can_post_reply'),
+        'CAN_VIEW_OTHER_TOPICS'        => $forum_language->get('forum', 'can_view_other_topics'),
+        'CAN_MODERATE_FORUM'           => $forum_language->get('forum', 'can_moderate_forum'),
+        'TOPIC_PLACEHOLDER'            => $forum_language->get('forum', 'topic_placeholder'),
+        'TOPIC_PLACEHOLDER_VALUE'      => Output::getPurified($forum[0]->topic_placeholder),
+        'DEFAULT_LABELS'               => $forum_language->get('forum', 'default_labels'),
+        'DEFAULT_LABELS_INFO'          => $forum_language->get('forum', 'default_labels_info'),
+        'AVAILABLE_DEFAULT_LABELS'     => $available_labels,
     ]);
 
     $template_file = 'forum/forums_edit.tpl';
@@ -918,26 +919,26 @@ if (Session::exists('admin_forums')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'FORUM' => $forum_language->get('forum', 'forum'),
-    'FORUMS' => $forum_language->get('forum', 'forums'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'DASHBOARD'   => $language->get('admin', 'dashboard'),
+    'FORUM'       => $forum_language->get('forum', 'forum'),
+    'FORUMS'      => $forum_language->get('forum', 'forums'),
+    'PAGE'        => PANEL_PAGE,
+    'TOKEN'       => Token::get(),
+    'SUBMIT'      => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

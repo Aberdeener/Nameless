@@ -20,31 +20,31 @@ require_once ROOT_PATH.'/core/templates/backend_init.php';
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
-if (! isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     $custom_pages = $queries->getWhere('custom_pages', ['id', '<>', 0]);
     $template_array = [];
 
     if (count($custom_pages)) {
         foreach ($custom_pages as $custom_page) {
             $template_array[] = [
-                'edit_link' => URL::build('/panel/core/pages/', 'action=edit&id='.Output::getClean($custom_page->id)),
-                'title' => Output::getClean($custom_page->title),
+                'edit_link'   => URL::build('/panel/core/pages/', 'action=edit&id='.Output::getClean($custom_page->id)),
+                'title'       => Output::getClean($custom_page->title),
                 'delete_link' => URL::build('/panel/core/pages/', 'action=delete&id='.Output::getClean($custom_page->id)),
             ];
         }
     }
 
     $smarty->assign([
-        'NEW_PAGE' => $language->get('admin', 'new_page'),
-        'NEW_PAGE_LINK' => URL::build('/panel/core/pages/', 'action=new'),
-        'EDIT' => $language->get('general', 'edit'),
-        'DELETE' => $language->get('general', 'delete'),
-        'NO_CUSTOM_PAGES' => $language->get('admin', 'no_custom_pages'),
-        'CUSTOM_PAGE_LIST' => $template_array,
-        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
+        'NEW_PAGE'            => $language->get('admin', 'new_page'),
+        'NEW_PAGE_LINK'       => URL::build('/panel/core/pages/', 'action=new'),
+        'EDIT'                => $language->get('general', 'edit'),
+        'DELETE'              => $language->get('general', 'delete'),
+        'NO_CUSTOM_PAGES'     => $language->get('admin', 'no_custom_pages'),
+        'CUSTOM_PAGE_LIST'    => $template_array,
+        'ARE_YOU_SURE'        => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_PAGE' => $language->get('admin', 'confirm_delete_page'),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
+        'YES'                 => $language->get('general', 'yes'),
+        'NO'                  => $language->get('general', 'no'),
     ]);
 
     $template_file = 'core/pages.tpl';
@@ -59,13 +59,13 @@ if (! isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'page_title' => [
                             'required' => true,
-                            'min' => 2,
-                            'max' => 30,
+                            'min'      => 2,
+                            'max'      => 30,
                         ],
                         'page_url' => [
                             'required' => true,
-                            'min' => 2,
-                            'max' => 20,
+                            'min'      => 2,
+                            'max'      => 20,
                         ],
                         'content' => [
                             'max' => 100000,
@@ -135,16 +135,16 @@ if (! isset($_GET['action'])) {
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
 
                             $queries->create('custom_pages', [
-                                'url' => $page_url,
-                                'title' => Output::getClean(Input::get('page_title')),
-                                'content' => Output::getClean(Input::get('content')),
+                                'url'           => $page_url,
+                                'title'         => Output::getClean(Input::get('page_title')),
+                                'content'       => Output::getClean(Input::get('content')),
                                 'link_location' => $location,
-                                'redirect' => $redirect,
-                                'link' => Output::getClean($link),
-                                'target' => ($target == 1) ? 1 : 0,
-                                'all_html' => ($unsafe == 1) ? 1 : 0,
-                                'sitemap' => ($sitemap == 1) ? 1 : 0,
-                                'basic' => ($basic == 1) ? 1 : 0,
+                                'redirect'      => $redirect,
+                                'link'          => Output::getClean($link),
+                                'target'        => ($target == 1) ? 1 : 0,
+                                'all_html'      => ($unsafe == 1) ? 1 : 0,
+                                'sitemap'       => ($sitemap == 1) ? 1 : 0,
+                                'basic'         => ($basic == 1) ? 1 : 0,
                             ]);
 
                             $last_id = $queries->getLastId();
@@ -168,9 +168,9 @@ if (! isset($_GET['action'])) {
 
                             foreach ($perms as $key => $perm) {
                                 $queries->create('custom_pages_permissions', [
-                                    'page_id' => $last_id,
+                                    'page_id'  => $last_id,
                                     'group_id' => $key,
-                                    'view' => $perm,
+                                    'view'     => $perm,
                                 ]);
                             }
 
@@ -218,44 +218,44 @@ if (! isset($_GET['action'])) {
             $template_array = [];
             foreach ($groups as $group) {
                 $template_array[Output::getClean($group->id)] = [
-                    'id' => Output::getClean($group->id),
+                    'id'   => Output::getClean($group->id),
                     'name' => Output::getClean($group->name),
                     'html' => $group->group_html,
                 ];
             }
 
             $smarty->assign([
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/core/pages'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'CREATING_PAGE' => $language->get('admin', 'creating_new_page'),
-                'PAGE_TITLE' => $language->get('admin', 'page_title'),
-                'PAGE_TITLE_VALUE' => Output::getClean(Input::get('page_title')),
-                'PAGE_PATH' => $language->get('admin', 'page_path'),
-                'PAGE_PATH_VALUE' => Output::getClean(Input::get('page_url')),
-                'PAGE_LINK_LOCATION' => $language->get('admin', 'page_link_location'),
-                'PAGE_LINK_NAVBAR' => $language->get('admin', 'page_link_navbar'),
-                'PAGE_LINK_MORE' => $language->get('admin', 'page_link_more'),
-                'PAGE_LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
-                'PAGE_LINK_NONE' => $language->get('admin', 'page_link_none'),
-                'PAGE_CONTENT' => $language->get('admin', 'page_content'),
-                'PAGE_CONTENT_VALUE' => Output::getClean(Input::get('content')),
-                'BASIC_PAGE' => $language->get('admin', 'basic_page'),
-                'PAGE_REDIRECT' => $language->get('admin', 'page_redirect'),
-                'PAGE_REDIRECT_TO' => $language->get('admin', 'page_redirect_to'),
+                'CANCEL'                 => $language->get('general', 'cancel'),
+                'CANCEL_LINK'            => URL::build('/panel/core/pages'),
+                'ARE_YOU_SURE'           => $language->get('general', 'are_you_sure'),
+                'CONFIRM_CANCEL'         => $language->get('general', 'confirm_cancel'),
+                'YES'                    => $language->get('general', 'yes'),
+                'NO'                     => $language->get('general', 'no'),
+                'CREATING_PAGE'          => $language->get('admin', 'creating_new_page'),
+                'PAGE_TITLE'             => $language->get('admin', 'page_title'),
+                'PAGE_TITLE_VALUE'       => Output::getClean(Input::get('page_title')),
+                'PAGE_PATH'              => $language->get('admin', 'page_path'),
+                'PAGE_PATH_VALUE'        => Output::getClean(Input::get('page_url')),
+                'PAGE_LINK_LOCATION'     => $language->get('admin', 'page_link_location'),
+                'PAGE_LINK_NAVBAR'       => $language->get('admin', 'page_link_navbar'),
+                'PAGE_LINK_MORE'         => $language->get('admin', 'page_link_more'),
+                'PAGE_LINK_FOOTER'       => $language->get('admin', 'page_link_footer'),
+                'PAGE_LINK_NONE'         => $language->get('admin', 'page_link_none'),
+                'PAGE_CONTENT'           => $language->get('admin', 'page_content'),
+                'PAGE_CONTENT_VALUE'     => Output::getClean(Input::get('content')),
+                'BASIC_PAGE'             => $language->get('admin', 'basic_page'),
+                'PAGE_REDIRECT'          => $language->get('admin', 'page_redirect'),
+                'PAGE_REDIRECT_TO'       => $language->get('admin', 'page_redirect_to'),
                 'PAGE_REDIRECT_TO_VALUE' => Output::getClean(Input::get('redirect_link')),
-                'TARGET' => $language->get('admin', 'page_target'),
-                'UNSAFE_HTML' => $language->get('admin', 'unsafe_html'),
-                'UNSAFE_HTML_WARNING' => $language->get('admin', 'unsafe_html_warning'),
-                'INCLUDE_IN_SITEMAP' => $language->get('admin', 'include_in_sitemap'),
-                'PAGE_PERMISSIONS' => $language->get('admin', 'page_permissions'),
-                'GROUP' => $language->get('admin', 'group'),
-                'VIEW_PAGE' => $language->get('admin', 'view_page'),
-                'GUESTS' => $language->get('user', 'guests'),
-                'GROUPS' => $template_array,
+                'TARGET'                 => $language->get('admin', 'page_target'),
+                'UNSAFE_HTML'            => $language->get('admin', 'unsafe_html'),
+                'UNSAFE_HTML_WARNING'    => $language->get('admin', 'unsafe_html_warning'),
+                'INCLUDE_IN_SITEMAP'     => $language->get('admin', 'include_in_sitemap'),
+                'PAGE_PERMISSIONS'       => $language->get('admin', 'page_permissions'),
+                'GROUP'                  => $language->get('admin', 'group'),
+                'VIEW_PAGE'              => $language->get('admin', 'view_page'),
+                'GUESTS'                 => $language->get('user', 'guests'),
+                'GROUPS'                 => $template_array,
             ]);
 
             $template_file = 'core/pages_new.tpl';
@@ -264,12 +264,12 @@ if (! isset($_GET['action'])) {
 
         case 'edit':
             // Get page
-            if (! isset($_GET['id']) || ! is_numeric($_GET['id'])) {
+            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/pages'));
                 exit();
             }
             $page = $queries->getWhere('custom_pages', ['id', '=', $_GET['id']]);
-            if (! count($page)) {
+            if (!count($page)) {
                 Redirect::to(URL::build('/panel/core/pages'));
                 exit();
             }
@@ -284,13 +284,13 @@ if (! isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'page_title' => [
                             'required' => true,
-                            'min' => 2,
-                            'max' => 30,
+                            'min'      => 2,
+                            'max'      => 30,
                         ],
                         'page_url' => [
                             'required' => true,
-                            'min' => 2,
-                            'max' => 20,
+                            'min'      => 2,
+                            'max'      => 20,
                         ],
                         'content' => [
                             'max' => 100000,
@@ -360,16 +360,16 @@ if (! isset($_GET['action'])) {
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
 
                             $queries->update('custom_pages', $page->id, [
-                                'url' => $page_url,
-                                'title' => Output::getClean(Input::get('page_title')),
-                                'content' => Output::getClean(Input::get('content')),
+                                'url'           => $page_url,
+                                'title'         => Output::getClean(Input::get('page_title')),
+                                'content'       => Output::getClean(Input::get('content')),
                                 'link_location' => $location,
-                                'redirect' => $redirect,
-                                'link' => Output::getClean($link),
-                                'target' => ($target == 1) ? 1 : 0,
-                                'all_html' => ($unsafe == 1) ? 1 : 0,
-                                'sitemap' => ($sitemap == 1) ? 1 : 0,
-                                'basic' => ($basic == 1) ? 1 : 0,
+                                'redirect'      => $redirect,
+                                'link'          => Output::getClean($link),
+                                'target'        => ($target == 1) ? 1 : 0,
+                                'all_html'      => ($unsafe == 1) ? 1 : 0,
+                                'sitemap'       => ($sitemap == 1) ? 1 : 0,
+                                'basic'         => ($basic == 1) ? 1 : 0,
                             ]);
 
                             // Update all widget and announcement page arrays with the custom pages' new name
@@ -416,7 +416,7 @@ if (! isset($_GET['action'])) {
                             // Guest first
                             $view = Input::get('perm-view-0');
 
-                            if (! ($view)) {
+                            if (!($view)) {
                                 $view = 0;
                             }
 
@@ -442,8 +442,8 @@ if (! isset($_GET['action'])) {
                                 } else { // Permission doesn't exist, create
                                     $queries->create('custom_pages_permissions', [
                                         'group_id' => 0,
-                                        'page_id' => $page->id,
-                                        'view' => $view,
+                                        'page_id'  => $page->id,
+                                        'view'     => $view,
                                     ]);
                                 }
                             } catch (Exception $e) {
@@ -455,7 +455,7 @@ if (! isset($_GET['action'])) {
                             foreach ($groups as $group) {
                                 $view = Input::get('perm-view-'.$group->id);
 
-                                if (! ($view)) {
+                                if (!($view)) {
                                     $view = 0;
                                 }
 
@@ -480,8 +480,8 @@ if (! isset($_GET['action'])) {
                                     } else { // Permission doesn't exist, create
                                         $queries->create('custom_pages_permissions', [
                                             'group_id' => $group->id,
-                                            'page_id' => $page->id,
-                                            'view' => $view,
+                                            'page_id'  => $page->id,
+                                            'view'     => $view,
                                         ]);
                                     }
                                 } catch (Exception $e) {
@@ -533,7 +533,7 @@ if (! isset($_GET['action'])) {
             $template_array = [];
             foreach ($group_permissions as $group) {
                 $template_array[Output::getClean($group->id)] = [
-                    'id' => Output::getClean($group->id),
+                    'id'   => Output::getClean($group->id),
                     'name' => Output::getClean($group->name),
                     'html' => $group->group_html,
                     'view' => $group->view,
@@ -549,44 +549,44 @@ if (! isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/core/pages'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'EDITING_PAGE' => str_replace('{x}', Output::getClean($page->title), $language->get('admin', 'editing_page_x')),
-                'PAGE_TITLE' => $language->get('admin', 'page_title'),
-                'PAGE_TITLE_VALUE' => (isset($_POST['page_title']) ? Output::getClean(Input::get('page_title')) : Output::getClean(Output::getDecoded($page->title))),
-                'PAGE_PATH' => $language->get('admin', 'page_path'),
-                'PAGE_PATH_VALUE' => (isset($_POST['page_url']) ? Output::getClean(Input::get('page_url')) : Output::getClean(Output::getDecoded($page->url))),
-                'PAGE_LINK_LOCATION' => $language->get('admin', 'page_link_location'),
+                'CANCEL'                   => $language->get('general', 'cancel'),
+                'CANCEL_LINK'              => URL::build('/panel/core/pages'),
+                'ARE_YOU_SURE'             => $language->get('general', 'are_you_sure'),
+                'CONFIRM_CANCEL'           => $language->get('general', 'confirm_cancel'),
+                'YES'                      => $language->get('general', 'yes'),
+                'NO'                       => $language->get('general', 'no'),
+                'EDITING_PAGE'             => str_replace('{x}', Output::getClean($page->title), $language->get('admin', 'editing_page_x')),
+                'PAGE_TITLE'               => $language->get('admin', 'page_title'),
+                'PAGE_TITLE_VALUE'         => (isset($_POST['page_title']) ? Output::getClean(Input::get('page_title')) : Output::getClean(Output::getDecoded($page->title))),
+                'PAGE_PATH'                => $language->get('admin', 'page_path'),
+                'PAGE_PATH_VALUE'          => (isset($_POST['page_url']) ? Output::getClean(Input::get('page_url')) : Output::getClean(Output::getDecoded($page->url))),
+                'PAGE_LINK_LOCATION'       => $language->get('admin', 'page_link_location'),
                 'PAGE_LINK_LOCATION_VALUE' => $page->link_location,
-                'PAGE_LINK_NAVBAR' => $language->get('admin', 'page_link_navbar'),
-                'PAGE_LINK_MORE' => $language->get('admin', 'page_link_more'),
-                'PAGE_LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
-                'PAGE_LINK_NONE' => $language->get('admin', 'page_link_none'),
-                'PAGE_CONTENT' => $language->get('admin', 'page_content'),
-                'PAGE_CONTENT_VALUE' => (isset($_POST['content']) ? Output::getClean(Input::get('content')) : Output::getClean(Output::getDecoded($page->content))),
-                'PAGE_REDIRECT' => $language->get('admin', 'page_redirect'),
-                'PAGE_REDIRECT_VALUE' => $page->redirect,
-                'PAGE_REDIRECT_TO' => $language->get('admin', 'page_redirect_to'),
-                'PAGE_REDIRECT_TO_VALUE' => (isset($_POST['redirect_link']) ? Output::getClean(Input::get('redirect_link')) : $page->link),
-                'TARGET' => $language->get('admin', 'page_target'),
-                'TARGET_VALUE' => $page->target,
-                'UNSAFE_HTML' => $language->get('admin', 'unsafe_html'),
-                'UNSAFE_HTML_VALUE' => $page->all_html,
-                'UNSAFE_HTML_WARNING' => $language->get('admin', 'unsafe_html_warning'),
-                'INCLUDE_IN_SITEMAP' => $language->get('admin', 'include_in_sitemap'),
+                'PAGE_LINK_NAVBAR'         => $language->get('admin', 'page_link_navbar'),
+                'PAGE_LINK_MORE'           => $language->get('admin', 'page_link_more'),
+                'PAGE_LINK_FOOTER'         => $language->get('admin', 'page_link_footer'),
+                'PAGE_LINK_NONE'           => $language->get('admin', 'page_link_none'),
+                'PAGE_CONTENT'             => $language->get('admin', 'page_content'),
+                'PAGE_CONTENT_VALUE'       => (isset($_POST['content']) ? Output::getClean(Input::get('content')) : Output::getClean(Output::getDecoded($page->content))),
+                'PAGE_REDIRECT'            => $language->get('admin', 'page_redirect'),
+                'PAGE_REDIRECT_VALUE'      => $page->redirect,
+                'PAGE_REDIRECT_TO'         => $language->get('admin', 'page_redirect_to'),
+                'PAGE_REDIRECT_TO_VALUE'   => (isset($_POST['redirect_link']) ? Output::getClean(Input::get('redirect_link')) : $page->link),
+                'TARGET'                   => $language->get('admin', 'page_target'),
+                'TARGET_VALUE'             => $page->target,
+                'UNSAFE_HTML'              => $language->get('admin', 'unsafe_html'),
+                'UNSAFE_HTML_VALUE'        => $page->all_html,
+                'UNSAFE_HTML_WARNING'      => $language->get('admin', 'unsafe_html_warning'),
+                'INCLUDE_IN_SITEMAP'       => $language->get('admin', 'include_in_sitemap'),
                 'INCLUDE_IN_SITEMAP_VALUE' => $page->sitemap,
-                'BASIC_PAGE' => $language->get('admin', 'basic_page'),
-                'BASIC_PAGE_VALUE' => $page->basic,
-                'PAGE_PERMISSIONS' => $language->get('admin', 'page_permissions'),
-                'GROUP' => $language->get('admin', 'group'),
-                'VIEW_PAGE' => $language->get('admin', 'view_page'),
-                'GUESTS' => $language->get('user', 'guests'),
-                'GROUPS' => $template_array,
-                'GUEST_PERMS' => $guest_can_view,
+                'BASIC_PAGE'               => $language->get('admin', 'basic_page'),
+                'BASIC_PAGE_VALUE'         => $page->basic,
+                'PAGE_PERMISSIONS'         => $language->get('admin', 'page_permissions'),
+                'GROUP'                    => $language->get('admin', 'group'),
+                'VIEW_PAGE'                => $language->get('admin', 'view_page'),
+                'GUESTS'                   => $language->get('user', 'guests'),
+                'GROUPS'                   => $template_array,
+                'GUEST_PERMS'              => $guest_can_view,
             ]);
 
             $template_file = 'core/pages_edit.tpl';
@@ -623,26 +623,26 @@ if (Session::exists('admin_pages')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'PAGES' => $language->get('admin', 'pages'),
+    'PARENT_PAGE'  => PARENT_PAGE,
+    'DASHBOARD'    => $language->get('admin', 'dashboard'),
+    'PAGES'        => $language->get('admin', 'pages'),
     'CUSTOM_PAGES' => $language->get('admin', 'custom_pages'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'PAGE'         => PANEL_PAGE,
+    'TOKEN'        => Token::get(),
+    'SUBMIT'       => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

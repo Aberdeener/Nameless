@@ -15,10 +15,10 @@ define('PAGE', 'maintenance');
 $page_title = $language->get('errors', 'maintenance_title');
 require_once ROOT_PATH.'/core/templates/frontend_init.php';
 
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     $smarty->assign(
         [
-            'LOGIN' => $language->get('general', 'sign_in'),
+            'LOGIN'      => $language->get('general', 'sign_in'),
             'LOGIN_LINK' => URL::build('/login'),
         ]
     );
@@ -28,13 +28,13 @@ if (! $user->isLoggedIn()) {
 $smarty->assign(
     [
         'MAINTENANCE_TITLE' => $language->get('errors', 'maintenance_title'),
-        'RETRY' => $language->get('errors', 'maintenance_retry'),
+        'RETRY'             => $language->get('errors', 'maintenance_retry'),
     ]
 );
 
 // Retrieve maintenance message
 $maintenance_message = $maintenance['message'];
-if (! empty($maintenance_message)) {
+if (!empty($maintenance_message)) {
     $smarty->assign('MAINTENANCE_MESSAGE', Output::getPurified(htmlspecialchars_decode($maintenance_message)));
 } else {
     $smarty->assign('MAINTENANCE_MESSAGE', 'Maintenance mode is enabled.');

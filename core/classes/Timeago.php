@@ -43,6 +43,7 @@ function timeAgoInWords($timestring, $timezone = null)
  * seconds between the two dates.
  *
  * @author jimmiw
+ *
  * @since 0.2.0 (2010/05/05)
  * @site http://github.com/jimmiw/php-time-ago
  */
@@ -208,7 +209,7 @@ class TimeAgo
             $key = 'over_x_years';
         }
 
-        if (! isset($key)) {
+        if (!isset($key)) {
             return '';
         }
 
@@ -303,10 +304,10 @@ class TimeAgo
         }
 
         $difference = [
-            'years' => $years,
-            'months' => $months,
-            'days' => $days,
-            'hours' => $hours,
+            'years'   => $years,
+            'months'  => $months,
+            'days'    => $days,
+            'hours'   => $hours,
             'minutes' => $minutes,
             'seconds' => $seconds,
         ];

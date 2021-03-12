@@ -9,7 +9,7 @@
  *  Delete topic
  */
 
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
     exit();
 }
@@ -22,7 +22,7 @@ define('PAGE', 'forum');
 $forum = new Forum();
 
 // Check params are set
-if (! isset($_GET['tid']) || ! is_numeric($_GET['tid'])) {
+if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum'));
     exit();
 } else {
@@ -32,7 +32,7 @@ if (! isset($_GET['tid']) || ! is_numeric($_GET['tid'])) {
 // Check topic exists
 $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
 
-if (! count($topic)) {
+if (!count($topic)) {
     Redirect::to(URL::build('forum'));
     exit();
 }

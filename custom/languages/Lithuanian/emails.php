@@ -13,7 +13,7 @@ $language = [
 
     // General Options
     'greeting' => 'Labas,',
-    'thanks' => 'Ačiū,',
+    'thanks'   => 'Ačiū,',
 
     // Registration Email
     'register_subject' => 'Patikrinkite Paskyrą',

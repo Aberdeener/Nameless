@@ -13,7 +13,7 @@ require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 
 // User must be logged in to proceed
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
     exit();
 }
@@ -28,7 +28,7 @@ if ($reactions_enabled[0]->value != '1') {
 // Deal with input
 if (Input::exists()) {
     // Validate form input
-    if (! isset($_POST['post']) || ! is_numeric($_POST['post']) || ! isset($_POST['reaction']) || ! is_numeric($_POST['reaction'])) {
+    if (!isset($_POST['post']) || !is_numeric($_POST['post']) || !isset($_POST['reaction']) || !is_numeric($_POST['reaction'])) {
         Redirect::to(URL::build('/forum'));
         exit();
     }
@@ -36,7 +36,7 @@ if (Input::exists()) {
     // Get post information
     $post = $queries->getWhere('posts', ['id', '=', $_POST['post']]);
 
-    if (! count($post)) {
+    if (!count($post)) {
         Redirect::to(URL::build('/forum'));
         exit();
     }
@@ -45,7 +45,7 @@ if (Input::exists()) {
     $topic_id = $post->topic_id;
 
     // Check user can actually view the post
-    if (! ($forum->forumExist($post->forum_id, $user->getAllGroupIds()))) {
+    if (!($forum->forumExist($post->forum_id, $user->getAllGroupIds()))) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
         exit();
     }
@@ -63,7 +63,7 @@ if (Input::exists()) {
                         // Change reaction
                         $queries->update('forums_reactions', $reaction->id, [
                             'reaction_id' => $_POST['reaction'],
-                            'time' => date('U'),
+                            'time'        => date('U'),
                         ]);
                     }
 
@@ -73,14 +73,14 @@ if (Input::exists()) {
             }
         }
 
-        if (! isset($changed)) {
+        if (!isset($changed)) {
             // Input new reaction
             $queries->create('forums_reactions', [
-                'post_id' => $post->id,
+                'post_id'       => $post->id,
                 'user_received' => $post->post_creator,
-                'user_given' => $user->data()->id,
-                'reaction_id' => $_POST['reaction'],
-                'time' => date('U'),
+                'user_given'    => $user->data()->id,
+                'reaction_id'   => $_POST['reaction'],
+                'time'          => date('U'),
             ]);
 
             Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);

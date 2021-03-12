@@ -13,7 +13,7 @@ $language = [
 
     // General Options
     'greeting' => 'Salut,',
-    'thanks' => 'Cu stimă,',
+    'thanks'   => 'Cu stimă,',
 
     // Registration Email
     'register_subject' => 'Confirmare cont',

@@ -17,12 +17,12 @@ class Input
         switch ($type) {
             case 'post':
                 // Check the $_POST variable
-                return (! empty($_POST)) ? true : false;
+                return (!empty($_POST)) ? true : false;
                 break;
 
             case 'get':
                 // Check the $_GET variable
-                return (! empty($_GET)) ? true : false;
+                return (!empty($_GET)) ? true : false;
                 break;
 
             default:
@@ -74,7 +74,7 @@ class Input
 
             $editor .= '],
 
-                removeButtons: \'Anchor,Styles,SpecialChar,About,Flash'.(! $admin ? ',Iframe,Table' : '').',Format\'
+                removeButtons: \'Anchor,Styles,SpecialChar,About,Flash'.(!$admin ? ',Iframe,Table' : '').',Format\'
             } );';
 
             if ($admin) {

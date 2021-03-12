@@ -13,7 +13,7 @@ class ErrorHandler
 {
     public static function catchError($errno, $errstr, $errfile, $errline)
     {
-        if (! (error_reporting() & $errno)) {
+        if (!(error_reporting() & $errno)) {
             return false;
         }
 
@@ -64,7 +64,7 @@ class ErrorHandler
     private static function logError($type, $contents)
     {
         try {
-            if (! is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
+            if (!is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
                 if (is_writable(ROOT_PATH.DIRECTORY_SEPARATOR.'cache')) {
                     mkdir(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'logs');
                     $dir_exists = true;

@@ -23,7 +23,7 @@ class Report
     public function create($post = [])
     {
         // Insert into database
-        if (! $this->_db->insert('reports', $post)) {
+        if (!$this->_db->insert('reports', $post)) {
             throw new Exception('There was a problem creating the report.');
         }
 

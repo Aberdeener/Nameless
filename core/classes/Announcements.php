@@ -49,7 +49,7 @@ class Announcements
     {
         $available_pages = [];
         foreach ($pages->returnPages() as $page) {
-            if (! empty($page['name'])) {
+            if (!empty($page['name'])) {
                 $available_pages[] = $page;
             }
         }
@@ -60,7 +60,7 @@ class Announcements
     public static function getPagesCsv($pages_json = null)
     {
         $pages = json_decode($pages_json);
-        if (! $pages) {
+        if (!$pages) {
             return null;
         }
 

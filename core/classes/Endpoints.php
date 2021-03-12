@@ -21,7 +21,7 @@ class Endpoints
 
     public function add(EndpointBase $endpoint)
     {
-        if (! isset($this->_endpoints[$endpoint->getRoute()])) {
+        if (!isset($this->_endpoints[$endpoint->getRoute()])) {
             $this->_endpoints[$endpoint->getRoute()] = $endpoint;
         }
     }

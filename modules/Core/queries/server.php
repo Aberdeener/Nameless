@@ -1,12 +1,12 @@
 <?php
 
 // Check server ID is specified
-if (! isset($_GET['id']) || ! is_numeric($_GET['id'])) {
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     exit();
 }
 
 $server = $queries->getWhere('mc_servers', ['id', '=', $_GET['id']]);
-if (! count($server)) {
+if (!count($server)) {
     exit();
 } else {
     $server = $server[0];

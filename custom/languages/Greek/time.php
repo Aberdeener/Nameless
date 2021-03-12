@@ -15,17 +15,17 @@ $language = [
     /*
      *  Time
      */
-    'time' => 'χρόνος', // Placeholder, no need to translate
-    'seconds_short' => 's', // Shortened "seconds", eg "s"
+    'time'               => 'χρόνος', // Placeholder, no need to translate
+    'seconds_short'      => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'λιγότερο από ένα λεπτό πριν',
-    '1_minute' => 'Πριν από 1 λεπτό',
-    '_minutes' => '{x} λεπτά πριν',
-    'about_1_hour' => 'περίπου 1 ώρα πριν',
-    '_hours' => '{x} ώρες πριν',
-    '1_day' => 'Πριν από 1 μέρα',
-    '_days' => '{x} μέρες πριν',
-    'about_1_month' => 'περίπου 1 μήνα πριν',
-    '_months' => '{x} μήνες πριν',
-    'about_1_year' => 'Πριν από περίπου 1 χρόνο',
-    'over_x_years' => 'πάνω από {x} χρόνια πριν',
+    '1_minute'           => 'Πριν από 1 λεπτό',
+    '_minutes'           => '{x} λεπτά πριν',
+    'about_1_hour'       => 'περίπου 1 ώρα πριν',
+    '_hours'             => '{x} ώρες πριν',
+    '1_day'              => 'Πριν από 1 μέρα',
+    '_days'              => '{x} μέρες πριν',
+    'about_1_month'      => 'περίπου 1 μήνα πριν',
+    '_months'            => '{x} μήνες πριν',
+    'about_1_year'       => 'Πριν από περίπου 1 χρόνο',
+    'over_x_years'       => 'πάνω από {x} χρόνια πριν',
 ];

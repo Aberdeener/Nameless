@@ -37,8 +37,8 @@ if (isset($_GET['action'])) {
                 $validation = $validate->check($_POST, [
                     'groupname' => [
                         'required' => true,
-                        'min' => 2,
-                        'max' => 20,
+                        'min'      => 2,
+                        'max'      => 20,
                     ],
                     'html' => [
                         'max' => 1024,
@@ -55,7 +55,7 @@ if (isset($_GET['action'])) {
 
                         // If this is the new default group, update old default group
                         $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
-                        if (! count($default_group) && $default == 0) {
+                        if (!count($default_group) && $default == 0) {
                             $default = 1;
                         }
 
@@ -67,16 +67,16 @@ if (isset($_GET['action'])) {
                         }
 
                         $queries->create('groups', [
-                            'name' => Input::get('groupname'),
-                            'group_html' => Input::get('html'),
-                            'group_html_lg' => Input::get('html'),
+                            'name'                 => Input::get('groupname'),
+                            'group_html'           => Input::get('html'),
+                            'group_html_lg'        => Input::get('html'),
                             'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
-                            'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
-                            'admin_cp' => Input::get('staffcp'),
-                            'staff' => Input::get('staff'),
-                            'default_group' => $default,
-                            'order' => (Input::get('order') == 5 ? $last_group_order + 1 : Input::get('order')),
-                            'force_tfa' => Input::get('tfa'),
+                            'group_username_css'   => ($_POST['username_css'] ? Input::get('username_css') : null),
+                            'admin_cp'             => Input::get('staffcp'),
+                            'staff'                => Input::get('staff'),
+                            'default_group'        => $default,
+                            'order'                => (Input::get('order') == 5 ? $last_group_order + 1 : Input::get('order')),
+                            'force_tfa'            => Input::get('tfa'),
                         ]);
 
                         $group_id = $queries->getLastId();
@@ -129,50 +129,50 @@ if (isset($_GET['action'])) {
         }
 
         $smarty->assign([
-            'CREATING_NEW_GROUP' => $language->get('admin', 'creating_group'),
-            'CANCEL' => $language->get('general', 'cancel'),
-            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-            'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-            'YES' => $language->get('general', 'yes'),
-            'NO' => $language->get('general', 'no'),
-            'CANCEL_LINK' => URL::build('/panel/core/groups'),
-            'NAME' => $language->get('admin', 'name'),
-            'GROUP_HTML' => $language->get('admin', 'group_html'),
+            'CREATING_NEW_GROUP'    => $language->get('admin', 'creating_group'),
+            'CANCEL'                => $language->get('general', 'cancel'),
+            'ARE_YOU_SURE'          => $language->get('general', 'are_you_sure'),
+            'CONFIRM_CANCEL'        => $language->get('general', 'confirm_cancel'),
+            'YES'                   => $language->get('general', 'yes'),
+            'NO'                    => $language->get('general', 'no'),
+            'CANCEL_LINK'           => URL::build('/panel/core/groups'),
+            'NAME'                  => $language->get('admin', 'name'),
+            'GROUP_HTML'            => $language->get('admin', 'group_html'),
             'GROUP_USERNAME_COLOUR' => $language->get('admin', 'group_username_colour'),
-            'GROUP_USERNAME_CSS' => $language->get('admin', 'group_username_css'),
-            'GROUP_ORDER' => $language->get('admin', 'group_order'),
-            'STAFF_GROUP' => $language->get('admin', 'group_staff'),
-            'STAFF_CP' => $language->get('admin', 'can_view_staffcp'),
-            'DEFAULT_GROUP' => $language->get('admin', 'default_group'),
-            'FORCE_TFA' => $language->get('admin', 'force_tfa'),
+            'GROUP_USERNAME_CSS'    => $language->get('admin', 'group_username_css'),
+            'GROUP_ORDER'           => $language->get('admin', 'group_order'),
+            'STAFF_GROUP'           => $language->get('admin', 'group_staff'),
+            'STAFF_CP'              => $language->get('admin', 'can_view_staffcp'),
+            'DEFAULT_GROUP'         => $language->get('admin', 'default_group'),
+            'FORCE_TFA'             => $language->get('admin', 'force_tfa'),
         ]);
 
         $template_file = 'core/groups_new.tpl';
     } elseif ($_GET['action'] == 'edit') {
-        if (! isset($_GET['group']) || ! is_numeric($_GET['group'])) {
+        if (!isset($_GET['group']) || !is_numeric($_GET['group'])) {
             Redirect::to(URL::build('/panel/core/groups'));
             exit();
         }
 
         $group = $queries->getWhere('groups', ['id', '=', $_GET['group']]);
-        if (! count($group)) {
+        if (!count($group)) {
             Redirect::to(URL::build('/panel/core/groups'));
             exit();
         }
         $group = $group[0];
 
-        if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && ! $user->hasPermission('admincp.groups.self'))) {
+        if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
             $smarty->assign([
                 'OWN_GROUP' => $language->get('admin', 'cant_edit_this_group'),
-                'INFO' => $language->get('general', 'info'),
+                'INFO'      => $language->get('general', 'info'),
             ]);
         } else {
             $smarty->assign([
-                'PERMISSIONS' => $language->get('admin', 'permissions'),
+                'PERMISSIONS'      => $language->get('admin', 'permissions'),
                 'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group='.Output::getClean($group->id)),
-                'DELETE' => $language->get('general', 'delete'),
-                'DELETE_GROUP' => $language->get('admin', 'delete_group'),
-                'CONFIRM_DELETE' => str_replace('{x}', Output::getClean($group->name), $language->get('admin', 'confirm_group_deletion')),
+                'DELETE'           => $language->get('general', 'delete'),
+                'DELETE_GROUP'     => $language->get('admin', 'delete_group'),
+                'CONFIRM_DELETE'   => str_replace('{x}', Output::getClean($group->name), $language->get('admin', 'confirm_group_deletion')),
             ]);
         }
 
@@ -184,8 +184,8 @@ if (isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'groupname' => [
                             'required' => true,
-                            'min' => 2,
-                            'max' => 20,
+                            'min'      => 2,
+                            'max'      => 20,
                         ],
                         'html' => [
                             'max' => 1024,
@@ -208,7 +208,7 @@ if (isset($_GET['action'])) {
                                 $queries->update('groups', $default_group[0]->id, [
                                     'default_group' => 0,
                                 ]);
-                            } elseif (! count($default_group) && $default == 0) {
+                            } elseif (!count($default_group) && $default == 0) {
                                 $default = 1;
                             }
 
@@ -219,16 +219,16 @@ if (isset($_GET['action'])) {
                             }
 
                             $queries->update('groups', $_GET['group'], [
-                                'name' => Input::get('groupname'),
-                                'group_html' => Input::get('html'),
-                                'group_html_lg' => Input::get('html'),
+                                'name'                 => Input::get('groupname'),
+                                'group_html'           => Input::get('html'),
+                                'group_html_lg'        => Input::get('html'),
                                 'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
-                                'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
-                                'admin_cp' => $staff_cp,
-                                'staff' => Input::get('staff'),
-                                'default_group' => $default,
-                                '`order`' => Input::get('order'),
-                                'force_tfa' => Input::get('tfa'),
+                                'group_username_css'   => ($_POST['username_css'] ? Input::get('username_css') : null),
+                                'admin_cp'             => $staff_cp,
+                                'staff'                => Input::get('staff'),
+                                'default_group'        => $default,
+                                '`order`'              => Input::get('order'),
+                                'force_tfa'            => Input::get('tfa'),
                             ]);
 
                             $cache->setCache('groups_tfa_'.$_GET['group']);
@@ -289,48 +289,48 @@ if (isset($_GET['action'])) {
         }
 
         $smarty->assign([
-            'GROUP_ID' => Output::getClean($group->id),
-            'NAME' => $language->get('admin', 'name'),
-            'GROUP_HTML' => $language->get('admin', 'group_html'),
-            'GROUP_HTML_VALUE' => Output::getClean($group->group_html),
-            'GROUP_USERNAME_COLOUR' => $language->get('admin', 'group_username_colour'),
+            'GROUP_ID'                    => Output::getClean($group->id),
+            'NAME'                        => $language->get('admin', 'name'),
+            'GROUP_HTML'                  => $language->get('admin', 'group_html'),
+            'GROUP_HTML_VALUE'            => Output::getClean($group->group_html),
+            'GROUP_USERNAME_COLOUR'       => $language->get('admin', 'group_username_colour'),
             'GROUP_USERNAME_COLOUR_VALUE' => Output::getClean($group->group_username_color),
-            'GROUP_USERNAME_CSS' => $language->get('admin', 'group_username_css'),
-            'GROUP_USERNAME_CSS_VALUE' => Output::getClean($group->group_username_css),
-            'STAFF_GROUP' => $language->get('admin', 'group_staff'),
-            'STAFF_GROUP_VALUE' => $group->staff,
-            'STAFF_CP' => $language->get('admin', 'can_view_staffcp'),
-            'STAFF_CP_VALUE' => $group->admin_cp,
-            'DEFAULT_GROUP' => $language->get('admin', 'default_group'),
-            'DEFAULT_GROUP_VALUE' => $group->default_group,
-            'CANCEL' => $language->get('general', 'cancel'),
-            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-            'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-            'YES' => $language->get('general', 'yes'),
-            'NO' => $language->get('general', 'no'),
-            'CANCEL_LINK' => URL::build('/panel/core/groups'),
-            'GROUP_NAME' => Output::getClean($group->name),
-            'GROUP_ORDER' => $language->get('admin', 'group_order'),
-            'GROUP_ORDER_VALUE' => $group->order,
-            'FORCE_TFA' => $language->get('admin', 'force_tfa'),
-            'FORCE_TFA_VALUE' => $group->force_tfa,
+            'GROUP_USERNAME_CSS'          => $language->get('admin', 'group_username_css'),
+            'GROUP_USERNAME_CSS_VALUE'    => Output::getClean($group->group_username_css),
+            'STAFF_GROUP'                 => $language->get('admin', 'group_staff'),
+            'STAFF_GROUP_VALUE'           => $group->staff,
+            'STAFF_CP'                    => $language->get('admin', 'can_view_staffcp'),
+            'STAFF_CP_VALUE'              => $group->admin_cp,
+            'DEFAULT_GROUP'               => $language->get('admin', 'default_group'),
+            'DEFAULT_GROUP_VALUE'         => $group->default_group,
+            'CANCEL'                      => $language->get('general', 'cancel'),
+            'ARE_YOU_SURE'                => $language->get('general', 'are_you_sure'),
+            'CONFIRM_CANCEL'              => $language->get('general', 'confirm_cancel'),
+            'YES'                         => $language->get('general', 'yes'),
+            'NO'                          => $language->get('general', 'no'),
+            'CANCEL_LINK'                 => URL::build('/panel/core/groups'),
+            'GROUP_NAME'                  => Output::getClean($group->name),
+            'GROUP_ORDER'                 => $language->get('admin', 'group_order'),
+            'GROUP_ORDER_VALUE'           => $group->order,
+            'FORCE_TFA'                   => $language->get('admin', 'force_tfa'),
+            'FORCE_TFA_VALUE'             => $group->force_tfa,
         ]);
 
         $template_file = 'core/groups_edit.tpl';
     } elseif ($_GET['action'] == 'permissions') {
-        if (! isset($_GET['group']) || ! is_numeric($_GET['group'])) {
+        if (!isset($_GET['group']) || !is_numeric($_GET['group'])) {
             Redirect::to(URL::build('/panel/core/groups'));
             exit();
         }
 
         $group = $queries->getWhere('groups', ['id', '=', $_GET['group']]);
-        if (! count($group)) {
+        if (!count($group)) {
             Redirect::to(URL::build('/panel/core/groups'));
             exit();
         }
         $group = $group[0];
 
-        if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && ! $user->hasPermission('admincp.groups.self'))) {
+        if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
             Redirect::to(URL::build('/panel/core/groups'));
             exit();
         }
@@ -364,13 +364,13 @@ if (isset($_GET['action'])) {
         }
 
         $smarty->assign([
-            'PERMISSIONS' => $language->get('admin', 'permissions'),
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/core/groups/', 'action=edit&group='.Output::getClean($group->id)),
+            'PERMISSIONS'        => $language->get('admin', 'permissions'),
+            'BACK'               => $language->get('general', 'back'),
+            'BACK_LINK'          => URL::build('/panel/core/groups/', 'action=edit&group='.Output::getClean($group->id)),
             'PERMISSIONS_VALUES' => json_decode($group->permissions, true),
-            'ALL_PERMISSIONS' => PermissionHandler::getPermissions(),
-            'SELECT_ALL' => $language->get('admin', 'select_all'),
-            'DESELECT_ALL' => $language->get('admin', 'deselect_all'),
+            'ALL_PERMISSIONS'    => PermissionHandler::getPermissions(),
+            'SELECT_ALL'         => $language->get('admin', 'select_all'),
+            'DESELECT_ALL'       => $language->get('admin', 'deselect_all'),
         ]);
 
         $template_file = 'core/groups_permissions.tpl';
@@ -398,27 +398,27 @@ if (isset($_GET['action'])) {
         $users = count($users);
 
         $groups_template[] = [
-            'id' => Output::getClean($group->id),
-            'order' => $group->order,
-            'name' => Output::getClean($group->name),
+            'id'        => Output::getClean($group->id),
+            'order'     => $group->order,
+            'name'      => Output::getClean($group->name),
             'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group='.Output::getClean($group->id)),
-            'users' => $users,
-            'staff' => $group->staff,
+            'users'     => $users,
+            'staff'     => $group->staff,
         ];
     }
 
     $smarty->assign([
-        'GROUP_ID' => $language->get('admin', 'group_id'),
-        'NAME' => $language->get('admin', 'name'),
-        'USERS' => $language->get('admin', 'users'),
-        'NEW_GROUP' => $language->get('admin', 'new_group'),
-        'NEW_GROUP_LINK' => URL::build('/panel/core/groups/', 'action=new'),
-        'GROUP_LIST' => $groups_template,
-        'ORDER' => $language->get('admin', 'group_order'),
-        'STAFF' => $language->get('moderator', 'staff'),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
-        'EDIT' => $language->get('general', 'edit'),
+        'GROUP_ID'         => $language->get('admin', 'group_id'),
+        'NAME'             => $language->get('admin', 'name'),
+        'USERS'            => $language->get('admin', 'users'),
+        'NEW_GROUP'        => $language->get('admin', 'new_group'),
+        'NEW_GROUP_LINK'   => URL::build('/panel/core/groups/', 'action=new'),
+        'GROUP_LIST'       => $groups_template,
+        'ORDER'            => $language->get('admin', 'group_order'),
+        'STAFF'            => $language->get('moderator', 'staff'),
+        'YES'              => $language->get('general', 'yes'),
+        'NO'               => $language->get('general', 'no'),
+        'EDIT'             => $language->get('general', 'edit'),
         'REORDER_DRAG_URL' => URL::build('/panel/core/groups'),
     ]);
 
@@ -427,30 +427,30 @@ if (isset($_GET['action'])) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'GROUPS' => $language->get('admin', 'groups'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'INFO' => $language->get('general', 'info'),
-    'WARNING' => $language->get('general', 'warning'),
+    'PARENT_PAGE'       => PARENT_PAGE,
+    'DASHBOARD'         => $language->get('admin', 'dashboard'),
+    'GROUPS'            => $language->get('admin', 'groups'),
+    'PAGE'              => PANEL_PAGE,
+    'TOKEN'             => Token::get(),
+    'SUBMIT'            => $language->get('general', 'submit'),
+    'INFO'              => $language->get('general', 'info'),
+    'WARNING'           => $language->get('general', 'warning'),
     'FORCE_TFA_WARNING' => $language->get('admin', 'force_tfa_warning'),
-    'GROUP_SYNC' => $language->get('admin', 'group_sync'),
-    'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+    'GROUP_SYNC'        => $language->get('admin', 'group_sync'),
+    'GROUP_SYNC_LINK'   => URL::build('/panel/core/api/', 'view=group_sync'),
 ]);
 
 $page_load = microtime(true) - $start;

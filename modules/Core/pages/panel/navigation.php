@@ -67,35 +67,35 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (Session::exists('navigation_success')) {
     $smarty->assign([
-        'SUCCESS' => Session::flash('navigation_success'),
+        'SUCCESS'       => Session::flash('navigation_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'NAVIGATION' => $language->get('admin', 'navigation'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'INFO' => $language->get('general', 'info'),
+    'PARENT_PAGE'               => PARENT_PAGE,
+    'DASHBOARD'                 => $language->get('admin', 'dashboard'),
+    'CONFIGURATION'             => $language->get('admin', 'configuration'),
+    'NAVIGATION'                => $language->get('admin', 'navigation'),
+    'PAGE'                      => PANEL_PAGE,
+    'TOKEN'                     => Token::get(),
+    'SUBMIT'                    => $language->get('general', 'submit'),
+    'INFO'                      => $language->get('general', 'info'),
     'NAVBAR_ORDER_INSTRUCTIONS' => $language->get('admin', 'navbar_order_instructions'),
-    'NAVBAR_ICON_INSTRUCTIONS' => $language->get('admin', 'navbar_icon_instructions'),
-    'NAV_ITEMS' => $navigation->returnNav('top'),
-    'NAVBAR_ORDER' => $language->get('admin', 'navbar_order'),
-    'NAVBAR_ICON' => $language->get('admin', 'navbar_icon'),
-    'DROPDOWN_ITEMS' => $language->get('admin', 'dropdown_items'),
-    'DROPDOWN_NAME' => $language->get('admin', 'dropdown_name'),
-    'DROPDOWN_NAME_VALUE' => $language->get('general', 'more'),
+    'NAVBAR_ICON_INSTRUCTIONS'  => $language->get('admin', 'navbar_icon_instructions'),
+    'NAV_ITEMS'                 => $navigation->returnNav('top'),
+    'NAVBAR_ORDER'              => $language->get('admin', 'navbar_order'),
+    'NAVBAR_ICON'               => $language->get('admin', 'navbar_icon'),
+    'DROPDOWN_ITEMS'            => $language->get('admin', 'dropdown_items'),
+    'DROPDOWN_NAME'             => $language->get('admin', 'dropdown_name'),
+    'DROPDOWN_NAME_VALUE'       => $language->get('general', 'more'),
 ]);
 
 $page_load = microtime(true) - $start;

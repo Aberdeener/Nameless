@@ -1,6 +1,6 @@
 <?php
 
-if (! isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
+if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
     Redirect::to('?step=admin_account_setup');
     exit();
 }
@@ -8,7 +8,7 @@ if (! isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
 $available_converters = array_filter(glob(ROOT_PATH.'/custom/converters/*'), 'is_dir');
 $converters = [];
 
-if (! empty($available_converters)) {
+if (!empty($available_converters)) {
     foreach ($available_converters as $converter) {
         if (file_exists($converter.'/converter.php')) {
             $path = explode(DIRECTORY_SEPARATOR, $converter);
@@ -18,7 +18,7 @@ if (! empty($available_converters)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (! empty($converters)) {
+    if (!empty($converters)) {
         $validate = new Validate();
         $validation = $validate->check($_POST, [
             'db_address' => [
@@ -35,13 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ],
         ]);
 
-        if (! $validation->passed()) {
+        if (!$validation->passed()) {
             $error = $language['database_error'];
         } else {
             $db_address = $_POST['db_address'];
             $db_port = $_POST['db_port'];
             $db_username = $_POST['db_username'];
-            $db_password = ((isset($_POST['db_password']) && ! empty($_POST['db_password'])) ? str_replace('\'', '\\\'', $_POST['db_password']) : '');
+            $db_password = ((isset($_POST['db_password']) && !empty($_POST['db_password'])) ? str_replace('\'', '\\\'', $_POST['db_password']) : '');
             $db_name = $_POST['db_name'];
 
             $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
@@ -50,13 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 $mysqli->close();
 
-                if (! isset($_POST['converter']) || ! in_array($_POST['converter'], $converters)) {
+                if (!isset($_POST['converter']) || !in_array($_POST['converter'], $converters)) {
                     $error = $language['unable_to_load_converter'];
                 } else {
                     $conn = DB_Custom::getInstance(Input::get('db_address'), Input::get('db_name'), Input::get('db_username'), $password, Input::get('db_port'));
                     require_once ROOT_PATH.'/custom/converters/'.$_POST['converter'].'/converter.php';
 
-                    if (! isset($error)) {
+                    if (!isset($error)) {
                         Redirect::to('?step=finish');
                         exit();
                     }
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			</h4>
 		</div>
 		<div class="ui segment">
-			<?php if (! empty($converters)) { ?>
+			<?php if (!empty($converters)) { ?>
 				<div class="ui centered grid">
 					<div class="sixteen wide mobile twelve wide tablet ten wide computer column">
 						<div class="ui form">
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<a href="?step=conversion" class="ui small button">
 				<?php echo $language['back']; ?>
 			</a>
-			<?php if (! empty($converters)) { ?>
+			<?php if (!empty($converters)) { ?>
 				<button type="submit" class="ui small primary button">
 					<?php echo $language['proceed']; ?>
 				</button>

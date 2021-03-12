@@ -10,7 +10,7 @@
  */
 
 if ($user->isLoggedIn()) {
-    if (! $user->canViewACP()) {
+    if (!$user->canViewACP()) {
         // No
         Redirect::to(URL::build('/'));
         exit();
@@ -45,7 +45,7 @@ if (Input::exists()) {
 
         if ($method == 'email') {
             $to_validate = [
-                'email' => ['required' => true, 'isbanned' => true, 'isactive' => true],
+                'email'    => ['required' => true, 'isbanned' => true, 'isactive' => true],
                 'password' => ['required' => true],
             ];
         } else {
@@ -100,10 +100,10 @@ if ($method == 'email') {
 
 $smarty->assign([
     'PLEASE_REAUTHENTICATE' => $language->get('admin', 're-authenticate'),
-    'PASSWORD' => $language->get('user', 'password'),
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'CANCEL' => $language->get('general', 'cancel'),
+    'PASSWORD'              => $language->get('user', 'password'),
+    'TOKEN'                 => Token::get(),
+    'SUBMIT'                => $language->get('general', 'submit'),
+    'CANCEL'                => $language->get('general', 'cancel'),
 ]);
 
 if (Session::exists('adm_auth_error')) {

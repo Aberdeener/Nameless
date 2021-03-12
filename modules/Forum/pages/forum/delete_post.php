@@ -9,7 +9,7 @@
  *  Delete post page
  */
 
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/forum'));
     exit();
 }
@@ -22,14 +22,14 @@ define('PAGE', 'forum');
 $forum = new Forum();
 
 // Check params are set
-if (! isset($_GET['pid']) || ! is_numeric($_GET['pid'])) {
+if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
     Redirect::to(URL::build('/forum'));
     exit();
 }
 
 // Get post and forum ID
 $post = $queries->getWhere('posts', ['id', '=', $_GET['pid']]);
-if (! count($post)) {
+if (!count($post)) {
     Redirect::to(URL::build('/forum'));
     exit();
 }

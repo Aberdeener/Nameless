@@ -31,13 +31,13 @@ if (isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'server_name' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 20,
+                            'min'      => 1,
+                            'max'      => 20,
                         ],
                         'server_address' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 64,
+                            'min'      => 1,
+                            'max'      => 64,
                         ],
                         'server_port' => [
                             'max' => 5,
@@ -99,7 +99,7 @@ if (isset($_GET['action'])) {
                             if (is_numeric(Input::get('server_port'))) {
                                 $port = Input::get('server_port');
                             } else {
-                                if (! isset($_POST['server_port']) || empty($_POST['server_port'])) {
+                                if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
                                     $port = null;
                                 } else {
                                     $port = 25565;
@@ -121,18 +121,18 @@ if (isset($_GET['action'])) {
                             }
 
                             $queries->create('mc_servers', [
-                                'ip' => Output::getClean(Input::get('server_address')),
-                                'query_ip' => Output::getClean(Input::get('server_address')),
-                                'name' => Output::getClean(Input::get('server_name')),
-                                'display' => $status,
-                                'pre' => $pre,
-                                'player_list' => $query,
+                                'ip'            => Output::getClean(Input::get('server_address')),
+                                'query_ip'      => Output::getClean(Input::get('server_address')),
+                                'name'          => Output::getClean(Input::get('server_name')),
+                                'display'       => $status,
+                                'pre'           => $pre,
+                                'player_list'   => $query,
                                 'parent_server' => $parent,
-                                'bungee' => $bungee,
-                                'port' => $port,
-                                'query_port' => $query_port,
-                                'show_ip' => $show_ip,
-                                'order' => $last_server_order + 1,
+                                'bungee'        => $bungee,
+                                'port'          => $port,
+                                'query_port'    => $query_port,
+                                'show_ip'       => $show_ip,
+                                'order'         => $last_server_order + 1,
                             ]);
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
@@ -206,41 +206,41 @@ if (isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'ADDING_SERVER' => $language->get('admin', 'adding_server'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/minecraft/servers'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'SERVER_INFORMATION' => $language->get('admin', 'server_information'),
-                'SERVER_NAME' => $language->get('admin', 'server_name'),
-                'SERVER_NAME_VALUE' => Output::getClean(Input::get('server_name')),
-                'SERVER_ADDRESS' => $language->get('admin', 'server_address'),
-                'SERVER_ADDRESS_VALUE' => Output::getClean(Input::get('server_address')),
-                'INFO' => $language->get('general', 'info'),
-                'SERVER_ADDRESS_INFO' => $language->get('admin', 'server_address_help'),
-                'SERVER_PORT' => $language->get('admin', 'server_port'),
-                'SERVER_PORT_VALUE' => Output::getClean(Input::get('server_port')),
-                'SERVER_PORT_INFO' => $language->get('admin', 'leave_port_empty_for_srv'),
-                'PARENT_SERVER' => $language->get('admin', 'parent_server'),
-                'PARENT_SERVER_INFO' => $language->get('admin', 'parent_server_help'),
-                'NO_PARENT_SERVER' => $language->get('admin', 'no_parent_server'),
-                'AVAILABLE_PARENT_SERVERS' => $available_parent_servers,
-                'PARENT_SERVER_VALUE' => Output::getClean(Input::get('parent_server')),
-                'BUNGEE_INSTANCE' => $language->get('admin', 'bungee_instance'),
-                'BUNGEE_INSTANCE_INFO' => $language->get('admin', 'bungee_instance_help'),
-                'PRE_17' => $language->get('admin', 'pre_1.7'),
-                'QUERY_INFORMATION' => $language->get('admin', 'query_information'),
-                'ENABLE_STATUS_QUERY' => $language->get('admin', 'enable_status_query'),
-                'ENABLE_STATUS_QUERY_INFO' => $language->get('admin', 'status_query_help'),
-                'SHOW_IP_ON_STATUS_PAGE' => $language->get('admin', 'show_ip_on_status_page'),
+                'ADDING_SERVER'               => $language->get('admin', 'adding_server'),
+                'CANCEL'                      => $language->get('general', 'cancel'),
+                'CANCEL_LINK'                 => URL::build('/panel/minecraft/servers'),
+                'ARE_YOU_SURE'                => $language->get('general', 'are_you_sure'),
+                'CONFIRM_CANCEL'              => $language->get('general', 'confirm_cancel'),
+                'YES'                         => $language->get('general', 'yes'),
+                'NO'                          => $language->get('general', 'no'),
+                'SERVER_INFORMATION'          => $language->get('admin', 'server_information'),
+                'SERVER_NAME'                 => $language->get('admin', 'server_name'),
+                'SERVER_NAME_VALUE'           => Output::getClean(Input::get('server_name')),
+                'SERVER_ADDRESS'              => $language->get('admin', 'server_address'),
+                'SERVER_ADDRESS_VALUE'        => Output::getClean(Input::get('server_address')),
+                'INFO'                        => $language->get('general', 'info'),
+                'SERVER_ADDRESS_INFO'         => $language->get('admin', 'server_address_help'),
+                'SERVER_PORT'                 => $language->get('admin', 'server_port'),
+                'SERVER_PORT_VALUE'           => Output::getClean(Input::get('server_port')),
+                'SERVER_PORT_INFO'            => $language->get('admin', 'leave_port_empty_for_srv'),
+                'PARENT_SERVER'               => $language->get('admin', 'parent_server'),
+                'PARENT_SERVER_INFO'          => $language->get('admin', 'parent_server_help'),
+                'NO_PARENT_SERVER'            => $language->get('admin', 'no_parent_server'),
+                'AVAILABLE_PARENT_SERVERS'    => $available_parent_servers,
+                'PARENT_SERVER_VALUE'         => Output::getClean(Input::get('parent_server')),
+                'BUNGEE_INSTANCE'             => $language->get('admin', 'bungee_instance'),
+                'BUNGEE_INSTANCE_INFO'        => $language->get('admin', 'bungee_instance_help'),
+                'PRE_17'                      => $language->get('admin', 'pre_1.7'),
+                'QUERY_INFORMATION'           => $language->get('admin', 'query_information'),
+                'ENABLE_STATUS_QUERY'         => $language->get('admin', 'enable_status_query'),
+                'ENABLE_STATUS_QUERY_INFO'    => $language->get('admin', 'status_query_help'),
+                'SHOW_IP_ON_STATUS_PAGE'      => $language->get('admin', 'show_ip_on_status_page'),
                 'SHOW_IP_ON_STATUS_PAGE_INFO' => $language->get('admin', 'show_ip_on_status_page_info'),
-                'ENABLE_PLAYER_LIST' => $language->get('admin', 'enable_player_list'),
-                'ENABLE_PLAYER_LIST_INFO' => $language->get('admin', 'player_list_help'),
-                'SERVER_QUERY_PORT' => $language->get('admin', 'server_query_port'),
-                'SERVER_QUERY_PORT_INFO' => $language->get('admin', 'server_query_port_help'),
-                'SERVER_QUERY_PORT_VALUE' => Output::getClean(Input::get('query_port')),
+                'ENABLE_PLAYER_LIST'          => $language->get('admin', 'enable_player_list'),
+                'ENABLE_PLAYER_LIST_INFO'     => $language->get('admin', 'player_list_help'),
+                'SERVER_QUERY_PORT'           => $language->get('admin', 'server_query_port'),
+                'SERVER_QUERY_PORT_INFO'      => $language->get('admin', 'server_query_port_help'),
+                'SERVER_QUERY_PORT_VALUE'     => Output::getClean(Input::get('query_port')),
             ]);
 
             $template_file = 'integrations/minecraft/minecraft_servers_new.tpl';
@@ -249,13 +249,13 @@ if (isset($_GET['action'])) {
 
         case 'edit':
             // Get server
-            if (! isset($_GET['id']) || ! is_numeric($_GET['id'])) {
+            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
                 exit();
             }
 
             $server_editing = $queries->getWhere('mc_servers', ['id', '=', $_GET['id']]);
-            if (! count($server_editing)) {
+            if (!count($server_editing)) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
                 exit();
             }
@@ -269,13 +269,13 @@ if (isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'server_name' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 20,
+                            'min'      => 1,
+                            'max'      => 20,
                         ],
                         'server_address' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 64,
+                            'min'      => 1,
+                            'max'      => 64,
                         ],
                         'server_port' => [
                             'max' => 5,
@@ -337,7 +337,7 @@ if (isset($_GET['action'])) {
                             if (is_numeric(Input::get('server_port'))) {
                                 $port = Input::get('server_port');
                             } else {
-                                if (! isset($_POST['server_port']) || empty($_POST['server_port'])) {
+                                if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
                                     $port = null;
                                 } else {
                                     $port = 25565;
@@ -352,17 +352,17 @@ if (isset($_GET['action'])) {
                             }
 
                             $queries->update('mc_servers', $server_editing->id, [
-                                'ip' => Output::getClean(Input::get('server_address')),
-                                'query_ip' => Output::getClean(Input::get('server_address')),
-                                'name' => Output::getClean(Input::get('server_name')),
-                                'display' => $status,
-                                'pre' => $pre,
-                                'player_list' => $query,
+                                'ip'            => Output::getClean(Input::get('server_address')),
+                                'query_ip'      => Output::getClean(Input::get('server_address')),
+                                'name'          => Output::getClean(Input::get('server_name')),
+                                'display'       => $status,
+                                'pre'           => $pre,
+                                'player_list'   => $query,
                                 'parent_server' => $parent,
-                                'bungee' => $bungee,
-                                'port' => $port,
-                                'query_port' => $query_port,
-                                'show_ip' => $show_ip,
+                                'bungee'        => $bungee,
+                                'port'          => $port,
+                                'query_port'    => $query_port,
+                                'show_ip'       => $show_ip,
                             ]);
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
@@ -437,47 +437,47 @@ if (isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'EDITING_SERVER' => $language->get('admin', 'editing_server'),
-                'SERVER_ID' => $server_editing->id,
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/minecraft/servers'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'SERVER_INFORMATION' => $language->get('admin', 'server_information'),
-                'SERVER_NAME' => $language->get('admin', 'server_name'),
-                'SERVER_NAME_VALUE' => Output::getClean($server_editing->name),
-                'SERVER_ADDRESS' => $language->get('admin', 'server_address'),
-                'SERVER_ADDRESS_VALUE' => Output::getClean($server_editing->ip),
-                'INFO' => $language->get('general', 'info'),
-                'SERVER_ADDRESS_INFO' => $language->get('admin', 'server_address_help'),
-                'SERVER_PORT' => $language->get('admin', 'server_port'),
-                'SERVER_PORT_VALUE' => Output::getClean($server_editing->port),
-                'SERVER_PORT_INFO' => $language->get('admin', 'leave_port_empty_for_srv'),
-                'PARENT_SERVER' => $language->get('admin', 'parent_server'),
-                'PARENT_SERVER_INFO' => $language->get('admin', 'parent_server_help'),
-                'NO_PARENT_SERVER' => $language->get('admin', 'no_parent_server'),
-                'AVAILABLE_PARENT_SERVERS' => $available_parent_servers,
-                'PARENT_SERVER_VALUE' => $server_editing->parent_server,
-                'BUNGEE_INSTANCE' => $language->get('admin', 'bungee_instance'),
-                'BUNGEE_INSTANCE_INFO' => $language->get('admin', 'bungee_instance_help'),
-                'BUNGEE_INSTANCE_VALUE' => ($server_editing->bungee == 1),
-                'PRE_17' => $language->get('admin', 'pre_1.7'),
-                'PRE_17_VALUE' => ($server_editing->pre == 1),
-                'QUERY_INFORMATION' => $language->get('admin', 'query_information'),
-                'ENABLE_STATUS_QUERY' => $language->get('admin', 'enable_status_query'),
-                'ENABLE_STATUS_QUERY_INFO' => $language->get('admin', 'status_query_help'),
-                'ENABLE_STATUS_QUERY_VALUE' => ($server_editing->display == 1),
-                'SHOW_IP_ON_STATUS_PAGE' => $language->get('admin', 'show_ip_on_status_page'),
-                'SHOW_IP_ON_STATUS_PAGE_INFO' => $language->get('admin', 'show_ip_on_status_page_info'),
+                'EDITING_SERVER'               => $language->get('admin', 'editing_server'),
+                'SERVER_ID'                    => $server_editing->id,
+                'CANCEL'                       => $language->get('general', 'cancel'),
+                'CANCEL_LINK'                  => URL::build('/panel/minecraft/servers'),
+                'ARE_YOU_SURE'                 => $language->get('general', 'are_you_sure'),
+                'CONFIRM_CANCEL'               => $language->get('general', 'confirm_cancel'),
+                'YES'                          => $language->get('general', 'yes'),
+                'NO'                           => $language->get('general', 'no'),
+                'SERVER_INFORMATION'           => $language->get('admin', 'server_information'),
+                'SERVER_NAME'                  => $language->get('admin', 'server_name'),
+                'SERVER_NAME_VALUE'            => Output::getClean($server_editing->name),
+                'SERVER_ADDRESS'               => $language->get('admin', 'server_address'),
+                'SERVER_ADDRESS_VALUE'         => Output::getClean($server_editing->ip),
+                'INFO'                         => $language->get('general', 'info'),
+                'SERVER_ADDRESS_INFO'          => $language->get('admin', 'server_address_help'),
+                'SERVER_PORT'                  => $language->get('admin', 'server_port'),
+                'SERVER_PORT_VALUE'            => Output::getClean($server_editing->port),
+                'SERVER_PORT_INFO'             => $language->get('admin', 'leave_port_empty_for_srv'),
+                'PARENT_SERVER'                => $language->get('admin', 'parent_server'),
+                'PARENT_SERVER_INFO'           => $language->get('admin', 'parent_server_help'),
+                'NO_PARENT_SERVER'             => $language->get('admin', 'no_parent_server'),
+                'AVAILABLE_PARENT_SERVERS'     => $available_parent_servers,
+                'PARENT_SERVER_VALUE'          => $server_editing->parent_server,
+                'BUNGEE_INSTANCE'              => $language->get('admin', 'bungee_instance'),
+                'BUNGEE_INSTANCE_INFO'         => $language->get('admin', 'bungee_instance_help'),
+                'BUNGEE_INSTANCE_VALUE'        => ($server_editing->bungee == 1),
+                'PRE_17'                       => $language->get('admin', 'pre_1.7'),
+                'PRE_17_VALUE'                 => ($server_editing->pre == 1),
+                'QUERY_INFORMATION'            => $language->get('admin', 'query_information'),
+                'ENABLE_STATUS_QUERY'          => $language->get('admin', 'enable_status_query'),
+                'ENABLE_STATUS_QUERY_INFO'     => $language->get('admin', 'status_query_help'),
+                'ENABLE_STATUS_QUERY_VALUE'    => ($server_editing->display == 1),
+                'SHOW_IP_ON_STATUS_PAGE'       => $language->get('admin', 'show_ip_on_status_page'),
+                'SHOW_IP_ON_STATUS_PAGE_INFO'  => $language->get('admin', 'show_ip_on_status_page_info'),
                 'SHOW_IP_ON_STATUS_PAGE_VALUE' => ($server_editing->show_ip == 1),
-                'ENABLE_PLAYER_LIST' => $language->get('admin', 'enable_player_list'),
-                'ENABLE_PLAYER_LIST_INFO' => $language->get('admin', 'player_list_help'),
-                'ENABLE_PLAYER_LIST_VALUE' => ($server_editing->player_list == 1),
-                'SERVER_QUERY_PORT' => $language->get('admin', 'server_query_port'),
-                'SERVER_QUERY_PORT_INFO' => $language->get('admin', 'server_query_port_help'),
-                'SERVER_QUERY_PORT_VALUE' => Output::getClean($server_editing->query_port),
+                'ENABLE_PLAYER_LIST'           => $language->get('admin', 'enable_player_list'),
+                'ENABLE_PLAYER_LIST_INFO'      => $language->get('admin', 'player_list_help'),
+                'ENABLE_PLAYER_LIST_VALUE'     => ($server_editing->player_list == 1),
+                'SERVER_QUERY_PORT'            => $language->get('admin', 'server_query_port'),
+                'SERVER_QUERY_PORT_INFO'       => $language->get('admin', 'server_query_port_help'),
+                'SERVER_QUERY_PORT_VALUE'      => Output::getClean($server_editing->query_port),
             ]);
 
             $template_file = 'integrations/minecraft/minecraft_servers_edit.tpl';
@@ -553,7 +553,7 @@ if (isset($_GET['action'])) {
                         ]);
                     }
 
-                    if (! count($current_default) || count($current_default) && $current_default[0]->id != $new_default) {
+                    if (!count($current_default) || count($current_default) && $current_default[0]->id != $new_default) {
                         $queries->update('mc_servers', $new_default, [
                             'is_default' => 1,
                         ]);
@@ -571,7 +571,7 @@ if (isset($_GET['action'])) {
                 $cache->setCache('query_cache');
 
                 $cache->store('query', [
-                    'default' => $new_default,
+                    'default'  => $new_default,
                     'external' => $external,
                 ]);
 
@@ -615,12 +615,12 @@ if (isset($_GET['action'])) {
             }
 
             $template_array[] = [
-                'name' => Output::getClean($server->name),
-                'id' => Output::getClean($server->id),
-                'server_id' => str_replace('{x}', Output::getClean($server->id), $language->get('admin', 'server_id_x')),
-                'edit_link' => URL::build('/panel/minecraft/servers/', 'action=edit&id='.Output::getClean($server->id)),
+                'name'        => Output::getClean($server->name),
+                'id'          => Output::getClean($server->id),
+                'server_id'   => str_replace('{x}', Output::getClean($server->id), $language->get('admin', 'server_id_x')),
+                'edit_link'   => URL::build('/panel/minecraft/servers/', 'action=edit&id='.Output::getClean($server->id)),
                 'delete_link' => URL::build('/panel/minecraft/servers/', 'action=delete&id='.Output::getClean($server->id)),
-                'is_default' => $server->is_default,
+                'is_default'  => $server->is_default,
             ];
         }
 
@@ -656,27 +656,27 @@ if (isset($_GET['action'])) {
     }
 
     $smarty->assign([
-        'NEW_SERVER' => $language->get('admin', 'add_server'),
-        'NEW_SERVER_LINK' => URL::build('/panel/minecraft/servers/', 'action=new'),
+        'NEW_SERVER'            => $language->get('admin', 'add_server'),
+        'NEW_SERVER_LINK'       => URL::build('/panel/minecraft/servers/', 'action=new'),
         'CONFIRM_DELETE_SERVER' => $language->get('admin', 'confirm_delete_server'),
-        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
-        'EDIT' => $language->get('general', 'edit'),
-        'DELETE' => $language->get('general', 'delete'),
-        'QUERY_SETTINGS' => $language->get('admin', 'query_settings'),
-        'DEFAULT_SERVER' => $language->get('admin', 'default_server'),
-        'DEFAULT_SERVER_VALUE' => $default,
-        'NO_DEFAULT_SERVER' => $language->get('admin', 'no_default_server'),
-        'QUERY_INTERVAL' => $language->get('admin', 'query_interval'),
-        'QUERY_INTERVAL_VALUE' => $query_interval,
-        'EXTERNAL_QUERY' => $language->get('admin', 'external_query'),
-        'INFO' => $language->get('general', 'info'),
-        'EXTERNAL_QUERY_INFO' => $language->get('admin', 'external_query_help'),
-        'EXTERNAL_QUERY_VALUE' => ($external_query == 1),
-        'STATUS_PAGE' => $language->get('admin', 'status_page'),
-        'STATUS_PAGE_VALUE' => ($status_page == '1'),
-        'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers'),
+        'ARE_YOU_SURE'          => $language->get('general', 'are_you_sure'),
+        'YES'                   => $language->get('general', 'yes'),
+        'NO'                    => $language->get('general', 'no'),
+        'EDIT'                  => $language->get('general', 'edit'),
+        'DELETE'                => $language->get('general', 'delete'),
+        'QUERY_SETTINGS'        => $language->get('admin', 'query_settings'),
+        'DEFAULT_SERVER'        => $language->get('admin', 'default_server'),
+        'DEFAULT_SERVER_VALUE'  => $default,
+        'NO_DEFAULT_SERVER'     => $language->get('admin', 'no_default_server'),
+        'QUERY_INTERVAL'        => $language->get('admin', 'query_interval'),
+        'QUERY_INTERVAL_VALUE'  => $query_interval,
+        'EXTERNAL_QUERY'        => $language->get('admin', 'external_query'),
+        'INFO'                  => $language->get('general', 'info'),
+        'EXTERNAL_QUERY_INFO'   => $language->get('admin', 'external_query_help'),
+        'EXTERNAL_QUERY_VALUE'  => ($external_query == 1),
+        'STATUS_PAGE'           => $language->get('admin', 'status_page'),
+        'STATUS_PAGE_VALUE'     => ($status_page == '1'),
+        'REORDER_DRAG_URL'      => URL::build('/panel/minecraft/servers'),
     ]);
 
     $template_file = 'integrations/minecraft/minecraft_servers.tpl';
@@ -691,27 +691,27 @@ if (Session::exists('admin_mc_servers_success')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'INTEGRATIONS' => $language->get('admin', 'integrations'),
-    'MINECRAFT' => $language->get('admin', 'minecraft'),
-    'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'PARENT_PAGE'       => PARENT_PAGE,
+    'DASHBOARD'         => $language->get('admin', 'dashboard'),
+    'INTEGRATIONS'      => $language->get('admin', 'integrations'),
+    'MINECRAFT'         => $language->get('admin', 'minecraft'),
+    'MINECRAFT_LINK'    => URL::build('/panel/minecraft'),
+    'PAGE'              => PANEL_PAGE,
+    'TOKEN'             => Token::get(),
+    'SUBMIT'            => $language->get('general', 'submit'),
     'MINECRAFT_SERVERS' => $language->get('admin', 'minecraft_servers'),
 ]);
 

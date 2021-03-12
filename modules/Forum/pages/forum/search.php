@@ -10,7 +10,7 @@
  */
 
 require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
-if (! isset($forum) || (isset($forum) && ! $forum instanceof Forum)) {
+if (!isset($forum) || (isset($forum) && !$forum instanceof Forum)) {
     $forum = new Forum();
 }
 
@@ -25,15 +25,15 @@ $emojione = new Emojione\Client(new Emojione\Ruleset());
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
 
-if (! isset($_GET['s'])) {
+if (!isset($_GET['s'])) {
     if (Input::exists()) {
         if (Token::check()) {
             $validate = new Validate();
             $validation = $validate->check($_POST, [
                 'forum_search' => [
                     'required' => true,
-                    'min' => 3,
-                    'max' => 128,
+                    'min'      => 3,
+                    'max'      => 128,
                 ],
             ]);
 
@@ -67,7 +67,7 @@ if (! isset($_GET['s'])) {
     }
 
     $cache->setCache($search.'-'.rtrim(implode('-', $user_groups), '-'));
-    if (! $cache->isCached('result')) {
+    if (!$cache->isCached('result')) {
         // Execute search
         $search_topics = $queries->getLike('topics', 'topic_title', '%'.$search.'%');
         $search_posts = $queries->getLike('posts', 'post_content', '%'.$search.'%');
@@ -82,17 +82,17 @@ if (! isset($_GET['s'])) {
                 if (in_array($perm->group_id, $user_groups) && $perm->view == 1) {
                     if (isset($result->topic_id)) {
                         // Post
-                        if (! isset($results[$result->id]) && $result->deleted == 0) {
+                        if (!isset($results[$result->id]) && $result->deleted == 0) {
                             // Get associated topic
                             $topic = $queries->getWhere('topics', ['id', '=', $result->topic_id]);
                             if (count($topic) && $topic[0]->deleted === 0) {
                                 $topic = $topic[0];
                                 $results[$result->id] = [
-                                    'post_id' => $result->id,
-                                    'topic_id' => $topic->id,
-                                    'topic_title' => $topic->topic_title,
-                                    'post_author' => $result->post_creator,
-                                    'post_date' => $result->post_date,
+                                    'post_id'      => $result->id,
+                                    'topic_id'     => $topic->id,
+                                    'topic_title'  => $topic->topic_title,
+                                    'post_author'  => $result->post_creator,
+                                    'post_date'    => $result->post_date,
                                     'post_content' => $result->post_content,
                                 ];
 
@@ -108,13 +108,13 @@ if (! isset($_GET['s'])) {
                         $post = $queries->orderWhere('posts', 'topic_id = '.$result->id, 'post_date', 'ASC LIMIT 1');
                         if (count($post)) {
                             $post = $post[0];
-                            if (! isset($results[$post->id]) && $post->deleted == 0) {
+                            if (!isset($results[$post->id]) && $post->deleted == 0) {
                                 $results[$post->id] = [
-                                    'post_id' => $post->id,
-                                    'topic_id' => $result->id,
-                                    'topic_title' => $result->topic_title,
-                                    'post_author' => $post->post_creator,
-                                    'post_date' => $post->post_date,
+                                    'post_id'      => $post->id,
+                                    'topic_id'     => $result->id,
+                                    'topic_title'  => $result->topic_title,
+                                    'post_author'  => $post->post_creator,
+                                    'post_date'    => $post->post_date,
                                     'post_content' => $post->post_content,
                                 ];
 
@@ -135,7 +135,7 @@ if (! isset($_GET['s'])) {
         $results = array_values($results);
         $cache->store('result', $results, 60);
 
-        if (! isset($_SESSION['last_forum_search_query']) || $_SESSION['last_forum_search_query'] != $_GET['s']) {
+        if (!isset($_SESSION['last_forum_search_query']) || $_SESSION['last_forum_search_query'] != $_GET['s']) {
             $_SESSION['last_forum_search'] = date('U');
             $_SESSION['last_forum_search_query'] = $_GET['s'];
         }
@@ -146,7 +146,7 @@ if (! isset($_GET['s'])) {
     $input = true;
 }
 
-if (! isset($_GET['s'])) {
+if (!isset($_GET['s'])) {
     $page_title = $forum_language->get('forum', 'forum_search');
 } else {
     $page_title = $forum_language->get('forum', 'forum_search').' - '.Output::getClean(substr($search, 0, 20)).' - '.str_replace('{x}', $p, $language->get('general', 'page_x'));
@@ -154,16 +154,16 @@ if (! isset($_GET['s'])) {
 require_once ROOT_PATH.'/core/templates/frontend_init.php';
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css'                         => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css'              => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css'   => [],
 ]);
 
 $template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js'                        => [],
     (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js'                => [],
 ]);
 
 if (isset($_GET['s'])) {
@@ -186,16 +186,16 @@ if (isset($_GET['s'])) {
 
             $post_user = new User($results->data[$n]['post_author']);
             $posts[$n] = [
-                'post_author' => $post_user->getDisplayname(),
-                'post_author_id' => Output::getClean($results->data[$n]['post_author']),
-                'post_author_avatar' => $post_user->getAvatar('../', 25),
+                'post_author'         => $post_user->getDisplayname(),
+                'post_author_id'      => Output::getClean($results->data[$n]['post_author']),
+                'post_author_avatar'  => $post_user->getAvatar('../', 25),
                 'post_author_profile' => $post_user->getProfileURL(),
-                'post_author_style' => $post_user->getGroupClass(),
-                'post_date_full' => date('d M Y, H:i', strtotime($results->data[$n]['post_date'])),
-                'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
-                'content' => $content,
-                'topic_title' => Output::getClean($results->data[$n]['topic_title']),
-                'post_url' => URL::build('/forum/topic/'.$results->data[$n]['topic_id'].'-'.$forum->titleToURL($results->data[$n]['topic_title']), 'pid='.$results->data[$n]['post_id']),
+                'post_author_style'   => $post_user->getGroupClass(),
+                'post_date_full'      => date('d M Y, H:i', strtotime($results->data[$n]['post_date'])),
+                'post_date_friendly'  => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
+                'content'             => $content,
+                'topic_title'         => Output::getClean($results->data[$n]['topic_title']),
+                'post_url'            => URL::build('/forum/topic/'.$results->data[$n]['topic_id'].'-'.$forum->titleToURL($results->data[$n]['topic_title']), 'pid='.$results->data[$n]['post_id']),
             ];
             $n++;
         }
@@ -203,7 +203,7 @@ if (isset($_GET['s'])) {
         $results = null;
 
         $smarty->assign([
-            'RESULTS' => $posts,
+            'RESULTS'        => $posts,
             'READ_FULL_POST' => $forum_language->get('forum', 'read_full_post'),
         ]);
     } else {
@@ -212,9 +212,9 @@ if (isset($_GET['s'])) {
 
     $smarty->assign([
         'SEARCH_RESULTS' => $forum_language->get('forum', 'search_results'),
-        'NEW_SEARCH' => $forum_language->get('forum', 'new_search'),
+        'NEW_SEARCH'     => $forum_language->get('forum', 'new_search'),
         'NEW_SEARCH_URL' => URL::build('/forum/search'),
-        'SEARCH_TERM' => (isset($_GET['s']) ? Output::getClean($_GET['s']) : ''),
+        'SEARCH_TERM'    => (isset($_GET['s']) ? Output::getClean($_GET['s']) : ''),
     ]);
 
     // Load modules + template
@@ -240,11 +240,11 @@ if (isset($_GET['s'])) {
 
     $smarty->assign([
         'FORUM_SEARCH' => $forum_language->get('forum', 'forum_search'),
-        'FORM_ACTION' => URL::build('/forum/search'),
-        'SEARCH' => $language->get('general', 'search'),
-        'TOKEN' => Token::get(),
-        'SUBMIT' => $language->get('general', 'submit'),
-        'ERROR_TITLE' => $language->get('general', 'error'),
+        'FORM_ACTION'  => URL::build('/forum/search'),
+        'SEARCH'       => $language->get('general', 'search'),
+        'TOKEN'        => Token::get(),
+        'SUBMIT'       => $language->get('general', 'submit'),
+        'ERROR_TITLE'  => $language->get('general', 'error'),
     ]);
 
     // Load modules + template

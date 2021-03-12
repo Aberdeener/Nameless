@@ -64,7 +64,7 @@ if ($registration_enabled == 0) {
     $smarty->assign(
         [
             'REGISTRATION_DISABLED' => $message,
-            'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
+            'CREATE_AN_ACCOUNT'     => $language->get('user', 'create_an_account'),
         ]
     );
 
@@ -178,20 +178,20 @@ if (Input::exists()) {
             $to_validation = [ // Base field validation
                 'password' => [
                     'required' => true,
-                    'min' => 6,
-                    'max' => 30,
+                    'min'      => 6,
+                    'max'      => 30,
                 ],
                 'password_again' => [
                     'matches' => 'password',
                 ],
                 'email' => [
                     'required' => true,
-                    'email' => true,
-                    'unique' => 'users',
+                    'email'    => true,
+                    'unique'   => 'users',
                 ],
                 't_and_c' => [
                     'required' => true,
-                    'agree' => true,
+                    'agree'    => true,
                 ],
             ];
 
@@ -207,15 +207,15 @@ if (Input::exists()) {
                     // Nickname enabled
                     $to_validation['username'] = [
                         'required' => true,
-                        'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users',
+                        'min'      => 3,
+                        'max'      => 20,
+                        'unique'   => 'users',
                     ];
                     $to_validation['nickname'] = [
                         'required' => true,
-                        'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users',
+                        'min'      => 3,
+                        'max'      => 20,
+                        'unique'   => 'users',
                     ];
 
                     $nickname = Output::getClean(Input::get('nickname'));
@@ -223,9 +223,9 @@ if (Input::exists()) {
                 } else {
                     $to_validation['username'] = [
                         'required' => true,
-                        'min' => 3,
-                        'max' => 20,
-                        'unique' => 'users',
+                        'min'      => 3,
+                        'max'      => 20,
+                        'unique'   => 'users',
                     ];
 
                     $nickname = Output::getClean(Input::get('username'));
@@ -235,9 +235,9 @@ if (Input::exists()) {
                 // Just check username
                 $to_validation['username'] = [
                     'required' => true,
-                    'min' => 3,
-                    'max' => 20,
-                    'unique' => 'users',
+                    'min'      => 3,
+                    'max'      => 20,
+                    'unique'   => 'users',
                 ];
 
                 $nickname = Output::getClean(Input::get('username'));
@@ -251,7 +251,7 @@ if (Input::exists()) {
                     if ($field->required == true) {
                         $to_validation[$field->name] = [
                             'required' => true,
-                            'max' => (is_null($field->length) ? 1024 : $field->length),
+                            'max'      => (is_null($field->length) ? 1024 : $field->length),
                         ];
                     }
                 }
@@ -267,7 +267,7 @@ if (Input::exists()) {
 
                     $mcname_result = $profile ? $profile->getProfileAsArray() : [];
 
-                    if (isset($mcname_result['username']) && ! empty($mcname_result['username']) && isset($mcname_result['uuid']) && ! empty($mcname_result['uuid'])) {
+                    if (isset($mcname_result['username']) && !empty($mcname_result['username']) && isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])) {
                         // Valid
                         $uuid = Output::getClean($mcname_result['uuid']);
 
@@ -283,12 +283,12 @@ if (Input::exists()) {
                 }
 
                 // Check to see if the Minecraft username was valid
-                if (! isset($invalid_mcname)) {
-                    if (! isset($uuid)) {
+                if (!isset($invalid_mcname)) {
+                    if (!isset($uuid)) {
                         $uuid = '';
                     }
 
-                    if (! isset($uuid_error)) {
+                    if (!isset($uuid_error)) {
                         // Minecraft user account association
                         if (isset($account_verification) && $account_verification == '1') {
                             // MCAssoc enabled
@@ -364,18 +364,18 @@ if (Input::exists()) {
                                 // Create user
                                 $user->create(
                                     [
-                                        'username' => $username,
-                                        'nickname' => $nickname,
-                                        'uuid' => $uuid,
-                                        'password' => $password,
+                                        'username'    => $username,
+                                        'nickname'    => $nickname,
+                                        'uuid'        => $uuid,
+                                        'password'    => $password,
                                         'pass_method' => 'default',
-                                        'joined' => $date,
-                                        'email' => Output::getClean(Input::get('email')),
-                                        'reset_code' => $code,
-                                        'lastip' => Output::getClean($ip),
+                                        'joined'      => $date,
+                                        'email'       => Output::getClean(Input::get('email')),
+                                        'reset_code'  => $code,
+                                        'lastip'      => Output::getClean($ip),
                                         'last_online' => $date,
                                         'language_id' => $language_id,
-                                        'active' => $active,
+                                        'active'      => $active,
                                     ]
                                 );
 
@@ -392,14 +392,14 @@ if (Input::exists()) {
                                             continue;
                                         }
                                         $value = Input::get($field->name);
-                                        if (! empty($value)) {
+                                        if (!empty($value)) {
                                             // Insert custom field
                                             $queries->create(
                                                 'users_profile_fields',
                                                 [
-                                                    'user_id' => $user_id,
+                                                    'user_id'  => $user_id,
                                                     'field_id' => $field->id,
-                                                    'value' => Output::getClean(Input::get($field->name)),
+                                                    'value'    => Output::getClean(Input::get($field->name)),
                                                 ]
                                             );
                                         }
@@ -414,14 +414,14 @@ if (Input::exists()) {
                                 } elseif ($api_verification != '1') {
                                     // Email verification disabled
                                     HookHandler::executeEvent('registerUser', [
-                                        'event' => 'registerUser',
-                                        'user_id' => $user_id,
-                                        'username' => Output::getClean(Input::get('username')),
-                                        'uuid' => $uuid,
-                                        'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+                                        'event'      => 'registerUser',
+                                        'user_id'    => $user_id,
+                                        'username'   => Output::getClean(Input::get('username')),
+                                        'uuid'       => $uuid,
+                                        'content'    => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
                                         'avatar_url' => $user->getAvatar(null, 128, true),
-                                        'url' => Util::getSelfURL().ltrim(URL::build('/profile/'.Output::getClean(Input::get('username'))), '/'),
-                                        'language' => $language,
+                                        'url'        => Util::getSelfURL().ltrim(URL::build('/profile/'.Output::getClean(Input::get('username'))), '/'),
+                                        'language'   => $language,
                                     ]);
 
                                     // Redirect straight to verification link
@@ -433,14 +433,14 @@ if (Input::exists()) {
                                 HookHandler::executeEvent(
                                     'registerUser',
                                     [
-                                        'event' => 'registerUser',
-                                        'user_id' => $user_id,
-                                        'username' => Output::getClean(Input::get('username')),
-                                        'uuid' => $uuid,
-                                        'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
+                                        'event'      => 'registerUser',
+                                        'user_id'    => $user_id,
+                                        'username'   => Output::getClean(Input::get('username')),
+                                        'uuid'       => $uuid,
+                                        'content'    => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
                                         'avatar_url' => $user->getAvatar(null, 128, true),
-                                        'url' => Util::getSelfURL().ltrim(URL::build('/profile/'.Output::getClean(Input::get('username'))), '/'),
-                                        'language' => $language,
+                                        'url'        => Util::getSelfURL().ltrim(URL::build('/profile/'.Output::getClean(Input::get('username'))), '/'),
+                                        'language'   => $language,
                                     ]
                                 );
 
@@ -505,7 +505,7 @@ if (Input::exists()) {
                         $errors[] = $language->get('user', 'passwords_dont_match');
                     } elseif (strpos($validation_error, 'already exists') !== false) {
                         // already exists
-                        if (! in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
+                        if (!in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
                             $errors[] = $language->get('user', 'username_mcname_email_exists');
                         }
                     } elseif (strpos($validation_error, 'not a valid Minecraft account') !== false) {
@@ -552,37 +552,37 @@ if (count($profile_fields)) {
         }
 
         $custom_fields[] = [
-            'id' => $field->id,
-            'name' => Output::getClean($field->name),
+            'id'          => $field->id,
+            'name'        => Output::getClean($field->name),
             'description' => Output::getClean($field->description),
-            'type' => $field->type,
-            'required' => $field->required,
+            'type'        => $field->type,
+            'required'    => $field->required,
         ];
     }
 }
 // Assign Smarty variables
 $smarty->assign(
     [
-        'USERNAME' => $language->get('user', 'username'),
-        'NICKNAME' => ($custom_usernames == 'false' && ! MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
-        'NICKNAME_VALUE' => ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : ''),
-        'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
+        'USERNAME'           => $language->get('user', 'username'),
+        'NICKNAME'           => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
+        'NICKNAME_VALUE'     => ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : ''),
+        'USERNAME_VALUE'     => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
         'MINECRAFT_USERNAME' => $language->get('user', 'minecraft_username'),
-        'EMAIL' => $language->get('user', 'email_address'),
-        'EMAIL_VALUE' => ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : ''),
-        'PASSWORD' => $language->get('user', 'password'),
-        'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
-        'I_AGREE' => $language->get('user', 'i_agree'),
-        'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
-        'REGISTER' => $language->get('general', 'register'),
-        'LOG_IN' => $language->get('general', 'sign_in'),
-        'LOGIN_URL' => URL::build('/login'),
-        'TOKEN' => Token::get(),
-        'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
+        'EMAIL'              => $language->get('user', 'email_address'),
+        'EMAIL_VALUE'        => ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : ''),
+        'PASSWORD'           => $language->get('user', 'password'),
+        'CONFIRM_PASSWORD'   => $language->get('user', 'confirm_password'),
+        'I_AGREE'            => $language->get('user', 'i_agree'),
+        'AGREE_TO_TERMS'     => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+        'REGISTER'           => $language->get('general', 'register'),
+        'LOG_IN'             => $language->get('general', 'sign_in'),
+        'LOGIN_URL'          => URL::build('/login'),
+        'TOKEN'              => Token::get(),
+        'CREATE_AN_ACCOUNT'  => $language->get('user', 'create_an_account'),
         'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),
-        'ERROR_TITLE' => $language->get('general', 'error'),
-        'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha',
-        'CUSTOM_FIELDS' => $custom_fields,
+        'ERROR_TITLE'        => $language->get('general', 'error'),
+        'CAPTCHA_CLASS'      => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha',
+        'CUSTOM_FIELDS'      => $custom_fields,
     ]
 );
 

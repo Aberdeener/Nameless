@@ -17,7 +17,7 @@ define('PANEL_PAGE', 'api');
 $page_title = $language->get('admin', 'api');
 require_once ROOT_PATH.'/core/templates/backend_init.php';
 
-if (! isset($_GET['view'])) {
+if (!isset($_GET['view'])) {
     if (isset($_GET['action']) && $_GET['action'] == 'api_regen') {
         // Regenerate new API key
         // Generate new key
@@ -61,6 +61,7 @@ if (! isset($_GET['view'])) {
             $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? 1 : 0;
 
             $verification_id = $queries->getWhere('settings', ['name', '=', 'email_verification'])[0]->id;
+
             try {
                 $queries->update(
                     'settings',
@@ -113,7 +114,7 @@ if (! isset($_GET['view'])) {
 } else {
     // Group sync
     if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-        if (! isset($_GET['id']) || ! is_numeric($_GET['id'])) {
+        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
             Redirect::to(URL::build('/panel/core/api/', 'view=group_sync'));
             exit();
         }
@@ -137,15 +138,15 @@ if (! isset($_GET['view'])) {
                     $_POST,
                     [
                         'ingame_rank_name' => [
-                            'min' => 2,
-                            'max' => 64,
+                            'min'    => 2,
+                            'max'    => 64,
                             'unique' => 'group_sync',
                         ],
                         'discord_role_id' => [
-                            'min' => 18,
-                            'max' => 18,
+                            'min'     => 18,
+                            'max'     => 18,
                             'numeric' => true,
-                            'unique' => 'group_sync',
+                            'unique'  => 'group_sync',
                         ],
                         'website_group' => [
                             'required' => true,
@@ -168,7 +169,7 @@ if (! isset($_GET['view'])) {
 
                     $ingame_rank_name = $_POST['ingame_rank_name'];
 
-                    if (! empty($ingame_rank_name)) {
+                    if (!empty($ingame_rank_name)) {
                         if (strlen(str_replace(' ', '', $ingame_rank_name)) > 1 && strlen(str_replace(' ', '', $ingame_rank_name)) < 65) {
                             $fields['ingame_rank_name'] = $ingame_rank_name;
                         } else {
@@ -183,7 +184,7 @@ if (! isset($_GET['view'])) {
                         $errors[] = $language->get('admin', 'at_least_one_external');
                     }
 
-                    if (! count($errors)) {
+                    if (!count($errors)) {
                         $queries->create('group_sync', $fields);
                         Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
                     }
@@ -215,7 +216,7 @@ if (! isset($_GET['view'])) {
 
                 if (isset($_POST['ingame_group']) && isset($_POST['discord_role']) && isset($_POST['website_group'])) {
                     foreach ($_POST['website_group'] as $key => $website_group) {
-                        if (! empty($_POST['ingame_group'][$key]) || ! empty($_POST['discord_role'][$key])) {
+                        if (!empty($_POST['ingame_group'][$key]) || !empty($_POST['discord_role'][$key])) {
                             $ingame_group = $_POST['ingame_group'][$key];
                             $discord_role_id = intval($_POST['discord_role'][$key]);
                             if ($discord_role_id == 0) {
@@ -225,7 +226,7 @@ if (! isset($_GET['view'])) {
                             $fields = [];
                             $fields['website_group_id'] = intval($website_group);
 
-                            if (! empty($_POST['ingame_group'][$key])) {
+                            if (!empty($_POST['ingame_group'][$key])) {
                                 if (strlen(str_replace(' ', '', $ingame_group)) > 1 && strlen(str_replace(' ', '', $ingame_group)) < 65) {
                                     $fields['ingame_rank_name'] = $ingame_group;
                                 } else {
@@ -241,7 +242,7 @@ if (! isset($_GET['view'])) {
                                 $errors[] = $language->get('admin', 'discord_role_id_length');
                             }
 
-                            if (! count($errors)) {
+                            if (!count($errors)) {
                                 try {
                                     $queries->update('group_sync', $key, $fields);
                                 } catch (Exception $e) {
@@ -254,7 +255,7 @@ if (! isset($_GET['view'])) {
                     }
                 }
 
-                if (! count($errors)) {
+                if (!count($errors)) {
                     Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
                 }
             }
@@ -270,7 +271,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 if (Session::exists('api_success')) {
     $smarty->assign(
         [
-            'SUCCESS' => Session::flash('api_success'),
+            'SUCCESS'       => Session::flash('api_success'),
             'SUCCESS_TITLE' => $language->get('general', 'success'),
         ]
     );
@@ -279,13 +280,13 @@ if (Session::exists('api_success')) {
 if (isset($errors) && count($errors)) {
     $smarty->assign(
         [
-            'ERRORS' => $errors,
+            'ERRORS'       => $errors,
             'ERRORS_TITLE' => $language->get('general', 'error'),
         ]
     );
 }
 
-if (! isset($_GET['view'])) {
+if (!isset($_GET['view'])) {
     // Is the API enabled?
     $api_enabled = $queries->getWhere('settings', ['name', '=', 'use_api']);
     if (count($api_enabled)) {
@@ -294,7 +295,7 @@ if (! isset($_GET['view'])) {
         $queries->create(
             'settings',
             [
-                'name' => 'use_api',
+                'name'  => 'use_api',
                 'value' => 0,
             ]
         );
@@ -319,45 +320,45 @@ if (! isset($_GET['view'])) {
 
     $smarty->assign(
         [
-            'PARENT_PAGE' => PARENT_PAGE,
-            'DASHBOARD' => $language->get('admin', 'dashboard'),
-            'CONFIGURATION' => $language->get('admin', 'configuration'),
-            'API' => $language->get('admin', 'api'),
-            'PAGE' => PANEL_PAGE,
-            'API_INFO' => $language->get('admin', 'api_info'),
-            'INFO' => $language->get('general', 'info'),
-            'ENABLE_API' => $language->get('admin', 'enable_api'),
-            'API_ENABLED' => $api_enabled,
-            'API_KEY' => $language->get('admin', 'api_key'),
-            'API_KEY_VALUE' => Output::getClean($plugin_api),
-            'API_KEY_REGEN_URL' => URL::build('/panel/core/api/', 'action=api_regen'),
-            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-            'CONFIRM_API_REGEN' => $language->get('admin', 'confirm_api_regen'),
-            'YES' => $language->get('general', 'yes'),
-            'NO' => $language->get('general', 'no'),
-            'CHANGE' => $language->get('general', 'change'),
-            'API_URL' => $language->get('admin', 'api_url'),
-            'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/').rtrim(URL::build('/api/v2/'.Output::getClean($plugin_api), '', 'non-friendly'), '/'),
+            'PARENT_PAGE'        => PARENT_PAGE,
+            'DASHBOARD'          => $language->get('admin', 'dashboard'),
+            'CONFIGURATION'      => $language->get('admin', 'configuration'),
+            'API'                => $language->get('admin', 'api'),
+            'PAGE'               => PANEL_PAGE,
+            'API_INFO'           => $language->get('admin', 'api_info'),
+            'INFO'               => $language->get('general', 'info'),
+            'ENABLE_API'         => $language->get('admin', 'enable_api'),
+            'API_ENABLED'        => $api_enabled,
+            'API_KEY'            => $language->get('admin', 'api_key'),
+            'API_KEY_VALUE'      => Output::getClean($plugin_api),
+            'API_KEY_REGEN_URL'  => URL::build('/panel/core/api/', 'action=api_regen'),
+            'ARE_YOU_SURE'       => $language->get('general', 'are_you_sure'),
+            'CONFIRM_API_REGEN'  => $language->get('admin', 'confirm_api_regen'),
+            'YES'                => $language->get('general', 'yes'),
+            'NO'                 => $language->get('general', 'no'),
+            'CHANGE'             => $language->get('general', 'change'),
+            'API_URL'            => $language->get('admin', 'api_url'),
+            'API_URL_VALUE'      => rtrim(Util::getSelfURL(), '/').rtrim(URL::build('/api/v2/'.Output::getClean($plugin_api), '', 'non-friendly'), '/'),
             'ENABLE_API_FOR_URL' => $language->get('api', 'api_disabled'),
-            'COPY' => $language->get('admin', 'copy'),
-            'ENABLE_LEGACY_API' => $language->get('admin', 'enable_legacy_api'),
+            'COPY'               => $language->get('admin', 'copy'),
+            'ENABLE_LEGACY_API'  => $language->get('admin', 'enable_legacy_api'),
             //'LEGACY_API_ENABLED' => $legacy_api_enabled,
             //'LEGACY_API_INFO' => $language->get('admin', 'legacy_api_info'),
-            'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
+            'EMAIL_VERIFICATION'       => $language->get('admin', 'email_verification'),
             'EMAIL_VERIFICATION_VALUE' => $emails,
-            'API_VERIFICATION' => $language->get('admin', 'api_verification'),
-            'API_VERIFICATION_VALUE' => $api_verification,
-            'API_VERIFICATION_INFO' => $language->get('admin', 'api_verification_info'),
-            'USERNAME_SYNC' => $language->get('admin', 'enable_username_sync'),
-            'USERNAME_SYNC_INFO' => $language->get('admin', 'enable_username_sync_info'),
-            'USERNAME_SYNC_VALUE' => $username_sync,
-            'TOKEN' => Token::get(),
-            'SUBMIT' => $language->get('general', 'submit'),
-            'COPIED' => $language->get('general', 'copied'),
-            'GROUP_SYNC' => $language->get('admin', 'group_sync'),
-            'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
-            'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
-            'API_ENDPOINTS_LINK' => URL::build('/panel/core/api/', 'view=api_endpoints'),
+            'API_VERIFICATION'         => $language->get('admin', 'api_verification'),
+            'API_VERIFICATION_VALUE'   => $api_verification,
+            'API_VERIFICATION_INFO'    => $language->get('admin', 'api_verification_info'),
+            'USERNAME_SYNC'            => $language->get('admin', 'enable_username_sync'),
+            'USERNAME_SYNC_INFO'       => $language->get('admin', 'enable_username_sync_info'),
+            'USERNAME_SYNC_VALUE'      => $username_sync,
+            'TOKEN'                    => Token::get(),
+            'SUBMIT'                   => $language->get('general', 'submit'),
+            'COPIED'                   => $language->get('general', 'copied'),
+            'GROUP_SYNC'               => $language->get('admin', 'group_sync'),
+            'GROUP_SYNC_LINK'          => URL::build('/panel/core/api/', 'view=group_sync'),
+            'API_ENDPOINTS'            => $language->get('admin', 'api_endpoints'),
+            'API_ENDPOINTS_LINK'       => URL::build('/panel/core/api/', 'view=api_endpoints'),
         ]
     );
 
@@ -369,7 +370,7 @@ if (! isset($_GET['view'])) {
         $website_groups = [];
         foreach ($groups as $group) {
             $website_groups[] = [
-                'id' => Output::getClean($group->id),
+                'id'   => Output::getClean($group->id),
                 'name' => Output::getClean($group->name),
             ];
         }
@@ -389,39 +390,39 @@ if (! isset($_GET['view'])) {
         $template_groups = [];
         foreach ($group_sync as $group) {
             $template_groups[] = [
-                'id' => Output::getClean($group->id),
-                'ingame' => Output::getClean($group->ingame_rank_name),
-                'discord' => $group->discord_role_id,
-                'website' => $group->website_group_id,
+                'id'          => Output::getClean($group->id),
+                'ingame'      => Output::getClean($group->ingame_rank_name),
+                'discord'     => $group->discord_role_id,
+                'website'     => $group->website_group_id,
                 'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id='.Output::getClean($group->id)),
             ];
         }
 
         $smarty->assign(
             [
-                'PARENT_PAGE' => PARENT_PAGE,
-                'DASHBOARD' => $language->get('admin', 'dashboard'),
-                'CONFIGURATION' => $language->get('admin', 'configuration'),
-                'API' => $language->get('admin', 'api'),
-                'PAGE' => PANEL_PAGE,
-                'INFO' => $language->get('general', 'info'),
-                'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/api'),
-                'TOKEN' => Token::get(),
-                'SUBMIT' => $language->get('general', 'submit'),
-                'INGAME_GROUPS' => is_array($ingame_groups) ? $ingame_groups : [],
-                'INGAME_GROUP_NAME' => $language->get('admin', 'ingame_group'),
-                'DISCORD_GROUPS' => is_array($discord_groups) ? $discord_groups : [],
-                'DISCORD_ROLE_ID' => $language->get('admin', 'discord_role_id'),
-                'WEBSITE_GROUP' => $language->get('admin', 'website_group'),
-                'GROUPS' => $website_groups,
-                'GROUP_SYNC_VALUES' => $template_groups,
-                'DELETE' => $language->get('general', 'delete'),
-                'NEW_RULE' => $language->get('admin', 'new_rule'),
-                'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
+                'PARENT_PAGE'                   => PARENT_PAGE,
+                'DASHBOARD'                     => $language->get('admin', 'dashboard'),
+                'CONFIGURATION'                 => $language->get('admin', 'configuration'),
+                'API'                           => $language->get('admin', 'api'),
+                'PAGE'                          => PANEL_PAGE,
+                'INFO'                          => $language->get('general', 'info'),
+                'GROUP_SYNC_INFO'               => $language->get('admin', 'group_sync_info'),
+                'BACK'                          => $language->get('general', 'back'),
+                'BACK_LINK'                     => URL::build('/panel/core/api'),
+                'TOKEN'                         => Token::get(),
+                'SUBMIT'                        => $language->get('general', 'submit'),
+                'INGAME_GROUPS'                 => is_array($ingame_groups) ? $ingame_groups : [],
+                'INGAME_GROUP_NAME'             => $language->get('admin', 'ingame_group'),
+                'DISCORD_GROUPS'                => is_array($discord_groups) ? $discord_groups : [],
+                'DISCORD_ROLE_ID'               => $language->get('admin', 'discord_role_id'),
+                'WEBSITE_GROUP'                 => $language->get('admin', 'website_group'),
+                'GROUPS'                        => $website_groups,
+                'GROUP_SYNC_VALUES'             => $template_groups,
+                'DELETE'                        => $language->get('general', 'delete'),
+                'NEW_RULE'                      => $language->get('admin', 'new_rule'),
+                'EXISTING_RULES'                => $language->get('admin', 'existing_rules'),
                 'DISCORD_INTEGRATION_NOT_SETUP' => $language->get('admin', 'discord_integration_not_setup'),
-                'GROUP_SYNC_PLUGIN_NOT_SET_UP' => $language->get('admin', 'group_sync_plugin_not_set_up'),
+                'GROUP_SYNC_PLUGIN_NOT_SET_UP'  => $language->get('admin', 'group_sync_plugin_not_set_up'),
             ]
         );
 
@@ -430,26 +431,26 @@ if (! isset($_GET['view'])) {
         $endpoints_array = [];
         foreach ($endpoints->getAll() as $endpoint) {
             $endpoints_array[] = [
-                'route' => $endpoint->getRoute(),
-                'module' => $endpoint->getModule(),
+                'route'       => $endpoint->getRoute(),
+                'module'      => $endpoint->getModule(),
                 'description' => $endpoint->getDescription(),
-                'method' => $endpoint->getMethod(),
+                'method'      => $endpoint->getMethod(),
             ];
         }
 
         $smarty->assign(
             [
-                'PARENT_PAGE' => PARENT_PAGE,
-                'DASHBOARD' => $language->get('admin', 'dashboard'),
-                'CONFIGURATION' => $language->get('admin', 'configuration'),
-                'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
-                'PAGE' => PANEL_PAGE,
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/api'),
-                'ROUTE' => $language->get('admin', 'route'),
-                'DESCRIPTION' => $language->get('admin', 'description'),
-                'MODULE' => $language->get('admin', 'module'),
-                'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info'),
+                'PARENT_PAGE'     => PARENT_PAGE,
+                'DASHBOARD'       => $language->get('admin', 'dashboard'),
+                'CONFIGURATION'   => $language->get('admin', 'configuration'),
+                'API_ENDPOINTS'   => $language->get('admin', 'api_endpoints'),
+                'PAGE'            => PANEL_PAGE,
+                'BACK'            => $language->get('general', 'back'),
+                'BACK_LINK'       => URL::build('/panel/core/api'),
+                'ROUTE'           => $language->get('admin', 'route'),
+                'DESCRIPTION'     => $language->get('admin', 'description'),
+                'MODULE'          => $language->get('admin', 'module'),
+                'ENDPOINTS_INFO'  => $language->get('admin', 'api_endpoints_info'),
                 'ENDPOINTS_ARRAY' => $endpoints_array,
             ]
         );

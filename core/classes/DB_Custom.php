@@ -33,7 +33,7 @@ class DB_Custom
 
     public static function getInstance($host, $database, $username, $password, $port = 3306)
     {
-        if (! isset(self::$_instance)) {
+        if (!isset(self::$_instance)) {
             self::$_instance = new DB_Custom($host, $database, $username, $password, $port);
         }
 
@@ -91,7 +91,7 @@ class DB_Custom
     {
         $name = $this->_prefix.$name;
         $sql = "CREATE TABLE `{$name}` ({$table_data}) {$other}";
-        if (! $this->createQuery($sql)->error()) {
+        if (!$this->createQuery($sql)->error()) {
             return $this;
         }
 
@@ -112,7 +112,7 @@ class DB_Custom
             if (in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
-                if (! $this->query($sql, [$value])->error()) {
+                if (!$this->query($sql, [$value])->error()) {
                     return $this;
                 }
             }
@@ -135,7 +135,7 @@ class DB_Custom
             if (in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
-                if (! $this->createQuery($sql, [$value])->error()) {
+                if (!$this->createQuery($sql, [$value])->error()) {
                     return $this;
                 }
             }
@@ -154,7 +154,7 @@ class DB_Custom
         $table = $this->_prefix.$table;
         $sql = "SELECT * FROM {$table} WHERE {$column} LIKE '{$like}'";
 
-        if (! $this->query($sql)->error()) {
+        if (!$this->query($sql)->error()) {
             return $this;
         }
 
@@ -183,7 +183,7 @@ class DB_Custom
         $table = $this->_prefix.$table;
         $sql = "INSERT INTO {$table} (`".implode('`,`', $keys)."`) VALUES ({$values})";
 
-        if (! $this->createQuery($sql, $fields)->error()) {
+        if (!$this->createQuery($sql, $fields)->error()) {
             return true;
         }
 
@@ -206,7 +206,7 @@ class DB_Custom
         $table = $this->_prefix.$table;
         $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
 
-        if (! $this->createQuery($sql, $fields)->error()) {
+        if (!$this->createQuery($sql, $fields)->error()) {
             return true;
         }
 
@@ -218,7 +218,7 @@ class DB_Custom
         $table = $this->_prefix.$table;
         $sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?";
 
-        if (! $this->createQuery($sql, [$id])->error()) {
+        if (!$this->createQuery($sql, [$id])->error()) {
             return true;
         }
 
@@ -230,7 +230,7 @@ class DB_Custom
         $table = $this->_prefix.$table;
         $sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 
-        if (! $this->createQuery($sql, [$id])->error()) {
+        if (!$this->createQuery($sql, [$id])->error()) {
             return true;
         }
 
@@ -268,7 +268,7 @@ class DB_Custom
     {
         $name = $this->_prefix.$name;
         $sql = "ALTER TABLE `{$name}` ADD {$column} {$attributes}";
-        if (! $this->createQuery($sql)->error()) {
+        if (!$this->createQuery($sql)->error()) {
             return $this;
         }
 
@@ -284,7 +284,7 @@ class DB_Custom
             $sql = "SELECT * FROM {$table} ORDER BY {$order}";
         }
 
-        if (! $this->query($sql)->error()) {
+        if (!$this->query($sql)->error()) {
             return $this;
         }
 
@@ -300,7 +300,7 @@ class DB_Custom
             $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order}";
         }
 
-        if (! $this->query($sql)->error()) {
+        if (!$this->query($sql)->error()) {
             return $this;
         }
 
@@ -312,7 +312,7 @@ class DB_Custom
         $showTable = $this->_prefix.$showTable;
         $sql = "SHOW TABLES LIKE '{$showTable}'";
 
-        if (! $this->query($sql)->error()) {
+        if (!$this->query($sql)->error()) {
             return $this->_query->rowCount();
         }
 

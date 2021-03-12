@@ -29,8 +29,8 @@ $smarty->assign('BREADCRUMB_TEXT', $forum_language->get('forum', 'forum_index'))
 // Search bar
 $smarty->assign([
     'SEARCH_URL' => URL::build('/forum/search'),
-    'SEARCH' => $language->get('general', 'search'),
-    'TOKEN' => Token::get(),
+    'SEARCH'     => $language->get('general', 'search'),
+    'TOKEN'      => Token::get(),
 ]);
 
 // Server status module

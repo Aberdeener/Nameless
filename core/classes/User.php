@@ -24,7 +24,7 @@ class User
         $this->_cookieName = Config::get('remember/cookie_name');
         $this->_admSessionName = Config::get('session/admin_name');
 
-        if (! $user) {
+        if (!$user) {
             if (Session::exists($this->_sessionName)) {
                 $user = Session::get($this->_sessionName);
                 if ($this->find($user, $field)) {
@@ -61,9 +61,9 @@ class User
 
     public function getIP()
     {
-        if (! empty($_SERVER['HTTP_CLIENT_IP'])) {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (! empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
@@ -75,11 +75,11 @@ class User
     // Update a user's data
     public function update($fields = [], $id = null)
     {
-        if (! $id) {
+        if (!$id) {
             $id = $this->data()->id;
         }
 
-        if (! $this->_db->update('users', $id, $fields)) {
+        if (!$this->_db->update('users', $id, $fields)) {
             throw new Exception('There was a problem updating your details.');
         }
     }
@@ -87,7 +87,7 @@ class User
     // Create a new user
     public function create($fields = [])
     {
-        if (! $this->_db->insert('users', $fields)) {
+        if (!$this->_db->insert('users', $fields)) {
             throw new Exception('There was a problem creating an account.');
         }
     }
@@ -165,7 +165,7 @@ class User
     // Log the user in
     public function login($username = null, $password = null, $remember = false, $method = 'email')
     {
-        if (! $username && ! $password && $this->exists()) {
+        if (!$username && !$password && $this->exists()) {
             Session::put($this->_sessionName, $this->data()->id);
             $this->_isLoggedIn = true;
         } else {
@@ -176,10 +176,10 @@ class User
                     $hash = Hash::unique();
                     $hashCheck = $this->_db->get('users_session', ['user_id', '=', $this->data()->id]);
 
-                    if (! $hashCheck->count()) {
+                    if (!$hashCheck->count()) {
                         $this->_db->insert('users_session', [
                             'user_id' => $this->data()->id,
-                            'hash' => $hash,
+                            'hash'    => $hash,
                         ]);
                     } else {
                         $hash = $hashCheck->first()->hash;
@@ -198,7 +198,7 @@ class User
     // Handle StaffCP logins
     public function adminLogin($username = null, $password = null, $method = 'email')
     {
-        if (! $username && ! $password && $this->exists()) {
+        if (!$username && !$password && $this->exists()) {
             Session::put($this->_admSessionName, $this->data()->id);
         } else {
             if ($this->checkCredentials($username, $password, $method) === true) {
@@ -207,10 +207,10 @@ class User
                 $hash = Hash::unique();
                 $hashCheck = $this->_db->get('users_admin_session', ['user_id', '=', $this->data()->id]);
 
-                if (! $hashCheck->count()) {
+                if (!$hashCheck->count()) {
                     $this->_db->insert('users_admin_session', [
                         'user_id' => $this->data()->id,
-                        'hash' => $hash,
+                        'hash'    => $hash,
                     ]);
                 } else {
                     $hash = $hashCheck->first()->hash;
@@ -332,7 +332,7 @@ class User
     // Get a user's signature
     public function getSignature()
     {
-        if (! empty($this->data()->signature)) {
+        if (!empty($this->data()->signature)) {
             return $this->data()->signature;
         } else {
             return '';
@@ -483,7 +483,7 @@ class User
     // Does the user exist?
     public function exists()
     {
-        return ! empty($this->_data);
+        return !empty($this->_data);
     }
 
     // Log the user out
@@ -554,7 +554,7 @@ class User
     public function addGroup($group_id, $expire = 0)
     {
         $groups = $this->_groups ? $this->_groups : [];
-        if (! array_key_exists($group_id, $groups)) {
+        if (!array_key_exists($group_id, $groups)) {
             $this->_db->createQuery(
                 'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
                 [
@@ -745,7 +745,7 @@ class User
                     }
                 }
 
-                if (! isset($has_permission)) {
+                if (!isset($has_permission)) {
                     return false; // User doesn't have permission
                 }
 
@@ -759,7 +759,7 @@ class User
                 // User has permission, return the PM information
 
                 // Get a list of users in the conversation
-                if (! isset($pms)) {
+                if (!isset($pms)) {
                     $pms = $this->_db->get('private_messages_users', ['pm_id', '=', $pm_id])->results();
                 }
 
@@ -849,22 +849,22 @@ class User
     // Can they view this staffcp page?
     public function handlePanelPageLoad($permission = null)
     {
-        if (! $this->isLoggedIn()) {
+        if (!$this->isLoggedIn()) {
             Redirect::to(URL::build('/login'));
             exit();
         }
 
-        if (! $this->canViewACP()) {
+        if (!$this->canViewACP()) {
             Redirect::to(URL::build('/'));
             exit();
         }
 
-        if (! $this->isAdmLoggedIn()) {
+        if (!$this->isAdmLoggedIn()) {
             Redirect::to(URL::build('/panel/auth'));
             exit();
         }
 
-        if ($permission != null && ! $this->hasPermission($permission)) {
+        if ($permission != null && !$this->hasPermission($permission)) {
             require_once ROOT_PATH.'/404.php';
             exit();
         }
@@ -885,7 +885,7 @@ class User
                     $return = [];
                     foreach ($data->results() as $result) {
                         $is_public = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
-                        if (! $is_public->count()) {
+                        if (!$is_public->count()) {
                             continue;
                         } else {
                             $is_public = $is_public->results();
@@ -895,13 +895,13 @@ class User
                             if ($forum == true) {
                                 if ($is_public[0]->forum_posts == 1) {
                                     $return[] = [
-                                        'name' => Output::getClean($is_public[0]->name),
+                                        'name'  => Output::getClean($is_public[0]->name),
                                         'value' => Output::getClean($result->value),
                                     ];
                                 }
                             } else {
                                 $return[] = [
-                                    'name' => Output::getClean($is_public[0]->name),
+                                    'name'  => Output::getClean($is_public[0]->name),
                                     'value' => Output::getClean($result->value),
                                 ];
                             }
@@ -914,14 +914,14 @@ class User
                     $return = [];
                     foreach ($data->results() as $result) {
                         $name = $this->_db->get('profile_fields', ['id', '=', $result->field_id]);
-                        if (! $name->count()) {
+                        if (!$name->count()) {
                             continue;
                         } else {
                             $name = $name->results();
                         }
 
                         $return[] = [
-                            'name' => Output::getClean($name[0]->name),
+                            'name'  => Output::getClean($name[0]->name),
                             'value' => Output::getClean($result->value),
                         ];
                     }

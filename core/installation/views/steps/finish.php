@@ -1,12 +1,12 @@
 <?php
 
-if (! isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
+if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
     Redirect::to('?step=admin_account_setup');
     exit();
 }
 
 try {
-    if (! is_writable('core/config.php')) {
+    if (!is_writable('core/config.php')) {
         $error = $language['config_not_writable'];
     } else {
         file_put_contents('core/config.php', PHP_EOL.'$CONFIG[\'installed\'] = true;', FILE_APPEND);

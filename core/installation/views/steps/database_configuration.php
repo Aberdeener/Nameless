@@ -5,7 +5,7 @@ if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'
     exit();
 }
 
-if (! isset($_SESSION['hostname']) || ! isset($_SESSION['install_path']) || ! isset($_SESSION['friendly_urls'])) {
+if (!isset($_SESSION['hostname']) || !isset($_SESSION['install_path']) || !isset($_SESSION['friendly_urls'])) {
     Redirect::to('?step=general_configuration');
     exit();
 }
@@ -27,13 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ],
     ]);
 
-    if (! $validation->passed()) {
+    if (!$validation->passed()) {
         $error = $language['database_error'];
     } else {
         $db_address = $_POST['db_address'];
         $db_port = $_POST['db_port'];
         $db_username = $_POST['db_username'];
-        $db_password = ((isset($_POST['db_password']) && ! empty($_POST['db_password'])) ? str_replace('\'', '\\\'', $_POST['db_password']) : '');
+        $db_password = ((isset($_POST['db_password']) && !empty($_POST['db_password'])) ? str_replace('\'', '\\\'', $_POST['db_password']) : '');
         $db_name = $_POST['db_name'];
 
         $charset = ($_POST['charset'] == 'latin1') ? 'latin1' : 'utf8mb4';
@@ -47,34 +47,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $conf = [
                 'mysql' => [
-                    'host' => $db_address,
-                    'port' => $db_port,
+                    'host'     => $db_address,
+                    'port'     => $db_port,
                     'username' => $db_username,
                     'password' => $db_password,
-                    'db' => $db_name,
-                    'prefix' => 'nl2_',
-                    'charset' => $charset,
-                    'engine' => $engine,
+                    'db'       => $db_name,
+                    'prefix'   => 'nl2_',
+                    'charset'  => $charset,
+                    'engine'   => $engine,
                 ],
                 'remember' => [
-                    'cookie_name' => 'nl2',
+                    'cookie_name'   => 'nl2',
                     'cookie_expiry' => 604800,
                 ],
                 'session' => [
                     'session_name' => '2user',
-                    'admin_name' => '2admin',
-                    'token_name' => '2token',
+                    'admin_name'   => '2admin',
+                    'token_name'   => '2token',
                 ],
                 'core' => [
                     'hostname' => $_SESSION['hostname'],
-                    'path' => $_SESSION['install_path'],
+                    'path'     => $_SESSION['install_path'],
                     'friendly' => $_SESSION['friendly_urls'] == 'true' ? true : false,
                 ],
                 'allowedProxies' => '',
             ];
 
             try {
-                if (! is_writable('core/config.php')) {
+                if (!is_writable('core/config.php')) {
                     $error = $language['config_not_writable'];
                 } else {
                     $config_content = '<?php'.PHP_EOL.'$conf = '.var_export($conf, true).';';
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             create_field('text', $language['database_name'], 'db_name', 'inputDBName', $default_name);
                             create_field('select', $language['character_set'], 'charset', 'inputCharset', $default_charset, [
                                 'utf8mb4' => 'Unicode (utf8mb4)',
-                                'latin1' => 'Latin (latin1)',
+                                'latin1'  => 'Latin (latin1)',
                             ]);
                             create_field('select', $language['database_engine'], 'engine', 'inputEngine', $default_engine, [
                                 'InnoDB' => 'InnoDB',

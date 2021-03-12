@@ -13,7 +13,7 @@ require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 
 if ($user->isLoggedIn()) {
-    if (! isset($_GET['tid']) || ! is_numeric($_GET['tid'])) {
+    if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
         exit();
     } else {
@@ -23,7 +23,7 @@ if ($user->isLoggedIn()) {
     // Check topic exists and get forum ID
     $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
 
-    if (! count($topic)) {
+    if (!count($topic)) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
         exit();
     }

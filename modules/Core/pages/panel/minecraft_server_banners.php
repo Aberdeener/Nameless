@@ -11,7 +11,7 @@
 
 $user->handlePanelPageLoad('admincp.minecraft.banners');
 
-if (! function_exists('exif_imagetype')) {
+if (!function_exists('exif_imagetype')) {
     require_once ROOT_PATH.'/403.php';
     exit();
 }
@@ -23,14 +23,14 @@ define('MINECRAFT_PAGE', 'server_banners');
 $page_title = $language->get('admin', 'server_banners');
 require_once ROOT_PATH.'/core/templates/backend_init.php';
 
-if (! isset($_GET['server']) && ! isset($_GET['edit'])) {
+if (!isset($_GET['server']) && !isset($_GET['edit'])) {
     $servers = $queries->getWhere('mc_servers', ['id', '<>', 0]);
     if (count($servers)) {
         $template_array = [];
 
         foreach ($servers as $server) {
             $template_array[] = [
-                'name' => Output::getClean($server->name),
+                'name'      => Output::getClean($server->name),
                 'edit_link' => URL::build('/panel/minecraft/banners/', 'edit='.Output::getClean($server->id)),
                 'view_link' => URL::build('/panel/minecraft/banners/', 'server='.Output::getClean($server->id)),
             ];
@@ -38,8 +38,8 @@ if (! isset($_GET['server']) && ! isset($_GET['edit'])) {
 
         $smarty->assign([
             'SERVERS' => $template_array,
-            'EDIT' => $language->get('general', 'edit'),
-            'VIEW' => $language->get('general', 'view'),
+            'EDIT'    => $language->get('general', 'edit'),
+            'VIEW'    => $language->get('general', 'view'),
         ]);
     } else {
         $smarty->assign('NO_SERVERS', $language->get('admin', 'no_servers_defined'));
@@ -51,17 +51,17 @@ if (! isset($_GET['server']) && ! isset($_GET['edit'])) {
         // View
         // Get server
         $server = $queries->getWhere('mc_servers', ['id', '=', $_GET['server']]);
-        if (! count($server)) {
+        if (!count($server)) {
             Redirect::to(URL::build('/panel/minecraft/banners'));
             exit();
         }
         $server = $server[0];
 
         $smarty->assign([
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/minecraft/banners'),
+            'BACK'        => $language->get('general', 'back'),
+            'BACK_LINK'   => URL::build('/panel/minecraft/banners'),
             'SERVER_NAME' => Output::getClean($server->name),
-            'BANNER_URL' => Util::getSelfURL().ltrim(rtrim(URL::build('/banner/'.urlencode($server->name).'.png'), '/'), '/'),
+            'BANNER_URL'  => Util::getSelfURL().ltrim(rtrim(URL::build('/banner/'.urlencode($server->name).'.png'), '/'), '/'),
             'BANNER_PATH' => rtrim(URL::build('/banner/'.urlencode($server->name).'.png'), '/'),
         ]);
 
@@ -70,7 +70,7 @@ if (! isset($_GET['server']) && ! isset($_GET['edit'])) {
         // Edit
         // Get server
         $server = $queries->getWhere('mc_servers', ['id', '=', $_GET['edit']]);
-        if (! count($server)) {
+        if (!count($server)) {
             Redirect::to(URL::build('/panel/minecraft/banners'));
             exit();
         }
@@ -111,25 +111,25 @@ if (! isset($_GET['server']) && ! isset($_GET['edit'])) {
 
         foreach ($images as $image) {
             $ext = pathinfo($image, PATHINFO_EXTENSION);
-            if (! in_array($ext, $allowed_exts)) {
+            if (!in_array($ext, $allowed_exts)) {
                 continue;
             }
             $template_images[] = [
-                'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/banners/'.$image,
-                'value' => $image,
+                'src'      => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/banners/'.$image,
+                'value'    => $image,
                 'selected' => ($server->banner_background == $image),
-                'n' => $n,
+                'n'        => $n,
             ];
             $n++;
         }
 
         $smarty->assign([
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/minecraft/banners'),
-            'SERVER_NAME' => Output::getClean($server->name),
-            'BANNER_BACKGROUND' => $language->get('admin', 'banner_background'),
+            'BACK'                    => $language->get('general', 'back'),
+            'BACK_LINK'               => URL::build('/panel/minecraft/banners'),
+            'SERVER_NAME'             => Output::getClean($server->name),
+            'BANNER_BACKGROUND'       => $language->get('admin', 'banner_background'),
             'BANNER_BACKGROUND_VALUE' => Output::getClean($server->banner_background),
-            'IMAGES' => $template_images,
+            'IMAGES'                  => $template_images,
         ]);
 
         $template_file = 'integrations/minecraft/minecraft_server_banners_edit.tpl';
@@ -141,27 +141,27 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'INTEGRATIONS' => $language->get('admin', 'integrations'),
-    'MINECRAFT' => $language->get('admin', 'minecraft'),
+    'PARENT_PAGE'    => PARENT_PAGE,
+    'DASHBOARD'      => $language->get('admin', 'dashboard'),
+    'INTEGRATIONS'   => $language->get('admin', 'integrations'),
+    'MINECRAFT'      => $language->get('admin', 'minecraft'),
     'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'PAGE'           => PANEL_PAGE,
+    'TOKEN'          => Token::get(),
+    'SUBMIT'         => $language->get('general', 'submit'),
     'SERVER_BANNERS' => $language->get('admin', 'server_banners'),
 ]);
 

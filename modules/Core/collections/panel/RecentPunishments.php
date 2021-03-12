@@ -66,7 +66,7 @@ class RecentPunishmentsItem extends CollectionItemBase
                         $punished_user = $users[$item->punished];
                     } else {
                         $punished_user = new User($item->punished);
-                        if (! $punished_user->data()) {
+                        if (!$punished_user->data()) {
                             continue;
                         }
                         $users[$item->punished] = $punished_user;
@@ -76,7 +76,7 @@ class RecentPunishmentsItem extends CollectionItemBase
                         $staff_user = $users[$item->staff];
                     } else {
                         $staff_user = new User($item->staff);
-                        if (! $staff_user->data()) {
+                        if (!$staff_user->data()) {
                             continue;
                         }
                         $users[$item->staff] = $staff_user;
@@ -88,7 +88,7 @@ class RecentPunishmentsItem extends CollectionItemBase
                             $revoked_by_user = $users[$item->revoked_by_user];
                         } else {
                             $revoked_by_user = new User($item->revoked_by);
-                            if (! $revoked_by_user->data()) {
+                            if (!$revoked_by_user->data()) {
                                 continue;
                             }
                             $users[$item->revoked_by] = $revoked_by_user;
@@ -96,32 +96,32 @@ class RecentPunishmentsItem extends CollectionItemBase
                     }
 
                     $data[] = [
-                        'url' => URL::build('/panel/users/punishments/', 'user='.Output::getClean($punished_user->data()->id)),
-                        'punished_username' => $punished_user->getDisplayname(true),
-                        'punished_nickname' => $punished_user->getDisplayname(),
-                        'punished_style' => $punished_user->getGroupClass(),
-                        'punished_avatar' => $punished_user->getAvatar(),
-                        'punished_uuid' => Output::getClean($punished_user->data()->uuid),
-                        'punished_profile' => URL::build('/panel/user/'.Output::getClean($punished_user->data()->id).'-'.Output::getClean($punished_user->data()->username)),
-                        'staff_username' => $staff_user->getDisplayname(true),
-                        'staff_nickname' => $staff_user->getDisplayname(),
-                        'staff_style' => $staff_user->getGroupClass(),
-                        'staff_avatar' => $staff_user->getAvatar(),
-                        'staff_uuid' => Output::getClean($staff_user->data()->uuid),
-                        'staff_profile' => URL::build('/panel/user/'.Output::getClean($staff_user->data()->id).'-'.Output::getClean($staff_user->data()->username)),
-                        'time' => ($item->created ? $timeago->inWords(date('Y-m-d H:i:s', $item->created), $this->_language->getTimeLanguage()) : $timeago->inWords($item->infraction_date, $this->_language->getTimeLanguage())),
-                        'time_full' => ($item->created ? date('d M Y, H:i', $item->created) : date('d M Y, H:i', strtotime($item->infraction_date))),
-                        'type' => $item->type,
-                        'reason' => Output::getPurified($item->reason),
-                        'acknowledged' => $item->acknowledged,
-                        'revoked' => $item->revoked,
+                        'url'                 => URL::build('/panel/users/punishments/', 'user='.Output::getClean($punished_user->data()->id)),
+                        'punished_username'   => $punished_user->getDisplayname(true),
+                        'punished_nickname'   => $punished_user->getDisplayname(),
+                        'punished_style'      => $punished_user->getGroupClass(),
+                        'punished_avatar'     => $punished_user->getAvatar(),
+                        'punished_uuid'       => Output::getClean($punished_user->data()->uuid),
+                        'punished_profile'    => URL::build('/panel/user/'.Output::getClean($punished_user->data()->id).'-'.Output::getClean($punished_user->data()->username)),
+                        'staff_username'      => $staff_user->getDisplayname(true),
+                        'staff_nickname'      => $staff_user->getDisplayname(),
+                        'staff_style'         => $staff_user->getGroupClass(),
+                        'staff_avatar'        => $staff_user->getAvatar(),
+                        'staff_uuid'          => Output::getClean($staff_user->data()->uuid),
+                        'staff_profile'       => URL::build('/panel/user/'.Output::getClean($staff_user->data()->id).'-'.Output::getClean($staff_user->data()->username)),
+                        'time'                => ($item->created ? $timeago->inWords(date('Y-m-d H:i:s', $item->created), $this->_language->getTimeLanguage()) : $timeago->inWords($item->infraction_date, $this->_language->getTimeLanguage())),
+                        'time_full'           => ($item->created ? date('d M Y, H:i', $item->created) : date('d M Y, H:i', strtotime($item->infraction_date))),
+                        'type'                => $item->type,
+                        'reason'              => Output::getPurified($item->reason),
+                        'acknowledged'        => $item->acknowledged,
+                        'revoked'             => $item->revoked,
                         'revoked_by_username' => ($revoked_by_user ? $revoked_by_user->getDisplayname(true) : ''),
                         'revoked_by_nickname' => ($revoked_by_user ? $revoked_by_user->getDisplayname() : ''),
-                        'revoked_by_style' => ($revoked_by_user ? $revoked_by_user->getGroupClass() : ''),
-                        'revoked_by_avatar' => ($revoked_by_user ? $revoked_by_user->getAvatar() : ''),
-                        'revoked_by_uuid' => ($revoked_by_user ? Output::getClean($revoked_by_user->uuid) : ''),
-                        'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/'.Output::getClean($revoked_by_user->data()->id).'-'.Output::getClean($revoked_by_user->data()->username)) : ''),
-                        'revoked_at' => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage()),
+                        'revoked_by_style'    => ($revoked_by_user ? $revoked_by_user->getGroupClass() : ''),
+                        'revoked_by_avatar'   => ($revoked_by_user ? $revoked_by_user->getAvatar() : ''),
+                        'revoked_by_uuid'     => ($revoked_by_user ? Output::getClean($revoked_by_user->uuid) : ''),
+                        'revoked_by_profile'  => ($revoked_by_user ? URL::build('/panel/user/'.Output::getClean($revoked_by_user->data()->id).'-'.Output::getClean($revoked_by_user->data()->username)) : ''),
+                        'revoked_at'          => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage()),
                     ];
 
                     if (++$i == 5) {
@@ -135,16 +135,16 @@ class RecentPunishmentsItem extends CollectionItemBase
 
         $this->_smarty->assign([
             'RECENT_PUNISHMENTS' => $this->_language->get('moderator', 'recent_punishments'),
-            'PUNISHMENTS' => $data,
-            'NO_PUNISHMENTS' => $this->_language->get('moderator', 'no_punishments_found'),
-            'BAN' => $this->_language->get('moderator', 'ban'),
-            'IP_BAN' => $this->_language->get('moderator', 'ip_ban'),
-            'WARNING' => $this->_language->get('moderator', 'warning'),
-            'CREATED' => $this->_language->get('moderator', 'created'),
-            'STAFF' => $this->_language->get('moderator', 'staff:'),
-            'REASON' => $this->_language->get('moderator', 'reason:'),
-            'REVOKED' => $this->_language->get('moderator', 'revoked'),
-            'VIEW' => $this->_language->get('general', 'view'),
+            'PUNISHMENTS'        => $data,
+            'NO_PUNISHMENTS'     => $this->_language->get('moderator', 'no_punishments_found'),
+            'BAN'                => $this->_language->get('moderator', 'ban'),
+            'IP_BAN'             => $this->_language->get('moderator', 'ip_ban'),
+            'WARNING'            => $this->_language->get('moderator', 'warning'),
+            'CREATED'            => $this->_language->get('moderator', 'created'),
+            'STAFF'              => $this->_language->get('moderator', 'staff:'),
+            'REASON'             => $this->_language->get('moderator', 'reason:'),
+            'REVOKED'            => $this->_language->get('moderator', 'revoked'),
+            'VIEW'               => $this->_language->get('general', 'view'),
         ]);
 
         return $this->_smarty->fetch('collections/dashboard_items/recent_punishments.tpl');

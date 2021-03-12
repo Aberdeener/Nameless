@@ -29,7 +29,7 @@ if (isset($_GET['do'])) {
 
                 // Is it already in the database?
                 $exists = $queries->getWhere('languages', ['name', '=', Output::getClean($folder_name)]);
-                if (! count($exists)) {
+                if (!count($exists)) {
                     // No, add it now
                     $queries->create('languages', [
                         'name' => Output::getClean($folder_name),
@@ -62,13 +62,13 @@ if (Input::exists()) {
         $validation = $validate->check($_POST, [
             'sitename' => [
                 'required' => true,
-                'min' => 2,
-                'max' => 64,
+                'min'      => 2,
+                'max'      => 64,
             ],
             'contact_email' => [
                 'required' => true,
-                'min' => 3,
-                'max' => 255,
+                'min'      => 3,
+                'max'      => 255,
             ],
         ]);
 
@@ -227,7 +227,7 @@ if (Input::exists()) {
                 ]);
             } else {
                 $queries->create('settings', [
-                    'name' => 'force_https',
+                    'name'  => 'force_https',
                     'value' => $https,
                 ]);
             }
@@ -247,7 +247,7 @@ if (Input::exists()) {
                 ]);
             } else {
                 $queries->create('settings', [
-                    'name' => 'force_www',
+                    'name'  => 'force_www',
                     'value' => $www,
                 ]);
             }
@@ -285,7 +285,7 @@ if (Input::exists()) {
             Session::flash('general_language', $language->get('admin', 'settings_updated_successfully'));
 
             // Redirect in case URL type has changed
-            if (! isset($errors)) {
+            if (!isset($errors)) {
                 if ($friendly == 'true') {
                     $redirect = URL::build('/panel/core/general_settings', '', 'friendly');
                 } else {
@@ -321,14 +321,14 @@ if (Session::exists('general_language')) {
 if (isset($success)) {
     $smarty->assign([
         'SUCCESS_TITLE' => $language->get('general', 'success'),
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS_TITLE' => $language->get('general', 'error'),
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
     ]);
 }
 
@@ -341,7 +341,7 @@ $count = count($languages);
 
 for ($i = 0; $i < $count; $i++) {
     $language_path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php']);
-    if (! file_exists($language_path)) {
+    if (!file_exists($language_path)) {
         unset($languages[$i]);
     }
 }
@@ -367,55 +367,55 @@ $method = $queries->getWhere('settings', ['name', '=', 'login_method']);
 $method = $method[0]->value;
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'GENERAL_SETTINGS' => $language->get('admin', 'general_settings'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'SITE_NAME_LABEL' => $language->get('admin', 'sitename'),
-    'CONTACT_EMAIL_ADDRESS' => $language->get('admin', 'contact_email_address'),
+    'PARENT_PAGE'                 => PARENT_PAGE,
+    'DASHBOARD'                   => $language->get('admin', 'dashboard'),
+    'CONFIGURATION'               => $language->get('admin', 'configuration'),
+    'GENERAL_SETTINGS'            => $language->get('admin', 'general_settings'),
+    'PAGE'                        => PANEL_PAGE,
+    'TOKEN'                       => Token::get(),
+    'SUBMIT'                      => $language->get('general', 'submit'),
+    'SITE_NAME_LABEL'             => $language->get('admin', 'sitename'),
+    'CONTACT_EMAIL_ADDRESS'       => $language->get('admin', 'contact_email_address'),
     'CONTACT_EMAIL_ADDRESS_VALUE' => $contact_email,
-    'INFO' => $language->get('general', 'info'),
-    'DEFAULT_LANGUAGE' => $language->get('admin', 'default_language'),
-    'DEFAULT_LANGUAGE_HELP' => $language->get('admin', 'default_language_help'),
-    'DEFAULT_LANGUAGE_VALUES' => $languages,
-    'INSTALL_LANGUAGE_LINK' => URL::build('/panel/core/general_settings/', 'do=installLanguage'),
-    'INSTALL_LANGUAGE' => $language->get('admin', 'install_language'),
-    'UPDATE_USER_LANGUAGES_LINK' => URL::build('/panel/core/general_settings/', 'do=updateLanguages'),
-    'UPDATE_USER_LANGUAGES' => $language->get('admin', 'update_user_languages'),
-    'UPDATE_USER_LANGUAGES_INFO' => $language->get('admin', 'update_user_languages_warning'),
-    'YES' => $language->get('general', 'yes'),
-    'NO' => $language->get('general', 'no'),
-    'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-    'DEFAULT_TIMEZONE' => $language->get('admin', 'default_timezone'),
-    'DEFAULT_TIMEZONE_LIST' => Util::listTimezones(),
-    'DEFAULT_TIMEZONE_VALUE' => $timezone,
-    'HOMEPAGE_TYPE' => $language->get('admin', 'homepage_type'),
-    'HOMEPAGE_DEFAULT' => $language->get('admin', 'default'),
-    'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
-    'HOMEPAGE_VALUE' => $portal,
-    'POST_FORMATTING' => $language->get('admin', 'post_formatting_type'),
-    'POST_FORMATTING_VALUE' => $formatting,
-    'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
-    'USE_FRIENDLY_URLS_VALUE' => $friendly_url,
-    'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help'),
-    'ENABLED' => $language->get('admin', 'enabled'),
-    'DISABLED' => $language->get('admin', 'disabled'),
-    'PRIVATE_PROFILES' => $language->get('admin', 'private_profiles'),
-    'PRIVATE_PROFILES_VALUE' => $private_profile,
-    'FORCE_HTTPS' => $language->get('admin', 'force_https'),
-    'FORCE_HTTPS_VALUE' => (defined('FORCE_SSL')),
-    'FORCE_HTTPS_HELP' => $language->get('admin', 'force_https_help'),
-    'FORCE_WWW' => $language->get('admin', 'force_www'),
-    'FORCE_WWW_VALUE' => (defined('FORCE_WWW')),
-    'ENABLE_NICKNAMES' => $language->get('admin', 'enable_nicknames_on_registration'),
-    'ENABLE_NICKNAMES_VALUE' => $displaynames,
-    'LOGIN_METHOD' => $language->get('admin', 'login_method'),
-    'LOGIN_METHOD_VALUE' => $method,
-    'EMAIL' => $language->get('user', 'email'),
-    'USERNAME' => $language->get('user', 'username'),
+    'INFO'                        => $language->get('general', 'info'),
+    'DEFAULT_LANGUAGE'            => $language->get('admin', 'default_language'),
+    'DEFAULT_LANGUAGE_HELP'       => $language->get('admin', 'default_language_help'),
+    'DEFAULT_LANGUAGE_VALUES'     => $languages,
+    'INSTALL_LANGUAGE_LINK'       => URL::build('/panel/core/general_settings/', 'do=installLanguage'),
+    'INSTALL_LANGUAGE'            => $language->get('admin', 'install_language'),
+    'UPDATE_USER_LANGUAGES_LINK'  => URL::build('/panel/core/general_settings/', 'do=updateLanguages'),
+    'UPDATE_USER_LANGUAGES'       => $language->get('admin', 'update_user_languages'),
+    'UPDATE_USER_LANGUAGES_INFO'  => $language->get('admin', 'update_user_languages_warning'),
+    'YES'                         => $language->get('general', 'yes'),
+    'NO'                          => $language->get('general', 'no'),
+    'ARE_YOU_SURE'                => $language->get('general', 'are_you_sure'),
+    'DEFAULT_TIMEZONE'            => $language->get('admin', 'default_timezone'),
+    'DEFAULT_TIMEZONE_LIST'       => Util::listTimezones(),
+    'DEFAULT_TIMEZONE_VALUE'      => $timezone,
+    'HOMEPAGE_TYPE'               => $language->get('admin', 'homepage_type'),
+    'HOMEPAGE_DEFAULT'            => $language->get('admin', 'default'),
+    'HOMEPAGE_PORTAL'             => $language->get('admin', 'portal'),
+    'HOMEPAGE_VALUE'              => $portal,
+    'POST_FORMATTING'             => $language->get('admin', 'post_formatting_type'),
+    'POST_FORMATTING_VALUE'       => $formatting,
+    'USE_FRIENDLY_URLS'           => $language->get('admin', 'use_friendly_urls'),
+    'USE_FRIENDLY_URLS_VALUE'     => $friendly_url,
+    'USE_FRIENDLY_URLS_HELP'      => $language->get('admin', 'use_friendly_urls_help'),
+    'ENABLED'                     => $language->get('admin', 'enabled'),
+    'DISABLED'                    => $language->get('admin', 'disabled'),
+    'PRIVATE_PROFILES'            => $language->get('admin', 'private_profiles'),
+    'PRIVATE_PROFILES_VALUE'      => $private_profile,
+    'FORCE_HTTPS'                 => $language->get('admin', 'force_https'),
+    'FORCE_HTTPS_VALUE'           => (defined('FORCE_SSL')),
+    'FORCE_HTTPS_HELP'            => $language->get('admin', 'force_https_help'),
+    'FORCE_WWW'                   => $language->get('admin', 'force_www'),
+    'FORCE_WWW_VALUE'             => (defined('FORCE_WWW')),
+    'ENABLE_NICKNAMES'            => $language->get('admin', 'enable_nicknames_on_registration'),
+    'ENABLE_NICKNAMES_VALUE'      => $displaynames,
+    'LOGIN_METHOD'                => $language->get('admin', 'login_method'),
+    'LOGIN_METHOD_VALUE'          => $method,
+    'EMAIL'                       => $language->get('user', 'email'),
+    'USERNAME'                    => $language->get('user', 'username'),
 ]);
 
 $page_load = microtime(true) - $start;

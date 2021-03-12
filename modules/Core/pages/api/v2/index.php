@@ -20,7 +20,7 @@ require_once ROOT_PATH.'/core/templates/frontend_init.php';
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
 // Ensure API is actually enabled
-if (! Util::getSetting(DB::getInstance(), 'use_api')) {
+if (!Util::getSetting(DB::getInstance(), 'use_api')) {
     exit($language->get('api', 'api_disabled'));
 }
 
@@ -59,7 +59,7 @@ class Nameless2API
             }
 
             // Set language
-            if (! isset($api_language) || empty($api_language)) {
+            if (!isset($api_language) || empty($api_language)) {
                 $this->throwError(2, 'Invalid language file');
             }
 
@@ -92,7 +92,7 @@ class Nameless2API
     {
         if ($api_key) {
             // Check cached key
-            if (! is_file(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('apicache').'.cache')) {
+            if (!is_file(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('apicache').'.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
                 $correct_key = $this->_db->get('settings', ['name', '=', 'mc_api_key']);
@@ -116,7 +116,7 @@ class Nameless2API
     public function getUser($column, $value)
     {
         $user = new User(Output::getClean($value), Output::getClean($column));
-        if (! count($user->data())) {
+        if (!count($user->data())) {
             $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
         }
 
@@ -134,7 +134,7 @@ class Nameless2API
 
     public function returnArray($arr = null)
     {
-        if (! $arr) {
+        if (!$arr) {
             $arr = [];
         }
 
@@ -144,11 +144,11 @@ class Nameless2API
 
     public function validateParams($input, $required_fields, $type = 'post')
     {
-        if (! isset($input) || empty($input)) {
+        if (!isset($input) || empty($input)) {
             $this->throwError(6, $this->_language->get('api', 'invalid_'.$type.'_contents'));
         }
         foreach ($required_fields as $required) {
-            if (! isset($input[$required]) || empty($input[$required])) {
+            if (!isset($input[$required]) || empty($input[$required])) {
                 $this->throwError(6, $this->_language->get('api', 'invalid_'.$type.'_contents'), ['field' => $required]);
             }
         }

@@ -44,7 +44,7 @@ if (Input::exists()) {
     // Check form token
     if (Token::check()) {
         // Valid token
-        if (! isset($_SESSION['tfa']) && $recaptcha == 'true') {
+        if (!isset($_SESSION['tfa']) && $recaptcha == 'true') {
             // Check captcha
             $url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
 
@@ -88,7 +88,7 @@ if (Input::exists()) {
             $validate = new Validate();
             if ($method == 'email') {
                 $to_validate = [
-                    'email' => ['required' => true, 'isbanned' => true, 'isactive' => true],
+                    'email'    => ['required' => true, 'isbanned' => true, 'isactive' => true],
                     'password' => ['required' => true],
                 ];
             } else {
@@ -113,7 +113,7 @@ if (Input::exists()) {
                     if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
                         // Verify password first
                         if ($user->checkCredentials($username, Input::get('password'), $method)) {
-                            if (! isset($_POST['tfa_code'])) {
+                            if (!isset($_POST['tfa_code'])) {
                                 if ($user_query->data()->tfa_type == 0) {
                                     // Emails
                                     // TODO
@@ -143,7 +143,7 @@ if (Input::exists()) {
                         }
                     }
 
-                    if (! isset($return_error)) {
+                    if (!isset($return_error)) {
 
                         // Validation passed
                         // Initialise user class
@@ -214,7 +214,7 @@ if (Input::exists()) {
                                         }
 
                                         // Update password
-                                        if (! is_null($password)) {
+                                        if (!is_null($password)) {
                                             if ($method == 'email') {
                                                 $user_id = $user->emailToId($username);
                                             } else {
@@ -222,7 +222,7 @@ if (Input::exists()) {
                                             }
 
                                             $queries->update('users', $user_id, [
-                                                'password' => $password,
+                                                'password'    => $password,
                                                 'pass_method' => $authme_db['hash'],
                                             ]);
                                         }
@@ -306,19 +306,19 @@ if ($method == 'email') {
 }
 
 $smarty->assign([
-    'USERNAME_INPUT' => ($method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
-    'PASSWORD' => $language->get('user', 'password'),
-    'REMEMBER_ME' => $language->get('user', 'remember_me'),
+    'USERNAME_INPUT'      => ($method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
+    'PASSWORD'            => $language->get('user', 'password'),
+    'REMEMBER_ME'         => $language->get('user', 'remember_me'),
     'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),
-    'FORGOT_PASSWORD' => $language->get('user', 'forgot_password'),
-    'FORM_TOKEN' => Token::get(),
-    'SIGN_IN' => $language->get('general', 'sign_in'),
-    'REGISTER_URL' => URL::build('/register'),
-    'REGISTER' => $language->get('general', 'register'),
-    'ERROR_TITLE' => $language->get('general', 'error'),
-    'ERROR' => (isset($return_error) ? $return_error : []),
-    'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
-    'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha',
+    'FORGOT_PASSWORD'     => $language->get('user', 'forgot_password'),
+    'FORM_TOKEN'          => Token::get(),
+    'SIGN_IN'             => $language->get('general', 'sign_in'),
+    'REGISTER_URL'        => URL::build('/register'),
+    'REGISTER'            => $language->get('general', 'register'),
+    'ERROR_TITLE'         => $language->get('general', 'error'),
+    'ERROR'               => (isset($return_error) ? $return_error : []),
+    'NOT_REGISTERED_YET'  => $language->get('general', 'not_registered_yet'),
+    'CAPTCHA_CLASS'       => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha',
 ]);
 
 if (isset($return_error)) {

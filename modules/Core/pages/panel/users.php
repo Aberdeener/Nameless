@@ -27,7 +27,7 @@ if (Session::exists('users_session')) {
 if (isset($success)) {
     $smarty->assign(
         [
-            'SUCCESS' => $success,
+            'SUCCESS'       => $success,
             'SUCCESS_TITLE' => $language->get('general', 'success'),
         ]
     );
@@ -36,30 +36,30 @@ if (isset($success)) {
 if (isset($errors) && count($errors)) {
     $smarty->assign(
         [
-            'ERRORS' => $errors,
+            'ERRORS'       => $errors,
             'ERRORS_TITLE' => $language->get('general', 'error'),
         ]
     );
 }
 
 $output = [];
-if (! defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
+if (!defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
     // Get all users
     $users = $queries->getWhere('users', ['id', '<>', 0]);
     foreach ($users as $item) {
         $target_user = new User($item->id);
 
         $output[] = [
-            'id' => Output::getClean($item->id),
-            'username' => $target_user->getDisplayname(true),
-            'nickname' => $target_user->getDisplayname(),
-            'avatar' => $target_user->getAvatar('', 128),
-            'style' => $target_user->getGroupClass(),
-            'profile' => $target_user->getProfileURL(),
-            'panel_profile' => URL::build('/panel/user/'.Output::getClean($item->id.'-'.$item->username)),
-            'primary_group' => Output::getClean($target_user->getMainGroup()->name),
-            'all_groups' => $target_user->getAllGroups(true),
-            'registered' => date('d M Y', $item->joined),
+            'id'              => Output::getClean($item->id),
+            'username'        => $target_user->getDisplayname(true),
+            'nickname'        => $target_user->getDisplayname(),
+            'avatar'          => $target_user->getAvatar('', 128),
+            'style'           => $target_user->getGroupClass(),
+            'profile'         => $target_user->getProfileURL(),
+            'panel_profile'   => URL::build('/panel/user/'.Output::getClean($item->id.'-'.$item->username)),
+            'primary_group'   => Output::getClean($target_user->getMainGroup()->name),
+            'all_groups'      => $target_user->getAllGroups(true),
+            'registered'      => date('d M Y', $item->joined),
             'registered_unix' => Output::getClean($item->joined),
         ];
     }
@@ -67,20 +67,20 @@ if (! defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
 
 $smarty->assign(
     [
-        'PARENT_PAGE' => PARENT_PAGE,
-        'DASHBOARD' => $language->get('admin', 'dashboard'),
+        'PARENT_PAGE'     => PARENT_PAGE,
+        'DASHBOARD'       => $language->get('admin', 'dashboard'),
         'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
-        'USERS' => $language->get('admin', 'users'),
-        'PAGE' => PANEL_PAGE,
-        'TOKEN' => Token::get(),
-        'SUBMIT' => $language->get('general', 'submit'),
-        'USER' => $language->get('admin', 'user'),
-        'GROUP' => $language->get('admin', 'group'),
-        'GROUPS' => $language->get('admin', 'groups'),
-        'REGISTERED' => $language->get('admin', 'registered'),
-        'ACTIONS' => $language->get('general', 'actions'),
-        'ACTIONS_LIST' => Core_Module::getUserActions(),
-        'ALL_USERS' => $output,
+        'USERS'           => $language->get('admin', 'users'),
+        'PAGE'            => PANEL_PAGE,
+        'TOKEN'           => Token::get(),
+        'SUBMIT'          => $language->get('general', 'submit'),
+        'USER'            => $language->get('admin', 'user'),
+        'GROUP'           => $language->get('admin', 'group'),
+        'GROUPS'          => $language->get('admin', 'groups'),
+        'REGISTERED'      => $language->get('admin', 'registered'),
+        'ACTIONS'         => $language->get('general', 'actions'),
+        'ACTIONS_LIST'    => Core_Module::getUserActions(),
+        'ALL_USERS'       => $output,
     ]
 );
 

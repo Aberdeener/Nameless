@@ -5,7 +5,7 @@ if (isset($_SESSION['site_initialized']) && $_SESSION['site_initialized'] == tru
     exit();
 }
 
-if (! isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
+if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
     Redirect::to('?step=database_configuration');
     exit();
 }
@@ -15,31 +15,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $validation = $validate->check($_POST, [
         'sitename' => [
             'required' => true,
-            'min' => 1,
-            'max' => 32,
+            'min'      => 1,
+            'max'      => 32,
         ],
         'incoming' => [
             'required' => true,
-            'min' => 4,
-            'max' => 64,
+            'min'      => 4,
+            'max'      => 64,
         ],
         'outgoing' => [
             'required' => true,
-            'min' => 4,
-            'max' => 64,
+            'min'      => 4,
+            'max'      => 64,
         ],
         'language' => [
             'required' => true,
         ],
     ]);
 
-    if (! $validation->passed()) {
+    if (!$validation->passed()) {
         $error = $language['configuration_error'];
     } else {
         try {
             $queries = new Queries();
             $queries->create('settings', [
-                'name' => 'sitename',
+                'name'  => 'sitename',
                 'value' => Output::getClean(Input::get('sitename')),
             ]);
 
@@ -48,12 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $cache->store('sitename', Output::getClean(Input::get('sitename')));
 
             $queries->create('settings', [
-                'name' => 'incoming_email',
+                'name'  => 'incoming_email',
                 'value' => Output::getClean(Input::get('incoming')),
             ]);
 
             $queries->create('settings', [
-                'name' => 'outgoing_email',
+                'name'  => 'outgoing_email',
                 'value' => Output::getClean(Input::get('outgoing')),
             ]);
 

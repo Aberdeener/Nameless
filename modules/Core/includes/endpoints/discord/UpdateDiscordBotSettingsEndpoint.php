@@ -1,7 +1,7 @@
 <?php
 /**
  * @param string $url New Discord bot URL
- * @param string $id New Discord Guild/server ID
+ * @param string $id  New Discord Guild/server ID
  *
  * @return string JSON Array
  */

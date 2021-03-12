@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $user The NamelessMC user ID to edit
+ * @param int    $user  The NamelessMC user ID to edit
  * @param string $roles An array of Discord Role ID to give to the user
  *
  * @return string JSON Array
@@ -20,7 +20,7 @@ class SetDiscordRolesEndpoint extends EndpointBase
     {
         $api->validateParams($_POST, ['user']);
 
-        if (! Util::getSetting($api->getDb(), 'discord_integration')) {
+        if (!Util::getSetting($api->getDb(), 'discord_integration')) {
             $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
         }
 
@@ -78,7 +78,7 @@ class SetDiscordRolesEndpoint extends EndpointBase
             }
 
             // If the new group they got was not in their original groups, log it
-            if (! in_array($added_group_id, $original_group_ids)) {
+            if (!in_array($added_group_id, $original_group_ids)) {
                 $should_log = true;
                 $log_array['added'][] = Util::getGroupNameFromId($added_group_id);
             }

@@ -11,7 +11,7 @@
 
 // Get page info from URL
 $custom_page = $queries->getWhere('custom_pages', ['url', '=', rtrim($route, '/')]);
-if (! count($custom_page)) {
+if (!count($custom_page)) {
     require ROOT_PATH.'/404.php';
     exit();
 } else {
@@ -46,7 +46,7 @@ if ($user->isLoggedIn()) {
     }
 }
 
-if (! isset($can_view)) {
+if (!isset($can_view)) {
     require ROOT_PATH.'/403.php';
     exit();
 }
@@ -68,9 +68,9 @@ require_once ROOT_PATH.'/core/templates/frontend_init.php';
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
 $smarty->assign([
-    'WIDGETS_LEFT' => $widgets->getWidgets('left'),
+    'WIDGETS_LEFT'  => $widgets->getWidgets('left'),
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
-    'CONTENT' => (($custom_page->all_html == 0) ? Output::getPurified(htmlspecialchars_decode($custom_page->content)) : htmlspecialchars_decode($custom_page->content)),
+    'CONTENT'       => (($custom_page->all_html == 0) ? Output::getPurified(htmlspecialchars_decode($custom_page->content)) : htmlspecialchars_decode($custom_page->content)),
 ]);
 
 $template->addCSSFiles([

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id The NamelessMC user's ID
+ * @param int    $id   The NamelessMC user's ID
  * @param string $code The NamelessMC user's reset code, used to verify they own the account
  *
  * @return string JSON Array
@@ -35,14 +35,14 @@ class VerifyMinecraftEndpoint extends EndpointBase
             $user->data()->id,
             [
                 'reset_code' => '',
-                'active' => 1,
+                'active'     => 1,
             ]
         );
 
         try {
             HookHandler::executeEvent('validateUser', [
-                'event' => 'validateUser',
-                'user_id' => $user->data()->id,
+                'event'    => 'validateUser',
+                'user_id'  => $user->data()->id,
                 'username' => Output::getClean($user->username),
                 'language' => $api->getLanguage(),
             ]);

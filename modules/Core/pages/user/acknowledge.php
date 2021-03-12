@@ -9,7 +9,7 @@
  *  User warning acknowledgement page
  */
 
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
     exit();
 }
@@ -18,7 +18,7 @@ if (! $user->isLoggedIn()) {
 $wid = explode('/', $route);
 $wid = $wid[count($wid) - 1];
 
-if (! isset($wid[count($wid) - 1]) || ! is_numeric($wid)) {
+if (!isset($wid[count($wid) - 1]) || !is_numeric($wid)) {
     Redirect::to(URL::build('/'));
     exit();
 }

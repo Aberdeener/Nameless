@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id NamelessMC ID of group to view
+ * @param int    $id   NamelessMC ID of group to view
  * @param string $name The NamelessMC NAME of the group to view
  *
  * @return string JSON Array
@@ -52,12 +52,12 @@ class GroupInfoEndpoint extends EndpointBase
         $groups_array = [];
         foreach ($groups as $group) {
             $groups_array[] = [
-                'id' => intval($group->id),
-                'name' => $group->name,
-                'staff' => (bool) $group->staff,
-                'order' => intval($group->order),
+                'id'               => intval($group->id),
+                'name'             => $group->name,
+                'staff'            => (bool) $group->staff,
+                'order'            => intval($group->order),
                 'ingame_rank_name' => Util::getIngameRankName($group->id),
-                'discord_role_id' => intval(Discord::getDiscordRoleId($api->getDb(), $group->id)),
+                'discord_role_id'  => intval(Discord::getDiscordRoleId($api->getDb(), $group->id)),
             ];
         }
 

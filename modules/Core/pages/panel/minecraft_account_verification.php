@@ -22,7 +22,7 @@ require_once ROOT_PATH.'/core/templates/backend_init.php';
 if (Input::exists()) {
     $errors = [];
     if (Token::check()) {
-        if (! isset($_POST['premium'])) {
+        if (!isset($_POST['premium'])) {
             $use_mcassoc = $queries->getWhere('settings', ['name', '=', 'verify_accounts']);
             $use_mcassoc = $use_mcassoc[0]->id;
 
@@ -31,12 +31,12 @@ if (Input::exists()) {
                 $validation = $validate->check($_POST, [
                     'mcassoc_key' => [
                         'required' => true,
-                        'max' => 128,
+                        'max'      => 128,
                     ],
                     'mcassoc_instance' => [
                         'required' => true,
-                        'min' => 32,
-                        'max' => 32,
+                        'min'      => 32,
+                        'max'      => 32,
                     ],
                 ]);
 
@@ -82,14 +82,14 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
@@ -110,29 +110,29 @@ if ($uuid_linking == '1') {
     $mcassoc_instance = Output::getClean($mcassoc_instance[0]->value);
 
     $smarty->assign([
-        'INFO' => $language->get('general', 'info'),
-        'MCASSOC_INFO' => $language->get('admin', 'mcassoc_help'),
-        'USE_MCASSOC' => $language->get('admin', 'verify_with_mcassoc'),
-        'USE_MCASSOC_VALUE' => ($use_mcassoc == '1'),
-        'MCASSOC_KEY' => $language->get('admin', 'mcassoc_key'),
-        'MCASSOC_KEY_VALUE' => $mcassoc_key,
-        'MCASSOC_INSTANCE' => $language->get('admin', 'mcassoc_instance'),
+        'INFO'                   => $language->get('general', 'info'),
+        'MCASSOC_INFO'           => $language->get('admin', 'mcassoc_help'),
+        'USE_MCASSOC'            => $language->get('admin', 'verify_with_mcassoc'),
+        'USE_MCASSOC_VALUE'      => ($use_mcassoc == '1'),
+        'MCASSOC_KEY'            => $language->get('admin', 'mcassoc_key'),
+        'MCASSOC_KEY_VALUE'      => $mcassoc_key,
+        'MCASSOC_INSTANCE'       => $language->get('admin', 'mcassoc_instance'),
         'MCASSOC_INSTANCE_VALUE' => $mcassoc_instance,
-        'MCASSOC_INSTANCE_HELP' => $language->get('admin', 'mcassoc_instance_help'),
+        'MCASSOC_INSTANCE_HELP'  => $language->get('admin', 'mcassoc_instance_help'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'INTEGRATIONS' => $language->get('admin', 'integrations'),
-    'MINECRAFT' => $language->get('admin', 'minecraft'),
-    'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'ACCOUNT_VERIFICATION' => $language->get('admin', 'account_verification'),
-    'FORCE_PREMIUM_ACCOUNTS' => $language->get('admin', 'force_premium_accounts'),
+    'PARENT_PAGE'                  => PARENT_PAGE,
+    'DASHBOARD'                    => $language->get('admin', 'dashboard'),
+    'INTEGRATIONS'                 => $language->get('admin', 'integrations'),
+    'MINECRAFT'                    => $language->get('admin', 'minecraft'),
+    'MINECRAFT_LINK'               => URL::build('/panel/minecraft'),
+    'PAGE'                         => PANEL_PAGE,
+    'TOKEN'                        => Token::get(),
+    'SUBMIT'                       => $language->get('general', 'submit'),
+    'ACCOUNT_VERIFICATION'         => $language->get('admin', 'account_verification'),
+    'FORCE_PREMIUM_ACCOUNTS'       => $language->get('admin', 'force_premium_accounts'),
     'FORCE_PREMIUM_ACCOUNTS_VALUE' => ($uuid_linking == '1'),
 ]);
 

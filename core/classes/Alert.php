@@ -26,13 +26,13 @@ class Alert
             $language_name = $language->first()->name;
             $language = new Language($text_short['path'], $language_name);
 
-            if (! $db->insert('alerts', [
-                'user_id' => $user_id,
-                'type' => $type,
-                'url' => $link,
+            if (!$db->insert('alerts', [
+                'user_id'       => $user_id,
+                'type'          => $type,
+                'url'           => $link,
                 'content_short' => str_replace((isset($text_short['replace']) ? $text_short['replace'] : ''), (isset($text_short['replace_with']) ? $text_short['replace_with'] : ''), $language->get($text_short['file'], $text_short['term'])),
-                'content' => str_replace((isset($text['replace']) ? $text['replace'] : ''), (isset($text['replace_with']) ? $text['replace_with'] : ''), $language->get($text['file'], $text['term'])),
-                'created' => date('U'),
+                'content'       => str_replace((isset($text['replace']) ? $text['replace'] : ''), (isset($text['replace_with']) ? $text['replace_with'] : ''), $language->get($text['file'], $text['term'])),
+                'created'       => date('U'),
             ])) {
                 throw new Exception('There was a problem creating an alert.');
             }
@@ -76,17 +76,17 @@ class Alert
                 // Get actual PM information
                 $pm_full = $db->get('private_messages', ['id', '=', $pm->pm_id])->results();
 
-                if (! count($pm_full)) {
+                if (!count($pm_full)) {
                     continue;
                 } else {
                     $pm_full = $pm_full[0];
                 }
 
                 $pms[] = [
-                    'id' => $pm_full->id,
-                    'title' => Output::getClean($pm_full->title),
-                    'created' => $pm_full->created,
-                    'author_id' => $pm_full->author_id,
+                    'id'              => $pm_full->id,
+                    'title'           => Output::getClean($pm_full->title),
+                    'created'         => $pm_full->created,
+                    'author_id'       => $pm_full->author_id,
                     'last_reply_user' => $pm_full->last_reply_user,
                     'last_reply_date' => $pm_full->last_reply_date,
                 ];
@@ -101,17 +101,17 @@ class Alert
                 if ($pm->read == 0) {
                     $pm_full = $db->get('private_messages', ['id', '=', $pm->pm_id])->results();
 
-                    if (! count($pm_full)) {
+                    if (!count($pm_full)) {
                         continue;
                     } else {
                         $pm_full = $pm_full[0];
                     }
 
                     $unread[] = [
-                        'id' => $pm_full->id,
-                        'title' => Output::getClean($pm_full->title),
-                        'created' => $pm_full->created,
-                        'author_id' => $pm_full->author_id,
+                        'id'              => $pm_full->id,
+                        'title'           => Output::getClean($pm_full->title),
+                        'created'         => $pm_full->created,
+                        'author_id'       => $pm_full->author_id,
                         'last_reply_user' => $pm_full->last_reply_user,
                         'last_reply_date' => $pm_full->last_reply_date,
                     ];

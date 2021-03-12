@@ -121,7 +121,7 @@ abstract class TemplateBase
     {
         $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
-            'TEMPLATE_JS' => $this->getJS(),
+            'TEMPLATE_JS'  => $this->getJS(),
         ]);
         $smarty->display($template);
     }
@@ -130,7 +130,7 @@ abstract class TemplateBase
     {
         $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
-            'TEMPLATE_JS' => $this->getJS(),
+            'TEMPLATE_JS'  => $this->getJS(),
         ]);
 
         return $smarty->fetch($template);

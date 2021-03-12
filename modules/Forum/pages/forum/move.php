@@ -16,13 +16,13 @@ require_once ROOT_PATH.'/core/templates/frontend_init.php';
 require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 
-if (! isset($_GET['tid']) || ! is_numeric($_GET['tid'])) {
+if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     exit();
 } else {
     $topic_id = $_GET['tid'];
     $topic = $queries->getWhere('topics', ['id', '=', $topic_id]);
-    if (! count($topic)) {
+    if (!count($topic)) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
         exit();
     }
@@ -42,7 +42,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 
             // Ensure forum we're moving to exists
             $forum_moving_to = $queries->getWhere('forums', ['id', '=', Input::get('forum')]);
-            if (! count($forum_moving_to)) {
+            if (!count($forum_moving_to)) {
                 Redirect::to(URL::build('/forum'));
                 exit();
             }
@@ -91,7 +91,7 @@ $template_forums = [];
 
 $categories = $queries->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC');
 foreach ($categories as $category) {
-    if (! $forum->forumExist($category->id, $user->getAllGroupIds())) {
+    if (!$forum->forumExist($category->id, $user->getAllGroupIds())) {
         continue;
     }
 
@@ -106,7 +106,7 @@ foreach ($categories as $category) {
     if ($forums->count()) {
         $forums = $forums->results();
         foreach ($forums as $item) {
-            if (! $forum->forumExist($item->id, $user->getAllGroupIds())) {
+            if (!$forum->forumExist($item->id, $user->getAllGroupIds())) {
                 continue;
             }
 
@@ -132,14 +132,14 @@ foreach ($categories as $category) {
 
 // Assign Smarty variables
 $smarty->assign([
-    'MOVE_TOPIC' => $forum_language->get('forum', 'move_topic'),
-    'MOVE_TO' => $forum_language->get('forum', 'move_topic_to'),
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'CANCEL' => $language->get('general', 'cancel'),
+    'MOVE_TOPIC'     => $forum_language->get('forum', 'move_topic'),
+    'MOVE_TO'        => $forum_language->get('forum', 'move_topic_to'),
+    'TOKEN'          => Token::get(),
+    'SUBMIT'         => $language->get('general', 'submit'),
+    'CANCEL'         => $language->get('general', 'cancel'),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/'.$topic->id),
-    'FORUMS' => $template_forums,
+    'CANCEL_LINK'    => URL::build('/forum/topic/'.$topic->id),
+    'FORUMS'         => $template_forums,
 ]);
 
 // Load modules + template

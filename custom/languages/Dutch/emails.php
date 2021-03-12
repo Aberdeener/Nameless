@@ -13,7 +13,7 @@ $language = [
 
     // General Options
     'greeting' => 'Hoi,',
-    'thanks' => 'Nogmaals bedankt,',
+    'thanks'   => 'Nogmaals bedankt,',
 
     // Registration Email
     'register_subject' => 'Controleer account',

@@ -90,7 +90,7 @@ class Forum_Module extends Module
 
         // Add link to navbar
         $cache->setCache('navbar_order');
-        if (! $cache->isCached('forum_order')) {
+        if (!$cache->isCached('forum_order')) {
             $forum_order = 2;
             $cache->store('forum_order', 2);
         } else {
@@ -98,7 +98,7 @@ class Forum_Module extends Module
         }
 
         $cache->setCache('navbar_icons');
-        if (! $cache->isCached('forum_icon')) {
+        if (!$cache->isCached('forum_icon')) {
             $icon = '';
         } else {
             $icon = $cache->retrieve('forum_icon');
@@ -126,7 +126,7 @@ class Forum_Module extends Module
                 $post_count = count($post_count);
                 $smarty->assign('LOGGED_IN_USER_FORUM', [
                     'topic_count' => $topic_count,
-                    'post_count' => $post_count,
+                    'post_count'  => $post_count,
                 ]);
             }
 
@@ -143,14 +143,14 @@ class Forum_Module extends Module
         } elseif (defined('BACK_END')) {
             if ($user->hasPermission('admincp.forums')) {
                 $cache->setCache('panel_sidebar');
-                if (! $cache->isCached('forum_order')) {
+                if (!$cache->isCached('forum_order')) {
                     $order = 12;
                     $cache->store('forum_order', 12);
                 } else {
                     $order = $cache->retrieve('forum_order');
                 }
 
-                if (! $cache->isCached('forum_icon')) {
+                if (!$cache->isCached('forum_icon')) {
                     $icon = '<i class="nav-icon fas fa-comments"></i>';
                     $cache->store('forum_icon', $icon);
                 } else {
@@ -160,7 +160,7 @@ class Forum_Module extends Module
                 $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
                 $navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order + 0.1, $icon);
 
-                if (! $cache->isCached('forum_label_icon')) {
+                if (!$cache->isCached('forum_label_icon')) {
                     $icon = '<i class="nav-icon fas fa-tags"></i>';
                     $cache->store('forum_label_icon', $icon);
                 } else {
@@ -217,11 +217,11 @@ class Forum_Module extends Module
                     $start = strtotime($start);
                     $end = strtotime(date('d M Y'));
                     while ($start <= $end) {
-                        if (! isset($output['_'.$start]['topics'])) {
+                        if (!isset($output['_'.$start]['topics'])) {
                             $output['_'.$start]['topics'] = 0;
                         }
 
-                        if (! isset($output['_'.$start]['posts'])) {
+                        if (!isset($output['_'.$start]['posts'])) {
                             $output['_'.$start]['posts'] = 0;
                         }
 

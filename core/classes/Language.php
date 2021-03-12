@@ -20,7 +20,7 @@ class Language
     //			$module (string)			- contains the path of the language files for custom modules (optional)
     public function __construct($module = null, $active_language = null)
     {
-        if (! $active_language) {
+        if (!$active_language) {
             // No active language set, default to EnglishUK
             $this->_activeLanguage = 'EnglishUK';
         } else {
@@ -28,13 +28,13 @@ class Language
         }
 
         // Require file
-        if (! $module || ($module && $module == 'core')) {
+        if (!$module || ($module && $module == 'core')) {
             $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage]);
             $this->_module = 'Core';
         } else {
             $path = str_replace('/', DIRECTORY_SEPARATOR, $module).DIRECTORY_SEPARATOR.$this->_activeLanguage;
 
-            if (! is_dir($path)) {
+            if (!is_dir($path)) {
                 $path = str_replace('/', DIRECTORY_SEPARATOR, $module).DIRECTORY_SEPARATOR.'EnglishUK';
             }
 
@@ -48,13 +48,13 @@ class Language
             require $path.DIRECTORY_SEPARATOR.'version.php';
 
             if (isset($language_html)) {
-                if (! defined('HTML_LANG')) {
+                if (!defined('HTML_LANG')) {
                     define('HTML_LANG', $language_html);
                 }
             }
 
             if (isset($language_rtl)) {
-                if (! defined('HTML_RTL')) {
+                if (!defined('HTML_RTL')) {
                     define('HTML_RTL', $language_rtl);
                 }
             }
@@ -68,10 +68,10 @@ class Language
     public function get($file, $term, $number = null)
     {
         // Ensure the file exists + term is set
-        if (! is_file($this->_activeLanguageDirectory.DIRECTORY_SEPARATOR.$file.'.php')) {
+        if (!is_file($this->_activeLanguageDirectory.DIRECTORY_SEPARATOR.$file.'.php')) {
             if ($this->_activeLanguage != 'EnglishUK') {
                 if (is_file(rtrim($this->_activeLanguageDirectory, $this->_activeLanguage).DIRECTORY_SEPARATOR.'EnglishUK'.DIRECTORY_SEPARATOR.$file.'.php')) {
-                    if (! isset($this->_activeLanguageEntries[$file])) {
+                    if (!isset($this->_activeLanguageEntries[$file])) {
                         require rtrim($this->_activeLanguageDirectory, $this->_activeLanguage).DIRECTORY_SEPARATOR.'EnglishUK'.DIRECTORY_SEPARATOR.$file.'.php';
                         $this->_activeLanguageEntries[$file] = $language;
                     }
@@ -82,7 +82,7 @@ class Language
                 exit('Error loading language file '.Output::getClean($file).'.php in '.($this->_module == 'Core' ? 'Core' : $this->_module));
             }
         } else {
-            if (! isset($this->_activeLanguageEntries[$file])) {
+            if (!isset($this->_activeLanguageEntries[$file])) {
                 require $this->_activeLanguageDirectory.DIRECTORY_SEPARATOR.$file.'.php';
                 $this->_activeLanguageEntries[$file] = $language;
             }

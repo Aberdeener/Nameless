@@ -80,14 +80,14 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
@@ -118,7 +118,7 @@ $allowed_exts = ['gif', 'png', 'jpg', 'jpeg'];
 if (count($images)) {
     foreach ($images as $image) {
         $ext = pathinfo($image, PATHINFO_EXTENSION);
-        if (! in_array($ext, $allowed_exts)) {
+        if (!in_array($ext, $allowed_exts)) {
             continue;
         }
 
@@ -127,35 +127,35 @@ if (count($images)) {
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'AVATARS' => $language->get('admin', 'avatars'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'CUSTOM_AVATARS' => $language->get('admin', 'allow_custom_avatars'),
-    'CUSTOM_AVATARS_VALUE' => $custom_avatars,
-    'DEFAULT_AVATAR' => $language->get('admin', 'default_avatar'),
-    'DEFAULT_AVATAR_VALUE' => $default_avatar_type,
-    'MINECRAFT_AVATAR' => $language->get('admin', 'minecraft_avatar'),
-    'CUSTOM_AVATAR' => $language->get('admin', 'custom_avatar'),
-    'MINECRAFT_AVATAR_SOURCE' => $language->get('admin', 'minecraft_avatar_source'),
-    'MINECRAFT_AVATAR_VALUES' => ['crafatar' => 'crafatar.com', 'cravatar' => 'cravatar.eu', 'mc-heads' => 'mc-heads.net', 'minotar' => 'minotar.net', 'visage' => 'visage.surgeplay.com', 'nameless' => $language->get('admin', 'built_in_avatars')],
-    'MINECRAFT_AVATAR_VALUE' => $mc_avatar_source,
-    'MINECRAFT_AVATAR_PERSPECTIVE' => $language->get('admin', 'minecraft_avatar_perspective'),
+    'PARENT_PAGE'                        => PARENT_PAGE,
+    'DASHBOARD'                          => $language->get('admin', 'dashboard'),
+    'CONFIGURATION'                      => $language->get('admin', 'configuration'),
+    'AVATARS'                            => $language->get('admin', 'avatars'),
+    'PAGE'                               => PANEL_PAGE,
+    'TOKEN'                              => Token::get(),
+    'SUBMIT'                             => $language->get('general', 'submit'),
+    'CUSTOM_AVATARS'                     => $language->get('admin', 'allow_custom_avatars'),
+    'CUSTOM_AVATARS_VALUE'               => $custom_avatars,
+    'DEFAULT_AVATAR'                     => $language->get('admin', 'default_avatar'),
+    'DEFAULT_AVATAR_VALUE'               => $default_avatar_type,
+    'MINECRAFT_AVATAR'                   => $language->get('admin', 'minecraft_avatar'),
+    'CUSTOM_AVATAR'                      => $language->get('admin', 'custom_avatar'),
+    'MINECRAFT_AVATAR_SOURCE'            => $language->get('admin', 'minecraft_avatar_source'),
+    'MINECRAFT_AVATAR_VALUES'            => ['crafatar' => 'crafatar.com', 'cravatar' => 'cravatar.eu', 'mc-heads' => 'mc-heads.net', 'minotar' => 'minotar.net', 'visage' => 'visage.surgeplay.com', 'nameless' => $language->get('admin', 'built_in_avatars')],
+    'MINECRAFT_AVATAR_VALUE'             => $mc_avatar_source,
+    'MINECRAFT_AVATAR_PERSPECTIVE'       => $language->get('admin', 'minecraft_avatar_perspective'),
     'MINECRAFT_AVATAR_PERSPECTIVE_VALUE' => $mc_avatar_perspective,
-    'HEAD' => $language->get('admin', 'head'),
-    'FACE' => $language->get('admin', 'face'),
-    'BUST' => $language->get('admin', 'bust'),
-    'SELECT_DEFAULT_AVATAR' => $language->get('admin', 'select_default_avatar'),
-    'IMAGES' => $template_images,
-    'NO_AVATARS' => $language->get('admin', 'no_avatars_available'),
-    'DEFAULT_AVATAR_IMAGE' => $default_avatar_image,
-    'UPLOAD_NEW_IMAGE' => $language->get('admin', 'upload_new_image'),
-    'UPLOAD_FORM_ACTION' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/includes/image_upload.php',
-    'DRAG_FILES_HERE' => $language->get('admin', 'drag_files_here'),
-    'CLOSE' => $language->get('general', 'close'),
+    'HEAD'                               => $language->get('admin', 'head'),
+    'FACE'                               => $language->get('admin', 'face'),
+    'BUST'                               => $language->get('admin', 'bust'),
+    'SELECT_DEFAULT_AVATAR'              => $language->get('admin', 'select_default_avatar'),
+    'IMAGES'                             => $template_images,
+    'NO_AVATARS'                         => $language->get('admin', 'no_avatars_available'),
+    'DEFAULT_AVATAR_IMAGE'               => $default_avatar_image,
+    'UPLOAD_NEW_IMAGE'                   => $language->get('admin', 'upload_new_image'),
+    'UPLOAD_FORM_ACTION'                 => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/includes/image_upload.php',
+    'DRAG_FILES_HERE'                    => $language->get('admin', 'drag_files_here'),
+    'CLOSE'                              => $language->get('general', 'close'),
 ]);
 
 $page_load = microtime(true) - $start;

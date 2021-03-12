@@ -60,7 +60,7 @@ if (Input::exists()) {
                 if (isset($_POST['db_password'])) {
                     $password = $_POST['db_password'];
                 } else {
-                    if (isset($authme_db->password) && ! empty($authme_db->password)) {
+                    if (isset($authme_db->password) && !empty($authme_db->password)) {
                         $password = $authme_db->password;
                     } else {
                         $password = '';
@@ -69,13 +69,13 @@ if (Input::exists()) {
 
                 $result = [
                     'address' => Output::getClean(Input::get('db_address')),
-                    'port' => (isset($_POST['db_port']) && ! empty($_POST['db_port']) && is_numeric($_POST['db_port'])) ? $_POST['db_port'] : 3306,
-                    'db' => Output::getClean(Input::get('db_name')),
-                    'user' => Output::getClean(Input::get('db_username')),
-                    'pass' => $password,
-                    'table' => Output::getClean(Input::get('db_table')),
-                    'hash' => Output::getClean(Input::get('hashing_algorithm')),
-                    'sync' => Input::get('authme_sync'),
+                    'port'    => (isset($_POST['db_port']) && !empty($_POST['db_port']) && is_numeric($_POST['db_port'])) ? $_POST['db_port'] : 3306,
+                    'db'      => Output::getClean(Input::get('db_name')),
+                    'user'    => Output::getClean(Input::get('db_username')),
+                    'pass'    => $password,
+                    'table'   => Output::getClean(Input::get('db_table')),
+                    'hash'    => Output::getClean(Input::get('hashing_algorithm')),
+                    'sync'    => Input::get('authme_sync'),
                 ];
 
                 $cache->setCache('authme_cache');
@@ -99,14 +99,14 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
@@ -121,34 +121,34 @@ if ($authme_enabled == '1') {
     $authme_db = json_decode($authme_db[0]->value);
 
     $smarty->assign([
-        'AUTHME_DB_DETAILS' => ($authme_db ? $authme_db : []),
-        'AUTHME_HASH_ALGORITHM' => $language->get('admin', 'authme_hash_algorithm'),
-        'AUTHME_DB_ADDRESS' => $language->get('admin', 'authme_db_address'),
-        'AUTHME_DB_PORT' => $language->get('admin', 'authme_db_port'),
-        'AUTHME_DB_NAME' => $language->get('admin', 'authme_db_name'),
-        'AUTHME_DB_USER' => $language->get('admin', 'authme_db_user'),
-        'AUTHME_DB_PASSWORD' => $language->get('admin', 'authme_db_password'),
+        'AUTHME_DB_DETAILS'         => ($authme_db ? $authme_db : []),
+        'AUTHME_HASH_ALGORITHM'     => $language->get('admin', 'authme_hash_algorithm'),
+        'AUTHME_DB_ADDRESS'         => $language->get('admin', 'authme_db_address'),
+        'AUTHME_DB_PORT'            => $language->get('admin', 'authme_db_port'),
+        'AUTHME_DB_NAME'            => $language->get('admin', 'authme_db_name'),
+        'AUTHME_DB_USER'            => $language->get('admin', 'authme_db_user'),
+        'AUTHME_DB_PASSWORD'        => $language->get('admin', 'authme_db_password'),
         'AUTHME_DB_PASSWORD_HIDDEN' => $language->get('admin', 'authme_db_password_hidden'),
-        'AUTHME_DB_TABLE' => $language->get('admin', 'authme_db_table'),
-        'AUTHME_PASSWORD_SYNC' => $language->get('admin', 'authme_password_sync'),
+        'AUTHME_DB_TABLE'           => $language->get('admin', 'authme_db_table'),
+        'AUTHME_PASSWORD_SYNC'      => $language->get('admin', 'authme_password_sync'),
         'AUTHME_PASSWORD_SYNC_HELP' => $language->get('admin', 'authme_password_sync_help'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'INTEGRATIONS' => $language->get('admin', 'integrations'),
-    'MINECRAFT' => $language->get('admin', 'minecraft'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'AUTHME_INFO' => $language->get('admin', 'authme_integration_info'),
-    'INFO' => $language->get('general', 'info'),
-    'ENABLE_AUTHME' => $language->get('admin', 'enable_authme'),
+    'PARENT_PAGE'         => PARENT_PAGE,
+    'DASHBOARD'           => $language->get('admin', 'dashboard'),
+    'INTEGRATIONS'        => $language->get('admin', 'integrations'),
+    'MINECRAFT'           => $language->get('admin', 'minecraft'),
+    'PAGE'                => PANEL_PAGE,
+    'TOKEN'               => Token::get(),
+    'SUBMIT'              => $language->get('general', 'submit'),
+    'AUTHME_INFO'         => $language->get('admin', 'authme_integration_info'),
+    'INFO'                => $language->get('general', 'info'),
+    'ENABLE_AUTHME'       => $language->get('admin', 'enable_authme'),
     'ENABLE_AUTHME_VALUE' => ($authme_enabled == '1'),
-    'AUTHME' => $language->get('admin', 'authme_integration'),
-    'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
+    'AUTHME'              => $language->get('admin', 'authme_integration'),
+    'MINECRAFT_LINK'      => URL::build('/panel/minecraft'),
 ]);
 
 $page_load = microtime(true) - $start;

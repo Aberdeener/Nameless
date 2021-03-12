@@ -19,7 +19,7 @@ class Paginator
     public function __construct($class = [])
     {
         // Constructor
-        if (! count($class)) {
+        if (!count($class)) {
             $this->_class = ['ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link'];
         } else {
             $this->_class = $class;
@@ -34,7 +34,7 @@ class Paginator
         $return = [];
 
         for ($i = ($this->_page != 1 ? (($this->_page - 1) * $limit) : 0); $i < ($this->_page * $limit); $i++) {
-            if (! isset($data[$i])) {
+            if (!isset($data[$i])) {
                 break;
             }
 
@@ -59,7 +59,7 @@ class Paginator
         $start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;
         $end = (($this->_page + $links) < $last) ? $this->_page + $links : $last;
 
-        if (isset($this->_class['div']) && ! empty($this->_class['div'])) {
+        if (isset($this->_class['div']) && !empty($this->_class['div'])) {
             $html = '<div class="'.$this->_class['div'].'">';
         } else {
             $html = '<ul class="'.$this->_class['ul'].'">';
@@ -123,7 +123,7 @@ class Paginator
             $html .= '">&raquo;</a></li>';
         }
 
-        if (isset($this->_class['div']) && ! empty($this->_class['div'])) {
+        if (isset($this->_class['div']) && !empty($this->_class['div'])) {
             $html .= '</div>';
         } else {
             $html .= '</ul>';

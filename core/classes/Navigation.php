@@ -48,20 +48,20 @@ class Navigation
         if ($location == 'top') {
             // Add to top navbar
             $this->_topNavbar[$name] = [
-                'title' => $title,
-                'link' => $link,
+                'title'  => $title,
+                'link'   => $link,
                 'target' => $target,
-                'order' => $order,
-                'icon' => $icon,
+                'order'  => $order,
+                'icon'   => $icon,
             ];
         } else {
             // Add to footer navigation
             $this->_footerNav[$name] = [
-                'title' => $title,
-                'link' => $link,
+                'title'  => $title,
+                'link'   => $link,
                 'target' => $target,
-                'order' => $order,
-                'icon' => $icon,
+                'order'  => $order,
+                'icon'   => $icon,
             ];
         }
     }
@@ -78,20 +78,20 @@ class Navigation
         if ($location == 'top') {
             // Navbar
             $this->_topNavbar[$name] = [
-                'type' => 'dropdown',
+                'type'  => 'dropdown',
                 'title' => $title,
                 'items' => [],
                 'order' => $order,
-                'icon' => $icon,
+                'icon'  => $icon,
             ];
         } else {
             // Footer
             $this->_footerNav[$name] = [
-                'type' => 'dropdown',
+                'type'  => 'dropdown',
                 'title' => $title,
                 'items' => [],
                 'order' => $order,
-                'icon' => $icon,
+                'icon'  => $icon,
             ];
         }
     }
@@ -111,20 +111,20 @@ class Navigation
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
             // Navbar
             $this->_topNavbar[$dropdown]['items'][$name] = [
-                'title' => $title,
-                'link' => $link,
+                'title'  => $title,
+                'link'   => $link,
                 'target' => $target,
-                'icon' => $icon,
-                'order' => $order,
+                'icon'   => $icon,
+                'order'  => $order,
             ];
         } elseif (isset($this->_footerNav[$dropdown])) {
             // Footer
             $this->_footerNav[$dropdown]['items'][$name] = [
-                'title' => $title,
-                'link' => $link,
+                'title'  => $title,
+                'link'   => $link,
                 'target' => $target,
-                'icon' => $icon,
-                'order' => $order,
+                'icon'   => $icon,
+                'order'  => $order,
             ];
         }
 

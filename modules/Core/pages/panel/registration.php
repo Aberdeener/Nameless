@@ -70,9 +70,9 @@ if (Input::exists()) {
 
             // reCAPTCHA type
             $captcha_type = $queries->getWhere('settings', ['name', '=', 'recaptcha_type']);
-            if (! count($captcha_type)) {
+            if (!count($captcha_type)) {
                 $queries->create('settings', [
-                    'name' => 'recaptcha_type',
+                    'name'  => 'recaptcha_type',
                     'value' => Input::get('captcha_type'),
                 ]);
             } else {
@@ -136,7 +136,7 @@ if (Input::exists()) {
             $cache->store('validate_action', ['action' => $validation_action, 'group' => $_POST['promote_group']]);
         }
 
-        if (! count($errors)) {
+        if (!count($errors)) {
             $success = $language->get('admin', 'registration_settings_updated');
         }
     } else {
@@ -150,14 +150,14 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
@@ -189,36 +189,36 @@ if (isset($validation_group['group'])) {
 }
 
 $smarty->assign([
-    'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
-    'EMAIL_VERIFICATION_VALUE' => $emails,
-    'CAPTCHA_GENERAL' => $language->get('admin', 'captcha_general'),
-    'CAPTCHA_GENERAL_VALUE' => $captcha_id[0]->value,
-    'CAPTCHA_LOGIN' => $language->get('admin', 'captcha_login'),
-    'CAPTCHA_LOGIN_VALUE' => $captcha_login[0]->value,
-    'CAPTCHA_TYPE' => $language->get('admin', 'captcha_type'),
-    'CAPTCHA_TYPE_VALUE' => count($captcha_type) ? $captcha_type[0]->value : 'reCaptcha',
-    'CAPTCHA_SITE_KEY' => $language->get('admin', 'captcha_site_key'),
-    'CAPTCHA_SITE_KEY_VALUE' => Output::getClean($captcha_key[0]->value),
-    'CAPTCHA_SECRET_KEY' => $language->get('admin', 'captcha_secret_key'),
-    'CAPTCHA_SECRET_KEY_VALUE' => Output::getClean($captcha_secret[0]->value),
-    'REGISTRATION_DISABLED_MESSAGE' => $language->get('admin', 'registration_disabled_message'),
+    'EMAIL_VERIFICATION'                  => $language->get('admin', 'email_verification'),
+    'EMAIL_VERIFICATION_VALUE'            => $emails,
+    'CAPTCHA_GENERAL'                     => $language->get('admin', 'captcha_general'),
+    'CAPTCHA_GENERAL_VALUE'               => $captcha_id[0]->value,
+    'CAPTCHA_LOGIN'                       => $language->get('admin', 'captcha_login'),
+    'CAPTCHA_LOGIN_VALUE'                 => $captcha_login[0]->value,
+    'CAPTCHA_TYPE'                        => $language->get('admin', 'captcha_type'),
+    'CAPTCHA_TYPE_VALUE'                  => count($captcha_type) ? $captcha_type[0]->value : 'reCaptcha',
+    'CAPTCHA_SITE_KEY'                    => $language->get('admin', 'captcha_site_key'),
+    'CAPTCHA_SITE_KEY_VALUE'              => Output::getClean($captcha_key[0]->value),
+    'CAPTCHA_SECRET_KEY'                  => $language->get('admin', 'captcha_secret_key'),
+    'CAPTCHA_SECRET_KEY_VALUE'            => Output::getClean($captcha_secret[0]->value),
+    'REGISTRATION_DISABLED_MESSAGE'       => $language->get('admin', 'registration_disabled_message'),
     'REGISTRATION_DISABLED_MESSAGE_VALUE' => Output::getPurified(Output::getDecoded($registration_disabled_message[0]->value)),
-    'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
-    'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
-    'INFO' => $language->get('general', 'info'),
-    'GROUPS' => $queries->getWhere('groups', ['staff', '=', 0]),
-    'VALIDATION_GROUP' => $validation_group,
+    'VALIDATE_PROMOTE_GROUP'              => $language->get('admin', 'validation_promote_group'),
+    'VALIDATE_PROMOTE_GROUP_INFO'         => $language->get('admin', 'validation_promote_group_info'),
+    'INFO'                                => $language->get('general', 'info'),
+    'GROUPS'                              => $queries->getWhere('groups', ['staff', '=', 0]),
+    'VALIDATION_GROUP'                    => $validation_group,
 ]);
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'REGISTRATION' => $language->get('admin', 'registration'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'ENABLE_REGISTRATION' => $language->get('admin', 'enable_registration'),
+    'PARENT_PAGE'          => PARENT_PAGE,
+    'DASHBOARD'            => $language->get('admin', 'dashboard'),
+    'CONFIGURATION'        => $language->get('admin', 'configuration'),
+    'REGISTRATION'         => $language->get('admin', 'registration'),
+    'PAGE'                 => PANEL_PAGE,
+    'TOKEN'                => Token::get(),
+    'SUBMIT'               => $language->get('general', 'submit'),
+    'ENABLE_REGISTRATION'  => $language->get('admin', 'enable_registration'),
     'REGISTRATION_ENABLED' => $registration_enabled,
 ]);
 

@@ -27,11 +27,11 @@ class Pages
     public function add($module, $url, $file, $name = '', $widgets = false)
     {
         $this->_pages[$url] = [
-            'module' => $module,
-            'file' => $file,
-            'name' => $name,
+            'module'  => $module,
+            'file'    => $file,
+            'name'    => $name,
             'widgets' => $widgets,
-            'id' => $this->_id++,
+            'id'      => $this->_id++,
         ];
     }
 
@@ -42,12 +42,12 @@ class Pages
     public function addCustom($url, $name, $widgets = false)
     {
         $this->_pages[$url] = [
-            'module' => 'Core',
-            'file' => 'custom.php',
-            'name' => $name,
+            'module'  => 'Core',
+            'file'    => 'custom.php',
+            'name'    => $name,
             'widgets' => $widgets,
-            'custom' => true,
-            'id' => $this->_id++,
+            'custom'  => true,
+            'id'      => $this->_id++,
         ];
     }
 
@@ -64,7 +64,7 @@ class Pages
     {
         $ret = [];
         foreach ($this->_pages as $page) {
-            if (! empty($page['name']) && $page['widgets'] === true) {
+            if (!empty($page['name']) && $page['widgets'] === true) {
                 $ret[$page['module']][$page['name']] = true;
             }
         }
@@ -76,7 +76,7 @@ class Pages
     public function registerSitemapMethod($file, $method)
     {
         if ($file && $method) {
-            if (! isset($this->_sm_methods[$file])) {
+            if (!isset($this->_sm_methods[$file])) {
                 $this->_sm_methods[$file] = [];
             }
 

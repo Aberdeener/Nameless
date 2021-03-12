@@ -26,11 +26,11 @@ if (count($dashboard_graphs)) {
     $i = 0;
     foreach ($dashboard_graphs as $key => $dashboard_graph) {
         $graph = [
-            'id' => $i++,
-            'title' => $key,
+            'id'       => $i++,
+            'title'    => $key,
             'datasets' => [],
-            'axes' => [],
-            'keys' => [],
+            'axes'     => [],
+            'keys'     => [],
         ];
 
         foreach ($dashboard_graph['datasets'] as $dskey => $dataset) {
@@ -40,8 +40,8 @@ if (count($dashboard_graphs)) {
             $axis_side = (isset($dataset['axis_side']) ? $dataset['axis_side'] : 'left');
 
             $graph['datasets'][$dskey] = [
-                'label' => ${$varname}->get($label[1], $label[2]),
-                'axis' => $axis,
+                'label'  => ${$varname}->get($label[1], $label[2]),
+                'axis'   => $axis,
                 'colour' => (isset($dataset['colour']) ? $dataset['colour'] : '#000'),
             ];
 
@@ -53,7 +53,7 @@ if (count($dashboard_graphs)) {
         foreach ($dashboard_graph as $date => $values) {
             $date = intval(str_replace('_', '', $date));
 
-            if (! array_key_exists($date, $graph['keys'])) {
+            if (!array_key_exists($date, $graph['keys'])) {
                 $graph['keys'][$date] = date('Y-m-d', $date);
             }
 
@@ -77,18 +77,18 @@ if ($cache->isCached('news')) {
 
     $news = [];
 
-    if (! isset($news_query->error) && count($news_query)) {
+    if (!isset($news_query->error) && count($news_query)) {
         $timeago = new Timeago();
 
         $i = 0;
 
         foreach ($news_query as $item) {
             $news[] = [
-                'title' => Output::getClean($item->title),
-                'date' => Output::getClean($item->date),
+                'title'         => Output::getClean($item->title),
+                'date'          => Output::getClean($item->date),
                 'date_friendly' => $timeago->inWords($item->date, $language->getTimeLanguage()),
-                'author' => Output::getClean($item->author),
-                'url' => Output::getClean($item->url),
+                'author'        => Output::getClean($item->author),
+                'url'           => Output::getClean($item->url),
             ];
 
             if (++$i == 5) {
@@ -100,7 +100,7 @@ if ($cache->isCached('news')) {
     $cache->store('news', $news, 3600);
 }
 
-if (! count($news)) {
+if (!count($news)) {
     $smarty->assign('NO_NEWS', $language->get('admin', 'unable_to_retrieve_nameless_news'));
 } else {
     $smarty->assign('NEWS', $news);
@@ -116,54 +116,54 @@ if ($user->hasPermission('admincp.core.debugging')) {
     } else {
         $compat_success[] = 'PHP '.phpversion();
     }
-    if (! extension_loaded('gd')) {
+    if (!extension_loaded('gd')) {
         $compat_errors[] = 'PHP GD';
     } else {
         $compat_success[] = 'PHP GD '.phpversion('gd');
     }
-    if (! extension_loaded('mbstring')) {
+    if (!extension_loaded('mbstring')) {
         $compat_errors[] = 'PHP mbstring';
     } else {
         $compat_success[] = 'PHP mbstring '.phpversion('mbstring');
     }
-    if (! extension_loaded('PDO')) {
+    if (!extension_loaded('PDO')) {
         $compat_errors[] = 'PHP PDO';
     } else {
         $compat_success[] = 'PHP PDO '.phpversion('PDO');
     }
-    if (! function_exists('curl_version')) {
+    if (!function_exists('curl_version')) {
         $compat_errors[] = 'PHP cURL';
     } else {
         $compat_success[] = 'PHP cURL '.phpversion('curl');
     }
-    if (! extension_loaded('xml')) {
+    if (!extension_loaded('xml')) {
         $compat_errors[] = 'PHP XML';
     } else {
         $compat_success[] = 'PHP XML '.phpversion('xml');
     }
-    if (! function_exists('exif_imagetype')) {
+    if (!function_exists('exif_imagetype')) {
         $compat_errors[] = 'PHP EXIF';
     } else {
         $compat_success[] = 'PHP EXIF '.phpversion('exif');
     }
-    if (! extension_loaded('mysql') && ! extension_loaded('mysqlnd')) {
+    if (!extension_loaded('mysql') && !extension_loaded('mysqlnd')) {
         $compat_errors[] = 'PHP MySQL';
     } else {
         $compat_success[] = 'PHP MySQL '.(extension_loaded('mysql') ? phpversion('mysql') : substr(phpversion('mysqlnd'), 0, strpos(phpversion('mysqlnd'), ' - ')));
     }
 
     // Permissions
-    if (! is_writable(ROOT_PATH.'/core/config.php')) {
+    if (!is_writable(ROOT_PATH.'/core/config.php')) {
         $compat_errors[] = $language->get('installer', 'config_writable');
     } else {
         $compat_success[] = $language->get('installer', 'config_writable');
     }
-    if (! is_writable(ROOT_PATH.'/cache')) {
+    if (!is_writable(ROOT_PATH.'/cache')) {
         $compat_errors[] = $language->get('installer', 'cache_writable');
     } else {
         $compat_success[] = $language->get('installer', 'cache_writable');
     }
-    if (! is_writable(ROOT_PATH.'/cache/templates_c')) {
+    if (!is_writable(ROOT_PATH.'/cache/templates_c')) {
         $compat_errors[] = $language->get('installer', 'template_cache_writable');
     } else {
         $compat_success[] = $language->get('installer', 'template_cache_writable');
@@ -171,8 +171,8 @@ if ($user->hasPermission('admincp.core.debugging')) {
 
     $smarty->assign([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
-        'COMPAT_SUCCESS' => $compat_success,
-        'COMPAT_ERRORS' => $compat_errors,
+        'COMPAT_SUCCESS'       => $compat_success,
+        'COMPAT_ERRORS'        => $compat_errors,
     ]);
 }
 
@@ -187,18 +187,18 @@ if (is_dir(ROOT_PATH.'/modules/Core/pages/admin')) {
 }
 
 $smarty->assign([
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'DASHBOARD_STATS' => CollectionManager::getEnabledCollection('dashboard_stats'),
-    'PAGE' => PANEL_PAGE,
-    'PARENT_PAGE' => PANEL_PAGE,
-    'GRAPHS' => $graphs,
-    'STATISTICS' => $language->get('admin', 'statistics'),
-    'NAMELESS_NEWS' => $language->get('admin', 'nameless_news'),
+    'DASHBOARD'          => $language->get('admin', 'dashboard'),
+    'DASHBOARD_STATS'    => CollectionManager::getEnabledCollection('dashboard_stats'),
+    'PAGE'               => PANEL_PAGE,
+    'PARENT_PAGE'        => PANEL_PAGE,
+    'GRAPHS'             => $graphs,
+    'STATISTICS'         => $language->get('admin', 'statistics'),
+    'NAMELESS_NEWS'      => $language->get('admin', 'nameless_news'),
     'CONFIRM_LEAVE_SITE' => $language->get('admin', 'confirm_leave_site'),
-    'YES' => $language->get('general', 'yes'),
-    'NO' => $language->get('general', 'no'),
-    'MAIN_ITEMS' => CollectionManager::getEnabledCollection('dashboard_main_items'),
-    'SIDE_ITEMS' => CollectionManager::getEnabledCollection('dashboard_side_items'),
+    'YES'                => $language->get('general', 'yes'),
+    'NO'                 => $language->get('general', 'no'),
+    'MAIN_ITEMS'         => CollectionManager::getEnabledCollection('dashboard_main_items'),
+    'SIDE_ITEMS'         => CollectionManager::getEnabledCollection('dashboard_side_items'),
     // TODO: show latest git commit hash?
     'NAMELESS_VERSION' => str_replace('{x}', NAMELESS_VERSION, $language->get('admin', 'running_nameless_version')),
 ]);

@@ -65,10 +65,10 @@ class ServerStatusWidget extends WidgetBase
         if (count($server_array) >= 1) {
             $this->_smarty->assign(
                 [
-                    'SERVER' => $server_array,
-                    'ONLINE' => $this->_language->get('general', 'online'),
+                    'SERVER'  => $server_array,
+                    'ONLINE'  => $this->_language->get('general', 'online'),
                     'OFFLINE' => $this->_language->get('general', 'offline'),
-                    'IP' => $this->_language->get('general', 'ip'),
+                    'IP'      => $this->_language->get('general', 'ip'),
                     'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>'.$server_array['version'].'</strong>', $this->_language->get('general', 'version')) : null,
                 ]
             );
@@ -76,7 +76,7 @@ class ServerStatusWidget extends WidgetBase
         $this->_smarty->assign(
             [
                 'SERVER_STATUS' => $this->_language->get('general', 'server_status'),
-                'NO_SERVERS' => $this->_language->get('general', 'no_default_server'),
+                'NO_SERVERS'    => $this->_language->get('general', 'no_default_server'),
             ]
         );
         $this->_content = $this->_smarty->fetch('widgets/server_status.tpl');

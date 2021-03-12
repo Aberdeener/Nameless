@@ -17,7 +17,7 @@ define('PANEL_PAGE', 'hooks');
 $page_title = $language->get('admin', 'hooks');
 require_once ROOT_PATH.'/core/templates/backend_init.php';
 
-if (! isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     // View all hooks
 
     $hooks_query = $queries->orderAll('hooks', 'id', 'ASC');
@@ -25,23 +25,23 @@ if (! isset($_GET['action'])) {
     if (count($hooks_query)) {
         foreach ($hooks_query as $hook) {
             $hooks_array[] = [
-                'name' => Output::getClean($hook->name),
-                'url' => Output::getClean($hook->url),
-                'edit_link' => URL::build('/panel/core/hooks/', 'action=edit&id='.Output::getClean($hook->id)),
+                'name'        => Output::getClean($hook->name),
+                'url'         => Output::getClean($hook->url),
+                'edit_link'   => URL::build('/panel/core/hooks/', 'action=edit&id='.Output::getClean($hook->id)),
                 'delete_link' => URL::build('/panel/core/hooks/', 'action=delete&id='.Output::getClean($hook->id)),
             ];
         }
     }
 
     $smarty->assign([
-        'HOOKS_INFO' => $language->get('admin', 'hooks_info'),
-        'NEW_HOOK' => $language->get('admin', 'new_hook'),
-        'NEW_HOOK_LINK' => URL::build('/panel/core/hooks/', 'action=new'),
-        'HOOKS_LIST' => $hooks_array,
-        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
+        'HOOKS_INFO'          => $language->get('admin', 'hooks_info'),
+        'NEW_HOOK'            => $language->get('admin', 'new_hook'),
+        'NEW_HOOK_LINK'       => URL::build('/panel/core/hooks/', 'action=new'),
+        'HOOKS_LIST'          => $hooks_array,
+        'ARE_YOU_SURE'        => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_HOOK' => $language->get('admin', 'delete_hook'),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
+        'YES'                 => $language->get('general', 'yes'),
+        'NO'                  => $language->get('general', 'no'),
     ]);
 
     $template_file = 'core/hooks.tpl';
@@ -57,13 +57,13 @@ if (! isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'hook_name' => [
                             'required' => true,
-                            'min' => 3,
-                            'max' => 128,
+                            'min'      => 3,
+                            'max'      => 128,
                         ],
                         'hook_url' => [
                             'required' => true,
-                            'min' => 10,
-                            'max' => 2048,
+                            'min'      => 10,
+                            'max'      => 2048,
                         ],
                     ]);
 
@@ -76,9 +76,9 @@ if (! isset($_GET['action'])) {
 
                             // Save to database
                             $queries->create('hooks', [
-                                'name' => Output::getClean($_POST['hook_name']),
+                                'name'   => Output::getClean($_POST['hook_name']),
                                 'action' => Output::getClean($_POST['hook_type']),
-                                'url' => Output::getClean($_POST['hook_url']),
+                                'url'    => Output::getClean($_POST['hook_url']),
                                 'events' => json_encode($events),
                             ]);
 
@@ -110,20 +110,20 @@ if (! isset($_GET['action'])) {
 
             $smarty->assign([
                 'CREATING_NEW_HOOK' => $language->get('admin', 'creating_new_hook'),
-                'HOOK_NAME' => $language->get('admin', 'hook_name'),
-                'HOOK_URL' => $language->get('admin', 'hook_url'),
-                'HOOK_TYPE' => $language->get('admin', 'hook_type'),
-                'HOOK_EVENTS' => $language->get('admin', 'hook_events'),
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/hooks'),
-                'ALL_HOOKS' => HookHandler::getHooks(),
+                'HOOK_NAME'         => $language->get('admin', 'hook_name'),
+                'HOOK_URL'          => $language->get('admin', 'hook_url'),
+                'HOOK_TYPE'         => $language->get('admin', 'hook_type'),
+                'HOOK_EVENTS'       => $language->get('admin', 'hook_events'),
+                'BACK'              => $language->get('general', 'back'),
+                'BACK_LINK'         => URL::build('/panel/core/hooks'),
+                'ALL_HOOKS'         => HookHandler::getHooks(),
             ]);
 
             $template_file = 'core/hooks_new.tpl';
             break;
         case 'edit':
             // Edit hook
-            if (! isset($_GET['id']) || ! is_numeric($_GET['id'])) {
+            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 // Check the hook ID is valid
                 Redirect::to(URL::build('/panel/forms'));
                 exit();
@@ -131,7 +131,7 @@ if (! isset($_GET['action'])) {
 
             // Does the hook exist?
             $hook = $queries->getWhere('hooks', ['id', '=', $_GET['id']]);
-            if (! count($hook)) {
+            if (!count($hook)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/hooks'));
                 exit();
@@ -146,13 +146,13 @@ if (! isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'hook_name' => [
                             'required' => true,
-                            'min' => 3,
-                            'max' => 128,
+                            'min'      => 3,
+                            'max'      => 128,
                         ],
                         'hook_url' => [
                             'required' => true,
-                            'min' => 10,
-                            'max' => 2048,
+                            'min'      => 10,
+                            'max'      => 2048,
                         ],
                     ]);
 
@@ -165,9 +165,9 @@ if (! isset($_GET['action'])) {
 
                             // Save to database
                             $queries->update('hooks', $hook->id, [
-                                'name' => Output::getClean($_POST['hook_name']),
+                                'name'   => Output::getClean($_POST['hook_name']),
                                 'action' => Output::getClean($_POST['hook_type']),
-                                'url' => Output::getClean($_POST['hook_url']),
+                                'url'    => Output::getClean($_POST['hook_url']),
                                 'events' => json_encode($events),
                             ]);
 
@@ -197,25 +197,25 @@ if (! isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'EDITING_HOOK' => $language->get('admin', 'editing_hook'),
-                'HOOK_NAME' => $language->get('admin', 'hook_name'),
+                'EDITING_HOOK'    => $language->get('admin', 'editing_hook'),
+                'HOOK_NAME'       => $language->get('admin', 'hook_name'),
                 'HOOK_NAME_VALUE' => Output::getClean($hook->name),
-                'HOOK_URL' => $language->get('admin', 'hook_url'),
-                'HOOK_URL_VALUE' => Output::getClean($hook->url),
-                'HOOK_TYPE' => $language->get('admin', 'hook_type'),
+                'HOOK_URL'        => $language->get('admin', 'hook_url'),
+                'HOOK_URL_VALUE'  => Output::getClean($hook->url),
+                'HOOK_TYPE'       => $language->get('admin', 'hook_type'),
                 'HOOK_TYPE_VALUE' => Output::getClean($hook->action),
-                'HOOK_EVENTS' => $language->get('admin', 'hook_events'),
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/hooks'),
-                'ALL_HOOKS' => HookHandler::getHooks(),
-                'ENABLED_HOOKS' => json_decode($hook->events, true),
+                'HOOK_EVENTS'     => $language->get('admin', 'hook_events'),
+                'BACK'            => $language->get('general', 'back'),
+                'BACK_LINK'       => URL::build('/panel/core/hooks'),
+                'ALL_HOOKS'       => HookHandler::getHooks(),
+                'ENABLED_HOOKS'   => json_decode($hook->events, true),
             ]);
 
             $template_file = 'core/hooks_edit.tpl';
             break;
         case 'delete':
             // Delete Form
-            if (! isset($_GET['id']) || ! is_numeric($_GET['id'])) {
+            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/hooks'));
                 exit();
             }
@@ -255,30 +255,30 @@ if (Session::exists('admin_pages_error')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'NO_HOOKS' => $language->get('admin', 'no_hooks_yet'),
-    'NAME' => $language->get('admin', 'name'),
-    'LINK' => $language->get('general', 'url'),
-    'EDIT' => $language->get('general', 'edit'),
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
+    'NO_HOOKS'      => $language->get('admin', 'no_hooks_yet'),
+    'NAME'          => $language->get('admin', 'name'),
+    'LINK'          => $language->get('general', 'url'),
+    'EDIT'          => $language->get('general', 'edit'),
+    'PARENT_PAGE'   => PARENT_PAGE,
+    'DASHBOARD'     => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'HOOKS' => $language->get('admin', 'hooks'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'HOOKS'         => $language->get('admin', 'hooks'),
+    'PAGE'          => PANEL_PAGE,
+    'TOKEN'         => Token::get(),
+    'SUBMIT'        => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

@@ -10,7 +10,7 @@
  */
 
 // Definitions
-if (! defined('PATH')) {
+if (!defined('PATH')) {
     define('PATH', '/');
     define('ROOT_PATH', dirname(__FILE__));
 }
@@ -43,7 +43,7 @@ if (isset($_SESSION['installer_language'])
 // Get installation path
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
 
-if (! isset($CONFIG['installed'])) {
+if (!isset($CONFIG['installed'])) {
     if (isset($_GET['language'])) {
         // Set language
         if (is_file('custom/languages/'.$_GET['language'].'/installer.php')) {

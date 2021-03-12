@@ -60,7 +60,7 @@ class ProfilePostsWidget extends WidgetBase
                     if ($this->_user->isBlocked($post->author_id, $this->_user->data()->id)) {
                         continue;
                     }
-                    if ($post_author->isPrivateProfile() && ! $this->_user->hasPermission('profile.private.bypass')) {
+                    if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) {
                         continue;
                     }
                 } elseif ($post_author->isPrivateProfile()) {
@@ -70,15 +70,15 @@ class ProfilePostsWidget extends WidgetBase
                 $link = rtrim($post_author->getProfileURL(), '/');
 
                 $posts_array[] = [
-                    'avatar' => $post_author->getAvatar(),
-                    'username' => $post_author->getDisplayname(),
-                    'username_style' => $post_author->getGroupClass(),
-                    'content' => Util::truncate(strip_tags(Output::getDecoded($post->content)), 20),
-                    'link' => $link.'/#post-'.$post->id,
-                    'date_ago' => date('d M Y, H:i', $post->time),
-                    'user_id' => $post->author_id,
+                    'avatar'            => $post_author->getAvatar(),
+                    'username'          => $post_author->getDisplayname(),
+                    'username_style'    => $post_author->getGroupClass(),
+                    'content'           => Util::truncate(strip_tags(Output::getDecoded($post->content)), 20),
+                    'link'              => $link.'/#post-'.$post->id,
+                    'date_ago'          => date('d M Y, H:i', $post->time),
+                    'user_id'           => $post->author_id,
                     'user_profile_link' => $post_author->getProfileURL(),
-                    'ago' => $this->_timeago->inWords(date('d M Y, H:i', $post->time), $this->_language->getTimeLanguage()),
+                    'ago'               => $this->_timeago->inWords(date('d M Y, H:i', $post->time), $this->_language->getTimeLanguage()),
                 ];
             }
             $this->_cache->store('profile_posts_'.$user_id, $posts_array, 120);
@@ -90,7 +90,7 @@ class ProfilePostsWidget extends WidgetBase
         }
         $this->_smarty->assign([
             'LATEST_PROFILE_POSTS' => $this->_language->get('user', 'latest_profile_posts'),
-            'NO_PROFILE_POSTS' => $this->_language->get('user', 'no_profile_posts'),
+            'NO_PROFILE_POSTS'     => $this->_language->get('user', 'no_profile_posts'),
         ]);
         $this->_content = $this->_smarty->fetch('widgets/profile_posts.tpl');
     }

@@ -13,7 +13,7 @@ $language = [
 
     // General Options
     'greeting' => 'Hi,',
-    'thanks' => 'Thanks,',
+    'thanks'   => 'Thanks,',
 
     // Registration Email
     'register_subject' => 'Validate Account',

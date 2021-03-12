@@ -19,7 +19,7 @@ function sendRegisterEmail(Queries $queries, Language $language, $email_address,
     if ($php_mailer == '1') {
         // PHP Mailer
         $email = [
-            'to' => ['email' => Output::getClean($email_address), 'name' => Output::getClean($username)],
+            'to'      => ['email' => Output::getClean($email_address), 'name' => Output::getClean($username)],
             'subject' => SITE_NAME.' - '.$language->get('emails', 'register_subject'),
             'message' => str_replace('[Link]', $link, Email::formatEmail('register', $language)),
         ];
@@ -31,9 +31,9 @@ function sendRegisterEmail(Queries $queries, Language $language, $email_address,
             $queries->create(
                 'email_errors',
                 [
-                    'type' => 1, // 1 = registration
+                    'type'    => 1, // 1 = registration
                     'content' => $sent['error'],
-                    'at' => date('U'),
+                    'at'      => date('U'),
                     'user_id' => $user_id,
                 ]
             );
@@ -52,7 +52,7 @@ function sendRegisterEmail(Queries $queries, Language $language, $email_address,
             'Content-type: text/html; charset=UTF-8'."\r\n";
 
         $email = [
-            'to' => $email_address,
+            'to'      => $email_address,
             'subject' => SITE_NAME.' - '.$language->get('emails', 'register_subject'),
             'message' => str_replace('[Link]', $link, Email::formatEmail('register', $language)),
             'headers' => $headers,
@@ -65,9 +65,9 @@ function sendRegisterEmail(Queries $queries, Language $language, $email_address,
             $queries->create(
                 'email_errors',
                 [
-                    'type' => 1, // 1 = registration
+                    'type'    => 1, // 1 = registration
                     'content' => $sent['error'],
-                    'at' => date('U'),
+                    'at'      => date('U'),
                     'user_id' => $user_id,
                 ]
             );

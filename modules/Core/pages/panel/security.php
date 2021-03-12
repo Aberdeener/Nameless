@@ -19,54 +19,54 @@ define('SORT', (isset($_GET['view']) && $_GET['view'] == 'group_sync') ? 1 : 2);
 $page_title = $language->get('admin', 'security');
 require_once ROOT_PATH.'/core/templates/backend_init.php';
 
-if (! isset($_GET['view'])) {
+if (!isset($_GET['view'])) {
     $links = [];
 
     if ($user->hasPermission('admincp.security.acp_logins')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=acp_logins'),
+            'link'  => URL::build('/panel/security/', 'view=acp_logins'),
             'title' => $language->get('admin', 'acp_logins'),
         ];
     }
 
     if ($user->hasPermission('admincp.security.emails')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=emails'),
+            'link'  => URL::build('/panel/security/', 'view=emails'),
             'title' => $language->get('admin', 'email_logs'),
         ];
     }
 
     if ($user->hasPermission('admincp.security.group_sync')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=group_sync'),
+            'link'  => URL::build('/panel/security/', 'view=group_sync'),
             'title' => $language->get('admin', 'group_sync_logs'),
         ];
     }
 
     if ($user->hasPermission('admincp.security.template')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=template_changes'),
+            'link'  => URL::build('/panel/security/', 'view=template_changes'),
             'title' => $language->get('admin', 'template_changes'),
         ];
     }
 
     if ($user->hasPermission('admincp.security.all')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=all'),
+            'link'  => URL::build('/panel/security/', 'view=all'),
             'title' => $language->get('admin', 'all_logs'),
         ];
     }
 
     $smarty->assign([
         'PLEASE_SELECT_LOGS' => $language->get('admin', 'please_select_logs'),
-        'LINKS' => $links,
+        'LINKS'              => $links,
     ]);
 
     $template_file = 'core/security.tpl';
 } else {
     switch ($_GET['view']) {
         case 'acp_logins':
-            if (! $user->hasPermission('admincp.security.acp_logins')) {
+            if (!$user->hasPermission('admincp.security.acp_logins')) {
                 Redirect::to(URL::build('/panel/security'));
                 exit();
             }
@@ -94,7 +94,7 @@ if (! isset($_GET['view'])) {
                     ],
                     2 => [
                         'content' => date('d M Y, H:i', $log->time),
-                        'order' => Output::getClean($log->time),
+                        'order'   => Output::getClean($log->time),
                     ],
                 ];
             }
@@ -102,7 +102,7 @@ if (! isset($_GET['view'])) {
             break;
 
         case 'template_changes':
-            if (! $user->hasPermission('admincp.security.template')) {
+            if (!$user->hasPermission('admincp.security.template')) {
                 Redirect::to(URL::build('/panel/security'));
                 exit();
             }
@@ -131,7 +131,7 @@ if (! isset($_GET['view'])) {
                     ],
                     2 => [
                         'content' => date('d M Y, H:i', $log->time),
-                        'order' => Output::getClean($log->time),
+                        'order'   => Output::getClean($log->time),
                     ],
                     3 => [
                         'content' => Output::getClean($log->info),
@@ -142,7 +142,7 @@ if (! isset($_GET['view'])) {
             break;
 
         case 'emails':
-            if (! $user->hasPermission('admincp.security.emails')) {
+            if (!$user->hasPermission('admincp.security.emails')) {
                 Redirect::to(URL::build('/panel/security'));
                 exit();
             }
@@ -170,14 +170,14 @@ if (! isset($_GET['view'])) {
                     ],
                     2 => [
                         'content' => date('d M Y, H:i', $log->time),
-                        'order' => Output::getClean($log->time),
+                        'order'   => Output::getClean($log->time),
                     ],
                 ];
             }
             break;
 
         case 'group_sync':
-            if (! $user->hasPermission('admincp.security.group_sync')) {
+            if (!$user->hasPermission('admincp.security.group_sync')) {
                 Redirect::to(URL::build('/panel/security'));
                 exit();
             }
@@ -216,7 +216,7 @@ if (! isset($_GET['view'])) {
                     ],
                     1 => [
                         'content' => date('d M Y, H:i', $log->time),
-                        'order' => Output::getClean($log->time),
+                        'order'   => Output::getClean($log->time),
                     ],
                     2 => [
                         'content' => Output::getClean($log->action),
@@ -234,7 +234,7 @@ if (! isset($_GET['view'])) {
             // TODO: Forums section - get all records which action starts with "forum_"
 
         case 'all':
-            if (! $user->hasPermission('admincp.security.all')) {
+            if (!$user->hasPermission('admincp.security.all')) {
                 Redirect::to(URL::build('/panel/security'));
                 exit();
             }
@@ -264,7 +264,7 @@ if (! isset($_GET['view'])) {
                     ],
                     2 => [
                         'content' => date('d M Y, H:i', $log->time),
-                        'order' => Output::getClean($log->time),
+                        'order'   => Output::getClean($log->time),
                     ],
                     3 => [
                         'content' => Output::getClean($log->action),
@@ -284,12 +284,12 @@ if (! isset($_GET['view'])) {
     }
 
     $smarty->assign([
-        'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/security'),
-        'LOG_TITLE' => $log_title,
-        'COLS' => $cols,
+        'BACK'       => $language->get('general', 'back'),
+        'BACK_LINK'  => URL::build('/panel/security'),
+        'LOG_TITLE'  => $log_title,
+        'COLS'       => $cols,
         'COL_TITLES' => $col_titles,
-        'ROWS' => $rows,
+        'ROWS'       => $rows,
     ]);
 
     $template_file = 'core/security_view.tpl';
@@ -300,25 +300,25 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'SECURITY' => $language->get('admin', 'security'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'DASHBOARD'   => $language->get('admin', 'dashboard'),
+    'SECURITY'    => $language->get('admin', 'security'),
+    'PAGE'        => PANEL_PAGE,
+    'TOKEN'       => Token::get(),
+    'SUBMIT'      => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

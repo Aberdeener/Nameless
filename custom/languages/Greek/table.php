@@ -16,8 +16,8 @@ $language = [
      *  Tables
      */
     'display_records_per_page' => 'Απεικόνισε _MENU_ καταγραφές ανά σελίδα', // Don't replace "_MENU_"
-    'nothing_found' => 'Δεν βρέθηκαν αποτελέσματα',
-    'page_x_of_y' => 'Εμφάνιση σελίδας _PAGE_ of _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
-    'no_records' => 'Δεν ύπαρχουν διαθέσιμες καταγραφές',
-    'filtered' => '(filtered from _MAX_ total records)', // Don't replace "_MAX_"
+    'nothing_found'            => 'Δεν βρέθηκαν αποτελέσματα',
+    'page_x_of_y'              => 'Εμφάνιση σελίδας _PAGE_ of _PAGES_', // Don't replace "_PAGE_" or "_PAGES_"
+    'no_records'               => 'Δεν ύπαρχουν διαθέσιμες καταγραφές',
+    'filtered'                 => '(filtered from _MAX_ total records)', // Don't replace "_MAX_"
 ];

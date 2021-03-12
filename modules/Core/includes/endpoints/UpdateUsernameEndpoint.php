@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id The NamelessMC user to update
+ * @param int    $id       The NamelessMC user to update
  * @param string $username The new username of the user
  *
  * @return string JSON Array
@@ -25,7 +25,7 @@ class UpdateUsernameEndpoint extends EndpointBase
 
         $fields = ['username' => Output::getClean($_POST['username'])];
 
-        if (! Util::getSetting($api->getDb(), 'displaynames')) {
+        if (!Util::getSetting($api->getDb(), 'displaynames')) {
             $fields['nickname'] = Output::getClean($_POST['username']);
         }
 

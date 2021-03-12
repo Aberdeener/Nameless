@@ -10,7 +10,7 @@
  */
 
 // Must be logged in
-if (! $user->isLoggedIn()) {
+if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
     exit();
 }
@@ -22,8 +22,8 @@ require_once ROOT_PATH.'/core/templates/frontend_init.php';
 
 $timeago = new Timeago(TIMEZONE);
 
-if (! isset($_GET['view'])) {
-    if (! isset($_GET['action'])) {
+if (!isset($_GET['view'])) {
+    if (!isset($_GET['action'])) {
         // Get alerts
         $alerts = $queries->orderWhere('alerts', 'user_id = '.$user->data()->id, 'created', 'DESC');
 
@@ -50,13 +50,13 @@ if (! isset($_GET['view'])) {
 
         // Language values
         $smarty->assign([
-            'USER_CP' => $language->get('user', 'user_cp'),
-            'ALERTS' => $language->get('user', 'alerts'),
-            'ALERTS_LIST' => $alerts_limited,
-            'DELETE_ALL' => $language->get('user', 'delete_all'),
+            'USER_CP'         => $language->get('user', 'user_cp'),
+            'ALERTS'          => $language->get('user', 'alerts'),
+            'ALERTS_LIST'     => $alerts_limited,
+            'DELETE_ALL'      => $language->get('user', 'delete_all'),
             'DELETE_ALL_LINK' => URL::build('/user/alerts/', 'action=purge'),
-            'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view'),
-            'NO_ALERTS' => $language->get('user', 'no_alerts_usercp'),
+            'CLICK_TO_VIEW'   => $language->get('user', 'click_here_to_view'),
+            'NO_ALERTS'       => $language->get('user', 'no_alerts_usercp'),
         ]);
 
         // Load modules + template
@@ -83,14 +83,14 @@ if (! isset($_GET['view'])) {
     }
 } else {
     // Redirect to alert, mark as read
-    if (! is_numeric($_GET['view'])) {
+    if (!is_numeric($_GET['view'])) {
         Redirect::to(URL::build('/user/alerts'));
     }
 
     // Check the alert belongs to the user..
     $alert = $queries->getWhere('alerts', ['id', '=', $_GET['view']]);
 
-    if (! count($alert) || $alert[0]->user_id != $user->data()->id) {
+    if (!count($alert) || $alert[0]->user_id != $user->data()->id) {
         Redirect::to(URL::build('/user/alerts'));
     }
 

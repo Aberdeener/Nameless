@@ -42,7 +42,7 @@ if (isset($_GET['do'])) {
     } elseif ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
         // Check the error exists
         $error = $queries->getWhere('email_errors', ['id', '=', $_GET['id']]);
-        if (! count($error)) {
+        if (!count($error)) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
             exit();
         }
@@ -73,25 +73,25 @@ if (isset($_GET['do'])) {
         }
 
         $smarty->assign([
-            'BACK_LINK' => URL::build('/panel/core/emails/errors'),
-            'VIEWING_ERROR' => $language->get('admin', 'viewing_email_error'),
-            'USERNAME' => $language->get('user', 'username'),
-            'USERNAME_VALUE' => Output::getClean($user->idToName($error->user_id)),
-            'DATE' => $language->get('general', 'date'),
-            'DATE_VALUE' => date('d M Y, H:i', $error->at),
-            'TYPE' => $language->get('admin', 'type'),
-            'TYPE_ID' => $error->type,
-            'TYPE_VALUE' => $type,
-            'CONTENT' => $language->get('admin', 'content'),
-            'CONTENT_VALUE' => Output::getPurified($error->content),
-            'ACTIONS' => $language->get('general', 'actions'),
-            'DELETE_ERROR' => $language->get('admin', 'delete_email_error'),
-            'DELETE_ERROR_LINK' => URL::build('/panel/core/emails/errors/', 'do=delete&amp;id='.$error->id),
+            'BACK_LINK'            => URL::build('/panel/core/emails/errors'),
+            'VIEWING_ERROR'        => $language->get('admin', 'viewing_email_error'),
+            'USERNAME'             => $language->get('user', 'username'),
+            'USERNAME_VALUE'       => Output::getClean($user->idToName($error->user_id)),
+            'DATE'                 => $language->get('general', 'date'),
+            'DATE_VALUE'           => date('d M Y, H:i', $error->at),
+            'TYPE'                 => $language->get('admin', 'type'),
+            'TYPE_ID'              => $error->type,
+            'TYPE_VALUE'           => $type,
+            'CONTENT'              => $language->get('admin', 'content'),
+            'CONTENT_VALUE'        => Output::getPurified($error->content),
+            'ACTIONS'              => $language->get('general', 'actions'),
+            'DELETE_ERROR'         => $language->get('admin', 'delete_email_error'),
+            'DELETE_ERROR_LINK'    => URL::build('/panel/core/emails/errors/', 'do=delete&amp;id='.$error->id),
             'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_email_error_deletion'),
-            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-            'YES' => $language->get('general', 'yes'),
-            'NO' => $language->get('general', 'no'),
-            'CLOSE' => $language->get('general', 'close'),
+            'ARE_YOU_SURE'         => $language->get('general', 'are_you_sure'),
+            'YES'                  => $language->get('general', 'yes'),
+            'NO'                   => $language->get('general', 'no'),
+            'CLOSE'                => $language->get('general', 'close'),
         ]);
 
         if ($error->type == 1) {
@@ -109,10 +109,10 @@ if (isset($_GET['do'])) {
             $user_error = $queries->getWhere('users', ['id', '=', $error->user_id]);
             if (count($user_error)) {
                 $user_error = $user_error[0];
-                if ($user_error->active == 0 && ! is_null($user_error->reset_code)) {
+                if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
                     $smarty->assign([
-                        'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
-                        'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
+                        'REGISTRATION_LINK'       => $language->get('admin', 'registration_link'),
+                        'SHOW_REGISTRATION_LINK'  => $language->get('admin', 'show_registration_link'),
                         'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/').URL::build('/complete_signup/', 'c='.Output::getClean($user_error->reset_code)),
                     ]);
                 }
@@ -130,7 +130,7 @@ if (isset($_GET['do'])) {
 
     // Get page
     if (isset($_GET['p'])) {
-        if (! is_numeric($_GET['p'])) {
+        if (!is_numeric($_GET['p'])) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
             exit();
         } else {
@@ -153,10 +153,10 @@ if (isset($_GET['do'])) {
 
     $smarty->assign([
         'BACK_LINK' => URL::build('/panel/core/emails'),
-        'TYPE' => $language->get('admin', 'type'),
-        'DATE' => $language->get('general', 'date'),
-        'USERNAME' => $language->get('user', 'username'),
-        'ACTIONS' => $language->get('general', 'actions'),
+        'TYPE'      => $language->get('admin', 'type'),
+        'DATE'      => $language->get('general', 'date'),
+        'USERNAME'  => $language->get('user', 'username'),
+        'ACTIONS'   => $language->get('general', 'actions'),
     ]);
 
     if (count($email_errors)) {
@@ -188,25 +188,25 @@ if (isset($_GET['do'])) {
             }
 
             $template_errors[] = [
-                'type' => $type,
-                'date' => date('d M Y, H:i', $results->data[$n]->at),
-                'user' => Output::getClean($user->idToName($results->data[$n]->user_id)),
+                'type'      => $type,
+                'date'      => date('d M Y, H:i', $results->data[$n]->at),
+                'user'      => Output::getClean($user->idToName($results->data[$n]->user_id)),
                 'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id='.$results->data[$n]->id),
-                'id' => $results->data[$n]->id,
+                'id'        => $results->data[$n]->id,
             ];
         }
 
         $smarty->assign([
-            'EMAIL_ERRORS_ARRAY' => $template_errors,
-            'DELETE_LINK' => URL::build('/panel/core/emails/errors/', 'do=delete&id={x}'),
-            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-            'PURGE_BUTTON' => $language->get('admin', 'purge_errors'),
+            'EMAIL_ERRORS_ARRAY'   => $template_errors,
+            'DELETE_LINK'          => URL::build('/panel/core/emails/errors/', 'do=delete&id={x}'),
+            'ARE_YOU_SURE'         => $language->get('general', 'are_you_sure'),
+            'PURGE_BUTTON'         => $language->get('admin', 'purge_errors'),
             'CONFIRM_PURGE_ERRORS' => $language->get('admin', 'confirm_purge_errors'),
-            'PURGE_LINK' => URL::build('/panel/core/emails/errors/', 'do=purge'),
+            'PURGE_LINK'           => URL::build('/panel/core/emails/errors/', 'do=purge'),
             'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_email_error_deletion'),
-            'YES' => $language->get('general', 'yes'),
-            'NO' => $language->get('general', 'no'),
-            'PAGINATION' => $pagination,
+            'YES'                  => $language->get('general', 'yes'),
+            'NO'                   => $language->get('general', 'no'),
+            'PAGINATION'           => $pagination,
         ]);
     } else {
         $smarty->assign([
@@ -222,27 +222,27 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (Session::exists('emails_errors_success')) {
     $smarty->assign([
-        'SUCCESS' => Session::flash('emails_errors_success'),
+        'SUCCESS'       => Session::flash('emails_errors_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
+    'PARENT_PAGE'   => PARENT_PAGE,
+    'DASHBOARD'     => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'EMAILS' => $language->get('admin', 'emails'),
-    'EMAILS_LINK' => URL::build('/panel/core/emails'),
-    'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
-    'PAGE' => PANEL_PAGE,
-    'BACK' => $language->get('general', 'back'),
+    'EMAILS'        => $language->get('admin', 'emails'),
+    'EMAILS_LINK'   => URL::build('/panel/core/emails'),
+    'EMAIL_ERRORS'  => $language->get('admin', 'email_errors'),
+    'PAGE'          => PANEL_PAGE,
+    'BACK'          => $language->get('general', 'back'),
 ]);
 
 $page_load = microtime(true) - $start;

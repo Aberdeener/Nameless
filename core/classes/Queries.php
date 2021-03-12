@@ -54,42 +54,42 @@ class Queries
 
     public function update($table, $id, $fields = [])
     {
-        if (! $this->_db->update($table, $id, $fields)) {
+        if (!$this->_db->update($table, $id, $fields)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
     public function create($table, $fields = [])
     {
-        if (! $this->_db->insert($table, $fields)) {
+        if (!$this->_db->insert($table, $fields)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
     public function delete($table, $where)
     {
-        if (! $this->_db->delete($table, $where)) {
+        if (!$this->_db->delete($table, $where)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
     public function increment($table, $id, $field)
     {
-        if (! $this->_db->increment($table, $id, $field)) {
+        if (!$this->_db->increment($table, $id, $field)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
     public function decrement($table, $id, $field)
     {
-        if (! $this->_db->decrement($table, $id, $field)) {
+        if (!$this->_db->decrement($table, $id, $field)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
     public function createTable($table, $columns, $other)
     {
-        if (! $this->_db->createTable($table, $columns, $other)) {
+        if (!$this->_db->createTable($table, $columns, $other)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
@@ -101,7 +101,7 @@ class Queries
 
     public function alterTable($table, $column, $attributes)
     {
-        if (! $this->_db->alterTable($table, $column, $attributes)) {
+        if (!$this->_db->alterTable($table, $column, $attributes)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
@@ -128,7 +128,7 @@ class Queries
     public function dbInitialise($charset = 'latin1', $engine = 'InnoDB')
     {
         $data = $this->_db->showTables('settings');
-        if (! empty($data)) {
+        if (!empty($data)) {
             return '<div class="alert alert-warning">Database already initialised!</div>';
         } else {
             $data = $this->_db->createTable('alerts', " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `type` varchar(64) NOT NULL, `url` varchar(255) NOT NULL, `content_short` varchar(128) NOT NULL, `content` varchar(512) NOT NULL, `created` int(11) NOT NULL, `read` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");

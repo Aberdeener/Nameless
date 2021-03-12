@@ -18,7 +18,7 @@ class URL
     public static function build($url, $params = '', $force = null)
     {
         if (is_null($force)) {
-            if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (! defined('FRIENDLY_URLS') && Config::get('core/friendly') == true)) {
+            if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core/friendly') == true)) {
                 // Friendly URLs are enabled
                 return self::buildFriendly($url, $params);
             } else {

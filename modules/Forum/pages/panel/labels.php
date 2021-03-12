@@ -11,17 +11,17 @@
 
 // Can the user view the panel?
 if ($user->isLoggedIn()) {
-    if (! $user->canViewACP()) {
+    if (!$user->canViewACP()) {
         // No
         Redirect::to(URL::build('/'));
         exit();
     }
-    if (! $user->isAdmLoggedIn()) {
+    if (!$user->isAdmLoggedIn()) {
         // Needs to authenticate
         Redirect::to(URL::build('/panel/auth'));
         exit();
     } else {
-        if (! $user->hasPermission('admincp.forums')) {
+        if (!$user->hasPermission('admincp.forums')) {
             require_once ROOT_PATH.'/403.php';
             exit();
         }
@@ -38,7 +38,7 @@ define('PANEL_PAGE', 'forum_labels');
 $page_title = $forum_language->get('forum', 'labels');
 require_once ROOT_PATH.'/core/templates/backend_init.php';
 
-if (! isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     // Topic labels
     $topic_labels = $queries->getWhere('forums_topic_labels', ['id', '<>', 0]);
     $template_array = [];
@@ -46,7 +46,7 @@ if (! isset($_GET['action'])) {
     if (count($topic_labels)) {
         foreach ($topic_labels as $topic_label) {
             $label_type = $queries->getWhere('forums_labels', ['id', '=', $topic_label->label]);
-            if (! count($label_type)) {
+            if (!count($label_type)) {
                 $label_type = 0;
             } else {
                 $label_type = $label_type[0];
@@ -66,27 +66,27 @@ if (! isset($_GET['action'])) {
             $forums_string = rtrim($forums_string, ', ');
 
             $template_array[] = [
-                'name' => str_replace('{x}', Output::getClean(Output::getDecoded($topic_label->name)), Output::getDecoded($label_type->html)),
-                'edit_link' => URL::build('/panel/forums/labels/', 'action=edit&lid='.Output::getClean($topic_label->id)),
-                'delete_link' => URL::build('/panel/forums/labels/', 'action=delete&lid='.Output::getClean($topic_label->id)),
+                'name'           => str_replace('{x}', Output::getClean(Output::getDecoded($topic_label->name)), Output::getDecoded($label_type->html)),
+                'edit_link'      => URL::build('/panel/forums/labels/', 'action=edit&lid='.Output::getClean($topic_label->id)),
+                'delete_link'    => URL::build('/panel/forums/labels/', 'action=delete&lid='.Output::getClean($topic_label->id)),
                 'enabled_forums' => $forums_string,
             ];
         }
     }
 
     $smarty->assign([
-        'LABEL_TYPES' => $forum_language->get('forum', 'label_types'),
+        'LABEL_TYPES'      => $forum_language->get('forum', 'label_types'),
         'LABEL_TYPES_LINK' => URL::build('/panel/forums/labels/', 'action=types'),
-        'NEW_LABEL' => $forum_language->get('forum', 'new_label'),
-        'NEW_LABEL_LINK' => URL::build('/panel/forums/labels/', 'action=new'),
-        'ALL_LABELS' => $template_array,
-        'EDIT' => $language->get('general', 'edit'),
-        'DELETE' => $language->get('general', 'delete'),
-        'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
-        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
-        'NO_LABELS' => $forum_language->get('forum', 'no_labels_defined'),
+        'NEW_LABEL'        => $forum_language->get('forum', 'new_label'),
+        'NEW_LABEL_LINK'   => URL::build('/panel/forums/labels/', 'action=new'),
+        'ALL_LABELS'       => $template_array,
+        'EDIT'             => $language->get('general', 'edit'),
+        'DELETE'           => $language->get('general', 'delete'),
+        'CONFIRM_DELETE'   => $language->get('general', 'confirm_deletion'),
+        'ARE_YOU_SURE'     => $language->get('general', 'are_you_sure'),
+        'YES'              => $language->get('general', 'yes'),
+        'NO'               => $language->get('general', 'no'),
+        'NO_LABELS'        => $forum_language->get('forum', 'no_labels_defined'),
     ]);
 
     $template_file = 'forum/labels.tpl';
@@ -104,8 +104,8 @@ if (! isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'label_name' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 32,
+                            'min'      => 1,
+                            'max'      => 32,
                         ],
                         'label_id' => [
                             'required' => true,
@@ -135,10 +135,10 @@ if (! isset($_GET['action'])) {
 
                         try {
                             $queries->create('forums_topic_labels', [
-                                'fids' => $forum_string,
-                                'name' => Output::getClean(Input::get('label_name')),
+                                'fids'  => $forum_string,
+                                'name'  => Output::getClean(Input::get('label_name')),
                                 'label' => Input::get('label_id'),
-                                'gids' => $group_string,
+                                'gids'  => $group_string,
                             ]);
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_creation_success'));
@@ -164,7 +164,7 @@ if (! isset($_GET['action'])) {
             if (count($labels)) {
                 foreach ($labels as $label) {
                     $template_array[] = [
-                        'id' => Output::getClean($label->id),
+                        'id'   => Output::getClean($label->id),
                         'name' => str_replace('{x}', Output::getClean($label->name), Output::getDecoded($label->html)),
                     ];
                 }
@@ -177,7 +177,7 @@ if (! isset($_GET['action'])) {
             if (count($forum_list)) {
                 foreach ($forum_list as $item) {
                     $template_forums[] = [
-                        'id' => Output::getClean($item->id),
+                        'id'   => Output::getClean($item->id),
                         'name' => Output::getClean(Output::getDecoded($item->forum_title)),
                     ];
                 }
@@ -190,28 +190,28 @@ if (! isset($_GET['action'])) {
             if (count($group_list)) {
                 foreach ($group_list as $item) {
                     $template_groups[] = [
-                        'id' => Output::getClean($item->id),
+                        'id'   => Output::getClean($item->id),
                         'name' => Output::getClean(Output::getDecoded($item->name)),
                     ];
                 }
             }
 
             $smarty->assign([
-                'CREATING_LABEL' => $forum_language->get('forum', 'creating_label'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums/labels'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'LABEL_NAME' => $forum_language->get('forum', 'label_name'),
+                'CREATING_LABEL'   => $forum_language->get('forum', 'creating_label'),
+                'CANCEL'           => $language->get('general', 'cancel'),
+                'CANCEL_LINK'      => URL::build('/panel/forums/labels'),
+                'ARE_YOU_SURE'     => $language->get('general', 'are_you_sure'),
+                'CONFIRM_CANCEL'   => $language->get('general', 'confirm_cancel'),
+                'YES'              => $language->get('general', 'yes'),
+                'NO'               => $language->get('general', 'no'),
+                'LABEL_NAME'       => $forum_language->get('forum', 'label_name'),
                 'LABEL_NAME_VALUE' => Output::getClean(Input::get('label_name')),
-                'LABEL_TYPE' => $forum_language->get('forum', 'label_type'),
-                'LABEL_TYPES' => $template_array,
-                'LABEL_FORUMS' => $forum_language->get('forum', 'label_forums'),
-                'ALL_FORUMS' => $template_forums,
-                'LABEL_GROUPS' => $forum_language->get('forum', 'label_groups'),
-                'ALL_GROUPS' => $template_groups,
+                'LABEL_TYPE'       => $forum_language->get('forum', 'label_type'),
+                'LABEL_TYPES'      => $template_array,
+                'LABEL_FORUMS'     => $forum_language->get('forum', 'label_forums'),
+                'ALL_FORUMS'       => $template_forums,
+                'LABEL_GROUPS'     => $forum_language->get('forum', 'label_groups'),
+                'ALL_GROUPS'       => $template_groups,
             ]);
 
             $template_file = 'forum/labels_new.tpl';
@@ -220,7 +220,7 @@ if (! isset($_GET['action'])) {
 
         case 'edit':
             // Editing a label
-            if (! isset($_GET['lid']) || ! is_numeric($_GET['lid'])) {
+            if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 // Check the label ID is valid
                 Redirect::to(URL::build('/panel/forums/labels'));
                 exit();
@@ -228,7 +228,7 @@ if (! isset($_GET['action'])) {
 
             // Does the label exist?
             $label = $queries->getWhere('forums_topic_labels', ['id', '=', $_GET['lid']]);
-            if (! count($label)) {
+            if (!count($label)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels'));
                 exit();
@@ -247,8 +247,8 @@ if (! isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'label_name' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 32,
+                            'min'      => 1,
+                            'max'      => 32,
                         ],
                         'label_id' => [
                             'required' => true,
@@ -278,10 +278,10 @@ if (! isset($_GET['action'])) {
 
                         try {
                             $queries->update('forums_topic_labels', $label->id, [
-                                'fids' => $forum_string,
-                                'name' => Output::getClean(Input::get('label_name')),
+                                'fids'  => $forum_string,
+                                'name'  => Output::getClean(Input::get('label_name')),
                                 'label' => Input::get('label_id'),
-                                'gids' => $group_string,
+                                'gids'  => $group_string,
                             ]);
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_edit_success'));
@@ -307,8 +307,8 @@ if (! isset($_GET['action'])) {
             if (count($labels)) {
                 foreach ($labels as $item) {
                     $template_array[] = [
-                        'id' => Output::getClean($item->id),
-                        'name' => str_replace('{x}', Output::getClean($item->name), Output::getDecoded($item->html)),
+                        'id'       => Output::getClean($item->id),
+                        'name'     => str_replace('{x}', Output::getClean($item->name), Output::getDecoded($item->html)),
                         'selected' => ($label->label == $item->id),
                     ];
                 }
@@ -324,8 +324,8 @@ if (! isset($_GET['action'])) {
             if (count($forum_list)) {
                 foreach ($forum_list as $item) {
                     $template_forums[] = [
-                        'id' => Output::getClean($item->id),
-                        'name' => Output::getClean(Output::getDecoded($item->forum_title)),
+                        'id'       => Output::getClean($item->id),
+                        'name'     => Output::getClean(Output::getDecoded($item->forum_title)),
                         'selected' => (in_array($item->id, $enabled_forums)),
                     ];
                 }
@@ -341,29 +341,29 @@ if (! isset($_GET['action'])) {
             if (count($group_list)) {
                 foreach ($group_list as $item) {
                     $template_groups[] = [
-                        'id' => Output::getClean($item->id),
-                        'name' => Output::getClean(Output::getDecoded($item->name)),
+                        'id'       => Output::getClean($item->id),
+                        'name'     => Output::getClean(Output::getDecoded($item->name)),
                         'selected' => (in_array($item->id, $groups)),
                     ];
                 }
             }
 
             $smarty->assign([
-                'EDITING_LABEL' => $forum_language->get('forum', 'editing_label'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums/labels'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'LABEL_NAME' => $forum_language->get('forum', 'label_name'),
+                'EDITING_LABEL'    => $forum_language->get('forum', 'editing_label'),
+                'CANCEL'           => $language->get('general', 'cancel'),
+                'CANCEL_LINK'      => URL::build('/panel/forums/labels'),
+                'ARE_YOU_SURE'     => $language->get('general', 'are_you_sure'),
+                'CONFIRM_CANCEL'   => $language->get('general', 'confirm_cancel'),
+                'YES'              => $language->get('general', 'yes'),
+                'NO'               => $language->get('general', 'no'),
+                'LABEL_NAME'       => $forum_language->get('forum', 'label_name'),
                 'LABEL_NAME_VALUE' => Output::getClean($label->name),
-                'LABEL_TYPE' => $forum_language->get('forum', 'label_type'),
-                'LABEL_TYPES' => $template_array,
-                'LABEL_FORUMS' => $forum_language->get('forum', 'label_forums'),
-                'ALL_FORUMS' => $template_forums,
-                'LABEL_GROUPS' => $forum_language->get('forum', 'label_groups'),
-                'ALL_GROUPS' => $template_groups,
+                'LABEL_TYPE'       => $forum_language->get('forum', 'label_type'),
+                'LABEL_TYPES'      => $template_array,
+                'LABEL_FORUMS'     => $forum_language->get('forum', 'label_forums'),
+                'ALL_FORUMS'       => $template_forums,
+                'LABEL_GROUPS'     => $forum_language->get('forum', 'label_groups'),
+                'ALL_GROUPS'       => $template_groups,
             ]);
 
             $template_file = 'forum/labels_edit.tpl';
@@ -372,7 +372,7 @@ if (! isset($_GET['action'])) {
 
         case 'delete':
             // Label deletion
-            if (! isset($_GET['lid']) || ! is_numeric($_GET['lid'])) {
+            if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 // Check the label ID is valid
                 Redirect::to(URL::build('/panel/forums/labels'));
                 exit();
@@ -399,26 +399,26 @@ if (! isset($_GET['action'])) {
             if (count($labels)) {
                 foreach ($labels as $label) {
                     $template_array[] = [
-                        'name' => str_replace('{x}', Output::getClean(Output::getDecoded($label->name)), Output::getDecoded($label->html)),
-                        'edit_link' => URL::build('/panel/forums/labels/', 'action=edit_type&lid='.Output::getClean($label->id)),
+                        'name'        => str_replace('{x}', Output::getClean(Output::getDecoded($label->name)), Output::getDecoded($label->html)),
+                        'edit_link'   => URL::build('/panel/forums/labels/', 'action=edit_type&lid='.Output::getClean($label->id)),
                         'delete_link' => URL::build('/panel/forums/labels/', 'action=delete_type&lid='.Output::getClean($label->id)),
                     ];
                 }
             }
 
             $smarty->assign([
-                'LABEL_TYPES' => $forum_language->get('forum', 'label_types'),
-                'LABELS_LINK' => URL::build('/panel/forums/labels'),
-                'NEW_LABEL_TYPE' => $forum_language->get('forum', 'new_label_type'),
+                'LABEL_TYPES'         => $forum_language->get('forum', 'label_types'),
+                'LABELS_LINK'         => URL::build('/panel/forums/labels'),
+                'NEW_LABEL_TYPE'      => $forum_language->get('forum', 'new_label_type'),
                 'NEW_LABEL_TYPE_LINK' => URL::build('/panel/forums/labels/', 'action=new_type'),
-                'ALL_LABEL_TYPES' => $template_array,
-                'EDIT' => $language->get('general', 'edit'),
-                'DELETE' => $language->get('general', 'delete'),
-                'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'NO_LABEL_TYPES' => $forum_language->get('forum', 'no_label_types_defined'),
+                'ALL_LABEL_TYPES'     => $template_array,
+                'EDIT'                => $language->get('general', 'edit'),
+                'DELETE'              => $language->get('general', 'delete'),
+                'CONFIRM_DELETE'      => $language->get('general', 'confirm_deletion'),
+                'ARE_YOU_SURE'        => $language->get('general', 'are_you_sure'),
+                'YES'                 => $language->get('general', 'yes'),
+                'NO'                  => $language->get('general', 'no'),
+                'NO_LABEL_TYPES'      => $forum_language->get('forum', 'no_label_types_defined'),
             ]);
 
             $template_file = 'forum/labels_types.tpl';
@@ -438,13 +438,13 @@ if (! isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'label_name' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 32,
+                            'min'      => 1,
+                            'max'      => 32,
                         ],
                         'label_html' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 1024,
+                            'min'      => 1,
+                            'max'      => 1024,
                         ],
                     ]);
 
@@ -472,19 +472,19 @@ if (! isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'LABEL_TYPES' => $forum_language->get('forum', 'label_types'),
-                'CREATING_LABEL_TYPE' => $forum_language->get('forum', 'creating_label_type'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums/labels/', 'action=types'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'LABEL_TYPE_NAME' => $forum_language->get('forum', 'label_type_name'),
+                'LABEL_TYPES'           => $forum_language->get('forum', 'label_types'),
+                'CREATING_LABEL_TYPE'   => $forum_language->get('forum', 'creating_label_type'),
+                'CANCEL'                => $language->get('general', 'cancel'),
+                'CONFIRM_CANCEL'        => $language->get('general', 'confirm_cancel'),
+                'CANCEL_LINK'           => URL::build('/panel/forums/labels/', 'action=types'),
+                'ARE_YOU_SURE'          => $language->get('general', 'are_you_sure'),
+                'YES'                   => $language->get('general', 'yes'),
+                'NO'                    => $language->get('general', 'no'),
+                'LABEL_TYPE_NAME'       => $forum_language->get('forum', 'label_type_name'),
                 'LABEL_TYPE_NAME_VALUE' => Output::getClean(Input::get('label_type_name')),
-                'LABEL_TYPE_HTML' => $forum_language->get('forum', 'label_type_html'),
-                'INFO' => $language->get('general', 'info'),
-                'LABEL_TYPE_HTML_INFO' => $forum_language->get('forum', 'label_type_html_help'),
+                'LABEL_TYPE_HTML'       => $forum_language->get('forum', 'label_type_html'),
+                'INFO'                  => $language->get('general', 'info'),
+                'LABEL_TYPE_HTML_INFO'  => $forum_language->get('forum', 'label_type_html_help'),
                 'LABEL_TYPE_HTML_VALUE' => Output::getClean(Input::get('label_type_html')),
             ]);
 
@@ -494,14 +494,14 @@ if (! isset($_GET['action'])) {
 
         case 'edit_type':
             // Editing a label type
-            if (! isset($_GET['lid']) || ! is_numeric($_GET['lid'])) {
+            if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
                 exit();
             }
 
             // Does the label exist?
             $label = $queries->getWhere('forums_labels', ['id', '=', $_GET['lid']]);
-            if (! count($label)) {
+            if (!count($label)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
                 exit();
@@ -520,13 +520,13 @@ if (! isset($_GET['action'])) {
                     $validation = $validate->check($_POST, [
                         'label_name' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 32,
+                            'min'      => 1,
+                            'max'      => 32,
                         ],
                         'label_html' => [
                             'required' => true,
-                            'min' => 1,
-                            'max' => 1024,
+                            'min'      => 1,
+                            'max'      => 1024,
                         ],
                     ]);
 
@@ -554,19 +554,19 @@ if (! isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'LABEL_TYPES' => $forum_language->get('forum', 'label_types'),
-                'EDITING_LABEL_TYPE' => $forum_language->get('forum', 'editing_label_type'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums/labels/', 'action=types'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'LABEL_TYPE_NAME' => $forum_language->get('forum', 'label_type_name'),
+                'LABEL_TYPES'           => $forum_language->get('forum', 'label_types'),
+                'EDITING_LABEL_TYPE'    => $forum_language->get('forum', 'editing_label_type'),
+                'CANCEL'                => $language->get('general', 'cancel'),
+                'CONFIRM_CANCEL'        => $language->get('general', 'confirm_cancel'),
+                'CANCEL_LINK'           => URL::build('/panel/forums/labels/', 'action=types'),
+                'ARE_YOU_SURE'          => $language->get('general', 'are_you_sure'),
+                'YES'                   => $language->get('general', 'yes'),
+                'NO'                    => $language->get('general', 'no'),
+                'LABEL_TYPE_NAME'       => $forum_language->get('forum', 'label_type_name'),
                 'LABEL_TYPE_NAME_VALUE' => Output::getClean($label->name),
-                'LABEL_TYPE_HTML' => $forum_language->get('forum', 'label_type_html'),
-                'INFO' => $language->get('general', 'info'),
-                'LABEL_TYPE_HTML_INFO' => $forum_language->get('forum', 'label_type_html_help'),
+                'LABEL_TYPE_HTML'       => $forum_language->get('forum', 'label_type_html'),
+                'INFO'                  => $language->get('general', 'info'),
+                'LABEL_TYPE_HTML_INFO'  => $forum_language->get('forum', 'label_type_html_help'),
                 'LABEL_TYPE_HTML_VALUE' => Output::getClean($label->html),
             ]);
 
@@ -576,11 +576,12 @@ if (! isset($_GET['action'])) {
 
         case 'delete_type':
             // Label deletion
-            if (! isset($_GET['lid']) || ! is_numeric($_GET['lid'])) {
+            if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 // Check the label ID is valid
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
                 exit();
             }
+
             try {
                 // Delete the label
                 $queries->delete('forums_labels', ['id', '=', $_GET['lid']]);
@@ -610,26 +611,26 @@ if (Session::exists('forum_labels')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'FORUM' => $forum_language->get('forum', 'forum'),
-    'LABELS' => $forum_language->get('forum', 'labels'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'DASHBOARD'   => $language->get('admin', 'dashboard'),
+    'FORUM'       => $forum_language->get('forum', 'forum'),
+    'LABELS'      => $forum_language->get('forum', 'labels'),
+    'PAGE'        => PANEL_PAGE,
+    'TOKEN'       => Token::get(),
+    'SUBMIT'      => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

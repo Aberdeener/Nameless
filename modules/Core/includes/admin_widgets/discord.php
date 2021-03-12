@@ -25,8 +25,8 @@ if (Input::exists()) {
             $validate = new Validate();
             $validation = $validate->check($_POST, [
                 'discord_guild_id' => [
-                    'min' => 18,
-                    'max' => 18,
+                    'min'     => 18,
+                    'max'     => 18,
                     'numeric' => true,
                 ],
             ]);
@@ -72,13 +72,13 @@ if ($cache->isCached('discord_widget_theme')) {
 }
 
 $smarty->assign([
-    'DISCORD_ID' => $language->get('admin', 'discord_id'),
-    'DISCORD_ID_VALUE' => $guild_id,
-    'INFO' => $language->get('general', 'info'),
-    'ID_INFO' => $language->get('user', 'discord_id_help'),
-    'DISCORD_THEME' => $language->get('admin', 'discord_widget_theme'),
+    'DISCORD_ID'          => $language->get('admin', 'discord_id'),
+    'DISCORD_ID_VALUE'    => $guild_id,
+    'INFO'                => $language->get('general', 'info'),
+    'ID_INFO'             => $language->get('user', 'discord_id_help'),
+    'DISCORD_THEME'       => $language->get('admin', 'discord_widget_theme'),
     'DISCORD_THEME_VALUE' => $discord_theme,
-    'SETTINGS_TEMPLATE' => 'core/widgets/discord.tpl',
-    'DARK' => $language->get('admin', 'dark'),
-    'LIGHT' => $language->get('admin', 'light'),
+    'SETTINGS_TEMPLATE'   => 'core/widgets/discord.tpl',
+    'DARK'                => $language->get('admin', 'dark'),
+    'LIGHT'               => $language->get('admin', 'light'),
 ]);

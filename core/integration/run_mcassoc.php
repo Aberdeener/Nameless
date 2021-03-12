@@ -9,7 +9,7 @@
  *  MCAssoc integration
  */
 
-if (! defined('MCASSOC') || ! (isset($_POST['username']) || isset($_SESSION['mcassoc'])) || ! isset($mcassoc_site_id)) {
+if (!defined('MCASSOC') || !(isset($_POST['username']) || isset($_SESSION['mcassoc'])) || !isset($mcassoc_site_id)) {
     exit();
 }
 
@@ -21,16 +21,16 @@ $template->addJSFiles([
 ]);
 
 // Assign post data to session variable
-if (! isset($_SESSION['mcassoc'])) {
+if (!isset($_SESSION['mcassoc'])) {
     $_SESSION['mcassoc'] = $_POST;
 }
 
 $smarty->assign([
-    'VERIFY_ACCOUNT' => $language->get('user', 'verify_account'),
+    'VERIFY_ACCOUNT'      => $language->get('user', 'verify_account'),
     'VERIFY_ACCOUNT_HELP' => $language->get('user', 'verify_account_help'),
 ]);
 
-if (! isset($_GET['step'])) {
+if (!isset($_GET['step'])) {
     // Step 1 - MCAssoc
     if ($custom_usernames == 'true') {
         if (isset($_SESSION['mcassoc']['mcname'])) {
@@ -67,7 +67,7 @@ if (! isset($_GET['step'])) {
         }
     }
 
-    if (! isset($username)) {
+    if (!isset($username)) {
         exit('Session expired, please try again.');
     }
 
@@ -76,7 +76,7 @@ if (! isset($_GET['step'])) {
     try {
         $data = $mcassoc->unwrapData($_POST['data']);
 
-        if (! $data || $username != $data->username) {
+        if (!$data || $username != $data->username) {
             // Does not match MCAssoc
             $smarty->assign('ERROR', $language->get('user', 'verification_failed'));
             $smarty->assign('RETRY_LINK', URL::build('/register'));
@@ -93,15 +93,15 @@ if (! isset($_GET['step'])) {
             $ip = $user->getIP();
 
             $user->create([
-                'username' => htmlspecialchars($username),
-                'nickname' => htmlspecialchars($_SESSION['mcassoc']['username']),
-                'uuid' => htmlspecialchars($data->uuid),
-                'password' => $password,
+                'username'    => htmlspecialchars($username),
+                'nickname'    => htmlspecialchars($_SESSION['mcassoc']['username']),
+                'uuid'        => htmlspecialchars($data->uuid),
+                'password'    => $password,
                 'pass_method' => 'default',
-                'joined' => date('U'),
-                'email' => htmlspecialchars($_SESSION['mcassoc']['email']),
-                'active' => 1,
-                'lastip' => htmlspecialchars($ip),
+                'joined'      => date('U'),
+                'email'       => htmlspecialchars($_SESSION['mcassoc']['email']),
+                'active'      => 1,
+                'lastip'      => htmlspecialchars($ip),
                 'last_online' => date('U'),
             ]);
 

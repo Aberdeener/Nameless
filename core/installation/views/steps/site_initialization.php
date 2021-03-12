@@ -5,7 +5,7 @@ if (isset($_SESSION['site_initialized']) && $_SESSION['site_initialized'] == tru
     exit();
 }
 
-if (! isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
+if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
     Redirect::to('?step=database_configuration');
     exit();
 }

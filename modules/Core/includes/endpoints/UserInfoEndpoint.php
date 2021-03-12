@@ -1,8 +1,8 @@
 <?php
 /**
- * @param int $id NamelessMC ID of user to view
+ * @param int    $id       NamelessMC ID of user to view
  * @param string $username The NamelessMC username of the user to view
- * @param string $uuid The Minecraft UUID of the user
+ * @param string $uuid     The Minecraft UUID of the user
  *
  * @return string JSON Array
  */
@@ -41,7 +41,7 @@ class UserInfoEndpoint extends EndpointBase
         // Ensure the user exists
         $user = $api->getDb()->query($query.$where, $params);
 
-        if (! $user->count()) {
+        if (!$user->count()) {
             $api->returnArray(['exists' => false]);
         }
 
@@ -74,12 +74,12 @@ class UserInfoEndpoint extends EndpointBase
         $groups_array = [];
         foreach ($groups as $group) {
             $groups_array[] = [
-                'id' => intval($group->id),
-                'name' => $group->name,
-                'staff' => (bool) $group->staff,
-                'order' => intval($group->order),
+                'id'               => intval($group->id),
+                'name'             => $group->name,
+                'staff'            => (bool) $group->staff,
+                'order'            => intval($group->order),
                 'ingame_rank_name' => Util::getIngameRankName($group->id),
-                'discord_role_id' => intval(Discord::getDiscordRoleId($api->getDb(), $group->id)),
+                'discord_role_id'  => intval(Discord::getDiscordRoleId($api->getDb(), $group->id)),
             ];
         }
         $user->groups = $groups_array;

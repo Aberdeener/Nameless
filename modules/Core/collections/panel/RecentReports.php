@@ -66,7 +66,7 @@ class RecentReportsItem extends CollectionItemBase
                         $reporter_user = $users[$item->reporter_id];
                     } else {
                         $reporter_user = new User($item->reporter_id);
-                        if (! $reporter_user->data()) {
+                        if (!$reporter_user->data()) {
                             continue;
                         }
                         $users[$item->reporter_id] = $reporter_user;
@@ -76,33 +76,33 @@ class RecentReportsItem extends CollectionItemBase
                         $reported_user = $users[$item->reported_id];
                     } else {
                         $reported_user = new User($item->reported_id);
-                        if (! $reported_user->data()) {
+                        if (!$reported_user->data()) {
                             continue;
                         }
                         $users[$item->reported_id] = $reported_user;
                     }
 
                     $data[] = [
-                        'url' => URL::build('/panel/users/reports/', 'id='.Output::getClean($item->id)),
-                        'reporter_username' => $reporter_user->getDisplayname(true),
-                        'reporter_nickname' => $reporter_user->getDisplayname(),
-                        'reporter_style' => $reporter_user->getGroupClass(),
-                        'reporter_avatar' => $reporter_user->getAvatar(),
-                        'reporter_uuid' => Output::getClean($reporter_user->data()->uuid),
-                        'reporter_profile' => URL::build('/panel/user/'.Output::getClean($reporter_user->data()->id).'-'.Output::getClean($reporter_user->data()->username)),
-                        'reported_username' => $reported_user->getDisplayname(true),
-                        'reported_nickname' => $reported_user->getDisplayname(),
-                        'reported_style' => $reported_user->getGroupClass(),
-                        'reported_avatar' => $reported_user->getAvatar(),
-                        'reported_uuid' => Output::getClean($reported_user->data()->uuid),
-                        'reported_profile' => URL::build('/panel/user/'.Output::getClean($reported_user->data()->id).'-'.Output::getClean($reported_user->data()->username)),
-                        'time' => $timeago->inWords($item->date_reported, $this->_language->getTimeLanguage()),
-                        'time_full' => date('d M Y, H:i', strtotime($item->date_reported)),
-                        'type' => $item->type,
-                        'reason' => Output::getPurified($item->report_reason),
-                        'link' => Output::getClean($item->link),
+                        'url'                => URL::build('/panel/users/reports/', 'id='.Output::getClean($item->id)),
+                        'reporter_username'  => $reporter_user->getDisplayname(true),
+                        'reporter_nickname'  => $reporter_user->getDisplayname(),
+                        'reporter_style'     => $reporter_user->getGroupClass(),
+                        'reporter_avatar'    => $reporter_user->getAvatar(),
+                        'reporter_uuid'      => Output::getClean($reporter_user->data()->uuid),
+                        'reporter_profile'   => URL::build('/panel/user/'.Output::getClean($reporter_user->data()->id).'-'.Output::getClean($reporter_user->data()->username)),
+                        'reported_username'  => $reported_user->getDisplayname(true),
+                        'reported_nickname'  => $reported_user->getDisplayname(),
+                        'reported_style'     => $reported_user->getGroupClass(),
+                        'reported_avatar'    => $reported_user->getAvatar(),
+                        'reported_uuid'      => Output::getClean($reported_user->data()->uuid),
+                        'reported_profile'   => URL::build('/panel/user/'.Output::getClean($reported_user->data()->id).'-'.Output::getClean($reported_user->data()->username)),
+                        'time'               => $timeago->inWords($item->date_reported, $this->_language->getTimeLanguage()),
+                        'time_full'          => date('d M Y, H:i', strtotime($item->date_reported)),
+                        'type'               => $item->type,
+                        'reason'             => Output::getPurified($item->report_reason),
+                        'link'               => Output::getClean($item->link),
                         'ig_reported_mcname' => ($item->reported_mcname ? Output::getClean($item->reported_mcname) : ''),
-                        'ig_reported_uuid' => ($item->reported_uuid ? Output::getClean($item->reported_uuid) : ''),
+                        'ig_reported_uuid'   => ($item->reported_uuid ? Output::getClean($item->reported_uuid) : ''),
                     ];
 
                     if (++$i == 5) {
@@ -116,14 +116,14 @@ class RecentReportsItem extends CollectionItemBase
 
         $this->_smarty->assign([
             'RECENT_REPORTS' => $this->_language->get('moderator', 'recent_reports'),
-            'REPORTS' => $data,
-            'NO_REPORTS' => $this->_language->get('moderator', 'no_open_reports'),
-            'CREATED' => $this->_language->get('moderator', 'created'),
-            'REPORTED_BY' => $this->_language->get('moderator', 'reported_by'),
-            'REASON' => $this->_language->get('moderator', 'reason:'),
-            'WEBSITE' => $this->_language->get('moderator', 'website'),
-            'INGAME' => $this->_language->get('moderator', 'ingame'),
-            'VIEW' => $this->_language->get('general', 'view'),
+            'REPORTS'        => $data,
+            'NO_REPORTS'     => $this->_language->get('moderator', 'no_open_reports'),
+            'CREATED'        => $this->_language->get('moderator', 'created'),
+            'REPORTED_BY'    => $this->_language->get('moderator', 'reported_by'),
+            'REASON'         => $this->_language->get('moderator', 'reason:'),
+            'WEBSITE'        => $this->_language->get('moderator', 'website'),
+            'INGAME'         => $this->_language->get('moderator', 'ingame'),
+            'VIEW'           => $this->_language->get('general', 'view'),
         ]);
 
         return $this->_smarty->fetch('collections/dashboard_items/recent_reports.tpl');

@@ -18,7 +18,7 @@ if ($user->isLoggedIn()) {
     // Require Bulletproof
     require '../core/includes/bulletproof/bulletproof.php';
 
-    if (! is_dir(ROOT_PATH.'/uploads/images')) {
+    if (!is_dir(ROOT_PATH.'/uploads/images')) {
         mkdir(ROOT_PATH.'/uploads/images');
     }
 
@@ -45,18 +45,18 @@ if ($user->isLoggedIn()) {
             echo json_encode([
                 'uploaded' => '1',
                 'fileName' => $image->getName().$image->getMime(),
-                'url' => $url,
+                'url'      => $url,
             ]);
         } else {
             echo json_encode([
                 'uploaded' => '0',
-                'error' => ['message' => $image->getError().' '.$image->getMime()],
+                'error'    => ['message' => $image->getError().' '.$image->getMime()],
             ]);
         }
     }
 } else {
     echo json_encode([
         'uploaded' => '0',
-        'error' => ['You are not logged in'],
+        'error'    => ['You are not logged in'],
     ]);
 }

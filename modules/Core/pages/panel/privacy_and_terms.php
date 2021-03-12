@@ -25,11 +25,11 @@ if (Input::exists()) {
         $validation = $validate->check($_POST, [
             'privacy' => [
                 'required' => true,
-                'max' => 100000,
+                'max'      => 100000,
             ],
             'terms' => [
                 'required' => true,
-                'max' => 100000,
+                'max'      => 100000,
             ],
         ]);
 
@@ -44,7 +44,7 @@ if (Input::exists()) {
                     ]);
                 } else {
                     $queries->create('privacy_terms', [
-                        'name' => 'privacy',
+                        'name'  => 'privacy',
                         'value' => Input::get('privacy'),
                     ]);
                 }
@@ -58,7 +58,7 @@ if (Input::exists()) {
                     ]);
                 } else {
                     $queries->create('privacy_terms', [
-                        'name' => 'terms',
+                        'name'  => 'terms',
                         'value' => Input::get('terms'),
                     ]);
                 }
@@ -86,42 +86,42 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 // Get privacy policy + terms
 $site_terms = $queries->getWhere('privacy_terms', ['name', '=', 'terms']);
-if (! count($site_terms)) {
+if (!count($site_terms)) {
     $site_terms = $queries->getWhere('settings', ['name', '=', 't_and_c_site']);
 }
 $site_terms = $site_terms[0]->value;
 
 $site_privacy = $queries->getWhere('privacy_terms', ['name', '=', 'privacy']);
-if (! count($site_privacy)) {
+if (!count($site_privacy)) {
     $site_privacy = $queries->getWhere('settings', ['name', '=', 'privacy_policy']);
 }
 $site_privacy = $site_privacy[0]->value;
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'PRIVACY_AND_TERMS' => $language->get('admin', 'privacy_and_terms'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
-    'PRIVACY_POLICY' => $language->get('general', 'privacy_policy'),
-    'PRIVACY_POLICY_VALUE' => Output::getPurified($site_privacy),
-    'TERMS_AND_CONDITIONS' => $language->get('user', 'terms_and_conditions'),
+    'PARENT_PAGE'                => PARENT_PAGE,
+    'DASHBOARD'                  => $language->get('admin', 'dashboard'),
+    'CONFIGURATION'              => $language->get('admin', 'configuration'),
+    'PRIVACY_AND_TERMS'          => $language->get('admin', 'privacy_and_terms'),
+    'PAGE'                       => PANEL_PAGE,
+    'TOKEN'                      => Token::get(),
+    'SUBMIT'                     => $language->get('general', 'submit'),
+    'PRIVACY_POLICY'             => $language->get('general', 'privacy_policy'),
+    'PRIVACY_POLICY_VALUE'       => Output::getPurified($site_privacy),
+    'TERMS_AND_CONDITIONS'       => $language->get('user', 'terms_and_conditions'),
     'TERMS_AND_CONDITIONS_VALUE' => Output::getPurified($site_terms),
 ]);
 

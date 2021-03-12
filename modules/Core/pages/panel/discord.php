@@ -45,7 +45,7 @@ if (Input::exists()) {
             ]);
         }
 
-        if (! count($errors)) {
+        if (!count($errors)) {
             $success = $language->get('admin', 'discord_settings_updated');
         }
     } else {
@@ -59,21 +59,21 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 if (Session::exists('discord_error')) {
     $smarty->assign([
-        'ERRORS' => [Session::flash('discord_error')],
+        'ERRORS'       => [Session::flash('discord_error')],
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
@@ -85,22 +85,22 @@ $guild_id = $queries->getWhere('settings', ['name', '=', 'discord']);
 $guild_id = $guild_id[0]->value;
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'INTEGRATIONS' => $language->get('admin', 'integrations'),
-    'DISCORD' => $language->get('admin', 'discord'),
-    'PAGE' => PANEL_PAGE,
-    'INFO' => $language->get('general', 'info'),
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'PARENT_PAGE'                => PARENT_PAGE,
+    'DASHBOARD'                  => $language->get('admin', 'dashboard'),
+    'INTEGRATIONS'               => $language->get('admin', 'integrations'),
+    'DISCORD'                    => $language->get('admin', 'discord'),
+    'PAGE'                       => PANEL_PAGE,
+    'INFO'                       => $language->get('general', 'info'),
+    'TOKEN'                      => Token::get(),
+    'SUBMIT'                     => $language->get('general', 'submit'),
     'ENABLE_DISCORD_INTEGRATION' => $language->get('admin', 'enable_discord_integration'),
-    'DISCORD_ENABLED' => $discord_enabled,
-    'INVITE_LINK' => $language->get('admin', 'discord_invite_info'),
-    'GUILD_ID_SET' => ($guild_id != ''),
-    'BOT_URL_SET' => (BOT_URL != ''),
-    'BOT_USERNAME_SET' => (BOT_USERNAME != ''),
-    'REQUIREMENTS' => rtrim($language->get('installer', 'requirements'), ':'),
-    'BOT_SETUP' => $language->get('admin', 'discord_bot_setup'),
+    'DISCORD_ENABLED'            => $discord_enabled,
+    'INVITE_LINK'                => $language->get('admin', 'discord_invite_info'),
+    'GUILD_ID_SET'               => ($guild_id != ''),
+    'BOT_URL_SET'                => (BOT_URL != ''),
+    'BOT_USERNAME_SET'           => (BOT_USERNAME != ''),
+    'REQUIREMENTS'               => rtrim($language->get('installer', 'requirements'), ':'),
+    'BOT_SETUP'                  => $language->get('admin', 'discord_bot_setup'),
 ]);
 
 $page_load = microtime(true) - $start;

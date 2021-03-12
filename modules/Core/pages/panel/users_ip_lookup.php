@@ -24,7 +24,7 @@ if (isset($_GET['uid'])) {
     $user_id = intval($_GET['uid']);
 
     $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
-    if (! count($user_query)) {
+    if (!count($user_query)) {
         Redirect::to(URL::build('/panel/users'));
         exit();
     }
@@ -38,7 +38,7 @@ if (isset($_GET['uid'])) {
 
         foreach ($user_ips as $account) {
             $accounts[] = [
-                'ip' => Output::getClean($account->ip),
+                'ip'   => Output::getClean($account->ip),
                 'link' => URL::build('/panel/users/ip_lookup/', 'ip='.Output::getClean($account->ip)),
             ];
         }
@@ -50,10 +50,10 @@ if (isset($_GET['uid'])) {
         }
 
         $smarty->assign([
-            'ACCOUNTS' => $accounts,
+            'ACCOUNTS'       => $accounts,
             'COUNT_ACCOUNTS' => $count_accounts,
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/users/ip_lookup'),
+            'BACK'           => $language->get('general', 'back'),
+            'BACK_LINK'      => URL::build('/panel/users/ip_lookup'),
         ]);
 
         $template_file = 'core/users_ip_lookup_results.tpl';
@@ -67,7 +67,7 @@ if (isset($_GET['uid'])) {
     // Get accounts with this IP
     $ip_accounts = $queries->getWhere('users_ips', ['ip', '=', Output::getClean($_GET['ip'])]);
 
-    if (! count($ip_accounts)) {
+    if (!count($ip_accounts)) {
         $errors = [$language->get('moderator', 'no_accounts_with_that_ip')];
 
         $template_file = 'core/users_ip_lookup.tpl';
@@ -79,11 +79,11 @@ if (isset($_GET['uid'])) {
 
             if (count($username)) {
                 $accounts[] = [
-                    'username' => Output::getClean($username[0]->username),
-                    'nickname' => Output::getClean($username[0]->nickname),
-                    'profile' => URL::build('/panel/user/'.Output::getClean($username[0]->id.'-'.$username[0]->username)),
+                    'username'    => Output::getClean($username[0]->username),
+                    'nickname'    => Output::getClean($username[0]->nickname),
+                    'profile'     => URL::build('/panel/user/'.Output::getClean($username[0]->id.'-'.$username[0]->username)),
                     'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid='.$account->user_id),
-                    'style' => $user->getGroupClass($username[0]->id),
+                    'style'       => $user->getGroupClass($username[0]->id),
                 ];
             }
         }
@@ -95,11 +95,11 @@ if (isset($_GET['uid'])) {
         }
 
         $smarty->assign([
-            'IP_SEARCH' => true,
-            'ACCOUNTS' => $accounts,
+            'IP_SEARCH'      => true,
+            'ACCOUNTS'       => $accounts,
             'COUNT_ACCOUNTS' => $count_accounts,
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/users/ip_lookup'),
+            'BACK'           => $language->get('general', 'back'),
+            'BACK_LINK'      => URL::build('/panel/users/ip_lookup'),
         ]);
 
         $template_file = 'core/users_ip_lookup_results.tpl';
@@ -111,7 +111,7 @@ if (isset($_GET['uid'])) {
             // Search
             $query = $queries->getWhere('users', ['username', '=', Output::getClean(Input::get('search'))]);
 
-            if (! count($query)) {
+            if (!count($query)) {
                 // Try nickname
                 $query = $queries->getWhere('users', ['nickname', '=', Output::getClean(Input::get('search'))]);
             }
@@ -140,27 +140,27 @@ if (isset($_GET['uid'])) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
+    'PARENT_PAGE'           => PARENT_PAGE,
+    'DASHBOARD'             => $language->get('admin', 'dashboard'),
+    'USER_MANAGEMENT'       => $language->get('admin', 'user_management'),
     'SEARCH_FOR_IP_OR_USER' => $language->get('moderator', 'search_for_ip'),
-    'IP_LOOKUP' => $language->get('moderator', 'ip_lookup'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'IP_LOOKUP'             => $language->get('moderator', 'ip_lookup'),
+    'PAGE'                  => PANEL_PAGE,
+    'TOKEN'                 => Token::get(),
+    'SUBMIT'                => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;

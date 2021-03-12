@@ -13,7 +13,7 @@ class ServerInfoEndpoint extends EndpointBase
     public function execute(Nameless2API $api)
     {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps']);
-        if (! isset($_POST['players'])) {
+        if (!isset($_POST['players'])) {
             $api->throwError(6, $this->_language->get('api', 'invalid_post_contents'), 'players');
         }
 
@@ -21,7 +21,7 @@ class ServerInfoEndpoint extends EndpointBase
         // Ensure server exists
         $server_query = $api->getDb()->get('mc_servers', ['id', '=', $serverId]);
 
-        if (! $server_query->count()) {
+        if (!$server_query->count()) {
             $api->throwError(27, $api->getLanguage()->get('api', 'invalid_server_id').' - '.$serverId);
         }
 
@@ -29,11 +29,11 @@ class ServerInfoEndpoint extends EndpointBase
             $api->getDb()->insert(
                 'query_results',
                 [
-                    'server_id' => $_POST['server-id'],
-                    'queried_at' => date('U'),
+                    'server_id'      => $_POST['server-id'],
+                    'queried_at'     => date('U'),
                     'players_online' => count($_POST['players']),
-                    'extra' => json_encode($_POST),
-                    'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]',
+                    'extra'          => json_encode($_POST),
+                    'groups'         => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]',
                 ]
             );
 
@@ -48,14 +48,14 @@ class ServerInfoEndpoint extends EndpointBase
 
                 $to_cache = [
                     'query_interval' => [
-                        'time' => date('U'),
+                        'time'   => date('U'),
                         'expire' => 0,
-                        'data' => serialize($query_interval),
+                        'data'   => serialize($query_interval),
                     ],
                     'last_query' => [
-                        'time' => date('U'),
+                        'time'   => date('U'),
                         'expire' => 0,
-                        'data' => serialize(date('U')),
+                        'data'   => serialize(date('U')),
                     ],
                 ];
 
@@ -75,7 +75,7 @@ class ServerInfoEndpoint extends EndpointBase
                         if ($user->data()) {
                             if ($player['name'] != $user->data()->username) {
                                 // Update username
-                                if (! Util::getSetting($api->getDb(), 'displaynames', false)) {
+                                if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
                                     $user->update(
                                         [
                                             'username' => Output::getClean($player['name']),
@@ -102,6 +102,7 @@ class ServerInfoEndpoint extends EndpointBase
 
         // Group sync
         $log_array = [];
+
         try {
             $group_sync = $api->getDb()->get('group_sync', ['id', '<>', 0]);
 
@@ -137,7 +138,7 @@ class ServerInfoEndpoint extends EndpointBase
                             }
 
                             // Check that this website group is setup to sync
-                            if (! array_key_exists($ingame_rank_name, $group_sync_updates)) {
+                            if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
                                 continue;
                             }
 
@@ -159,7 +160,7 @@ class ServerInfoEndpoint extends EndpointBase
                         foreach ($player['groups'] as $group) {
                             $ingame_rank_name = strtolower($group);
                             // Check that this ingame group is setup to sync
-                            if (! array_key_exists($ingame_rank_name, $group_sync_updates)) {
+                            if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
                                 continue;
                             }
 

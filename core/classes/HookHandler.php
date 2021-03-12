@@ -18,7 +18,7 @@ class HookHandler
     //          $params - array of available parameters and their descriptions
     public static function registerEvent($event, $description, $params = [])
     {
-        if (! isset(self::$_events[$event])) {
+        if (!isset(self::$_events[$event])) {
             self::$_events[$event] = [];
         }
 
@@ -40,7 +40,7 @@ class HookHandler
     //          $hook - function name to execute, eg Class::method
     public static function registerHook($event, $hook)
     {
-        if (! isset(self::$_events[$event])) {
+        if (!isset(self::$_events[$event])) {
             self::$_events[$event] = [];
         }
 
@@ -53,15 +53,15 @@ class HookHandler
     // Params:  $event - event name to call
     public static function executeEvent($event, $params = null)
     {
-        if (! isset(self::$_events[$event])) {
+        if (!isset(self::$_events[$event])) {
             return false;
         }
 
-        if (! is_array($params)) {
+        if (!is_array($params)) {
             $params = [];
         }
 
-        if (! isset($params['event'])) {
+        if (!isset($params['event'])) {
             $params['event'] = $event;
         }
 

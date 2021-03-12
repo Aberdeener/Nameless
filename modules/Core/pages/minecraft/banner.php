@@ -11,13 +11,13 @@
 
 define('PAGE', 'banner');
 
-if (! function_exists('exif_imagetype')) {
+if (!function_exists('exif_imagetype')) {
     exit('exif_imagetype is required to use server banners.');
 }
 
 // Minecraft integration?
 if (defined('MINECRAFT') && MINECRAFT === true) {
-    if (isset($directories[count($directories) - 1]) && ! empty($directories[count($directories) - 1])) {
+    if (isset($directories[count($directories) - 1]) && !empty($directories[count($directories) - 1])) {
         // Server specified
         $banner = $directories[count($directories) - 1];
 
@@ -29,7 +29,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
 
         $server = $queries->getWhere('mc_servers', ['name', '=', $banner]);
 
-        if (! count($server)) {
+        if (!count($server)) {
             exit('Invalid server');
         }
 
@@ -38,14 +38,14 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
         require ROOT_PATH.'/core/includes/motd_format.php';
 
         $display_ip = $server->ip;
-        if (! is_null($server->port) && $server->port != 25565) {
+        if (!is_null($server->port) && $server->port != 25565) {
             $display_ip .= ':'.$server->port;
         }
 
         $full_ip = ['ip' => $server->ip.(is_null($server->port) ? ':'. 25565 : ':'.$server->port), 'pre' => $server->pre, 'name' => $server->name];
 
         $cache->setCache('banner_cache_'.urlencode($server->name));
-        if (! $cache->isCached('image')) {
+        if (!$cache->isCached('image')) {
             // Internal or external query?
             $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
             if (count($query_type)) {
@@ -65,7 +65,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
             }
 
             // Do we need to query for favicon?
-            if (! $cache->isCached('favicon')) {
+            if (!$cache->isCached('favicon')) {
                 $favicon = imagecreatefromstring(base64_decode(ltrim(ExternalMCQuery::getFavicon($full_ip['ip']), 'data:image/png;base64')));
 
                 imagealphablending($favicon, true);

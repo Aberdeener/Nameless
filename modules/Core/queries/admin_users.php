@@ -3,7 +3,7 @@
 // Returns set of users for the StaffCP Users tab
 header('Content-type: application/json;charset=utf-8');
 
-if (! $user->isLoggedIn() || ! $user->hasPermission('admincp.users')) {
+if (!$user->isLoggedIn() || !$user->hasPermission('admincp.users')) {
     exit(json_encode('Unauthenticated'));
 }
 
@@ -83,10 +83,10 @@ if (count($results)) {
 
 echo json_encode(
     [
-        'draw' => isset($_GET['draw']) ? intval($_GET['draw']) : 0,
-        'recordsTotal' => $total,
+        'draw'            => isset($_GET['draw']) ? intval($_GET['draw']) : 0,
+        'recordsTotal'    => $total,
         'recordsFiltered' => isset($totalFiltered) ? $totalFiltered : $total,
-        'data' => $data,
+        'data'            => $data,
     ],
     JSON_PRETTY_PRINT
 );

@@ -58,7 +58,7 @@ class DiscordWidget extends WidgetBase
         }
 
         // Check if the widget is disabled.
-        if (! isset($result->channels) || isset($result->code)) {
+        if (!isset($result->channels) || isset($result->code)) {
             // Yes, it is: display message
             $this->_content = $this->_language->get('general', 'discord_widget_disabled');
         } else {

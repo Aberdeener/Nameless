@@ -2,8 +2,8 @@
 
 /**
  * @param string $username The username of the new user to create
- * @param string $uuid (optional) The Minecraft UUID of the new user
- * @param string $email The email of the new user
+ * @param string $uuid     (optional) The Minecraft UUID of the new user
+ * @param string $email    The email of the new user
  *
  * @return string JSON Array
  */
@@ -44,7 +44,7 @@ class RegisterEndpoint extends EndpointBase
         }
 
         // Validate email
-        if (! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             $api->throwError(7, $api->getLanguage()->get('api', 'invalid_email_address'));
         }
 
@@ -86,8 +86,8 @@ class RegisterEndpoint extends EndpointBase
      * @see Nameless2API::register()
      *
      * @param string $username The username of the new user to create
-     * @param string $uuid (optional) The Minecraft UUID of the new user
-     * @param string $email The email of the new user
+     * @param string $uuid     (optional) The Minecraft UUID of the new user
+     * @param string $email    The email of the new user
      *
      * @return string JSON Array
      */
@@ -108,7 +108,7 @@ class RegisterEndpoint extends EndpointBase
         if (Util::getSetting($api->getDb(), 'phpmailer')) {
             // PHP Mailer
             $email = [
-                'to' => ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
+                'to'      => ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
                 'subject' => SITE_NAME.' - '.$api->getLanguage()->get('emails', 'register_subject'),
                 'message' => str_replace('[Link]', $link, $html),
             ];
@@ -120,9 +120,9 @@ class RegisterEndpoint extends EndpointBase
                 $api->getDb()->insert(
                     'email_errors',
                     [
-                        'type' => 4, // 4 = API registration email
+                        'type'    => 4, // 4 = API registration email
                         'content' => $sent['error'],
-                        'at' => date('U'),
+                        'at'      => date('U'),
                         'user_id' => $user_id,
                     ]
                 );
@@ -143,7 +143,7 @@ class RegisterEndpoint extends EndpointBase
             'Content-type: text/html; charset=UTF-8'."\r\n";
 
             $email = [
-                'to' => $to,
+                'to'      => $to,
                 'subject' => $subject,
                 'message' => str_replace('[Link]', $link, $html),
                 'headers' => $headers,
@@ -156,9 +156,9 @@ class RegisterEndpoint extends EndpointBase
                 $api->getDb()->insert(
                     'email_errors',
                     [
-                        'type' => 4,
+                        'type'    => 4,
                         'content' => $sent['error'],
-                        'at' => date('U'),
+                        'at'      => date('U'),
                         'user_id' => $user_id,
                     ]
                 );
@@ -171,13 +171,13 @@ class RegisterEndpoint extends EndpointBase
         HookHandler::executeEvent(
             'registerUser',
             [
-                'event' => 'registerUser',
-                'user_id' => $user_id,
-                'username' => Output::getClean($username),
-                'content' => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
+                'event'      => 'registerUser',
+                'user_id'    => $user_id,
+                'username'   => Output::getClean($username),
+                'content'    => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
                 'avatar_url' => $user->getAvatar($user_id, null, 128, true),
-                'url' => Util::getSelfURL().ltrim(URL::build('/profile/'.Output::getClean($username)), '/'),
-                'language' => $api->getLanguage(),
+                'url'        => Util::getSelfURL().ltrim(URL::build('/profile/'.Output::getClean($username)), '/'),
+                'language'   => $api->getLanguage(),
             ]
         );
 
@@ -192,9 +192,9 @@ class RegisterEndpoint extends EndpointBase
      * @see Nameless2API::register()
      *
      * @param string $username The username of the new user to create
-     * @param string $uuid (optional) The Minecraft UUID of the new user
-     * @param string $email The email of the new user
-     * @param string $code The reset token/temp password of the new user
+     * @param string $uuid     (optional) The Minecraft UUID of the new user
+     * @param string $email    The email of the new user
+     * @param string $code     The reset token/temp password of the new user
      *
      * @return string JSON Array
      */
@@ -202,11 +202,11 @@ class RegisterEndpoint extends EndpointBase
     {
         try {
             // Get default group ID
-            if (! is_file(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('default_group').'.cache')) {
+            if (!is_file(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('default_group').'.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
                 $default_group = $api->getDb()->get('groups', ['default_group', '=', 1]);
-                if (! $default_group->count()) {
+                if (!$default_group->count()) {
                     $default_group = 1;
                 } else {
                     $default_group = $default_group->results();
@@ -215,9 +215,9 @@ class RegisterEndpoint extends EndpointBase
 
                 $to_cache = [
                     'default_group' => [
-                        'time' => date('U'),
+                        'time'   => date('U'),
                         'expire' => 0,
-                        'data' => serialize($default_group),
+                        'data'   => serialize($default_group),
                     ],
                 ];
 
@@ -229,21 +229,21 @@ class RegisterEndpoint extends EndpointBase
                 $default_group = unserialize($default_group->default_group->data);
             }
 
-            if (! $code) {
+            if (!$code) {
                 $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
             }
 
             $api->getDb()->insert(
                 'users',
                 [
-                    'username' => Output::getClean($username),
-                    'nickname' => Output::getClean($username),
-                    'uuid' => $uuid,
-                    'email' => Output::getClean($email),
-                    'password' => md5($code), // temp code
-                    'joined' => date('U'),
-                    'lastip' => 'Unknown',
-                    'reset_code' => $code,
+                    'username'    => Output::getClean($username),
+                    'nickname'    => Output::getClean($username),
+                    'uuid'        => $uuid,
+                    'email'       => Output::getClean($email),
+                    'password'    => md5($code), // temp code
+                    'joined'      => date('U'),
+                    'lastip'      => 'Unknown',
+                    'reset_code'  => $code,
                     'last_online' => date('U'),
                 ]
             );
@@ -256,13 +256,13 @@ class RegisterEndpoint extends EndpointBase
             HookHandler::executeEvent(
                 'registerUser',
                 [
-                    'event' => 'registerUser',
-                    'user_id' => $user_id,
-                    'username' => $user->getDisplayname(),
-                    'content' => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
+                    'event'      => 'registerUser',
+                    'user_id'    => $user_id,
+                    'username'   => $user->getDisplayname(),
+                    'content'    => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
                     'avatar_url' => $user->getAvatar(null, 128, true),
-                    'url' => Util::getSelfURL().ltrim($user->getProfileURL(), '/'),
-                    'language' => $api->getLanguage(),
+                    'url'        => Util::getSelfURL().ltrim($user->getProfileURL(), '/'),
+                    'language'   => $api->getLanguage(),
                 ]
             );
 

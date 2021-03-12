@@ -88,7 +88,7 @@ class Email
             $mail->msgHTML($email['message']);
             $mail->Body = $email['message'];
 
-            if (! $mail->send()) {
+            if (!$mail->send()) {
                 return ['error' => $mail->ErrorInfo];
             } else {
                 return true;

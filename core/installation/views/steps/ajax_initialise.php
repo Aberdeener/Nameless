@@ -12,7 +12,7 @@ if (isset($_POST) && isset($_POST['perform']) && $_POST['perform'] == 'true') {
             $redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
 
             $json = [
-                'success' => $success,
+                'success'      => $success,
                 'redirect_url' => $redirect_url,
             ];
 
@@ -21,7 +21,7 @@ if (isset($_POST) && isset($_POST['perform']) && $_POST['perform'] == 'true') {
             require realpath(__DIR__.'/../includes/site_initialize.php');
 
             $json = [
-                'success' => true,
+                'success'      => true,
                 'redirect_url' => '?step=admin_account_setup',
             ];
 
@@ -31,7 +31,7 @@ if (isset($_POST) && isset($_POST['perform']) && $_POST['perform'] == 'true') {
         }
     } catch (Exception $e) {
         $json = [
-            'error' => true,
+            'error'   => true,
             'message' => $e->getMessage(),
         ];
     }

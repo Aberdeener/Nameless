@@ -42,11 +42,11 @@ class Util
 
         foreach (glob($directory.'/*') as $file) {
             if (is_dir($file)) {
-                if (! self::recursiveRemoveDirectory($file)) {
+                if (!self::recursiveRemoveDirectory($file)) {
                     return false;
                 }
             } else {
-                if (! unlink($file)) {
+                if (!unlink($file)) {
                     return false;
                 }
             }
@@ -298,7 +298,9 @@ class Util
 
     /**
      * Is a URL internal or external? Accepts full URL and also just a path.
+     *
      * @param $url string URL/path to check
+     *
      * @return bool whether URL is external or not
      */
     public static function isExternalURL($url)
@@ -309,7 +311,7 @@ class Util
 
         $parsed = parse_url($url);
 
-        return ! (str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
+        return !(str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
     // URL-ify a string
@@ -341,10 +343,12 @@ class Util
      * - `exact` If false, $text will not be cut mid-word
      * - `html` If true, HTML tags would be handled correctly
      *
-     * @param string  $text String to truncate.
-     * @param int $length Length of returned string, including ellipsis.
-     * @param array $options An array of html attributes and options.
+     * @param string $text    String to truncate.
+     * @param int    $length  Length of returned string, including ellipsis.
+     * @param array  $options An array of html attributes and options.
+     *
      * @return string Trimmed string.
+     *
      * @link http://book.cakephp.org/view/1469/Text#truncate-1625
      */
     public static function truncate($text, $length = 750, $options = [])
@@ -365,7 +369,7 @@ class Util
 
             preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
             foreach ($tags as $tag) {
-                if (! preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
+                if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
                     if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
                         array_unshift($openTags, $tag[2]);
                     } elseif (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
@@ -409,15 +413,15 @@ class Util
                 $truncate = mb_substr($text, 0, $length - mb_strlen($ending));
             }
         }
-        if (! $exact) {
+        if (!$exact) {
             $spacepos = mb_strrpos($truncate, ' ');
             if (isset($spacepos)) {
                 if ($html) {
                     $bits = mb_substr($truncate, $spacepos);
                     preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
-                    if (! empty($droppedTags)) {
+                    if (!empty($droppedTags)) {
                         foreach ($droppedTags as $closingTag) {
-                            if (! in_array($closingTag[1], $openTags)) {
+                            if (!in_array($closingTag[1], $openTags)) {
                                 array_unshift($openTags, $closingTag[1]);
                             }
                         }
@@ -446,7 +450,7 @@ class Util
         $queries = new Queries();
 
         // Check for updates
-        if (! $current_version) {
+        if (!$current_version) {
             $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
             $current_version = $current_version[0]->value;
         }
@@ -479,7 +483,7 @@ class Util
             } else {
                 $info = json_decode($update_check);
 
-                if (! isset($info->error) && ! isset($info->no_update) && isset($info->new_version)) {
+                if (!isset($info->error) && !isset($info->no_update) && isset($info->new_version)) {
                     if (isset($info->urgent) && $info->urgent == 'true') {
                         $to_db = 'urgent';
                     } else {
@@ -585,7 +589,7 @@ class Util
                 $endpoint_file_name = $file->getFilename();
                 require_once $endpoint_path;
                 $endpoint_class_name = str_replace('.php', '', $endpoint_file_name);
-                $endpoints->add(new $endpoint_class_name);
+                $endpoints->add(new $endpoint_class_name());
             }
         }
     }

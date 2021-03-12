@@ -36,8 +36,8 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == 'test') {
         $smarty->assign([
             'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/core/emails'),
+            'BACK'            => $language->get('general', 'back'),
+            'BACK_LINK'       => URL::build('/panel/core/emails'),
         ]);
 
         if (isset($_GET['do']) && $_GET['do'] == 'send') {
@@ -50,7 +50,7 @@ if (isset($_GET['action'])) {
 
                 // PHP Mailer
                 $email = [
-                    'to' => ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
+                    'to'      => ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
                     'subject' => SITE_NAME.' - Test Email',
                     'message' => SITE_NAME.' - Test email successful!',
                 ];
@@ -78,7 +78,7 @@ if (isset($_GET['action'])) {
                     'Content-type: text/html; charset=UTF-8'."\r\n";
 
                 $email = [
-                    'to' => $to,
+                    'to'      => $to,
                     'subject' => $subject,
                     'message' => $message,
                     'headers' => $headers,
@@ -92,15 +92,15 @@ if (isset($_GET['action'])) {
                 }
             }
 
-            if (! count($errors)) {
+            if (!count($errors)) {
                 $success = $language->get('admin', 'test_email_success');
             }
         } else {
             $smarty->assign([
                 'SEND_TEST_EMAIL_INFO' => str_replace('{x}', Output::getClean($user->data()->email), $language->get('admin', 'send_test_email_info')),
-                'INFO' => $language->get('general', 'info'),
-                'SEND' => $language->get('admin', 'send'),
-                'SEND_LINK' => URL::build('/panel/core/emails/', 'action=test&do=send'),
+                'INFO'                 => $language->get('general', 'info'),
+                'SEND'                 => $language->get('admin', 'send'),
+                'SEND_LINK'            => URL::build('/panel/core/emails/', 'action=test&do=send'),
             ]);
         }
 
@@ -118,27 +118,27 @@ if (isset($_GET['action'])) {
         }
 
         $smarty->assign([
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/core/emails'),
-            'EMAILS_MESSAGES' => $language->get('admin', 'edit_email_messages'),
+            'BACK'             => $language->get('general', 'back'),
+            'BACK_LINK'        => URL::build('/panel/core/emails'),
+            'EMAILS_MESSAGES'  => $language->get('admin', 'edit_email_messages'),
             'EDITING_MESSAGES' => $language->get('admin', 'editing_messages'),
-            'OPTIONS' => $language->get('admin', 'email_message_options'),
-            'SELECT_LANGUAGE' => $language->get('admin', 'editing_language'),
+            'OPTIONS'          => $language->get('admin', 'email_message_options'),
+            'SELECT_LANGUAGE'  => $language->get('admin', 'editing_language'),
             'EDITING_LANGUAGE' => $editing_language->getActiveLanguage(),
-            'LANGUAGES' => $available_languages,
-            'INFO' => $language->get('general', 'info'),
-            'LANGUAGE_INFO' => $language->get('admin', 'email_language_info'),
-            'GREETING' => $language->get('admin', 'email_message_greeting'),
-            'GREETING_VALUE' => $editing_language->get('emails', 'greeting'),
-            'THANKS' => $language->get('admin', 'email_message_thanks'),
-            'THANKS_VALUE' => $editing_language->get('emails', 'thanks'),
-            'EMAILS_LIST' => $emails,
-            'SUBJECT' => $language->get('admin', 'email_message_subject'),
-            'MESSAGE' => $language->get('admin', 'email_message_message'),
-            'PREVIEW' => $language->get('admin', 'email_preview_popup'),
-            'PREVIEW_INFO' => $language->get('admin', 'email_preview_popup_message'),
-            'SUBMIT' => $language->get('general', 'submit'),
-            'TOKEN' => Token::get(),
+            'LANGUAGES'        => $available_languages,
+            'INFO'             => $language->get('general', 'info'),
+            'LANGUAGE_INFO'    => $language->get('admin', 'email_language_info'),
+            'GREETING'         => $language->get('admin', 'email_message_greeting'),
+            'GREETING_VALUE'   => $editing_language->get('emails', 'greeting'),
+            'THANKS'           => $language->get('admin', 'email_message_thanks'),
+            'THANKS_VALUE'     => $editing_language->get('emails', 'thanks'),
+            'EMAILS_LIST'      => $emails,
+            'SUBJECT'          => $language->get('admin', 'email_message_subject'),
+            'MESSAGE'          => $language->get('admin', 'email_message_message'),
+            'PREVIEW'          => $language->get('admin', 'email_preview_popup'),
+            'PREVIEW_INFO'     => $language->get('admin', 'email_preview_popup_message'),
+            'SUBMIT'           => $language->get('general', 'submit'),
+            'TOKEN'            => Token::get(),
         ]);
 
         $template_file = 'core/emails_edit_messages.tpl';
@@ -147,8 +147,8 @@ if (isset($_GET['action'])) {
 
         $smarty->assign([
             'USER_NAME' => $user->data()->username,
-            'SUBJECT' => $viewing_language->get('emails', $_GET['email'].'_subject'),
-            'MESSAGE' => Email::formatEmail($_GET['email'], $viewing_language),
+            'SUBJECT'   => $viewing_language->get('emails', $_GET['email'].'_subject'),
+            'MESSAGE'   => Email::formatEmail($_GET['email'], $viewing_language),
         ]);
 
         $template_file = 'core/emails_edit_messages_preview.tpl';
@@ -174,7 +174,7 @@ if (isset($_GET['action'])) {
                     $editing_lang->set('emails', $email[0].'_message', Output::getClean(Input::get($email[0].'_message')));
                 }
 
-                if (! count($errors)) {
+                if (!count($errors)) {
                     Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
                     Redirect::to(URL::build('/panel/core/emails', 'action=edit_messages'));
                     exit();
@@ -193,7 +193,7 @@ if (isset($_GET['action'])) {
                     'value' => $mailer,
                 ]);
 
-                if (! empty($_POST['email'])) {
+                if (!empty($_POST['email'])) {
                     $outgoing_email = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
                     $outgoing_email = $outgoing_email[0]->id;
 
@@ -211,12 +211,12 @@ if (isset($_GET['action'])) {
                         // Build new email config
                         $config = '<?php'.PHP_EOL.
                             '$GLOBALS[\'email\'] = array('.PHP_EOL.
-                            '    \'email\' => \''.str_replace('\'', '\\\'', (! empty($_POST['email']) ? $_POST['email'] : $GLOBALS['email']['email'])).'\','.PHP_EOL.
-                            '    \'username\' => \''.str_replace('\'', '\\\'', (! empty($_POST['username']) ? $_POST['username'] : $GLOBALS['email']['username'])).'\','.PHP_EOL.
-                            '    \'password\' => \''.str_replace('\'', '\\\'', ((! empty($_POST['password'])) ? $_POST['password'] : $GLOBALS['email']['password'])).'\','.PHP_EOL.
-                            '    \'name\' => \''.str_replace('\'', '\\\'', (! empty($_POST['name']) ? $_POST['name'] : $GLOBALS['email']['name'])).'\','.PHP_EOL.
-                            '    \'host\' => \''.str_replace('\'', '\\\'', (! empty($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])).'\','.PHP_EOL.
-                            '    \'port\' => '.str_replace('\'', '\\\'', (! empty($_POST['port']) ? $_POST['port'] : $GLOBALS['email']['port'])).','.PHP_EOL.
+                            '    \'email\' => \''.str_replace('\'', '\\\'', (!empty($_POST['email']) ? $_POST['email'] : $GLOBALS['email']['email'])).'\','.PHP_EOL.
+                            '    \'username\' => \''.str_replace('\'', '\\\'', (!empty($_POST['username']) ? $_POST['username'] : $GLOBALS['email']['username'])).'\','.PHP_EOL.
+                            '    \'password\' => \''.str_replace('\'', '\\\'', ((!empty($_POST['password'])) ? $_POST['password'] : $GLOBALS['email']['password'])).'\','.PHP_EOL.
+                            '    \'name\' => \''.str_replace('\'', '\\\'', (!empty($_POST['name']) ? $_POST['name'] : $GLOBALS['email']['name'])).'\','.PHP_EOL.
+                            '    \'host\' => \''.str_replace('\'', '\\\'', (!empty($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])).'\','.PHP_EOL.
+                            '    \'port\' => '.str_replace('\'', '\\\'', (!empty($_POST['port']) ? $_POST['port'] : $GLOBALS['email']['port'])).','.PHP_EOL.
                             '    \'secure\' => \''.str_replace('\'', '\\\'', $GLOBALS['email']['secure']).'\','.PHP_EOL.
                             '    \'smtp_auth\' => '.(($GLOBALS['email']['smtp_auth']) ? 'true' : 'false').PHP_EOL.
                             ');';
@@ -234,12 +234,12 @@ if (isset($_GET['action'])) {
                         // Build new email config
                         $config = '<?php'.PHP_EOL.
                             '$GLOBALS[\'email\'] = array('.PHP_EOL.
-                            '    \'email\' => \''.str_replace('\'', '\\\'', (! empty($_POST['email']) ? $_POST['email'] : '')).'\','.PHP_EOL.
-                            '    \'username\' => \''.str_replace('\'', '\\\'', (! empty($_POST['username']) ? $_POST['username'] : '')).'\','.PHP_EOL.
-                            '    \'password\' => \''.str_replace('\'', '\\\'', ((! empty($_POST['password'])) ? $_POST['password'] : '')).'\','.PHP_EOL.
-                            '    \'name\' => \''.str_replace('\'', '\\\'', (! empty($_POST['name']) ? $_POST['name'] : '')).'\','.PHP_EOL.
-                            '    \'host\' => \''.str_replace('\'', '\\\'', (! empty($_POST['host']) ? $_POST['host'] : '')).'\','.PHP_EOL.
-                            '    \'port\' => \''.str_replace('\'', '\\\'', (! empty($_POST['port']) ? $_POST['host'] : 587)).','.PHP_EOL.
+                            '    \'email\' => \''.str_replace('\'', '\\\'', (!empty($_POST['email']) ? $_POST['email'] : '')).'\','.PHP_EOL.
+                            '    \'username\' => \''.str_replace('\'', '\\\'', (!empty($_POST['username']) ? $_POST['username'] : '')).'\','.PHP_EOL.
+                            '    \'password\' => \''.str_replace('\'', '\\\'', ((!empty($_POST['password'])) ? $_POST['password'] : '')).'\','.PHP_EOL.
+                            '    \'name\' => \''.str_replace('\'', '\\\'', (!empty($_POST['name']) ? $_POST['name'] : '')).'\','.PHP_EOL.
+                            '    \'host\' => \''.str_replace('\'', '\\\'', (!empty($_POST['host']) ? $_POST['host'] : '')).'\','.PHP_EOL.
+                            '    \'port\' => \''.str_replace('\'', '\\\'', (!empty($_POST['port']) ? $_POST['host'] : 587)).','.PHP_EOL.
                             '    \'secure\' => \'tls\','.PHP_EOL.
                             '    \'smtp_auth\' => true'.PHP_EOL.
                             ');';
@@ -251,7 +251,7 @@ if (isset($_GET['action'])) {
                     }
                 }
 
-                if (! count($errors)) {
+                if (!count($errors)) {
                     // Redirect to refresh config values
                     Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
                     Redirect::to(URL::build('/panel/core/emails'));
@@ -273,40 +273,40 @@ if (isset($_GET['action'])) {
 
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
         $smarty->assign([
-            'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
+            'MASS_MESSAGE'      => $language->get('admin', 'emails_mass_message'),
             'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/mass_message'),
         ]);
     }
 
     $smarty->assign([
-        'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
-        'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/mass_message'),
-        'EDIT_EMAIL_MESSAGES' => $language->get('admin', 'edit_email_messages'),
+        'MASS_MESSAGE'             => $language->get('admin', 'emails_mass_message'),
+        'MASS_MESSAGE_LINK'        => URL::build('/panel/core/emails/mass_message'),
+        'EDIT_EMAIL_MESSAGES'      => $language->get('admin', 'edit_email_messages'),
         'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/core/emails/', 'action=edit_messages'),
-        'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
-        'SEND_TEST_EMAIL_LINK' => URL::build('/panel/core/emails/', 'action=test'),
-        'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
-        'EMAIL_ERRORS_LINK' => URL::build('/panel/core/emails/errors'),
-        'ENABLE_MAILER' => $language->get('admin', 'enable_mailer'),
-        'ENABLE_MAILER_VALUE' => $php_mailer,
-        'INFO' => $language->get('general', 'info'),
-        'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help'),
-        'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),
-        'OUTGOING_EMAIL_INFO' => $language->get('admin', 'outgoing_email_info'),
-        'OUTGOING_EMAIL_VALUE' => Output::getClean($outgoing_email),
-        'MAILER_SETTINGS_INFO' => $language->get('admin', 'mailer_settings_info'),
-        'USERNAME' => $language->get('user', 'username'),
-        'USERNAME_VALUE' => (! empty($GLOBALS['email']['username']) ? Output::getClean($GLOBALS['email']['username']) : ''),
-        'PASSWORD' => $language->get('user', 'password'),
-        'PASSWORD_HIDDEN' => $language->get('admin', 'email_password_hidden'),
-        'NAME' => $language->get('admin', 'name'),
-        'NAME_VALUE' => (! empty($GLOBALS['email']['name']) ? Output::getClean($GLOBALS['email']['name']) : ''),
-        'HOST' => $language->get('admin', 'host'),
-        'HOST_VALUE' => (! empty($GLOBALS['email']['host']) ? Output::getClean($GLOBALS['email']['host']) : ''),
-        'PORT' => $language->get('admin', 'email_port'),
-        'PORT_VALUE' => (! empty($GLOBALS['email']['port']) ? Output::getClean(isset($GLOBALS['email']['port']) ? $GLOBALS['email']['port'] : 587) : 587),
-        'SUBMIT' => $language->get('general', 'submit'),
-        'TOKEN' => Token::get(),
+        'SEND_TEST_EMAIL'          => $language->get('admin', 'send_test_email'),
+        'SEND_TEST_EMAIL_LINK'     => URL::build('/panel/core/emails/', 'action=test'),
+        'EMAIL_ERRORS'             => $language->get('admin', 'email_errors'),
+        'EMAIL_ERRORS_LINK'        => URL::build('/panel/core/emails/errors'),
+        'ENABLE_MAILER'            => $language->get('admin', 'enable_mailer'),
+        'ENABLE_MAILER_VALUE'      => $php_mailer,
+        'INFO'                     => $language->get('general', 'info'),
+        'ENABLE_MAILER_HELP'       => $language->get('admin', 'enable_mailer_help'),
+        'OUTGOING_EMAIL'           => $language->get('admin', 'outgoing_email'),
+        'OUTGOING_EMAIL_INFO'      => $language->get('admin', 'outgoing_email_info'),
+        'OUTGOING_EMAIL_VALUE'     => Output::getClean($outgoing_email),
+        'MAILER_SETTINGS_INFO'     => $language->get('admin', 'mailer_settings_info'),
+        'USERNAME'                 => $language->get('user', 'username'),
+        'USERNAME_VALUE'           => (!empty($GLOBALS['email']['username']) ? Output::getClean($GLOBALS['email']['username']) : ''),
+        'PASSWORD'                 => $language->get('user', 'password'),
+        'PASSWORD_HIDDEN'          => $language->get('admin', 'email_password_hidden'),
+        'NAME'                     => $language->get('admin', 'name'),
+        'NAME_VALUE'               => (!empty($GLOBALS['email']['name']) ? Output::getClean($GLOBALS['email']['name']) : ''),
+        'HOST'                     => $language->get('admin', 'host'),
+        'HOST_VALUE'               => (!empty($GLOBALS['email']['host']) ? Output::getClean($GLOBALS['email']['host']) : ''),
+        'PORT'                     => $language->get('admin', 'email_port'),
+        'PORT_VALUE'               => (!empty($GLOBALS['email']['port']) ? Output::getClean(isset($GLOBALS['email']['port']) ? $GLOBALS['email']['port'] : 587) : 587),
+        'SUBMIT'                   => $language->get('general', 'submit'),
+        'TOKEN'                    => Token::get(),
     ]);
 
     $template_file = 'core/emails.tpl';
@@ -321,26 +321,26 @@ if (Session::exists('emails_success')) {
 
 if (isset($success)) {
     $smarty->assign([
-        'SUCCESS' => $success,
+        'SUCCESS'       => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
-        'ERRORS' => $errors,
+        'ERRORS'       => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $smarty->assign([
-    'PARENT_PAGE' => PARENT_PAGE,
-    'DASHBOARD' => $language->get('admin', 'dashboard'),
+    'PARENT_PAGE'   => PARENT_PAGE,
+    'DASHBOARD'     => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
-    'EMAILS' => $language->get('admin', 'emails'),
-    'PAGE' => PANEL_PAGE,
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit'),
+    'EMAILS'        => $language->get('admin', 'emails'),
+    'PAGE'          => PANEL_PAGE,
+    'TOKEN'         => Token::get(),
+    'SUBMIT'        => $language->get('general', 'submit'),
 ]);
 
 $page_load = microtime(true) - $start;
