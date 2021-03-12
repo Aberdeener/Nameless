@@ -24,7 +24,8 @@ define(
     'PAGE_LOAD_TIME',
     str_replace(
         '{x}',
-        round($page_load, 3), $language->get('general', 'page_loaded_in')
+        round($page_load, 3),
+        $language->get('general', 'page_loaded_in')
     )
 );
 

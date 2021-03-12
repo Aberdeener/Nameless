@@ -263,6 +263,7 @@ class TimeAgo
                     $timeDifference = $timeDifference - ($years * $this->secondsPerYear);
 
                 // finds the number of months
+                // no break
                 case $timeDifference >= $this->secondsPerMonth && $timeDifference <= ($this->secondsPerYear - 1):
                     // uses floor to remove decimals
                     $months = floor($timeDifference / $this->secondsPerMonth);
@@ -270,6 +271,7 @@ class TimeAgo
                     $timeDifference = $timeDifference - ($months * $this->secondsPerMonth);
 
                 // finds the number of days
+                // no break
                 case $timeDifference >= $this->secondsPerDay && $timeDifference <= ($this->secondsPerYear - 1):
                     // uses floor to remove decimals
                     $days = floor($timeDifference / $this->secondsPerDay);
@@ -277,6 +279,7 @@ class TimeAgo
                     $timeDifference = $timeDifference - ($days * $this->secondsPerDay);
 
                 // finds the number of hours
+                // no break
                 case $timeDifference >= $this->secondsPerHour && $timeDifference <= ($this->secondsPerDay - 1):
                     // uses floor to remove decimals
                     $hours = floor($timeDifference / $this->secondsPerHour);
@@ -284,6 +287,7 @@ class TimeAgo
                     $timeDifference = $timeDifference - ($hours * $this->secondsPerHour);
 
                 // finds the number of minutes
+                // no break
                 case $timeDifference >= $this->secondsPerMinute && $timeDifference <= ($this->secondsPerHour - 1):
                     // uses floor to remove decimals
                     $minutes = floor($timeDifference / $this->secondsPerMinute);
@@ -291,6 +295,7 @@ class TimeAgo
                     $timeDifference = $timeDifference - ($minutes * $this->secondsPerMinute);
 
                 // finds the number of seconds
+                // no break
                 case $timeDifference <= ($this->secondsPerMinute - 1):
                     // seconds is just what there is in the timeDifference variable
                     $seconds = $timeDifference;
