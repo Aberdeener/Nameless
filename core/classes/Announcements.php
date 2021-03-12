@@ -27,7 +27,7 @@ class Announcements
     {
         $announcements = [];
         foreach (self::getAll() as $announcement) {
-            if (Cookie::exists('announcement-'.$announcement->id)) {
+            if (Cookie::exists('announcement-' . $announcement->id)) {
                 continue;
             }
             $pages = (array) json_decode($announcement->pages, true);

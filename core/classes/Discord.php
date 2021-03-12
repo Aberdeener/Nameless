@@ -14,7 +14,7 @@ class Discord
 
     public static function discordBotRequest($url = '/status', $body = null)
     {
-        $response = Util::curlGetContents(BOT_URL.$url, $body);
+        $response = Util::curlGetContents(BOT_URL . $url, $body);
         if (in_array($response, self::$_valid_responses)) {
             return $response;
         } else {
@@ -58,7 +58,7 @@ class Discord
                     if ($result != 'success') {
                         if ($result != 'hierarchy') {
                             Session::flash('edit_user_errors', self::parseErrors($result, $language));
-                            Redirect::to(URL::build('/panel/users/edit/', 'id='.Output::getClean($user_query->data()->id)));
+                            Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
                             exit();
                         } else {
                             Session::flash('edit_user_warnings', [$language->get('admin', 'discord_bot_error_hierarchy')]);
@@ -85,7 +85,7 @@ class Discord
 
                             if ($redirect) {
                                 Session::flash('edit_user_errors', $errors);
-                                Redirect::to(URL::build('/panel/users/edit/', 'id='.Output::getClean($user_query->data()->id)));
+                                Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->data()->id)));
                                 exit();
                             } else {
                                 return $errors;
@@ -104,13 +104,13 @@ class Discord
     public static function saveRoles($roles)
     {
         $roles = [json_encode($roles)];
-        file_put_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('discord_roles').'.cache', $roles);
+        file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
     }
 
     public static function getRoles()
     {
-        if (file_exists(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('discord_roles').'.cache')) {
-            return json_decode(file_get_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('discord_roles').'.cache'), true);
+        if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
+            return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
         }
 
         return [];
@@ -125,7 +125,7 @@ class Discord
             $errors[] = $language->get('user', 'discord_communication_error');
         } else {
             if (in_array($result, self::$_valid_responses)) {
-                $errors[] = $language->get('admin', 'discord_bot_error_'.$result);
+                $errors[] = $language->get('admin', 'discord_bot_error_' . $result);
             } else {
                 // This should never happen
                 $errors[] = $language->get('user', 'discord_unknown_error');

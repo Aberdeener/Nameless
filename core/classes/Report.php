@@ -36,18 +36,18 @@ class Report
             $groups = '(';
             foreach ($moderator_groups as $group) {
                 if (is_numeric($group->id)) {
-                    $groups .= ((int) $group->id).',';
+                    $groups .= ((int) $group->id) . ',';
                 }
             }
-            $groups = rtrim($groups, ',').')';
+            $groups = rtrim($groups, ',') . ')';
 
-            $moderators = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in '.$groups)->results();
+            $moderators = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups)->results();
 
             if (count($moderators)) {
                 foreach ($moderators as $moderator) {
                     try {
                         // Get language
-                        Alert::create($moderator->id, 'report', ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], URL::build('/panel/users/reports/', 'id='.$id));
+                        Alert::create($moderator->id, 'report', ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], URL::build('/panel/users/reports/', 'id=' . $id));
                     } catch (Exception $e) {
                         // Unable to alert moderator
                         exit($e->getMessage());

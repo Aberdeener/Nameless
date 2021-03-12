@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'reactions');
 $page_title = $language->get('user', 'reactions');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -49,7 +49,7 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
             }
 
             $template_reactions[] = [
-                'edit_link' => URL::build('/panel/core/reactions/', 'id='.Output::getClean($reaction->id)),
+                'edit_link' => URL::build('/panel/core/reactions/', 'id=' . Output::getClean($reaction->id)),
                 'name' => Output::getClean($reaction->name),
                 'html' => $reaction->html,
                 'type_id' => $reaction->type,
@@ -312,7 +312,7 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
             'YES' => $language->get('general', 'yes'),
             'NO' => $language->get('general', 'no'),
             'DELETE' => $language->get('general', 'delete'),
-            'DELETE_LINK' => URL::build('/panel/core/reactions/', 'action=delete&reaction='.$reaction->id),
+            'DELETE_LINK' => URL::build('/panel/core/reactions/', 'action=delete&reaction=' . $reaction->id),
             'CONFIRM_DELETE' => $language->get('admin', 'confirm_delete_reaction'),
             'EDITING_REACTION' => $language->get('admin', 'editing_reaction'),
             'NAME' => $language->get('admin', 'name'),
@@ -354,7 +354,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

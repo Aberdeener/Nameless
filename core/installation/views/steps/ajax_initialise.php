@@ -18,7 +18,7 @@ if (isset($_POST) && isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
             $_SESSION['database_initialized'] = true;
         } elseif ($_GET['initialise'] === 'site') {
-            require realpath(__DIR__.'/../includes/site_initialize.php');
+            require realpath(__DIR__ . '/../includes/site_initialize.php');
 
             $json = [
                 'success' => true,

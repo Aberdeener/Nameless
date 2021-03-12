@@ -9,7 +9,7 @@ try {
     if (! is_writable('core/config.php')) {
         $error = $language['config_not_writable'];
     } else {
-        file_put_contents('core/config.php', PHP_EOL.'$CONFIG[\'installed\'] = true;', FILE_APPEND);
+        file_put_contents('core/config.php', PHP_EOL . '$CONFIG[\'installed\'] = true;', FILE_APPEND);
     }
 
     unset($_SESSION['admin_setup']);

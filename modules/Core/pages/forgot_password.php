@@ -12,7 +12,7 @@
 define('PAGE', 'forgot_password');
 
 $page_title = str_replace('?', '', $language->get('user', 'forgot_password'));
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Ensure user is not logged in
 if ($user->isLoggedIn()) {
@@ -20,7 +20,7 @@ if ($user->isLoggedIn()) {
     exit();
 }
 
-require ROOT_PATH.'/core/includes/password.php'; // For password hashing
+require ROOT_PATH . '/core/includes/password.php'; // For password hashing
 
 if (! isset($_GET['c'])) {
     // Enter email address form
@@ -38,14 +38,14 @@ if (! isset($_GET['c'])) {
                     // Send an email
                     $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
                     $php_mailer = $php_mailer[0]->value;
-                    $link = rtrim(Util::getSelfURL(), '/').URL::build('/forgot_password/', 'c='.$code);
+                    $link = rtrim(Util::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . $code);
 
                     if ($php_mailer == '1') {
 
                         // PHP Mailer
                         $email = [
                             'to' => ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],
-                            'subject' => SITE_NAME.' - '.$language->get('emails', 'change_password_subject'),
+                            'subject' => SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
                             'message' => str_replace('[Link]', $link, Email::formatEmail('change_password', $language)),
                         ];
 
@@ -68,15 +68,15 @@ if (! isset($_GET['c'])) {
                         $siteemail = $siteemail[0]->value;
 
                         $to = $target_user->data()->email;
-                        $subject = SITE_NAME.' - '.$language->get('emails', 'change_password_subject');
+                        $subject = SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject');
 
                         $message = str_replace('[Link]', $link, Email::formatEmail('change_password', $language));
 
-                        $headers = 'From: '.$siteemail."\r\n".
-                            'Reply-To: '.$siteemail."\r\n".
-                            'X-Mailer: PHP/'.phpversion()."\r\n".
-                            'MIME-Version: 1.0'."\r\n".
-                            'Content-type: text/html; charset=UTF-8'."\r\n";
+                        $headers = 'From: ' . $siteemail . "\r\n" .
+                            'Reply-To: ' . $siteemail . "\r\n" .
+                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                            'MIME-Version: 1.0' . "\r\n" .
+                            'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                         $email = [
                             'to' => $to,
@@ -135,8 +135,8 @@ if (! isset($_GET['c'])) {
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
     $template->onPageLoad();
 
-    require ROOT_PATH.'/core/templates/navbar.php';
-    require ROOT_PATH.'/core/templates/footer.php';
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
     $template->displayTemplate('forgot_password.tpl', $smarty);
@@ -235,8 +235,8 @@ if (! isset($_GET['c'])) {
 
     $template->onPageLoad();
 
-    require ROOT_PATH.'/core/templates/navbar.php';
-    require ROOT_PATH.'/core/templates/footer.php';
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
     $template->displayTemplate('change_password.tpl', $smarty);

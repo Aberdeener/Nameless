@@ -23,11 +23,11 @@ class DB_Custom
     public function __construct($host, $database, $username, $password, $port = 3306)
     {
         try {
-            $this->_pdo = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$database, $username, $password, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]);
+            $this->_pdo = new PDO('mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database, $username, $password, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]);
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->_prefix = '';
         } catch (PDOException $e) {
-            exit('<strong>Error:<br /></strong><div class="alert alert-danger">'.$e->getMessage().'</div>Please check your database connection settings.');
+            exit('<strong>Error:<br /></strong><div class="alert alert-danger">' . $e->getMessage() . '</div>Please check your database connection settings.');
         }
     }
 
@@ -89,7 +89,7 @@ class DB_Custom
 
     public function createTable($name, $table_data, $other)
     {
-        $name = $this->_prefix.$name;
+        $name = $this->_prefix . $name;
         $sql = "CREATE TABLE `{$name}` ({$table_data}) {$other}";
         if (! $this->createQuery($sql)->error()) {
             return $this;
@@ -107,7 +107,7 @@ class DB_Custom
             $operator = $where[1];
             $value = $where[2];
 
-            $table = $this->_prefix.$table;
+            $table = $this->_prefix . $table;
 
             if (in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
@@ -130,7 +130,7 @@ class DB_Custom
             $operator = $where[1];
             $value = $where[2];
 
-            $table = $this->_prefix.$table;
+            $table = $this->_prefix . $table;
 
             if (in_array($operator, $operators)) {
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
@@ -151,7 +151,7 @@ class DB_Custom
 
     public function like($table, $column, $like)
     {
-        $table = $this->_prefix.$table;
+        $table = $this->_prefix . $table;
         $sql = "SELECT * FROM {$table} WHERE {$column} LIKE '{$like}'";
 
         if (! $this->query($sql)->error()) {
@@ -180,8 +180,8 @@ class DB_Custom
             $x++;
         }
 
-        $table = $this->_prefix.$table;
-        $sql = "INSERT INTO {$table} (`".implode('`,`', $keys)."`) VALUES ({$values})";
+        $table = $this->_prefix . $table;
+        $sql = "INSERT INTO {$table} (`" . implode('`,`', $keys) . "`) VALUES ({$values})";
 
         if (! $this->createQuery($sql, $fields)->error()) {
             return true;
@@ -203,7 +203,7 @@ class DB_Custom
             }
             $x++;
         }
-        $table = $this->_prefix.$table;
+        $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
 
         if (! $this->createQuery($sql, $fields)->error()) {
@@ -215,7 +215,7 @@ class DB_Custom
 
     public function increment($table, $id, $field)
     {
-        $table = $this->_prefix.$table;
+        $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?";
 
         if (! $this->createQuery($sql, [$id])->error()) {
@@ -227,7 +227,7 @@ class DB_Custom
 
     public function decrement($table, $id, $field)
     {
-        $table = $this->_prefix.$table;
+        $table = $this->_prefix . $table;
         $sql = "UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?";
 
         if (! $this->createQuery($sql, [$id])->error()) {
@@ -266,7 +266,7 @@ class DB_Custom
 
     public function alterTable($name, $column, $attributes)
     {
-        $name = $this->_prefix.$name;
+        $name = $this->_prefix . $name;
         $sql = "ALTER TABLE `{$name}` ADD {$column} {$attributes}";
         if (! $this->createQuery($sql)->error()) {
             return $this;
@@ -277,7 +277,7 @@ class DB_Custom
 
     public function orderAll($table, $order, $sort)
     {
-        $table = $this->_prefix.$table;
+        $table = $this->_prefix . $table;
         if (isset($sort)) {
             $sql = "SELECT * FROM {$table} ORDER BY {$order} {$sort}";
         } else {
@@ -293,7 +293,7 @@ class DB_Custom
 
     public function orderWhere($table, $where, $order, $sort)
     {
-        $table = $this->_prefix.$table;
+        $table = $this->_prefix . $table;
         if (isset($sort)) {
             $sql = "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order} {$sort}";
         } else {
@@ -309,7 +309,7 @@ class DB_Custom
 
     public function showTables($showTable)
     {
-        $showTable = $this->_prefix.$showTable;
+        $showTable = $this->_prefix . $showTable;
         $sql = "SHOW TABLES LIKE '{$showTable}'";
 
         if (! $this->query($sql)->error()) {

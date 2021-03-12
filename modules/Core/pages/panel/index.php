@@ -14,7 +14,7 @@ $user->handlePanelPageLoad();
 define('PAGE', 'panel');
 define('PANEL_PAGE', 'dashboard');
 $page_title = $language->get('admin', 'dashboard');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -36,7 +36,7 @@ if (count($dashboard_graphs)) {
         foreach ($dashboard_graph['datasets'] as $dskey => $dataset) {
             $label = explode('/', $dataset['label']);
             $varname = $label[0];
-            $axis = 'y'.(isset($dataset['axis']) ? $dataset['axis'] : 1);
+            $axis = 'y' . (isset($dataset['axis']) ? $dataset['axis'] : 1);
             $axis_side = (isset($dataset['axis_side']) ? $dataset['axis_side'] : 'left');
 
             $graph['datasets'][$dskey] = [
@@ -112,58 +112,58 @@ if ($user->hasPermission('admincp.core.debugging')) {
     $compat_errors = [];
 
     if (version_compare(phpversion(), '5.4', '<')) {
-        $compat_errors[] = 'PHP '.phpversion();
+        $compat_errors[] = 'PHP ' . phpversion();
     } else {
-        $compat_success[] = 'PHP '.phpversion();
+        $compat_success[] = 'PHP ' . phpversion();
     }
     if (! extension_loaded('gd')) {
         $compat_errors[] = 'PHP GD';
     } else {
-        $compat_success[] = 'PHP GD '.phpversion('gd');
+        $compat_success[] = 'PHP GD ' . phpversion('gd');
     }
     if (! extension_loaded('mbstring')) {
         $compat_errors[] = 'PHP mbstring';
     } else {
-        $compat_success[] = 'PHP mbstring '.phpversion('mbstring');
+        $compat_success[] = 'PHP mbstring ' . phpversion('mbstring');
     }
     if (! extension_loaded('PDO')) {
         $compat_errors[] = 'PHP PDO';
     } else {
-        $compat_success[] = 'PHP PDO '.phpversion('PDO');
+        $compat_success[] = 'PHP PDO ' . phpversion('PDO');
     }
     if (! function_exists('curl_version')) {
         $compat_errors[] = 'PHP cURL';
     } else {
-        $compat_success[] = 'PHP cURL '.phpversion('curl');
+        $compat_success[] = 'PHP cURL ' . phpversion('curl');
     }
     if (! extension_loaded('xml')) {
         $compat_errors[] = 'PHP XML';
     } else {
-        $compat_success[] = 'PHP XML '.phpversion('xml');
+        $compat_success[] = 'PHP XML ' . phpversion('xml');
     }
     if (! function_exists('exif_imagetype')) {
         $compat_errors[] = 'PHP EXIF';
     } else {
-        $compat_success[] = 'PHP EXIF '.phpversion('exif');
+        $compat_success[] = 'PHP EXIF ' . phpversion('exif');
     }
     if (! extension_loaded('mysql') && ! extension_loaded('mysqlnd')) {
         $compat_errors[] = 'PHP MySQL';
     } else {
-        $compat_success[] = 'PHP MySQL '.(extension_loaded('mysql') ? phpversion('mysql') : substr(phpversion('mysqlnd'), 0, strpos(phpversion('mysqlnd'), ' - ')));
+        $compat_success[] = 'PHP MySQL ' . (extension_loaded('mysql') ? phpversion('mysql') : substr(phpversion('mysqlnd'), 0, strpos(phpversion('mysqlnd'), ' - ')));
     }
 
     // Permissions
-    if (! is_writable(ROOT_PATH.'/core/config.php')) {
+    if (! is_writable(ROOT_PATH . '/core/config.php')) {
         $compat_errors[] = $language->get('installer', 'config_writable');
     } else {
         $compat_success[] = $language->get('installer', 'config_writable');
     }
-    if (! is_writable(ROOT_PATH.'/cache')) {
+    if (! is_writable(ROOT_PATH . '/cache')) {
         $compat_errors[] = $language->get('installer', 'cache_writable');
     } else {
         $compat_success[] = $language->get('installer', 'cache_writable');
     }
-    if (! is_writable(ROOT_PATH.'/cache/templates_c')) {
+    if (! is_writable(ROOT_PATH . '/cache/templates_c')) {
         $compat_errors[] = $language->get('installer', 'template_cache_writable');
     } else {
         $compat_success[] = $language->get('installer', 'template_cache_writable');
@@ -176,11 +176,11 @@ if ($user->hasPermission('admincp.core.debugging')) {
     ]);
 }
 
-if (is_dir(ROOT_PATH.'/modules/Core/pages/admin')) {
+if (is_dir(ROOT_PATH . '/modules/Core/pages/admin')) {
     $smarty->assign([
         'DIRECTORY_WARNING' => $language->get('admin', 'admin_dir_still_exists'),
     ]);
-} elseif (is_dir(ROOT_PATH.'/modules/Core/pages/mod')) {
+} elseif (is_dir(ROOT_PATH . '/modules/Core/pages/mod')) {
     $smarty->assign([
         'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists'),
     ]);
@@ -208,7 +208,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('index.tpl', $smarty);

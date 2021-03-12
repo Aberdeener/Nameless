@@ -34,7 +34,7 @@ class MCAssoc
 
     private function sign($data, $key)
     {
-        return base64_encode($data.$this->baseSign($data, $key));
+        return base64_encode($data . $this->baseSign($data, $key));
     }
 
     private static function constantCompare($str1, $str2)

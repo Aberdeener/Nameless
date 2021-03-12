@@ -1,5 +1,5 @@
 <?php
-require __DIR__.'/includes/functions.php';
+require __DIR__ . '/includes/functions.php';
 
 if (isset($_GET['do'])) {
     $_SESSION['action'] = ($_GET['do'] == 'upgrade' ? 'upgrade' : 'install');
@@ -8,17 +8,17 @@ if (isset($_GET['do'])) {
     exit();
 } elseif (isset($_GET['step'])) {
     $step = strtolower($_GET['step']);
-    if (! file_exists(__DIR__.'/steps/'.$step.'.php')) {
+    if (! file_exists(__DIR__ . '/steps/' . $step . '.php')) {
         $error = 'Unknown step.';
     }
 }
 
 if (isset($step) && $step == 'ajax_initialise') {
-    require __DIR__.'/steps/'.$step.'.php';
+    require __DIR__ . '/steps/' . $step . '.php';
     exit();
 }
 
-require __DIR__.'/includes/header.php';
+require __DIR__ . '/includes/header.php';
 ?>
 
 <div class="main-content">
@@ -78,7 +78,7 @@ require __DIR__.'/includes/header.php';
 						</div>
 						<?php
                     } else {
-                        require __DIR__.'/steps/'.$step.'.php';
+                        require __DIR__ . '/steps/' . $step . '.php';
                     }
                 }
                 ?>
@@ -87,4 +87,4 @@ require __DIR__.'/includes/header.php';
 	</div>
 </div>
 
-<?php require __DIR__.'/includes/footer.php'; ?>
+<?php require __DIR__ . '/includes/footer.php'; ?>

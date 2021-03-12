@@ -70,9 +70,9 @@ class ProfileUtils
     {
         if (strlen($identifier) <= 16) {
             $identifier = ProfileUtils::getUUIDFromUsername($identifier, $timeout);
-            $url = 'https://sessionserver.mojang.com/session/minecraft/profile/'.$identifier['uuid'];
+            $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier['uuid'];
         } else {
-            $url = 'https://sessionserver.mojang.com/session/minecraft/profile/'.$identifier;
+            $url = 'https://sessionserver.mojang.com/session/minecraft/profile/' . $identifier;
         }
 
         // Use cURL instead of file_get_contents
@@ -105,7 +105,7 @@ class ProfileUtils
         if (strlen($username) > 16) {
             return ['username' => '', 'uuid' => ''];
         }
-        $url = 'https://api.mojang.com/users/profiles/minecraft/'.htmlspecialchars($username);
+        $url = 'https://api.mojang.com/users/profiles/minecraft/' . htmlspecialchars($username);
 
         // Use cURL instead of file_get_contents
         $ch = curl_init();
@@ -137,10 +137,10 @@ class ProfileUtils
     public static function formatUUID($uuid)
     {
         $uid = '';
-        $uid .= substr($uuid, 0, 8).'-';
-        $uid .= substr($uuid, 8, 4).'-';
-        $uid .= substr($uuid, 12, 4).'-';
-        $uid .= substr($uuid, 16, 4).'-';
+        $uid .= substr($uuid, 0, 8) . '-';
+        $uid .= substr($uuid, 8, 4) . '-';
+        $uid .= substr($uuid, 12, 4) . '-';
+        $uid .= substr($uuid, 16, 4) . '-';
         $uid .= substr($uuid, 20);
 
         return $uid;

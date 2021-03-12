@@ -9,7 +9,7 @@
  *  Lock/unlock a topic
  */
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 
 if ($user->isLoggedIn()) {
@@ -45,7 +45,7 @@ if ($user->isLoggedIn()) {
             ]);
             Log::getInstance()->log(Log::Action('forums/topic/lock'), ($locked_status == 1) ? $language->get('log', 'info_forums_lock') : $language->get('log', 'info_forums_unlock'));
 
-            Redirect::to(URL::build('/forum/topic/'.$topic_id));
+            Redirect::to(URL::build('/forum/topic/' . $topic_id));
             exit();
         } catch (Exception $e) {
             exit($e->getMessage());

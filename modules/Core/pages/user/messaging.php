@@ -18,14 +18,14 @@ if (! $user->isLoggedIn()) {
 // Always define page name for navbar
 define('PAGE', 'cc_messaging');
 $page_title = $language->get('user', 'user_cp');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $template->addCSSFiles(
     [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
     ]
 );
 
@@ -36,8 +36,8 @@ $formatting = $cache->retrieve('formatting');
 if ($formatting == 'markdown') {
     $template->addJSFiles(
         [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
         ]
     );
 
@@ -51,9 +51,9 @@ if ($formatting == 'markdown') {
 } else {
     $template->addJSFiles(
         [
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => [],
         ]
     );
 
@@ -62,8 +62,8 @@ if ($formatting == 'markdown') {
 
 $timeago = new Timeago(TIMEZONE);
 
-require ROOT_PATH.'/core/includes/emojione/autoload.php'; // Emojione
-require ROOT_PATH.'/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
+require ROOT_PATH . '/core/includes/emojione/autoload.php'; // Emojione
+require ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 $smarty->assign(
@@ -81,7 +81,7 @@ if (isset($_GET['p'])) {
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
             if (isset($_GET['message'])) {
-                Redirect::to(URL::build('/user/messaging/', 'action=view&message='.Output::getClean($_GET['message'])));
+                Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . Output::getClean($_GET['message'])));
             } else {
                 Redirect::to(URL::build('/user/messaging'));
             }
@@ -113,7 +113,7 @@ if (! isset($_GET['action'])) {
         $participants = '';
 
         foreach ($results->data[$n]['users'] as $item) {
-            $participants .= '<a href="'.URL::build('/profile/'.Output::getClean($user->idToName($item))).'">'.Output::getClean($user->idToNickname($item)).'</a>, ';
+            $participants .= '<a href="' . URL::build('/profile/' . Output::getClean($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
         }
         $participants = rtrim($participants, ', ');
 
@@ -122,7 +122,7 @@ if (! isset($_GET['action'])) {
             'id' => $results->data[$n]['id'],
             'title' => Output::getClean($results->data[$n]['title']),
             'participants' => $participants,
-            'link' => URL::build('/user/messaging/', 'action=view&amp;message='.$results->data[$n]['id']),
+            'link' => URL::build('/user/messaging/', 'action=view&amp;message=' . $results->data[$n]['id']),
             'last_message_user_id' => Output::getClean($results->data[$n]['user_updated']),
             'last_message_user' => $target_user->getDisplayname(),
             'last_message_user_profile' => $target_user->getProfileURL(),
@@ -160,15 +160,15 @@ if (! isset($_GET['action'])) {
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
-    require ROOT_PATH.'/core/templates/cc_navbar.php';
+    require ROOT_PATH . '/core/templates/cc_navbar.php';
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 
-    require ROOT_PATH.'/core/templates/navbar.php';
-    require ROOT_PATH.'/core/templates/footer.php';
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
     $template->displayTemplate('user/messaging.tpl', $smarty);
@@ -408,15 +408,15 @@ if (! isset($_GET['action'])) {
         // Load modules + template
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
-        require ROOT_PATH.'/core/templates/cc_navbar.php';
+        require ROOT_PATH . '/core/templates/cc_navbar.php';
 
         $page_load = microtime(true) - $start;
         define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
         $template->onPageLoad();
 
-        require ROOT_PATH.'/core/templates/navbar.php';
-        require ROOT_PATH.'/core/templates/footer.php';
+        require ROOT_PATH . '/core/templates/navbar.php';
+        require ROOT_PATH . '/core/templates/footer.php';
 
         // Display template
         $template->displayTemplate('user/new_message.tpl', $smarty);
@@ -533,7 +533,7 @@ if (! isset($_GET['action'])) {
         // Pagination
         $paginator = new Paginator((isset($template_pagination) ? $template_pagination : []));
         $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
-        $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message='.$pm[0]->id.'&amp;'));
+        $pagination = $paginator->generate(7, URL::build('/user/messaging/', 'action=view&amp;message=' . $pm[0]->id . '&amp;'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -562,7 +562,7 @@ if (! isset($_GET['action'])) {
         $participants = '';
 
         foreach ($pm[1] as $item) {
-            $participants .= '<a href="'.URL::build('/profile/'.Output::getClean($user->idToName($item))).'">'.Output::getClean($user->idToNickname($item)).'</a>, ';
+            $participants .= '<a href="' . URL::build('/profile/' . Output::getClean($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
         }
         $participants = rtrim($participants, ', ');
 
@@ -573,7 +573,7 @@ if (! isset($_GET['action'])) {
             'BACK_LINK' => URL::build('/user/messaging'),
             'LEAVE_CONVERSATION' => $language->get('user', 'leave_conversation'),
             'CONFIRM_LEAVE' => $language->get('user', 'confirm_leave'),
-            'LEAVE_CONVERSATION_LINK' => URL::build('/user/messaging/', 'action=leave&amp;message='.$pm[0]->id),
+            'LEAVE_CONVERSATION_LINK' => URL::build('/user/messaging/', 'action=leave&amp;message=' . $pm[0]->id),
             'PAGINATION' => $pagination,
             'PARTICIPANTS_TEXT' => $language->get('user', 'participants'),
             'PARTICIPANTS' => $participants,
@@ -602,15 +602,15 @@ if (! isset($_GET['action'])) {
 
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
-        require ROOT_PATH.'/core/templates/cc_navbar.php';
+        require ROOT_PATH . '/core/templates/cc_navbar.php';
 
         $page_load = microtime(true) - $start;
         define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
         $template->onPageLoad();
 
-        require ROOT_PATH.'/core/templates/navbar.php';
-        require ROOT_PATH.'/core/templates/footer.php';
+        require ROOT_PATH . '/core/templates/navbar.php';
+        require ROOT_PATH . '/core/templates/footer.php';
 
         // Display template
         $template->displayTemplate('user/view_message.tpl', $smarty);

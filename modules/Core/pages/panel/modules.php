@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'modules');
 define('PANEL_PAGE', 'modules');
 $page_title = $language->get('admin', 'modules');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -38,11 +38,11 @@ if (! isset($_GET['action'])) {
         }
 
         if (! $exists) {
-            if (! file_exists(ROOT_PATH.'/modules/'.$item->name.'/init.php')) {
+            if (! file_exists(ROOT_PATH . '/modules/' . $item->name . '/init.php')) {
                 continue;
             }
 
-            require_once ROOT_PATH.'/modules/'.$item->name.'/init.php';
+            require_once ROOT_PATH . '/modules/' . $item->name . '/init.php';
         }
 
         $template_array[] = [
@@ -52,8 +52,8 @@ if (! isset($_GET['action'])) {
             'author' => Output::getPurified($module->getAuthor()),
             'author_x' => str_replace('{x}', Output::getPurified($module->getAuthor()), $language->get('admin', 'author_x')),
             'version_mismatch' => (($module->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($module->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'module_outdated')) : false),
-            'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m='.Output::getClean($item->id)) : null),
-            'enable_link' => (($module->getName() != 'Core' && ! $item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m='.Output::getClean($item->id)) : null),
+            'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . Output::getClean($item->id)) : null),
+            'enable_link' => (($module->getName() != 'Core' && ! $item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . Output::getClean($item->id)) : null),
             'enabled' => $item->enabled,
         ];
     }
@@ -101,7 +101,7 @@ if (! isset($_GET['action'])) {
                     'rating' => Output::getClean($item->rating),
                     'downloads' => Output::getClean($item->downloads),
                     'views' => Output::getClean($item->views),
-                    'rating_full' => str_replace('{x}', Output::getClean($item->rating * 2).'/100', $language->get('admin', 'rating_x')),
+                    'rating_full' => str_replace('{x}', Output::getClean($item->rating * 2) . '/100', $language->get('admin', 'rating_x')),
                     'downloads_full' => str_replace('{x}', Output::getClean($item->downloads), $language->get('admin', 'downloads_x')),
                     'views_full' => str_replace('{x}', Output::getClean($item->views), $language->get('admin', 'views_x')),
                 ];
@@ -153,14 +153,14 @@ if (! isset($_GET['action'])) {
         $name = Output::getClean($name[0]->name);
 
         // Ensure module is valid
-        if (! file_exists(ROOT_PATH.'/modules/'.$name.'/init.php')) {
+        if (! file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
             Redirect::to(URL::build('/panel/modules'));
             exit();
         }
 
         $module = null;
 
-        require_once ROOT_PATH.'/modules/'.$name.'/init.php';
+        require_once ROOT_PATH . '/modules/' . $name . '/init.php';
 
         if ($module instanceof Module) {
             // Cache
@@ -249,8 +249,8 @@ if (! isset($_GET['action'])) {
         // Store
         $cache->store('enabled_modules', $modules);
 
-        if (file_exists(ROOT_PATH.'/modules/'.$name.'/init.php')) {
-            require_once ROOT_PATH.'/modules/'.$name.'/init.php';
+        if (file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
+            require_once ROOT_PATH . '/modules/' . $name . '/init.php';
             $module->onDisable();
         }
 
@@ -259,14 +259,14 @@ if (! isset($_GET['action'])) {
         exit();
     } elseif ($_GET['action'] == 'install') {
         // Install any new modules
-        $directories = glob(ROOT_PATH.'/modules/*', GLOB_ONLYDIR);
+        $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
 
         define('MODULE_INSTALL', true);
 
         foreach ($directories as $directory) {
             $folders = explode('/', $directory);
 
-            if (file_exists(ROOT_PATH.'/modules/'.$folders[count($folders) - 1].'/init.php')) {
+            if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
                 // Is it already in the database?
                 $exists = $queries->getWhere('modules', ['name', '=', Output::getClean($folders[count($folders) - 1])]);
 
@@ -274,7 +274,7 @@ if (! isset($_GET['action'])) {
                     $module = null;
 
                     // No, add it now
-                    require_once ROOT_PATH.'/modules/'.$folders[count($folders) - 1].'/init.php';
+                    require_once ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php';
 
                     if ($module instanceof Module) {
                         $queries->create('modules', [
@@ -328,7 +328,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('core/modules.tpl', $smarty);

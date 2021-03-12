@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'groups');
 define('PANEL_PAGE', 'groups');
 $page_title = $language->get('admin', 'groups');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -91,7 +91,7 @@ if (isset($_GET['action'])) {
                             $cache->setCache('default_group');
                             $cache->store('default_group', $group_id);
 
-                            $cache->setCache('groups_tfa_'.$group_id);
+                            $cache->setCache('groups_tfa_' . $group_id);
                             $cache->store('enabled', Input::get('tfa'));
                         }
 
@@ -108,16 +108,16 @@ if (isset($_GET['action'])) {
                         } elseif (strpos($error, 'minimum') !== false) {
                             switch ($error) {
                                 case strpos($error, 'groupname') !== false:
-                                    $errors[] = $language->get('admin', 'group_name_minimum').'<br />';
+                                    $errors[] = $language->get('admin', 'group_name_minimum') . '<br />';
                                     break;
                             }
                         } elseif (strpos($error, 'maximum') !== false) {
                             switch ($error) {
                                 case strpos($error, 'groupname') !== false:
-                                    $errors[] = $language->get('admin', 'group_name_maximum').'<br />';
+                                    $errors[] = $language->get('admin', 'group_name_maximum') . '<br />';
                                     break;
                                 case strpos($error, 'html') !== false:
-                                    $errors[] = $language->get('admin', 'html_maximum').'<br />';
+                                    $errors[] = $language->get('admin', 'html_maximum') . '<br />';
                                     break;
                             }
                         }
@@ -169,7 +169,7 @@ if (isset($_GET['action'])) {
         } else {
             $smarty->assign([
                 'PERMISSIONS' => $language->get('admin', 'permissions'),
-                'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group='.Output::getClean($group->id)),
+                'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group=' . Output::getClean($group->id)),
                 'DELETE' => $language->get('general', 'delete'),
                 'DELETE_GROUP' => $language->get('admin', 'delete_group'),
                 'CONFIRM_DELETE' => str_replace('{x}', Output::getClean($group->name), $language->get('admin', 'confirm_group_deletion')),
@@ -231,11 +231,11 @@ if (isset($_GET['action'])) {
                                 'force_tfa' => Input::get('tfa'),
                             ]);
 
-                            $cache->setCache('groups_tfa_'.$_GET['group']);
+                            $cache->setCache('groups_tfa_' . $_GET['group']);
                             $cache->store('enabled', Input::get('tfa'));
 
                             Session::flash('admin_groups', $language->get('admin', 'group_updated_successfully'));
-                            Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group='.Output::getClean($_GET['group'])));
+                            Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($_GET['group'])));
                             exit();
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
@@ -247,16 +247,16 @@ if (isset($_GET['action'])) {
                             } elseif (strpos($error, 'minimum') !== false) {
                                 switch ($error) {
                                     case strpos($error, 'groupname') !== false:
-                                        $errors[] = $language->get('admin', 'group_name_minimum').'<br />';
+                                        $errors[] = $language->get('admin', 'group_name_minimum') . '<br />';
                                         break;
                                 }
                             } elseif (strpos($error, 'maximum') !== false) {
                                 switch ($error) {
                                     case strpos($error, 'groupname') !== false:
-                                        $errors[] = $language->get('admin', 'group_name_maximum').'<br />';
+                                        $errors[] = $language->get('admin', 'group_name_maximum') . '<br />';
                                         break;
                                     case strpos($error, 'html') !== false:
-                                        $errors[] = $language->get('admin', 'html_maximum').'<br />';
+                                        $errors[] = $language->get('admin', 'html_maximum') . '<br />';
                                         break;
                                 }
                             }
@@ -353,7 +353,7 @@ if (isset($_GET['action'])) {
                     $queries->update('groups', $group->id, ['permissions' => $perms_json]);
 
                     Session::flash('admin_groups', $language->get('admin', 'permissions_updated_successfully'));
-                    Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group='.$group->id));
+                    Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . $group->id));
                     exit();
                 } catch (Exception $e) {
                     $errors[] = $e->getMessage();
@@ -366,7 +366,7 @@ if (isset($_GET['action'])) {
         $smarty->assign([
             'PERMISSIONS' => $language->get('admin', 'permissions'),
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/core/groups/', 'action=edit&group='.Output::getClean($group->id)),
+            'BACK_LINK' => URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($group->id)),
             'PERMISSIONS_VALUES' => json_decode($group->permissions, true),
             'ALL_PERMISSIONS' => PermissionHandler::getPermissions(),
             'SELECT_ALL' => $language->get('admin', 'select_all'),
@@ -401,7 +401,7 @@ if (isset($_GET['action'])) {
             'id' => Output::getClean($group->id),
             'order' => $group->order,
             'name' => Output::getClean($group->name),
-            'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group='.Output::getClean($group->id)),
+            'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . Output::getClean($group->id)),
             'users' => $users,
             'staff' => $group->staff,
         ];
@@ -458,7 +458,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

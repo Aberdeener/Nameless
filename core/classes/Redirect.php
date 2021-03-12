@@ -22,7 +22,7 @@ class Redirect
                     // 404 request?
                     case 404:
                         header('HTTP/1.0 404 Not Found');
-                        require ROOT_PATH.'/404.php';
+                        require ROOT_PATH . '/404.php';
                         exit();
                     break;
                 }
@@ -30,7 +30,7 @@ class Redirect
 
             // Javascript redirect
             // Tag attribute data-cfasync="false" fixes Cloudflare caching issues (credit @computerwizjared)
-            echo '<script data-cfasync="false">window.location.replace("'.str_replace('&amp;', '&', htmlspecialchars($location)).'");</script>';
+            echo '<script data-cfasync="false">window.location.replace("' . str_replace('&amp;', '&', htmlspecialchars($location)) . '");</script>';
 
             // Kill script in case user has disabled Javascript
             exit();

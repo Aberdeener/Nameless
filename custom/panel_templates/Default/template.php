@@ -37,18 +37,18 @@ if (! class_exists('Default_Panel_Template')) {
 
             $this->addCSSFiles([
                 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' => ['integrity' => 'sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==', 'crossorigin' => 'anonymous'],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/sb-admin-2.min.css' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/sb-admin-2.min.css' => [],
                 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/custom.css?v=2' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/switchery/switchery.min.css' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css?v=2' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.css' => [],
             ]);
 
             $this->addJSFiles([
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/plugins/jquery/jquery.min.js' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/jquery.cookie.js' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/sb-admin-2.js' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/switchery/switchery.min.js' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/plugins/jquery/jquery.min.js' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery.cookie.js' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/sb-admin-2.js' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/switchery/switchery.min.js' => [],
             ]);
 
             $this->addJSScript('
@@ -146,7 +146,7 @@ if (! class_exists('Default_Panel_Template')) {
 
 			');
 
-            $smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/img/namelessmc_logo_small.png');
+            $smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/img/namelessmc_logo_small.png');
 
             // Let the core module know this panel template supports ajax loading for the staff users list
             define('PANEL_TEMPLATE_STAFF_USERS_AJAX', true);
@@ -158,8 +158,8 @@ if (! class_exists('Default_Panel_Template')) {
                 switch (PANEL_PAGE) {
                     case 'dashboard':
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/moment/moment.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/charts/Chart.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => [],
                         ]);
                         $this->addJSScript('
 						$(".stats-card i").addClass("fa-2x text-gray-300");
@@ -168,11 +168,11 @@ if (! class_exists('Default_Panel_Template')) {
 
                     case 'api':
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/toastr/toastr.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => [],
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/toastr/toastr.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => [],
                         ]);
 
                         $this->addJSScript('
@@ -187,13 +187,13 @@ if (! class_exists('Default_Panel_Template')) {
 
                     case 'avatars':
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => [],
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => [],
                         ]);
 
                         $this->addJSScript('
@@ -206,9 +206,9 @@ if (! class_exists('Default_Panel_Template')) {
 						// Dropzone options
 						Dropzone.options.upload_avatar_dropzone = {
 						    maxFilesize: 2,
-						    dictDefaultMessage: "'.$this->_language->get('admin', 'drag_files_here').'",
-						    dictInvalidFileType: "'.$this->_language->get('admin', 'invalid_file_type').'",
-						    dictFileTooBig: "'.$this->_language->get('admin', 'file_too_big').'"
+						    dictDefaultMessage: "' . $this->_language->get('admin', 'drag_files_here') . '",
+						    dictInvalidFileType: "' . $this->_language->get('admin', 'invalid_file_type') . '",
+						    dictFileTooBig: "' . $this->_language->get('admin', 'file_too_big') . '"
 						};
 
 						$(".image-picker").imagepicker();
@@ -248,7 +248,7 @@ if (! class_exists('Default_Panel_Template')) {
 						');
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/ckeditor.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
                         ]);
 
                         $this->addJSScript(Input::createEditor('InputMaintenanceMessage'));
@@ -264,7 +264,7 @@ if (! class_exists('Default_Panel_Template')) {
 
                     case 'privacy_and_terms':
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/ckeditor.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
                         ]);
 
                         $this->addJSScript(Input::createEditor('InputPrivacy'));
@@ -273,7 +273,7 @@ if (! class_exists('Default_Panel_Template')) {
 
                     case 'registration':
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/ckeditor.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
                         ]);
 
                         $this->addJSScript(Input::createEditor('InputRegistrationDisabledMessage'));
@@ -300,12 +300,12 @@ if (! class_exists('Default_Panel_Template')) {
                     case 'announcements':
                     case 'groups':
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' => [],
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/jquery-ui.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => [],
                         ]);
 
                         $this->addJSScript('
@@ -321,15 +321,15 @@ if (! class_exists('Default_Panel_Template')) {
                     case 'template':
                         if (isset($_GET['file'])) {
                             $this->addCSSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/lib/codemirror.css' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/lib/codemirror.css' => [],
                             ]);
 
                             $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/lib/codemirror.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/smarty/smarty.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/css/css.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/javascript/javascript.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/codemirror/mode/properties/properties.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/lib/codemirror.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/smarty/smarty.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/css/css.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/javascript/javascript.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/codemirror/mode/properties/properties.js' => [],
                             ]);
                         }
 
@@ -348,7 +348,7 @@ if (! class_exists('Default_Panel_Template')) {
                     case 'custom_pages':
                         if (isset($_GET['action'])) {
                             $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/ckeditor.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
                             ]);
 
                             $this->addJSScript(Input::createEditor('inputContent', true));
@@ -364,12 +364,12 @@ if (! class_exists('Default_Panel_Template')) {
 
                     case 'seo':
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => [],
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => [],
                         ]);
 
                         $this->addJSScript('
@@ -377,15 +377,15 @@ if (! class_exists('Default_Panel_Template')) {
                             $(\'.dataTables-pages\').dataTable({
                                 responsive: true,
                                 language: {
-                                    "lengthMenu": "'.$this->_language->get('table', 'display_records_per_page').'",
-                                    "zeroRecords": "'.$this->_language->get('table', 'nothing_found').'",
-                                    "info": "'.$this->_language->get('table', 'page_x_of_y').'",
-                                    "infoEmpty": "'.$this->_language->get('table', 'no_records').'",
-                                    "infoFiltered": "'.$this->_language->get('table', 'filtered').'",
-                                    "search": "'.$this->_language->get('general', 'search').'",
+                                    "lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
+                                    "zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
+                                    "info": "' . $this->_language->get('table', 'page_x_of_y') . '",
+                                    "infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
+                                    "infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
+                                    "search": "' . $this->_language->get('general', 'search') . '",
                                     "paginate": {
-                                        "next": "'.$this->_language->get('general', 'next').'",
-                                        "previous": "'.$this->_language->get('general', 'previous').'"
+                                        "next": "' . $this->_language->get('general', 'next') . '",
+                                        "previous": "' . $this->_language->get('general', 'previous') . '"
                                     }
                                 }
                             });
@@ -396,12 +396,12 @@ if (! class_exists('Default_Panel_Template')) {
                     case 'users':
                         if (! defined('EDITING_USER')) {
                             $this->addCSSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => [],
                             ]);
 
                             $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => [],
                             ]);
 
                             $this->addJSScript('
@@ -416,7 +416,7 @@ if (! class_exists('Default_Panel_Template')) {
 									responsive: true,
 									processing: true,
 									serverSide: true,
-									ajax: "'.URL::build('/queries/admin_users').'",
+									ajax: "' . URL::build('/queries/admin_users') . '",
 									columns: [
 										{ data: "id", hidden: true },
 										{ data: "username" },
@@ -424,21 +424,21 @@ if (! class_exists('Default_Panel_Template')) {
 										{ data: "joined" }
 									],
 									language: {
-										"lengthMenu": "'.$this->_language->get('table', 'display_records_per_page').'",
-										"zeroRecords": "'.$this->_language->get('table', 'nothing_found').'",
-										"info": "'.$this->_language->get('table', 'page_x_of_y').'",
-										"infoEmpty": "'.$this->_language->get('table', 'no_records').'",
-										"infoFiltered": "'.$this->_language->get('table', 'filtered').'",
-										"search": "'.$this->_language->get('general', 'search').'",
+										"lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
+										"zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
+										"info": "' . $this->_language->get('table', 'page_x_of_y') . '",
+										"infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
+										"infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
+										"search": "' . $this->_language->get('general', 'search') . '",
 										"paginate": {
-										    "next": "'.$this->_language->get('general', 'next').'",
-										    "previous": "'.$this->_language->get('general', 'previous').'"
+										    "next": "' . $this->_language->get('general', 'next') . '",
+										    "previous": "' . $this->_language->get('general', 'previous') . '"
 										}
 									}
 								});
 
 								$(\'.dataTables-users tbody\').on(\'click\', \'tr\', function(){
-									window.location.href = "'.URL::build('/panel/user/').'" + usersTable.row(this).data().id;
+									window.location.href = "' . URL::build('/panel/user/') . '" + usersTable.row(this).data().id;
 								});
 							});
 							');
@@ -496,7 +496,7 @@ if (! class_exists('Default_Panel_Template')) {
 							');
                         } elseif (MINECRAFT_PAGE == 'servers') {
                             $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/jquery-ui.min.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => [],
                             ]);
 
                             $this->addJSScript('
@@ -524,7 +524,7 @@ if (! class_exists('Default_Panel_Template')) {
                         } elseif (MINECRAFT_PAGE == 'server_banners') {
                             if (isset($_GET['edit'])) {
                                 $this->addCSSFiles([
-                                    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.css' => [],
+                                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => [],
                                 ]);
 
                                 $this->addCSSStyle('
@@ -534,7 +534,7 @@ if (! class_exists('Default_Panel_Template')) {
 								');
 
                                 $this->addJSFiles([
-                                    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.min.js' => [],
+                                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => [],
                                 ]);
 
                                 $this->addJSScript('$(".image-picker").imagepicker();');
@@ -556,12 +556,12 @@ if (! class_exists('Default_Panel_Template')) {
                     case 'security':
                         if (isset($_GET['view'])) {
                             $this->addCSSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => [],
                             ]);
 
                             $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => [],
                             ]);
 
                             $this->addJSScript('
@@ -569,18 +569,18 @@ if (! class_exists('Default_Panel_Template')) {
 								$(\'.dataTable\').dataTable({
 									responsive: true,
 									language: {
-										"lengthMenu": "'.$this->_language->get('table', 'display_records_per_page').'",
-										"zeroRecords": "'.$this->_language->get('table', 'nothing_found').'",
-										"info": "'.$this->_language->get('table', 'page_x_of_y').'",
-										"infoEmpty": "'.$this->_language->get('table', 'no_records').'",
-										"infoFiltered": "'.$this->_language->get('table', 'filtered').'",
-										"search": "'.$this->_language->get('general', 'search').'",
+										"lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
+										"zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
+										"info": "' . $this->_language->get('table', 'page_x_of_y') . '",
+										"infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
+										"infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
+										"search": "' . $this->_language->get('general', 'search') . '",
 										"paginate": {
-										    "next": "'.$this->_language->get('general', 'next').'",
-										    "previous": "'.$this->_language->get('general', 'previous').'"
+										    "next": "' . $this->_language->get('general', 'next') . '",
+										    "previous": "' . $this->_language->get('general', 'previous') . '"
 										}
 									},
-									order: [[ '.SORT.', \'desc\']]
+									order: [[ ' . SORT . ', \'desc\']]
 								});
 							});
 							');
@@ -589,22 +589,22 @@ if (! class_exists('Default_Panel_Template')) {
 
                     case 'images':
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.css' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => [],
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/dropzone/dropzone.min.js' => [],
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dropzone/dropzone.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => [],
                         ]);
 
                         $this->addJSScript('
 						// Dropzone options
 						Dropzone.options.upload_background_dropzone = {
 						    maxFilesize: 2,
-						    dictDefaultMessage: "'.$this->_language->get('admin', 'drag_files_here').'",
-						    dictInvalidFileType: "'.$this->_language->get('admin', 'invalid_file_type').'",
-						    dictFileTooBig: "'.$this->_language->get('admin', 'file_too_big').'",
+						    dictDefaultMessage: "' . $this->_language->get('admin', 'drag_files_here') . '",
+						    dictInvalidFileType: "' . $this->_language->get('admin', 'invalid_file_type') . '",
+						    dictFileTooBig: "' . $this->_language->get('admin', 'file_too_big') . '",
 					        error: function(file, response) {
 					            console.log("ERROR");
 					            console.log(file);
@@ -619,9 +619,9 @@ if (! class_exists('Default_Panel_Template')) {
 
 						Dropzone.options.upload_banner_dropzone = {
 						    maxFilesize: 2,
-						    dictDefaultMessage: "'.$this->_language->get('admin', 'drag_files_here').'",
-						    dictInvalidFileType: "'.$this->_language->get('admin', 'invalid_file_type').'",
-						    dictFileTooBig: "'.$this->_language->get('admin', 'file_too_big').'",
+						    dictDefaultMessage: "' . $this->_language->get('admin', 'drag_files_here') . '",
+						    dictInvalidFileType: "' . $this->_language->get('admin', 'invalid_file_type') . '",
+						    dictFileTooBig: "' . $this->_language->get('admin', 'file_too_big') . '",
 					        error: function(file, response) {
 					            console.log("ERROR");
 					            console.log(file);
@@ -641,14 +641,14 @@ if (! class_exists('Default_Panel_Template')) {
                     case 'forums':
                         if (isset($_GET['forum'])) {
                             $this->addJSFiles([
-                                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/ckeditor.js' => [],
+                                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
                             ]);
 
                             $this->addJSScript(Input::createEditor('InputPlaceholder', true));
                         }
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/jquery-ui.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => [],
                         ]);
 
                         $this->addJSScript('

@@ -45,7 +45,7 @@ class ServerStatusWidget extends WidgetBase
             $server = $server[0];
 
             if ($server != null) {
-                $server_array = json_decode(Util::curlGetContents(rtrim(Util::getSelfURL(), '/').URL::build('/queries/server/', 'id='.$server->id)), true);
+                $server_array = json_decode(Util::curlGetContents(rtrim(Util::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id)), true);
 
                 foreach ($server_array as $key => $value) {
                     // we have to NOT escape the player list or the formatted player list. luckily these are the only arrays
@@ -69,7 +69,7 @@ class ServerStatusWidget extends WidgetBase
                     'ONLINE' => $this->_language->get('general', 'online'),
                     'OFFLINE' => $this->_language->get('general', 'offline'),
                     'IP' => $this->_language->get('general', 'ip'),
-                    'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>'.$server_array['version'].'</strong>', $this->_language->get('general', 'version')) : null,
+                    'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>', $this->_language->get('general', 'version')) : null,
                 ]
             );
         }

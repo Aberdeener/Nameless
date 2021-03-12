@@ -15,15 +15,15 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'general_settings');
 $page_title = $language->get('admin', 'general_settings');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Handle input
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'installLanguage') {
         // Install new language
-        $languages = glob(ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'languages'.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
+        $languages = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
         foreach ($languages as $item) {
-            if (file_exists($item.DIRECTORY_SEPARATOR.'version.php')) {
+            if (file_exists($item . DIRECTORY_SEPARATOR . 'version.php')) {
                 $folders = explode(DIRECTORY_SEPARATOR, $item);
                 $folder_name = $folders[count($folders) - 1];
 
@@ -193,13 +193,13 @@ if (Input::exists()) {
                 $friendly = false;
             }
 
-            if (is_writable(ROOT_PATH.'/'.join(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
+            if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
 
                 // Require config
-                if (isset($path) && file_exists($path.'core/config.php')) {
-                    $loadedConfig = json_decode(file_get_contents($path.'core/config.php'), true);
+                if (isset($path) && file_exists($path . 'core/config.php')) {
+                    $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
                 } else {
-                    $loadedConfig = json_decode(file_get_contents(ROOT_PATH.'/core/config.php'), true);
+                    $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
                 }
 
                 if (is_array($loadedConfig)) {
@@ -423,7 +423,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('core/general_settings.tpl', $smarty);

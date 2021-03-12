@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'pages');
 define('PANEL_PAGE', 'custom_pages');
 $page_title = $language->get('admin', 'custom_pages');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -27,9 +27,9 @@ if (! isset($_GET['action'])) {
     if (count($custom_pages)) {
         foreach ($custom_pages as $custom_page) {
             $template_array[] = [
-                'edit_link' => URL::build('/panel/core/pages/', 'action=edit&id='.Output::getClean($custom_page->id)),
+                'edit_link' => URL::build('/panel/core/pages/', 'action=edit&id=' . Output::getClean($custom_page->id)),
                 'title' => Output::getClean($custom_page->title),
-                'delete_link' => URL::build('/panel/core/pages/', 'action=delete&id='.Output::getClean($custom_page->id)),
+                'delete_link' => URL::build('/panel/core/pages/', 'action=delete&id=' . Output::getClean($custom_page->id)),
             ];
         }
     }
@@ -159,7 +159,7 @@ if (! isset($_GET['action'])) {
 
                             $groups = $queries->getWhere('groups', ['id', '<>', 0]);
                             foreach ($groups as $group) {
-                                if (isset($_POST['perm-view-'.$group->id]) && $_POST['perm-view-'.$group->id] == 1) {
+                                if (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1) {
                                     $perms[$group->id] = 1;
                                 } else {
                                     $perms[$group->id] = 0;
@@ -453,7 +453,7 @@ if (! isset($_GET['action'])) {
                             // Group category permissions
                             $groups = $queries->getWhere('groups', ['id', '<>', 0]);
                             foreach ($groups as $group) {
-                                $view = Input::get('perm-view-'.$group->id);
+                                $view = Input::get('perm-view-' . $group->id);
 
                                 if (! ($view)) {
                                     $view = 0;
@@ -650,7 +650,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

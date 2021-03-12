@@ -11,9 +11,9 @@
 
 define('PAGE', 'forum');
 $page_title = $forum_language->get('forum', 'merge_topics');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 
 // User must be logged in to proceed
@@ -54,13 +54,13 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                     $forum->updateForumLatestPosts();
                     $forum->updateTopicLatestPosts();
 
-                    Redirect::to(URL::build('/forum/topic/'.Input::get('merge')));
+                    Redirect::to(URL::build('/forum/topic/' . Input::get('merge')));
                     exit();
                 } catch (Exception $e) {
                     exit($e->getMessage());
                 }
             } else {
-                echo 'Error processing that action. <a href="'.URL::build('/forum').'">Forum index</a>';
+                echo 'Error processing that action. <a href="' . URL::build('/forum') . '">Forum index</a>';
                 exit();
             }
         }
@@ -73,7 +73,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 $token = Token::get();
 
 // Get topics
-$topics = $queries->orderWhere('topics', 'forum_id = '.$forum_id.' AND deleted = 0 AND id <> '.$topic_id, 'id', 'ASC');
+$topics = $queries->orderWhere('topics', 'forum_id = ' . $forum_id . ' AND deleted = 0 AND id <> ' . $topic_id, 'id', 'ASC');
 
 // Smarty
 $smarty->assign([
@@ -83,7 +83,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/'.$topic_id),
+    'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id),
     'TOPICS' => $topics,
 ]);
 
@@ -95,8 +95,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('forum/merge.tpl', $smarty);

@@ -31,7 +31,7 @@ class DiscordWidget extends WidgetBase
         $this->_name = 'Discord';
         $this->_location = isset($widget_query->location) ? $widget_query->location : null;
         $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Configuration -> Social Media tab first!';
-        $this->_settings = ROOT_PATH.'/modules/Core/includes/admin_widgets/discord.php';
+        $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_widgets/discord.php';
         $this->_order = isset($widget_query->order) ? $widget_query->order : null;
     }
 
@@ -48,7 +48,7 @@ class DiscordWidget extends WidgetBase
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_URL, 'https://discordapp.com/api/servers/'.Output::getClean($this->_discord).'/widget.json');
+            curl_setopt($ch, CURLOPT_URL, 'https://discordapp.com/api/servers/' . Output::getClean($this->_discord) . '/widget.json');
             $result = curl_exec($ch);
             $result = json_decode($result);
             curl_close($ch);
@@ -69,7 +69,7 @@ class DiscordWidget extends WidgetBase
                 $theme = $this->_cache->retrieve('discord_widget_theme');
             }
 
-            $this->_content = '<iframe src="https://discordapp.com/widget?id='.Output::getClean($this->_discord).'&theme='.Output::getClean($theme).'" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
+            $this->_content = '<iframe src="https://discordapp.com/widget?id=' . Output::getClean($this->_discord) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
         }
     }
 }

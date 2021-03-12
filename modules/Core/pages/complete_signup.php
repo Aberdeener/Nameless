@@ -13,7 +13,7 @@ $page = 'complete_signup';
 define('PAGE', 'complete_signup');
 $page_title = $language->get('general', 'register');
 
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
@@ -23,7 +23,7 @@ if (! isset($_GET['c'])) {
     Redirect::to(URL::build('/'));
     exit();
 } else {
-    require ROOT_PATH.'/core/includes/password.php';
+    require ROOT_PATH . '/core/includes/password.php';
 
     // Ensure API is enabled
     $is_api_enabled = $queries->getWhere('settings', ['name', '=', 'use_api']);
@@ -81,7 +81,7 @@ if (! isset($_GET['c'])) {
                             'uuid' => Output::getClean($target_user->data()->uuid),
                             'content' => str_replace('{x}', $target_user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
                             'avatar_url' => $target_user->getAvatar(null, 128, true),
-                            'url' => Util::getSelfURL().ltrim($target_user->getProfileURL(), '/'),
+                            'url' => Util::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
                             'language' => $language,
                         ]);
 
@@ -148,7 +148,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 $template->displayTemplate('complete_signup.tpl', $smarty);

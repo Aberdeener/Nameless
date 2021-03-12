@@ -20,15 +20,15 @@ if ($update_needed != 'true' && $update_needed != 'urgent') {
     exit();
 }
 
-$cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH.'/cache/']);
+$cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
 // Get the current version
 $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
 $current_version = $current_version[0]->value;
 
 // Perform the update
-if (is_file('core/includes/updates/'.str_replace('.', '', $current_version).'.php')) {
-    require ROOT_PATH.'/core/includes/updates/'.str_replace('.', '', $current_version).'.php';
+if (is_file('core/includes/updates/' . str_replace('.', '', $current_version) . '.php')) {
+    require ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php';
 }
 
 $cache->setCache('update_check');

@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
         if ($mysqli->connect_errno) {
-            $error = $mysqli->connect_errno.' - '.$mysqli->connect_error;
+            $error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
         } else {
             $mysqli->close();
 
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (! is_writable('core/config.php')) {
                     $error = $language['config_not_writable'];
                 } else {
-                    $config_content = '<?php'.PHP_EOL.'$conf = '.var_export($conf, true).';';
+                    $config_content = '<?php' . PHP_EOL . '$conf = ' . var_export($conf, true) . ';';
                     file_put_contents('core/config.php', $config_content);
 
                     $_SESSION['charset'] = $charset;

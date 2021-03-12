@@ -42,7 +42,7 @@ class LatestPostsWidget extends WidgetBase
 
     public function initialise()
     {
-        require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+        require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
         $forum = new Forum();
         $queries = new Queries();
         $timeago = new Timeago(TIMEZONE);
@@ -50,7 +50,7 @@ class LatestPostsWidget extends WidgetBase
         // Get user group IDs
         $user_groups = $this->_user->getAllGroupIds();
 
-        $this->_cache->setCache('forum_discussions_'.rtrim(implode('-', $user_groups), '-'));
+        $this->_cache->setCache('forum_discussions_' . rtrim(implode('-', $user_groups), '-'));
         if ($this->_cache->isCached('discussions')) {
             $template_array = $this->_cache->retrieve('discussions');
         } else {
@@ -123,11 +123,11 @@ class LatestPostsWidget extends WidgetBase
                     'last_reply_style' => $last_reply_user->getGroupClass(),
                     'last_reply_user_id' => Output::getClean($discussions[$n]['topic_last_user']),
                     'label' => $label,
-                    'link' => URL::build('/forum/topic/'.$discussions[$n]['id'].'-'.$forum->titleToURL($discussions[$n]['topic_title'])),
-                    'forum_link' => URL::build('/forum/forum/'.$discussions[$n]['forum_id']),
+                    'link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title'])),
+                    'forum_link' => URL::build('/forum/forum/' . $discussions[$n]['forum_id']),
                     'author_link' => $topic_creator->getProfileURL(),
                     'last_reply_profile_link' => $last_reply_user->getProfileURL(),
-                    'last_reply_link' => URL::build('/forum/topic/'.$discussions[$n]['id'].'-'.$forum->titleToURL($discussions[$n]['topic_title']), 'pid='.$discussions[$n]['last_post_id']),
+                    'last_reply_link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title']), 'pid=' . $discussions[$n]['last_post_id']),
                 ];
 
                 $n++;

@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'avatars');
 $page_title = $language->get('admin', 'avatars');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Input
 if (Input::exists()) {
@@ -122,7 +122,7 @@ if (count($images)) {
             continue;
         }
 
-        $template_images[(defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/avatars/defaults/'.Output::getClean($image)] = Output::getClean($image);
+        $template_images[(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/avatars/defaults/' . Output::getClean($image)] = Output::getClean($image);
     }
 }
 
@@ -153,7 +153,7 @@ $smarty->assign([
     'NO_AVATARS' => $language->get('admin', 'no_avatars_available'),
     'DEFAULT_AVATAR_IMAGE' => $default_avatar_image,
     'UPLOAD_NEW_IMAGE' => $language->get('admin', 'upload_new_image'),
-    'UPLOAD_FORM_ACTION' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/includes/image_upload.php',
+    'UPLOAD_FORM_ACTION' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/includes/image_upload.php',
     'DRAG_FILES_HERE' => $language->get('admin', 'drag_files_here'),
     'CLOSE' => $language->get('general', 'close'),
 ]);
@@ -163,7 +163,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('core/avatars.tpl', $smarty);

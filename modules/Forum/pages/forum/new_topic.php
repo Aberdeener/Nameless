@@ -12,7 +12,7 @@
 // Always define page name
 define('PAGE', 'forum');
 $page_title = $forum_language->get('forum', 'new_topic');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // User must be logged in to proceed
 if (! $user->isLoggedIn()) {
@@ -20,11 +20,11 @@ if (! $user->isLoggedIn()) {
     exit();
 }
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
-require ROOT_PATH.'/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
+require ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
 
 if (! isset($_GET['fid']) || ! is_numeric($_GET['fid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
@@ -46,7 +46,7 @@ if (! $list) {
 // Can the user post a topic in this forum?
 $can_reply = $forum->canPostTopic($fid, $user_groups);
 if (! $can_reply) {
-    Redirect::to(URL::build('/forum/view/'.$fid));
+    Redirect::to(URL::build('/forum/view/' . $fid));
     exit();
 }
 
@@ -101,7 +101,7 @@ if (count($forum_labels)) {
 if (Input::exists()) {
     if (Token::check()) {
         // Check post limits
-        $last_post = $queries->orderWhere('posts', 'post_creator = '.$user->data()->id, 'post_date', 'DESC LIMIT 1');
+        $last_post = $queries->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1');
         if (count($last_post)) {
             if ($last_post[0]->created > strtotime('-30 seconds')) {
                 $spam_check = true;
@@ -183,7 +183,7 @@ if (Input::exists()) {
 
                     // Get last post ID
                     $last_post_id = $queries->getLastId();
-                    $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/'.$topic_id, 'pid='.$last_post_id), ['path' => ROOT_PATH.'/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH.'/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
+                    $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $topic_id, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
 
                     $queries->update('posts', $last_post_id, [
                         'post_content' => $content,
@@ -210,14 +210,14 @@ if (Input::exists()) {
                             'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
                             'avatar_url' => $user->getAvatar(null, 128, true),
                             'title' => Input::get('title'),
-                            'url' => Util::getSelfURL().ltrim(URL::build('/forum/topic/'.$topic_id.'-'.$forum->titleToURL(Input::get('title'))), '/'),
+                            'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))), '/'),
                             'available_hooks' => $available_hooks,
                         ]);
                     }
 
                     Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 
-                    Redirect::to(URL::build('/forum/topic/'.$topic_id.'-'.$forum->titleToURL(Input::get('title'))));
+                    Redirect::to(URL::build('/forum/topic/' . $topic_id . '-' . $forum->titleToURL(Input::get('title'))));
                     exit();
                 } catch (Exception $e) {
                     exit($e->getMessage());
@@ -267,11 +267,11 @@ if (Input::exists()) {
 $token = Token::get();
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
 ]);
 
 // Generate content for template
@@ -302,7 +302,7 @@ $smarty->assign([
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
-    'TOKEN' => '<input type="hidden" name="token" value="'.$token.'">',
+    'TOKEN' => '<input type="hidden" name="token" value="' . $token . '">',
     'FORUM_LINK' => URL::build('/forum'),
     'CONTENT' => ((isset($_POST['content']) && $_POST['content']) ? Output::getPurified(Input::get('content')) : (isset($placeholder) ? $placeholder : '')),
     'FORUM_TITLE' => Output::getClean($forum_title),
@@ -320,8 +320,8 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
     ]);
 
     $template->addJSScript('
@@ -333,9 +333,9 @@ if ($formatting == 'markdown') {
 	');
 } else {
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => [],
     ]);
 
     $template->addJSScript(Input::createTinyEditor($language, 'reply'));
@@ -349,8 +349,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('forum/new_topic.tpl', $smarty);

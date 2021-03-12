@@ -20,7 +20,7 @@ $params = [];
 
 if (isset($_GET['search']) && $_GET['search']['value'] != '') {
     $where .= ' WHERE username LIKE ? OR nickname LIKE ? OR email LIKE ?';
-    array_push($params, '%'.$_GET['search']['value'].'%', '%'.$_GET['search']['value'].'%', '%'.$_GET['search']['value'].'%');
+    array_push($params, '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%');
 }
 
 if (isset($_GET['order']) && count($_GET['order'])) {
@@ -37,12 +37,12 @@ if (isset($_GET['order']) && count($_GET['order'])) {
                 'ASC' :
                 'DESC';
 
-            $orderBy[] = '`'.$column.'` '.$dir;
+            $orderBy[] = '`' . $column . '` ' . $dir;
         }
     }
 
     if (count($orderBy)) {
-        $order .= ' ORDER BY '.implode(', ', $orderBy);
+        $order .= ' ORDER BY ' . implode(', ', $orderBy);
     } else {
         $order .= ' ORDER BY username ASC';
     }
@@ -51,17 +51,17 @@ if (isset($_GET['order']) && count($_GET['order'])) {
 }
 
 if (isset($_GET['start']) && $_GET['length'] != -1) {
-    $limit .= ' LIMIT '.intval($_GET['start']).', '.intval($_GET['length']);
+    $limit .= ' LIMIT ' . intval($_GET['start']) . ', ' . intval($_GET['length']);
 } else {
     // default 10
     $limit .= ' LIMIT 10';
 }
 
 if (strlen($where) > 0) {
-    $totalFiltered = $db->query('SELECT COUNT(*) as `total` FROM nl2_users'.$where, $params)->first()->total;
+    $totalFiltered = $db->query('SELECT COUNT(*) as `total` FROM nl2_users' . $where, $params)->first()->total;
 }
 
-$results = $db->query($query.$where.$order.$limit, $params)->results();
+$results = $db->query($query . $where . $order . $limit, $params)->results();
 $data = [];
 $groups = [];
 

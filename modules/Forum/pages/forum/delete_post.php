@@ -14,7 +14,7 @@ if (! $user->isLoggedIn()) {
     exit();
 }
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 
 // Always define page name
 define('PAGE', 'forum');
@@ -54,10 +54,10 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                     }
                     $redirect = URL::build('/forum'); // Create a redirect string
                 } else {
-                    $redirect = URL::build('/forum/topic/'.Input::get('tid'));
+                    $redirect = URL::build('/forum/topic/' . Input::get('tid'));
                 }
             } else {
-                $redirect = URL::build('/forum/search/', 'p=1&s='.htmlspecialchars($_POST['search_string']));
+                $redirect = URL::build('/forum/search/', 'p=1&s=' . htmlspecialchars($_POST['search_string']));
             }
 
             try {
@@ -88,7 +88,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 exit($e->getMessage());
             }
         } else {
-            Redirect::to(URL::build('/forum/topic/'.Input::get('tid')));
+            Redirect::to(URL::build('/forum/topic/' . Input::get('tid')));
             exit();
         }
     } else {

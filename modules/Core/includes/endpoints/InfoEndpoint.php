@@ -52,7 +52,7 @@ class InfoEndpoint extends EndpointBase
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid='.$site_id.'&version='.$current_version);
+                    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $site_id . '&version=' . $current_version);
 
                     $update_check = curl_exec($ch);
 
@@ -78,8 +78,8 @@ class InfoEndpoint extends EndpointBase
                         }
 
                         // Update database values to say we need a version update
-                        $api->getDb()->createQuery('UPDATE nl2_settings SET `value`=\''.$update_needed.'\' WHERE `name` = \'version_update\'', []);
-                        $api->getDb()->createQuery('UPDATE nl2_settings SET `value`= '.date('U').' WHERE `name` = \'version_checked\'', []);
+                        $api->getDb()->createQuery('UPDATE nl2_settings SET `value`=\'' . $update_needed . '\' WHERE `name` = \'version_update\'', []);
+                        $api->getDb()->createQuery('UPDATE nl2_settings SET `value`= ' . date('U') . ' WHERE `name` = \'version_checked\'', []);
                         $api->getDb()->createQuery('UPDATE nl2_settings SET `value`= ? WHERE `name` = \'new_version\'', [$update_check->new_version]);
 
                         $ret['version_update'] = ['update' => true, 'version' => $update_check->new_version, 'urgent' => ($update_needed == 'urgent')];

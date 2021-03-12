@@ -9,11 +9,11 @@
  *  403 Forbidden page
  */
 
-header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
+header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');
 
 define('PAGE', 403);
 $page_title = '403';
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -26,8 +26,8 @@ $template->onPageLoad();
 $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
 $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Assign Smarty variables
 $smarty->assign(

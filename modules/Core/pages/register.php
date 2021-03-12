@@ -36,8 +36,8 @@ if ($minecraft == '1') {
     }
 }
 
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
-require_once ROOT_PATH.'/modules/Core/includes/emails/register.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/modules/Core/includes/emails/register.php';
 
 // Check if registration is enabled
 $registration_enabled = $queries->getWhere('settings', ['name', '=', 'registration_enabled']);
@@ -46,11 +46,11 @@ $registration_enabled = $registration_enabled[0]->value;
 if ($registration_enabled == 0) {
     // Registration is disabled, display a message
     $template->addCSSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
     ]);
 
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
     ]);
 
     // Get registration disabled message and assign to Smarty variable
@@ -76,8 +76,8 @@ if ($registration_enabled == 0) {
 
     $template->onPageLoad();
 
-    require ROOT_PATH.'/core/templates/navbar.php';
-    require ROOT_PATH.'/core/templates/footer.php';
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
     $template->displayTemplate('registration_disabled.tpl', $smarty);
@@ -86,8 +86,8 @@ if ($registration_enabled == 0) {
 }
 
 // Registration page
-require ROOT_PATH.'/core/integration/uuid.php'; // For UUID stuff
-require ROOT_PATH.'/core/includes/password.php'; // For password hashing
+require ROOT_PATH . '/core/integration/uuid.php'; // For UUID stuff
+require ROOT_PATH . '/core/includes/password.php'; // For password hashing
 
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
@@ -109,7 +109,7 @@ if (isset($_GET['step']) && isset($_SESSION['mcassoc'])) {
     $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
     $mcassoc->enableInsecureMode();
 
-    require ROOT_PATH.'/core/integration/run_mcassoc.php';
+    require ROOT_PATH . '/core/integration/run_mcassoc.php';
     exit();
 }
 
@@ -153,7 +153,7 @@ if (Input::exists()) {
             // Check reCAPCTHA
             $url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
 
-            $post_data = 'secret='.$recaptcha_secret[0]->value.'&response='.($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
+            $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -312,7 +312,7 @@ if (Input::exists()) {
                             $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
                             $mcassoc->enableInsecureMode();
 
-                            require ROOT_PATH.'/core/integration/run_mcassoc.php';
+                            require ROOT_PATH . '/core/integration/run_mcassoc.php';
                             exit();
                         } else {
                             // Disabled
@@ -420,12 +420,12 @@ if (Input::exists()) {
                                         'uuid' => $uuid,
                                         'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
                                         'avatar_url' => $user->getAvatar(null, 128, true),
-                                        'url' => Util::getSelfURL().ltrim(URL::build('/profile/'.Output::getClean(Input::get('username'))), '/'),
+                                        'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
                                         'language' => $language,
                                     ]);
 
                                     // Redirect straight to verification link
-                                    $url = URL::build('/validate/', 'c='.$code);
+                                    $url = URL::build('/validate/', 'c=' . $code);
                                     Redirect::to($url);
                                     exit();
                                 }
@@ -439,7 +439,7 @@ if (Input::exists()) {
                                         'uuid' => $uuid,
                                         'content' => str_replace('{x}', Output::getClean(Input::get('username')), $language->get('user', 'user_x_has_registered')),
                                         'avatar_url' => $user->getAvatar(null, 128, true),
-                                        'url' => Util::getSelfURL().ltrim(URL::build('/profile/'.Output::getClean(Input::get('username'))), '/'),
+                                        'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
                                         'language' => $language,
                                     ]
                                 );
@@ -480,7 +480,7 @@ if (Input::exists()) {
                         } elseif (strpos($validation_error, 't_and_c') !== false) {
                             $errors[] = $language->get('user', 'accept_terms');
                         } else {
-                            $errors[] = $validation_error.'.';
+                            $errors[] = $validation_error . '.';
                         }
                     } elseif (strpos($validation_error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
@@ -612,8 +612,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('register.tpl', $smarty);

@@ -13,7 +13,7 @@ if (! $user->isLoggedIn()) {
     exit(json_encode(['error' => 'Not logged in']));
 }
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 
 // Always define page name
 define('PAGE', 'forum');
@@ -32,7 +32,7 @@ $formatting = $cache->retrieve('formatting');
 
 if ($formatting == 'markdown') {
     // Markdown
-    require ROOT_PATH.'/core/includes/markdown/tomarkdown/autoload.php';
+    require ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php';
     $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 }
 
@@ -54,7 +54,7 @@ foreach ($_POST['posts'] as $item) {
             'content' => Output::getPurified($content),
             'author_username' => $post_author->getDisplayname(),
             'author_nickname' => $post_author->getDisplayname(true),
-            'link' => URL::build('/forum/topic/'.$post['topic_id'], 'pid='.htmlspecialchars($item)),
+            'link' => URL::build('/forum/topic/' . $post['topic_id'], 'pid=' . htmlspecialchars($item)),
         ];
     }
 }

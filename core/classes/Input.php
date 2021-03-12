@@ -52,9 +52,9 @@ class Input
     {
         if ($name) {
             $editor = '
-            window.path = "'.((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'";
+            window.path = "' . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . '";
 
-            CKEDITOR.replace( \''.$name.'\', {
+            CKEDITOR.replace( \'' . $name . '\', {
                 tabSpaces: 4,
 
                 extraAllowedContent: \'blockquote(blockquote)\',
@@ -74,7 +74,7 @@ class Input
 
             $editor .= '],
 
-                removeButtons: \'Anchor,Styles,SpecialChar,About,Flash'.(! $admin ? ',Iframe,Table' : '').',Format\'
+                removeButtons: \'Anchor,Styles,SpecialChar,About,Flash' . (! $admin ? ',Iframe,Table' : '') . ',Format\'
             } );';
 
             if ($admin) {
@@ -85,9 +85,9 @@ class Input
             CKEDITOR.config.extraPlugins = \'uploadimage\';
             CKEDITOR.config.uploadUrl = window.path + \'uploads/upload_image.php\';
             CKEDITOR.config.filebrowserUploadUrl = window.path + \'uploads/upload_image.php\';
-            CKEDITOR.config.skin = \''.(defined('TEMPLATE_EDITOR_STYLE') ? TEMPLATE_EDITOR_STYLE : 'moono-lisa').'\';
-            CKEDITOR.skinName = \''.(defined('TEMPLATE_EDITOR_STYLE') ? TEMPLATE_EDITOR_STYLE : 'moono-lisa').'\';
-            CKEDITOR.config.language = \''.(defined('HTML_LANG') ? HTML_LANG : 'en').'\';
+            CKEDITOR.config.skin = \'' . (defined('TEMPLATE_EDITOR_STYLE') ? TEMPLATE_EDITOR_STYLE : 'moono-lisa') . '\';
+            CKEDITOR.skinName = \'' . (defined('TEMPLATE_EDITOR_STYLE') ? TEMPLATE_EDITOR_STYLE : 'moono-lisa') . '\';
+            CKEDITOR.config.language = \'' . (defined('HTML_LANG') ? HTML_LANG : 'en') . '\';
             CKEDITOR.config.disableNativeSpellChecker = false;
             CKEDITOR.config.width = "auto";
             CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
@@ -126,7 +126,7 @@ class Input
         if ($name) {
             $editor = '
             tinymce.init({
-              selector: \'#'.$name.'\',
+              selector: \'#' . $name . '\',
               browser_spellcheck: true,
                 contextmenu: false,
               branding: false,
@@ -134,9 +134,9 @@ class Input
               convert_urls: false,
               plugins: \'autolink,codesample,directionality,emoticons,hr,image,link,lists,spoiler\',
               toolbar: \'undo redo | bold italic underline strikethrough fontsizeselect forecolor backcolor ltr rtl | alignleft aligncenter alignright alignjustify | codesample emoticons hr image link numlist bullist | spoiler-add spoiler-remove\',
-              spoiler_caption: \''.$language->get('general', 'spoiler').'\',
+              spoiler_caption: \'' . $language->get('general', 'spoiler') . '\',
               default_link_target: \'_blank\',
-              skin: "'.(defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide').'"
+              skin: "' . (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide') . '"
             });
             ';
 

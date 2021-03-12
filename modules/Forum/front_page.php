@@ -13,7 +13,7 @@ $cache->setCache('news_cache');
 if ($cache->isCached('news')) {
     $news = $cache->retrieve('news');
 } else {
-    require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+    require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
     $forum = new Forum();
     $timeago = new Timeago(TIMEZONE);
 
@@ -26,7 +26,7 @@ if ($cache->isCached('news')) {
 
         $news[] = [
             'id' => $item['topic_id'],
-            'url' => URL::build('/forum/topic/'.$item['topic_id'].'-'.$forum->titleToURL($item['topic_title'])),
+            'url' => URL::build('/forum/topic/' . $item['topic_id'] . '-' . $forum->titleToURL($item['topic_title'])),
             'date' => date('d M Y, H:i', strtotime($item['topic_date'])),
             'time_ago' => $timeago->inWords($item['topic_date'], $language->getTimeLanguage()),
             'title' => Output::getClean($item['topic_title']),

@@ -46,7 +46,7 @@ class MentionsParser
                     $user = new user($possible_username, 'nickname');
 
                     if ($user->data()) {
-                        $value = preg_replace('/'.preg_quote("@{$possible_username}", '/').'/', '<a style="'.Output::getClean($user->getGroupClass()).'" href="'.$user->getProfileURL()."\">@{$possible_username}</a>", $value);
+                        $value = preg_replace('/' . preg_quote("@{$possible_username}", '/') . '/', '<a style="' . Output::getClean($user->getGroupClass()) . '" href="' . $user->getProfileURL() . "\">@{$possible_username}</a>", $value);
 
                         // Check if user is blocked by OP
                         if (isset($author_id)) {

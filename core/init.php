@@ -21,24 +21,24 @@ if (! isset($page)) {
     exit();
 }
 
-if (! file_exists(ROOT_PATH.'/core/config.php')) {
-    if (is_writable(ROOT_PATH.'/core')) {
-        fopen(ROOT_PATH.'/core/config.php', 'w');
+if (! file_exists(ROOT_PATH . '/core/config.php')) {
+    if (is_writable(ROOT_PATH . '/core')) {
+        fopen(ROOT_PATH . '/core/config.php', 'w');
     } else {
         exit('Your <strong>core</strong> directory is not writable, please check your file permissions.');
     }
 }
 
-if (! file_exists(ROOT_PATH.'/cache/templates_c')) {
+if (! file_exists(ROOT_PATH . '/cache/templates_c')) {
     try {
-        mkdir(ROOT_PATH.'/cache/templates_c', 0777, true);
+        mkdir(ROOT_PATH . '/cache/templates_c', 0777, true);
     } catch (Exception $e) {
         exit('Unable to create /cache directories, please check your file permissions.');
     }
 }
 
 // Require config
-require ROOT_PATH.'/core/config.php';
+require ROOT_PATH . '/core/config.php';
 
 if (isset($conf) && is_array($conf)) {
     $GLOBALS['config'] = $conf;
@@ -49,11 +49,11 @@ if (isset($conf) && is_array($conf)) {
 /*
  *  Autoload classes
  */
-require_once ROOT_PATH.'/core/includes/smarty/Smarty.class.php'; // Smarty
+require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php'; // Smarty
 
 // Normal autoloader
 spl_autoload_register(function ($class) {
-    $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'core', 'classes', $class.'.php']);
+    $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'core', 'classes', $class . '.php']);
     if (file_exists($path)) {
         require_once $path;
     }
@@ -76,7 +76,7 @@ if ($page != 'install') {
     define('FRIENDLY_URLS', Config::get('core/friendly'));
 
     // Set up cache
-    $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH.'/cache/']);
+    $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
     // Force https?
     $cache->setCache('force_www_cache');
@@ -99,20 +99,20 @@ if ($page != 'install') {
                 // Force www?
                 if (defined('FORCE_WWW')) {
                     if (strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-                        header('Location: https://www.'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+                        header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
                         exit();
                     } else {
-                        header('Location: https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+                        header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
                         exit();
                     }
                 } else {
-                    header('Location: https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+                    header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
                     exit();
                 }
             } else {
                 // Force www?
                 if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-                    header('Location: https://www.'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+                    header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
                     exit();
                 }
             }
@@ -126,9 +126,9 @@ if ($page != 'install') {
     if (! defined('FORCE_SSL')) {
         if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
             if ($_SERVER['HTTPS'] != 'on') {
-                header('Location: http://www.'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+                header('Location: http://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             } else {
-                header('Location: https://www.'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+                header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             }
             exit();
         }
@@ -217,13 +217,13 @@ if ($page != 'install') {
                 unset($directories[$i]);
             }
 
-            define('CONFIG_PATH', '/'.Config::get('core/path'));
+            define('CONFIG_PATH', '/' . Config::get('core/path'));
 
             $directories = array_values($directories);
         }
         $directory = implode('/', $directories);
 
-        $directory = '/'.$directory;
+        $directory = '/' . $directory;
 
         // Remove the trailing /
         if (strlen($directory) > 1) {
@@ -246,7 +246,7 @@ if ($page != 'install') {
 
         date_default_timezone_set(TIMEZONE);
     } catch (Exception $e) {
-        exit('Unable to set timezone: '.$e->getMessage());
+        exit('Unable to set timezone: ' . $e->getMessage());
     }
 
     // Language
@@ -363,9 +363,9 @@ if ($page != 'install') {
 
     // Basic Smarty variables
     $smarty->assign([
-        'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH.'/' : '/',
-        'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/').$_SERVER['REQUEST_URI']),
-        'OG_IMAGE' => Output::getClean(rtrim(Util::getSelfURL(), '/').'/core/assets/img/site_image.png'),
+        'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
+        'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
+        'OG_IMAGE' => Output::getClean(rtrim(Util::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
         'SITE_NAME' => SITE_NAME,
         'SITE_HOME' => URL::build('/'),
         'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
@@ -427,7 +427,7 @@ if ($page != 'install') {
             if (isset($_GET['route']) && (rtrim($_GET['route'], '/') == '/login' || rtrim($_GET['route'], '/') == '/forgot_password' || substr($_GET['route'], 0, 5) == '/api/')) {
                 // Can continue as normal
             } else {
-                require ROOT_PATH.'/maintenance.php';
+                require ROOT_PATH . '/maintenance.php';
                 exit();
             }
         } else {
@@ -513,8 +513,8 @@ if ($page != 'install') {
     });
 
     foreach ($enabled_modules as $module) {
-        if (file_exists(ROOT_PATH.'/modules/'.$module['name'].'/init.php')) {
-            require ROOT_PATH.'/modules/'.$module['name'].'/init.php';
+        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
+            require ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
         }
     }
 
@@ -613,7 +613,7 @@ if ($page != 'install') {
             'username' => $user->getDisplayname(true),
             'nickname' => $user->getDisplayname(),
             'profile' => $user->getProfileURL(),
-            'panel_profile' => URL::build('/panel/user/'.Output::getClean($user->data()->id).'-'.Output::getClean($user->data()->username)),
+            'panel_profile' => URL::build('/panel/user/' . Output::getClean($user->data()->id) . '-' . Output::getClean($user->data()->username)),
             'username_style' => $user->getGroupClass(),
             'user_title' => Output::getClean($user->data()->user_title),
             'avatar' => $user->getAvatar(),

@@ -101,7 +101,7 @@ class RegisterEndpoint extends EndpointBase
         $user_id = $user_id['user_id'];
 
         // Get link + template
-        $link = Util::getSelfURL().ltrim(URL::build('/complete_signup/', 'c='.$code), '/');
+        $link = Util::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . $code), '/');
 
         $html = Email::formatEmail('register', $api->getLanguage());
 
@@ -109,7 +109,7 @@ class RegisterEndpoint extends EndpointBase
             // PHP Mailer
             $email = [
                 'to' => ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
-                'subject' => SITE_NAME.' - '.$api->getLanguage()->get('emails', 'register_subject'),
+                'subject' => SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
                 'message' => str_replace('[Link]', $link, $html),
             ];
 
@@ -134,13 +134,13 @@ class RegisterEndpoint extends EndpointBase
             $siteemail = Util::getSetting($api->getDb(), 'site_email');
 
             $to = $email;
-            $subject = SITE_NAME.' - '.$api->getLanguage()->get('emails', 'register_subject');
+            $subject = SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject');
 
-            $headers = 'From: '.$siteemail."\r\n".
-            'Reply-To: '.$siteemail."\r\n".
-            'X-Mailer: PHP/'.phpversion()."\r\n".
-            'MIME-Version: 1.0'."\r\n".
-            'Content-type: text/html; charset=UTF-8'."\r\n";
+            $headers = 'From: ' . $siteemail . "\r\n" .
+            'Reply-To: ' . $siteemail . "\r\n" .
+            'X-Mailer: PHP/' . phpversion() . "\r\n" .
+            'MIME-Version: 1.0' . "\r\n" .
+            'Content-type: text/html; charset=UTF-8' . "\r\n";
 
             $email = [
                 'to' => $to,
@@ -176,7 +176,7 @@ class RegisterEndpoint extends EndpointBase
                 'username' => Output::getClean($username),
                 'content' => str_replace('{x}', Output::getClean($username), $api->getLanguage()->get('user', 'user_x_has_registered')),
                 'avatar_url' => $user->getAvatar($user_id, null, 128, true),
-                'url' => Util::getSelfURL().ltrim(URL::build('/profile/'.Output::getClean($username)), '/'),
+                'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean($username)), '/'),
                 'language' => $api->getLanguage(),
             ]
         );
@@ -202,7 +202,7 @@ class RegisterEndpoint extends EndpointBase
     {
         try {
             // Get default group ID
-            if (! is_file(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('default_group').'.cache')) {
+            if (! is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
                 $default_group = $api->getDb()->get('groups', ['default_group', '=', 1]);
@@ -222,9 +222,9 @@ class RegisterEndpoint extends EndpointBase
                 ];
 
                 // Store in cache file
-                file_put_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('default_group').'.cache', json_encode($to_cache));
+                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache', json_encode($to_cache));
             } else {
-                $default_group = file_get_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('default_group').'.cache');
+                $default_group = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache');
                 $default_group = json_decode($default_group);
                 $default_group = unserialize($default_group->default_group->data);
             }
@@ -261,13 +261,13 @@ class RegisterEndpoint extends EndpointBase
                     'username' => $user->getDisplayname(),
                     'content' => str_replace('{x}', $user->getDisplayname(), $api->getLanguage()->get('user', 'user_x_has_registered')),
                     'avatar_url' => $user->getAvatar(null, 128, true),
-                    'url' => Util::getSelfURL().ltrim($user->getProfileURL(), '/'),
+                    'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
                     'language' => $api->getLanguage(),
                 ]
             );
 
             if ($return) {
-                $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/').URL::build('/complete_signup/', 'c='.$code)]);
+                $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . $code)]);
             } else {
                 return ['user_id' => $user_id];
             }

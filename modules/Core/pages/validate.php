@@ -12,7 +12,7 @@
 $page = 'validate';
 define('PAGE', 'validate');
 $page_title = $language->get('general', 'register');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -45,7 +45,7 @@ if (! isset($_GET['c'])) {
             'uuid' => Output::getClean($user->data()->uuid),
             'content' => str_replace('{x}', $user->getDisplayname(), $language->get('user', 'user_x_has_validated')),
             'avatar_url' => $user->getAvatar(null, 128, true),
-            'url' => Util::getSelfURL().ltrim($user->getProfileURL(), '/'),
+            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'language' => $language,
         ]);
 

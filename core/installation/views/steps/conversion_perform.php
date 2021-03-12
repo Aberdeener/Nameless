@@ -5,12 +5,12 @@ if (! isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
     exit();
 }
 
-$available_converters = array_filter(glob(ROOT_PATH.'/custom/converters/*'), 'is_dir');
+$available_converters = array_filter(glob(ROOT_PATH . '/custom/converters/*'), 'is_dir');
 $converters = [];
 
 if (! empty($available_converters)) {
     foreach ($available_converters as $converter) {
-        if (file_exists($converter.'/converter.php')) {
+        if (file_exists($converter . '/converter.php')) {
             $path = explode(DIRECTORY_SEPARATOR, $converter);
             $converters[] = $path[count($path) - 1];
         }
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
             if ($mysqli->connect_errno) {
-                $error = $mysqli->connect_errno.' - '.$mysqli->connect_error;
+                $error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
             } else {
                 $mysqli->close();
 
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $error = $language['unable_to_load_converter'];
                 } else {
                     $conn = DB_Custom::getInstance(Input::get('db_address'), Input::get('db_name'), Input::get('db_username'), $password, Input::get('db_port'));
-                    require_once ROOT_PATH.'/custom/converters/'.$_POST['converter'].'/converter.php';
+                    require_once ROOT_PATH . '/custom/converters/' . $_POST['converter'] . '/converter.php';
 
                     if (! isset($error)) {
                         Redirect::to('?step=finish');

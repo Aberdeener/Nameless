@@ -10,7 +10,7 @@
  */
 
 $page_title = $language->get('general', 'register');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Ensure AuthMe is enabled
 $authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
@@ -102,7 +102,7 @@ if (Input::exists()) {
 
                 // UUID
                 if ($uuid_linking == '1') {
-                    require ROOT_PATH.'/core/integration/uuid.php'; // For UUID stuff
+                    require ROOT_PATH . '/core/integration/uuid.php'; // For UUID stuff
                     if (! isset($mcname_result)) {
                         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $mcname));
                         if ($profile && method_exists($profile, 'getProfileAsArray')) {
@@ -209,7 +209,7 @@ if (Input::exists()) {
                 // Check reCAPCTHA
                 $url = 'https://www.google.com/recaptcha/api/siteverify';
 
-                $post_data = 'secret='.$recaptcha_secret[0]->value.'&response='.Input::get('g-recaptcha-response');
+                $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . Input::get('g-recaptcha-response');
 
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_POST, 1);
@@ -254,11 +254,11 @@ if (Input::exists()) {
 
                     if ($authme_conn->connect_errno) {
                         // Connection error
-                        $errors[] = $authme_conn->connect_errno.' - '.$authme_conn->connect_error;
+                        $errors[] = $authme_conn->connect_errno . ' - ' . $authme_conn->connect_error;
                         $errors[] = $language->get('user', 'unable_to_connect_to_authme_db');
                     } else {
                         // Success, check user exists in database and validate password
-                        $stmt = $authme_conn->prepare('SELECT password, ip FROM '.$authme_db['table'].' WHERE realname = ?');
+                        $stmt = $authme_conn->prepare('SELECT password, ip FROM ' . $authme_db['table'] . ' WHERE realname = ?');
                         if ($stmt) {
                             $stmt->bind_param('s', Input::get('username'));
                             $stmt->execute();
@@ -279,7 +279,7 @@ if (Input::exists()) {
 
                                 switch ($authme_db['hash']) {
                                     case 'bcrypt':
-                                        require ROOT_PATH.'/core/includes/password.php';
+                                        require ROOT_PATH . '/core/includes/password.php';
 
                                         if (password_verify($_POST['password'], $password)) {
                                             $valid = true;
@@ -308,11 +308,11 @@ if (Input::exists()) {
                                         $exploded = explode('$', $password);
                                         $salt = $exploded[2];
 
-                                        if ($salt.hash('sha256', hash('sha256', $_POST['password']).$salt) == $salt.$exploded[3]) {
+                                        if ($salt . hash('sha256', hash('sha256', $_POST['password']) . $salt) == $salt . $exploded[3]) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
-                                                'pass' => ($salt.'$'.$exploded[3]),
+                                                'pass' => ($salt . '$' . $exploded[3]),
                                                 'ip' => $ip,
                                             ];
                                         }
@@ -332,7 +332,7 @@ if (Input::exists()) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
                                                 'user' => Output::getClean(Input::get('username')),
-                                                'pass' => ($iterations.'$'.$salt.'$'.$pass),
+                                                'pass' => ($iterations . '$' . $salt . '$' . $pass),
                                                 'ip' => $ip,
                                             ];
                                         }
@@ -408,7 +408,7 @@ if (! isset($_GET['step'])) {
         $smarty->assign('RECAPTCHA', Output::getClean($recaptcha_key[0]->value));
     }
 
-    $template_file = ROOT_PATH.'/custom/templates/'.TEMPLATE.'/authme.tpl';
+    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme.tpl';
 } else {
     // Step 2
     // Are custom usernames enabled?
@@ -431,7 +431,7 @@ if (! isset($_GET['step'])) {
         'SUBMIT' => $language->get('general', 'submit'),
     ]);
 
-    $template_file = ROOT_PATH.'/custom/templates/'.TEMPLATE.'/authme_email.tpl';
+    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme_email.tpl';
 }
 
 if ($recaptcha === 'true') {
@@ -448,7 +448,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 $template->displayTemplate($template_file, $smarty);

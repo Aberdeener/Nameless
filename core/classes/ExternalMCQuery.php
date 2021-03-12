@@ -16,7 +16,7 @@ class ExternalMCQuery
     // Params: $ip = IP to query, $port = port to query
     public static function query($ip, $port = 25565)
     {
-        $queryUrl = 'https://api.namelessmc.com/api/server/'.$ip.'/'.$port;
+        $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 
         try {
             // cURL
@@ -58,7 +58,7 @@ class ExternalMCQuery
                 return false;
             }
 
-            $queryUrl = 'https://api.namelessmc.com/api/server/'.$ip.'/'.$port;
+            $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 
             try {
                 // cURL

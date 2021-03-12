@@ -12,14 +12,14 @@
 // Always define page name
 define('PAGE', 'terms');
 $page_title = $language->get('user', 'terms_and_conditions');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
 ]);
 
 $template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
 ]);
 
 // Retrieve terms from database
@@ -46,8 +46,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('terms.tpl', $smarty);

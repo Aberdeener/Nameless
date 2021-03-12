@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'users');
 define('PANEL_PAGE', 'ip_lookup');
 $page_title = $language->get('moderator', 'ip_lookup');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -39,7 +39,7 @@ if (isset($_GET['uid'])) {
         foreach ($user_ips as $account) {
             $accounts[] = [
                 'ip' => Output::getClean($account->ip),
-                'link' => URL::build('/panel/users/ip_lookup/', 'ip='.Output::getClean($account->ip)),
+                'link' => URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($account->ip)),
             ];
         }
 
@@ -81,8 +81,8 @@ if (isset($_GET['uid'])) {
                 $accounts[] = [
                     'username' => Output::getClean($username[0]->username),
                     'nickname' => Output::getClean($username[0]->nickname),
-                    'profile' => URL::build('/panel/user/'.Output::getClean($username[0]->id.'-'.$username[0]->username)),
-                    'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid='.$account->user_id),
+                    'profile' => URL::build('/panel/user/' . Output::getClean($username[0]->id . '-' . $username[0]->username)),
+                    'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid=' . $account->user_id),
                     'style' => $user->getGroupClass($username[0]->id),
                 ];
             }
@@ -117,7 +117,7 @@ if (isset($_GET['uid'])) {
             }
 
             if (count($query)) {
-                Redirect::to(URL::build('/panel/users/ip_lookup/', 'uid='.Output::getClean($query[0]->id)));
+                Redirect::to(URL::build('/panel/users/ip_lookup/', 'uid=' . Output::getClean($query[0]->id)));
                 exit();
             }
 
@@ -125,7 +125,7 @@ if (isset($_GET['uid'])) {
             $query = $queries->getWhere('users_ips', ['ip', '=', Output::getClean(Input::get('search'))]);
 
             if (count($query)) {
-                Redirect::to(URL::build('/panel/users/ip_lookup/', 'ip='.Output::getClean(Input::get('search'))));
+                Redirect::to(URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean(Input::get('search'))));
                 exit();
             }
 
@@ -168,7 +168,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

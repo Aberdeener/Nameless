@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'layout');
 define('PANEL_PAGE', 'panel_templates');
 $page_title = $language->get('admin', 'panel_templates');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (! isset($_GET['action'])) {
     // Get all templates
@@ -45,11 +45,11 @@ if (! isset($_GET['action'])) {
             'author_x' => str_replace('{x}', $template->getAuthor(), $language->get('admin', 'author_x')),
             'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION) ? str_replace(['{x}', '{y}'], [Output::getClean($template->getNamelessVersion()), NAMELESS_VERSION], $language->get('admin', 'template_outdated')) : false),
             'enabled' => $item->enabled,
-            'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template='.Output::getClean($item->id))),
-            'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template='.Output::getClean($item->id))),
+            'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . Output::getClean($item->id))),
+            'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . Output::getClean($item->id))),
             'default' => $item->is_default,
-            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && ! $item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template='.Output::getClean($item->id)) : null),
-            'default_link' => (($item->enabled && ! $item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template='.Output::getClean($item->id)) : null),
+            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && ! $item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template=' . Output::getClean($item->id)) : null),
+            'default_link' => (($item->enabled && ! $item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template=' . Output::getClean($item->id)) : null),
         ];
     }
 
@@ -98,7 +98,7 @@ if (! isset($_GET['action'])) {
                     'rating' => Output::getClean($item->rating),
                     'downloads' => Output::getClean($item->downloads),
                     'views' => Output::getClean($item->views),
-                    'rating_full' => str_replace('{x}', Output::getClean($item->rating * 2).'/100', $language->get('admin', 'rating_x')),
+                    'rating_full' => str_replace('{x}', Output::getClean($item->rating * 2) . '/100', $language->get('admin', 'rating_x')),
                     'downloads_full' => str_replace('{x}', Output::getClean($item->downloads), $language->get('admin', 'downloads_x')),
                     'views_full' => str_replace('{x}', Output::getClean($item->views), $language->get('admin', 'views_x')),
                 ];
@@ -151,15 +151,15 @@ if (! isset($_GET['action'])) {
         case 'install':
             // Install new template
             // Scan template directory for new templates
-            $directories = glob(ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'panel_templates'.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
+            $directories = glob(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
             foreach ($directories as $directory) {
                 $folders = explode(DIRECTORY_SEPARATOR, $directory);
 
                 // Is it already in the database?
                 $exists = $queries->getWhere('panel_templates', ['name', '=', htmlspecialchars($folders[count($folders) - 1])]);
-                if (! count($exists) && file_exists(ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'panel_templates'.DIRECTORY_SEPARATOR.str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]).DIRECTORY_SEPARATOR.'template.php')) {
+                if (! count($exists) && file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php')) {
                     $template = null;
-                    require_once ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'panel_templates'.DIRECTORY_SEPARATOR.str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]).DIRECTORY_SEPARATOR.'template.php';
+                    require_once ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $folders[count($folders) - 1]) . DIRECTORY_SEPARATOR . 'template.php';
 
                     if ($template instanceof TemplateBase) {
                         // No, add it now
@@ -187,11 +187,11 @@ if (! isset($_GET['action'])) {
             }
             $name = str_replace(['../', '/', '..'], '', $template[0]->name);
 
-            if (file_exists(ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'panel_templates'.DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR.'template.php')) {
+            if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php')) {
                 $id = $template[0]->id;
                 $template = null;
 
-                require ROOT_PATH.DIRECTORY_SEPARATOR.'custom'.DIRECTORY_SEPARATOR.'panel_templates'.DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR.'template.php';
+                require ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'panel_templates' . DIRECTORY_SEPARATOR . $name . DIRECTORY_SEPARATOR . 'template.php';
 
                 if ($template instanceof TemplateBase) {
                     // Activate the template
@@ -260,7 +260,7 @@ if (! isset($_GET['action'])) {
                     exit();
                 }
 
-                if (! Util::recursiveRemoveDirectory(ROOT_PATH.'/custom/panel_templates/'.$item)) {
+                if (! Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item)) {
                     Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
                 } else {
                     Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
@@ -371,7 +371,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

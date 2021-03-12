@@ -9,7 +9,7 @@
  *  Stick/unstick a topic
  */
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 
 // User must be logged in to proceed
@@ -60,5 +60,5 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     Session::flash('success_post', $status);
 }
 
-Redirect::to(URL::build('/forum/topic/'.$topic_id));
+Redirect::to(URL::build('/forum/topic/' . $topic_id));
 exit();

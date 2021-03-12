@@ -10,12 +10,12 @@
  */
 
 if (! isset($forum) || (isset($forum) && ! $forum instanceof Forum)) {
-    require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+    require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
     $forum = new Forum();
 }
 
 // Get latest posts
-$latest_posts = $queries->orderWhere('posts', 'post_creator = '.$query->id.' AND deleted = 0', 'post_date', 'DESC LIMIT 15');
+$latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $query->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 15');
 if (! count($latest_posts)) {
     $smarty->assign('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
 } else {
@@ -73,7 +73,7 @@ if (! count($latest_posts)) {
         }
 
         $posts[] = [
-            'link' => URL::build('/forum/topic/'.$latest_post->topic_id.'-'.$forum->titleToURL($topic_title), 'pid='.$latest_post->id),
+            'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
             'title' => $topic_title,
             'content' => Output::getPurified($emojione->unicodeToImage(htmlspecialchars_decode($latest_post->post_content))),
             'date_friendly' => $date_friendly,

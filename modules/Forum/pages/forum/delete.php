@@ -14,7 +14,7 @@ if (! $user->isLoggedIn()) {
     exit();
 }
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 
 // Always define page name
 define('PAGE', 'forum');

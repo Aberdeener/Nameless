@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'users');
 define('PANEL_PAGE', 'users');
 $page_title = $language->get('admin', 'users');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -56,7 +56,7 @@ if (! defined('PANEL_TEMPLATE_STAFF_USERS_AJAX')) {
             'avatar' => $target_user->getAvatar('', 128),
             'style' => $target_user->getGroupClass(),
             'profile' => $target_user->getProfileURL(),
-            'panel_profile' => URL::build('/panel/user/'.Output::getClean($item->id.'-'.$item->username)),
+            'panel_profile' => URL::build('/panel/user/' . Output::getClean($item->id . '-' . $item->username)),
             'primary_group' => Output::getClean($target_user->getMainGroup()->name),
             'all_groups' => $target_user->getAllGroups(true),
             'registered' => date('d M Y', $item->joined),
@@ -89,7 +89,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('core/users.tpl', $smarty);

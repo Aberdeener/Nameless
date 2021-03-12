@@ -12,7 +12,7 @@
 // Always define page name
 define('PAGE', 'contact');
 $page_title = $language->get('general', 'contact');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Use recaptcha?
 $recaptcha = $queries->getWhere('settings', ['name', '=', 'recaptcha']);
@@ -34,7 +34,7 @@ if (Input::exists()) {
                 // Check captcha
                 $url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
 
-                $post_data = 'secret='.$recaptcha_secret[0]->value.'&response='.($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
+                $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
 
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_POST, 1);
@@ -83,7 +83,7 @@ if (Input::exists()) {
                             $email = [
                                 'replyto' => ['email' => Output::getClean(Input::get('email')), 'name' => Output::getClean(Input::get('email'))],
                                 'to' => ['email' => Output::getClean($contactemail), 'name' => Output::getClean(SITE_NAME)],
-                                'subject' => SITE_NAME.' - '.$language->get('general', 'contact_email_subject'),
+                                'subject' => SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject'),
                                 'message' => $html,
                             ];
 
@@ -104,16 +104,16 @@ if (Input::exists()) {
                             $siteemail = $siteemail[0]->value;
 
                             $to = $contactemail;
-                            $subject = SITE_NAME.' - '.$language->get('general', 'contact_email_subject');
+                            $subject = SITE_NAME . ' - ' . $language->get('general', 'contact_email_subject');
 
                             $message = Output::getClean(Input::get('content'));
                             $fromemail = Output::getClean(Input::get('email'));
 
-                            $headers = 'From: '.$siteemail."\r\n".
-                            'Reply-To: '.$fromemail."\r\n".
-                            'X-Mailer: PHP/'.phpversion()."\r\n".
-                            'MIME-Version: 1.0'."\r\n".
-                            'Content-type: text/html; charset=UTF-8'."\r\n";
+                            $headers = 'From: ' . $siteemail . "\r\n" .
+                            'Reply-To: ' . $fromemail . "\r\n" .
+                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                            'MIME-Version: 1.0' . "\r\n" .
+                            'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                             $email = [
                                 'to' => $to,
@@ -217,7 +217,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 $template->displayTemplate('contact.tpl', $smarty);

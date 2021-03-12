@@ -25,23 +25,23 @@ class DefaultRevamp_Template extends TemplateBase
             'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
         ];
 
-        $template['path'] = (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/templates/'.$template['name'].'/';
+        $template['path'] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/' . $template['name'] . '/';
 
         parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author']);
 
-        $this->_settings = ROOT_PATH.'/custom/templates/DefaultRevamp/template_settings/settings.php';
+        $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
         $this->addCSSFiles([
-            $template['path'].'css/semantic.min.css' => [],
-            $template['path'].'css/toastr.min.css' => [],
+            $template['path'] . 'css/semantic.min.css' => [],
+            $template['path'] . 'css/toastr.min.css' => [],
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' => ['integrity' => 'sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==', 'crossorigin' => 'anonymous'],
         ]);
 
         $this->addJSFiles([
-            $template['path'].'js/jquery.min.js' => [],
-            $template['path'].'js/jquery.cookie.js' => [],
-            $template['path'].'js/semantic.min.js' => [],
-            $template['path'].'js/toastr.min.js' => [],
+            $template['path'] . 'js/jquery.min.js' => [],
+            $template['path'] . 'js/jquery.cookie.js' => [],
+            $template['path'] . 'js/semantic.min.js' => [],
+            $template['path'] . 'js/toastr.min.js' => [],
         ]);
 
         $smarty->assign('TEMPLATE', $template);
@@ -66,7 +66,7 @@ class DefaultRevamp_Template extends TemplateBase
             $navbarColour = $cache->retrieve('navbarColour');
 
             if ($navbarColour != 'white') {
-                $smartyNavbarColour = $navbarColour.' inverted';
+                $smartyNavbarColour = $navbarColour . ' inverted';
             }
         }
 
@@ -84,7 +84,7 @@ class DefaultRevamp_Template extends TemplateBase
     public function onPageLoad()
     {
         $this->addCSSFiles([
-            $this->_template['path'].'css/custom.css' => [],
+            $this->_template['path'] . 'css/custom.css' => [],
         ]);
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
@@ -92,7 +92,7 @@ class DefaultRevamp_Template extends TemplateBase
         $JSVariables = [
             'siteName' => SITE_NAME,
             'siteURL' => URL::build('/'),
-            'fullSiteUrl' => Util::getSelfURL().ltrim(URL::build('/'), '/'),
+            'fullSiteUrl' => Util::getSelfURL() . ltrim(URL::build('/'), '/'),
             'page' => PAGE,
             'avatarSource' => Util::getAvatarSource(),
             'copied' => $this->_language->get('general', 'copied'),
@@ -117,28 +117,28 @@ class DefaultRevamp_Template extends TemplateBase
 
         if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
             $this->addJSFiles([
-                $this->_template['path'].'js/jquery-ui.min.js' => [],
+                $this->_template['path'] . 'js/jquery-ui.min.js' => [],
             ]);
         }
 
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
-            $JSVars .= ($i == 0 ? 'var ' : ', ').$var.' = "'.$value.'"';
+            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
             $i++;
         }
 
         $this->addJSScript($JSVars);
 
         $this->addJSFiles([
-            $this->_template['path'].'js/core/core.js' => [],
-            $this->_template['path'].'js/core/user.js' => [],
-            $this->_template['path'].'js/core/pages.js' => [],
-            $this->_template['path'].'js/scripts.js' => [],
+            $this->_template['path'] . 'js/core/core.js' => [],
+            $this->_template['path'] . 'js/core/user.js' => [],
+            $this->_template['path'] . 'js/core/pages.js' => [],
+            $this->_template['path'] . 'js/scripts.js' => [],
         ]);
 
         foreach ($this->_pages->getAjaxScripts() as $script) {
-            $this->addJSScript('$.getJSON(\''.$script.'\', function(data) {});');
+            $this->addJSScript('$.getJSON(\'' . $script . '\', function(data) {});');
         }
     }
 }

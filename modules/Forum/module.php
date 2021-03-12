@@ -82,11 +82,11 @@ class Forum_Module extends Module
     {
         // AdminCP
         PermissionHandler::registerPermissions('Forum', [
-            'admincp.forums' => $this->_language->get('moderator', 'staff_cp').' &raquo; '.$this->_forum_language->get('forum', 'forum'),
+            'admincp.forums' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum'),
         ]);
 
         // Sitemap
-        $pages->registerSitemapMethod(ROOT_PATH.'/modules/Forum/classes/Forum_Sitemap.php', 'Forum_Sitemap::generateSitemap');
+        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Forum/classes/Forum_Sitemap.php', 'Forum_Sitemap::generateSitemap');
 
         // Add link to navbar
         $cache->setCache('navbar_order');
@@ -108,7 +108,7 @@ class Forum_Module extends Module
 
         // Widgets
         // Latest posts
-        require_once ROOT_PATH.'/modules/Forum/widgets/LatestPostsWidget.php';
+        require_once ROOT_PATH . '/modules/Forum/widgets/LatestPostsWidget.php';
         $module_pages = $widgets->getPages('Latest Posts');
 
         $widgets->add(new LatestPostsWidget($module_pages, $this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
@@ -175,8 +175,8 @@ class Forum_Module extends Module
                 $queries = new Queries();
 
                 // Get data for topics and posts
-                $latest_topics = $queries->orderWhere('topics', 'topic_date > '.strtotime('-1 week'), 'topic_date', 'ASC');
-                $latest_posts = $queries->orderWhere('posts', 'post_date > "'.date('Y-m-d G:i:s', strtotime('-1 week')).'"', 'post_date', 'ASC');
+                $latest_topics = $queries->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC');
+                $latest_posts = $queries->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC');
 
                 $cache->setCache('dashboard_graph');
                 if ($cache->isCached('forum_data')) {
@@ -191,7 +191,7 @@ class Forum_Module extends Module
 
                     foreach ($latest_topics as $topic) {
                         $date = date('d M Y', $topic->topic_date);
-                        $date = '_'.strtotime($date);
+                        $date = '_' . strtotime($date);
 
                         if (isset($output[$date]['topics'])) {
                             $output[$date]['topics'] = $output[$date]['topics'] + 1;
@@ -202,7 +202,7 @@ class Forum_Module extends Module
 
                     foreach ($latest_posts as $post) {
                         $date = date('d M Y', strtotime($post->post_date));
-                        $date = '_'.strtotime($date);
+                        $date = '_' . strtotime($date);
 
                         if (isset($output[$date]['posts'])) {
                             $output[$date]['posts'] = $output[$date]['posts'] + 1;
@@ -217,12 +217,12 @@ class Forum_Module extends Module
                     $start = strtotime($start);
                     $end = strtotime(date('d M Y'));
                     while ($start <= $end) {
-                        if (! isset($output['_'.$start]['topics'])) {
-                            $output['_'.$start]['topics'] = 0;
+                        if (! isset($output['_' . $start]['topics'])) {
+                            $output['_' . $start]['topics'] = 0;
                         }
 
-                        if (! isset($output['_'.$start]['posts'])) {
-                            $output['_'.$start]['posts'] = 0;
+                        if (! isset($output['_' . $start]['posts'])) {
+                            $output['_' . $start]['posts'] = 0;
                         }
 
                         $start = strtotime('+1 day', $start);
@@ -237,15 +237,15 @@ class Forum_Module extends Module
                 Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $output);
 
                 // Dashboard stats
-                require_once ROOT_PATH.'/modules/Forum/collections/panel/RecentTopics.php';
+                require_once ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php';
                 CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, count($latest_topics)));
 
-                require_once ROOT_PATH.'/modules/Forum/collections/panel/RecentPosts.php';
+                require_once ROOT_PATH . '/modules/Forum/collections/panel/RecentPosts.php';
                 CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_forum_language, $cache, count($latest_posts)));
             }
         }
 
-        require_once ROOT_PATH.'/modules/Forum/hooks/DeleteUserForumHook.php';
+        require_once ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php';
         HookHandler::registerHook('deleteUser', 'DeleteUserForumHook::deleteUser');
     }
 }

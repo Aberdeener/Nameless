@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'layout');
 define('PANEL_PAGE', 'widgets');
 $page_title = $language->get('admin', 'widgets');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -43,9 +43,9 @@ if (! isset($_GET['action'])) {
             'module' => str_replace('{x}', Output::getClean($widget->getModule()), $language->get('admin', 'module_x')),
             'description' => Output::getClean($widget->getDescription()),
             'enabled' => $widgets->isEnabled($widget),
-            'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=disable&w='.Output::getClean($widget_query)) : null),
-            'enable_link' => ((! $widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=enable&w='.Output::getClean($widget_query)) : null),
-            'settings_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=edit&w='.Output::getClean($widget_query)) : null),
+            'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=disable&w=' . Output::getClean($widget_query)) : null),
+            'enable_link' => ((! $widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=enable&w=' . Output::getClean($widget_query)) : null),
+            'settings_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=edit&w=' . Output::getClean($widget_query)) : null),
         ];
     }
 
@@ -158,7 +158,7 @@ if (! isset($_GET['action'])) {
                     $queries->update('widgets', $widget->id, ['pages' => $active_pages_string, '`order`' => $order, '`location`' => $location]);
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
-                    Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w='.$widget->id));
+                    Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . $widget->id));
                     exit();
                 } catch (Exception $e) {
                     $errors = [$e->getMessage()];
@@ -176,7 +176,7 @@ if (! isset($_GET['action'])) {
             $smarty->assign(
                 [
                     'SETTINGS' => $language->get('admin', 'settings'),
-                    'SETTINGS_LINK' => URL::build('/panel/core/widgets/', 'action=settings&w='.$widget->id),
+                    'SETTINGS_LINK' => URL::build('/panel/core/widgets/', 'action=settings&w=' . $widget->id),
                 ]
             );
         }
@@ -238,7 +238,7 @@ if (! isset($_GET['action'])) {
             [
                 'EDITING_WIDGET' => str_replace('{x}', Output::getClean($widget->name), $language->get('admin', 'editing_widget_x')),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w='.$widget->id),
+                'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . $widget->id),
             ]
         );
 
@@ -288,7 +288,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

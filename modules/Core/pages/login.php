@@ -12,12 +12,12 @@
 // Set page name variable
 define('PAGE', 'login');
 $page_title = $language->get('general', 'sign_in');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Requirements
-require ROOT_PATH.'/core/includes/password.php'; // For password hashing
-require ROOT_PATH.'/core/includes/phpass.php'; // phpass for Wordpress auth
-require ROOT_PATH.'/core/includes/tfa/autoload.php'; // Two Factor Auth
+require ROOT_PATH . '/core/includes/password.php'; // For password hashing
+require ROOT_PATH . '/core/includes/phpass.php'; // phpass for Wordpress auth
+require ROOT_PATH . '/core/includes/tfa/autoload.php'; // Two Factor Auth
 
 // Ensure user isn't already logged in
 if ($user->isLoggedIn()) {
@@ -48,7 +48,7 @@ if (Input::exists()) {
             // Check captcha
             $url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
 
-            $post_data = 'secret='.$recaptcha_secret[0]->value.'&response='.($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
+            $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -119,7 +119,7 @@ if (Input::exists()) {
                                     // TODO
                                 } else {
                                     // App
-                                    require ROOT_PATH.'/core/includes/tfa_signin.php';
+                                    require ROOT_PATH . '/core/includes/tfa_signin.php';
                                     exit();
                                 }
                             } else {
@@ -130,7 +130,7 @@ if (Input::exists()) {
 
                                     if ($tfa->verifyCode($user_query->data()->tfa_secret, $_POST['tfa_code']) !== true) {
                                         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
-                                        require ROOT_PATH.'/core/includes/tfa_signin.php';
+                                        require ROOT_PATH . '/core/includes/tfa_signin.php';
                                         exit();
                                     }
                                 } else {
@@ -179,7 +179,7 @@ if (Input::exists()) {
                                         $field = 'realname';
                                     }
 
-                                    $stmt = $authme_conn->prepare('SELECT password FROM '.$authme_db['table'].' WHERE '.$field.' = ?');
+                                    $stmt = $authme_conn->prepare('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?');
                                     if ($stmt) {
                                         $stmt->bind_param('s', $username);
                                         $stmt->execute();
@@ -197,7 +197,7 @@ if (Input::exists()) {
                                                 $exploded = explode('$', $password);
                                                 $salt = $exploded[2];
 
-                                                $password = $salt.'$'.$exploded[3];
+                                                $password = $salt . '$' . $exploded[3];
 
                                                 break;
 
@@ -208,7 +208,7 @@ if (Input::exists()) {
                                                 $salt = $exploded[2];
                                                 $pass = $exploded[3];
 
-                                                $password = $iterations.'$'.$salt.'$'.$pass;
+                                                $password = $iterations . '$' . $salt . '$' . $pass;
 
                                                 break;
                                         }
@@ -353,8 +353,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('login.tpl', $smarty);

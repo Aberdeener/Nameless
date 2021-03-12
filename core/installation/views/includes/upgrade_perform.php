@@ -31,7 +31,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert alerts: '.$e->getMessage();
+            $errors[] = 'Unable to convert alerts: ' . $e->getMessage();
         }
 
         // Custom pages
@@ -53,7 +53,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert custom pages: '.$e->getMessage();
+            $errors[] = 'Unable to convert custom pages: ' . $e->getMessage();
         }
 
         // Custom page permissions
@@ -72,7 +72,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert custom page permissions: '.$e->getMessage();
+            $errors[] = 'Unable to convert custom page permissions: ' . $e->getMessage();
         }
 
         break;
@@ -101,7 +101,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert forums: '.$e->getMessage();
+            $errors[] = 'Unable to convert forums: ' . $e->getMessage();
         }
 
         // Forum permissions
@@ -123,7 +123,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert forum permissions: '.$e->getMessage();
+            $errors[] = 'Unable to convert forum permissions: ' . $e->getMessage();
         }
 
         // Forum topic labels
@@ -142,7 +142,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert forum topic labels: '.$e->getMessage();
+            $errors[] = 'Unable to convert forum topic labels: ' . $e->getMessage();
         }
 
         // Friends/followers
@@ -160,7 +160,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert friends: '.$e->getMessage();
+            $errors[] = 'Unable to convert friends: ' . $e->getMessage();
         }
 
         // Groups
@@ -185,7 +185,7 @@ switch ($s) {
                 $queries->update('groups', 3, ['permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1}']);
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert groups: '.$e->getMessage();
+            $errors[] = 'Unable to convert groups: ' . $e->getMessage();
         }
 
         break;
@@ -211,7 +211,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert site punishments: '.$e->getMessage();
+            $errors[] = 'Unable to convert site punishments: ' . $e->getMessage();
         }
 
         // Minecraft servers
@@ -234,7 +234,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert Minecraft servers: '.$e->getMessage();
+            $errors[] = 'Unable to convert Minecraft servers: ' . $e->getMessage();
         }
 
         // Posts
@@ -256,7 +256,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert posts: '.$e->getMessage();
+            $errors[] = 'Unable to convert posts: ' . $e->getMessage();
         }
 
         break;
@@ -281,7 +281,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert private messages: '.$e->getMessage();
+            $errors[] = 'Unable to convert private messages: ' . $e->getMessage();
         }
 
         // Private message replies
@@ -317,7 +317,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert private message replies: '.$e->getMessage();
+            $errors[] = 'Unable to convert private message replies: ' . $e->getMessage();
         }
 
         // Private message users
@@ -336,7 +336,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert private message users: '.$e->getMessage();
+            $errors[] = 'Unable to convert private message users: ' . $e->getMessage();
         }
 
         // Update private message columns
@@ -347,7 +347,7 @@ switch ($s) {
                     'last_reply_user' => $message['last_reply_user'],
                 ]);
             } catch (Exception $e) {
-                $errors[] = 'Unable to convert update private message columns: '.$e->getMessage();
+                $errors[] = 'Unable to convert update private message columns: ' . $e->getMessage();
             }
         }
 
@@ -372,7 +372,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert query errors: '.$e->getMessage();
+            $errors[] = 'Unable to convert query errors: ' . $e->getMessage();
         }
 
         // Reports
@@ -399,7 +399,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert reports: '.$e->getMessage();
+            $errors[] = 'Unable to convert reports: ' . $e->getMessage();
         }
 
         // Report comments
@@ -419,7 +419,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert report comments: '.$e->getMessage();
+            $errors[] = 'Unable to convert report comments: ' . $e->getMessage();
         }
 
         // Reputation
@@ -440,7 +440,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert reputation: '.$e->getMessage();
+            $errors[] = 'Unable to convert reputation: ' . $e->getMessage();
         }
 
         // Settings
@@ -458,7 +458,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert settings: '.$e->getMessage();
+            $errors[] = 'Unable to convert settings: ' . $e->getMessage();
         }
 
         break;
@@ -487,7 +487,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert topics: '.$e->getMessage();
+            $errors[] = 'Unable to convert topics: ' . $e->getMessage();
         }
 
         // Users
@@ -530,7 +530,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert users: '.$e->getMessage();
+            $errors[] = 'Unable to convert users: ' . $e->getMessage();
         }
 
         break;
@@ -552,7 +552,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert user admin sessions: '.$e->getMessage();
+            $errors[] = 'Unable to convert user admin sessions: ' . $e->getMessage();
         }
 
         // User sessions
@@ -570,7 +570,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert user sessions: '.$e->getMessage();
+            $errors[] = 'Unable to convert user sessions: ' . $e->getMessage();
         }
 
         // Username history
@@ -590,7 +590,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert username history: '.$e->getMessage();
+            $errors[] = 'Unable to convert username history: ' . $e->getMessage();
         }
 
         // Profile wall posts
@@ -610,7 +610,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert user profile wall posts: '.$e->getMessage();
+            $errors[] = 'Unable to convert user profile wall posts: ' . $e->getMessage();
         }
 
         // Profile wall likes
@@ -630,7 +630,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert user profile wall likes: '.$e->getMessage();
+            $errors[] = 'Unable to convert user profile wall likes: ' . $e->getMessage();
         }
 
         // Profile wall replies
@@ -650,7 +650,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert user profile wall replies: '.$e->getMessage();
+            $errors[] = 'Unable to convert user profile wall replies: ' . $e->getMessage();
         }
 
         break;
@@ -671,7 +671,7 @@ switch ($s) {
                 }
             }
         } catch (Exception $e) {
-            $errors[] = 'Unable to convert UUID cache: '.$e->getMessage();
+            $errors[] = 'Unable to convert UUID cache: ' . $e->getMessage();
         }
 
         break;

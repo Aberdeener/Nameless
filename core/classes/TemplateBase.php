@@ -41,12 +41,12 @@ abstract class TemplateBase
             foreach ($files as $href => $file) {
                 $this->_css[] = '
                 <link rel="stylesheet" 
-                href="'.$href.'"'.
-                    (isset($file['integrity']) ? ' integrity="'.$file['integrity'].'"' : '').
-                    (isset($file['crossorigin']) ? ' crossorigin="'.$file['crossorigin'].'"' : '').
-                    (isset($file['rel']) ? ' rel="'.$file['rel'].'"' : '').
-                    (isset($file['as']) ? ' as="'.$file['as'].'"' : '').
-                    (isset($file['onload']) ? ' onload="'.$file['onload'].'"' : '').
+                href="' . $href . '"' .
+                    (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') .
+                    (isset($file['crossorigin']) ? ' crossorigin="' . $file['crossorigin'] . '"' : '') .
+                    (isset($file['rel']) ? ' rel="' . $file['rel'] . '"' : '') .
+                    (isset($file['as']) ? ' as="' . $file['as'] . '"' : '') .
+                    (isset($file['onload']) ? ' onload="' . $file['onload'] . '"' : '') .
                 '>';
             }
         }
@@ -55,7 +55,7 @@ abstract class TemplateBase
     public function addCSSStyle($style = null)
     {
         if ($style) {
-            $this->_css[] = '<style>'.$style.'</style>';
+            $this->_css[] = '<style>' . $style . '</style>';
         }
     }
 
@@ -65,11 +65,11 @@ abstract class TemplateBase
             foreach ($files as $href => $file) {
                 $this->_js[] = '
                 <script type="text/javascript" 
-                    src="'.$href.'"'.
-                    (isset($file['integrity']) ? ' integrity="'.$file['integrity'].'"' : '').
-                    (isset($file['crossorigin']) ? 'crossorigin="'.$file['crossorigin'].'"' : '').
-                    ((isset($file['defer']) && $file['defer']) ? ' defer' : '').
-                    ((isset($file['async']) && $file['async']) ? ' async' : '').
+                    src="' . $href . '"' .
+                    (isset($file['integrity']) ? ' integrity="' . $file['integrity'] . '"' : '') .
+                    (isset($file['crossorigin']) ? 'crossorigin="' . $file['crossorigin'] . '"' : '') .
+                    ((isset($file['defer']) && $file['defer']) ? ' defer' : '') .
+                    ((isset($file['async']) && $file['async']) ? ' async' : '') .
                 '></script>';
             }
         }
@@ -78,7 +78,7 @@ abstract class TemplateBase
     public function addJSScript($script = null)
     {
         if ($script) {
-            $this->_js[] = '<script type="text/javascript">'.$script.'</script>';
+            $this->_js[] = '<script type="text/javascript">' . $script . '</script>';
         }
     }
 

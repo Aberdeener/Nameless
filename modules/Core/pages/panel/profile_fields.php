@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'custom_profile_fields');
 $page_title = $language->get('admin', 'custom_fields');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -40,7 +40,7 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
         }
 
         $template_fields[] = [
-            'edit_link' => URL::build('/panel/core/profile_fields/', 'id='.Output::getClean($field->id)),
+            'edit_link' => URL::build('/panel/core/profile_fields/', 'id=' . Output::getClean($field->id)),
             'name' => Output::getClean($field->name),
             'type' => $type,
             'required' => $field->required,
@@ -159,7 +159,7 @@ if (! isset($_GET['id']) && ! isset($_GET['action'])) {
             'YES' => $language->get('general', 'yes'),
             'NO' => $language->get('general', 'no'),
             'CANCEL_LINK' => URL::build('/panel/core/profile_fields'),
-            'DELETE_LINK' => URL::build('/panel/core/profile_fields/', 'id='.$field->id.'&amp;action=delete'),
+            'DELETE_LINK' => URL::build('/panel/core/profile_fields/', 'id=' . $field->id . '&amp;action=delete'),
             'TOKEN' => Token::get(),
             'SUBMIT' => $language->get('general', 'submit'),
             'FIELD_NAME' => $language->get('admin', 'field_name'),
@@ -328,7 +328,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 if (! isset($_GET['id']) && ! isset($_GET['action'])) {

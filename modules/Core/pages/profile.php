@@ -14,7 +14,7 @@ define('PAGE', 'profile');
 
 $timeago = new Timeago(TIMEZONE);
 
-require ROOT_PATH.'/core/includes/emojione/autoload.php'; // Emojione
+require ROOT_PATH . '/core/includes/emojione/autoload.php'; // Emojione
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 $profile = explode('/', rtrim($_GET['route'], '/'));
@@ -28,25 +28,25 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
     }
 
-    $page_title = $language->get('user', 'profile').' - '.Output::getClean($md_profile);
+    $page_title = $language->get('user', 'profile') . ' - ' . Output::getClean($md_profile);
 } else {
     $page_title = $language->get('user', 'profile');
 }
 
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $template->addCSSFiles(
     [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
     ]
 );
 
 $template->addJSFiles(
     [
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
     ]
 );
 
@@ -131,7 +131,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             if ($query->id !== $user->data()->id) {
                                 // Alert user
-                                Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/'.$profile_user->getDisplayname(true).'/#post-'.$queries->getLastId()));
+                                Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $queries->getLastId()));
                             }
 
                             $cache->setCache('profile_posts_widget');
@@ -190,13 +190,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             );
 
                             if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
-                                Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/'.$profile_user->getDisplayname(true).'/#post-'.$_POST['post']));
+                                Alert::create($query->id, 'profile_post', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
                             } elseif ($post[0]->author_id != $user->data()->id) {
                                 // Alert post author
                                 if ($post[0]->author_id == $query->id) {
-                                    Alert::create($query->id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname], URL::build('/profile/'.$profile_user->getDisplayname(true).'/#post-'.$_POST['post']));
+                                    Alert::create($query->id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
                                 } else {
-                                    Alert::create($post[0]->author_id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], URL::build('/profile/'.$profile_user->getDisplayname(true).'/#post-'.$_POST['post']));
+                                    Alert::create($post[0]->author_id, 'profile_post_reply', ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], ['path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply', 'replace' => ['{x}', '{y}'], 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]], URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
                                 }
                             }
 
@@ -406,13 +406,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         // If no one is logged in check if they have accepted the cookies.
         || (! $user->isLoggedIn() && Cookie::exists('alert-box'))
     ) {
-        if (! Cookie::exists('nl-profile-'.$query->id)) {
+        if (! Cookie::exists('nl-profile-' . $query->id)) {
             $queries->increment('users', $query->id, 'profile_views');
-            Cookie::put('nl-profile-'.$query->id, 'true', 3600);
+            Cookie::put('nl-profile-' . $query->id, 'true', 3600);
         }
-    } elseif (! Session::exists('nl-profile-'.$query->id)) {
+    } elseif (! Session::exists('nl-profile-' . $query->id)) {
         $queries->increment('users', $query->id, 'profile_views');
-        Session::put('nl-profile-'.$query->id, 'true');
+        Session::put('nl-profile-' . $query->id, 'true');
     }
 
     // Set Can view
@@ -461,7 +461,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 $banners[] = [
-                    'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/profile_images/'.Output::getClean($image),
+                    'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($image),
                     'name' => Output::getClean($image),
                     'active' => ($user->data()->banner == $image) ? true : false,
                 ];
@@ -479,8 +479,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     }
 
                     $banners[] = [
-                        'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/profile_images/'.Output::getClean($user->data()->id).'/'.Output::getClean($image),
-                        'name' => Output::getClean($user->data()->id).'/'.Output::getClean($image),
+                        'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean($image),
+                        'name' => Output::getClean($user->data()->id) . '/' . Output::getClean($image),
                         'active' => ($user->data()->banner == $image) ? true : false,
                     ];
                 }
@@ -500,13 +500,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     'PROFILE_BANNER' => $language->get('user', 'profile_banner'),
                     'BROWSE' => $language->get('general', 'browse'),
                     'UPLOAD' => $language->get('user', 'upload'),
-                    'UPLOAD_BANNER_URL' => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'core/includes/image_upload.php',
+                    'UPLOAD_BANNER_URL' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',
                 ]);
             }
         } else {
             $smarty->assign([
-                'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid='.$query->id),
-                'FOLLOW_LINK' => URL::build('/user/follow/', 'user='.$query->id),
+                'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid=' . $query->id),
+                'FOLLOW_LINK' => URL::build('/user/follow/', 'user=' . $query->id),
                 'CONFIRM' => $language->get('general', 'confirm'),
                 'MOD_OR_ADMIN' => $profile_user->canViewACP(),
             ]);
@@ -527,7 +527,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             if ($user->hasPermission('modcp.profile_banner_reset')) {
                 $smarty->assign([
                     'RESET_PROFILE_BANNER' => $language->get('moderator', 'reset_profile_banner'),
-                    'RESET_PROFILE_BANNER_LINK' => URL::build('/profile/'.Output::getClean($query->username).'/', 'action=reset_banner'),
+                    'RESET_PROFILE_BANNER_LINK' => URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=reset_banner'),
                 ]);
             }
         }
@@ -541,7 +541,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'USER_TITLE' => Output::getClean($query->user_title),
         'FOLLOW' => $language->get('user', 'follow'),
         'AVATAR' => $profile_user->getAvatar('../', 500),
-        'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/profile_images/'.(($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
+        'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
         'POST_ON_WALL' => str_replace('{x}', Output::getClean($profile_user->getDisplayname()), $language->get('user', 'post_on_wall')),
         'FEED' => $language->get('user', 'feed'),
         'ABOUT' => $language->get('user', 'about'),
@@ -563,13 +563,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     // Wall posts
     $wall_posts = [];
-    $wall_posts_query = $queries->orderWhere('user_profile_wall_posts', 'user_id = '.$query->id, 'time', 'DESC');
+    $wall_posts_query = $queries->orderWhere('user_profile_wall_posts', 'user_id = ' . $query->id, 'time', 'DESC');
 
     if (count($wall_posts_query)) {
         // Pagination
         $paginator = new Paginator((isset($template_pagination) ? $template_pagination : []));
         $results = $paginator->getLimited($wall_posts_query, 10, $p, count($wall_posts_query));
-        $pagination = $paginator->generate(7, URL::build('/profile/'.Output::getClean($query->username).'/', true));
+        $pagination = $paginator->generate(7, URL::build('/profile/' . Output::getClean($query->username) . '/', true));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -621,7 +621,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
             $reactions_query = null;
 
-            $replies_query = $queries->orderWhere('user_profile_wall_posts_replies', 'post_id = '.$results->data[$n]->id, 'time', 'ASC');
+            $replies_query = $queries->orderWhere('user_profile_wall_posts_replies', 'post_id = ' . $results->data[$n]->id, 'time', 'ASC');
             if (count($replies_query)) {
                 if (count($replies_query) == 1) {
                     $replies['count'] = $language->get('user', '1_reply');
@@ -665,7 +665,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'reactions' => $reactions,
                 'replies' => $replies,
                 'self' => (($user->isLoggedIn() && $user->data()->id == $results->data[$n]->author_id) ? true : false),
-                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/'.Output::getClean($query->username).'/', 'action=react&amp;post='.$results->data[$n]->id) : '#'),
+                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . Output::getClean($query->username) . '/', 'action=react&amp;post=' . $results->data[$n]->id) : '#'),
             ];
         }
     } else {
@@ -725,7 +725,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $profile_user = new User($query->id);
     if ($profile_user->data()->discord_username != null) {
         $fields[] = [
-            'title' => $language->get('user', 'discord_username').':',
+            'title' => $language->get('user', 'discord_username') . ':',
             'type' => 'text',
             'value' => $profile_user->data()->discord_username,
         ];
@@ -744,7 +744,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'title' => 'IGN',
             'type' => 'text',
             'value' => Output::getClean($query->username),
-            'image' => 'https://crafatar.com/renders/body/'.$query->uuid.'?overlay',
+            'image' => 'https://crafatar.com/renders/body/' . $query->uuid . '?overlay',
         ];
     }
 
@@ -790,7 +790,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             // Script for banner selector
             $template->addJSFiles(
                 [
-                    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/image-picker/image-picker.min.js' => [],
+                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.min.js' => [],
                 ]
             );
         }
@@ -807,8 +807,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
     $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-    require ROOT_PATH.'/core/templates/navbar.php';
-    require ROOT_PATH.'/core/templates/footer.php';
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
     $template->displayTemplate('profile.tpl', $smarty);
@@ -831,8 +831,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
         $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-        require ROOT_PATH.'/core/templates/navbar.php';
-        require ROOT_PATH.'/core/templates/footer.php';
+        require ROOT_PATH . '/core/templates/navbar.php';
+        require ROOT_PATH . '/core/templates/footer.php';
 
         // Display template
         $template->displayTemplate('user_not_exist.tpl', $smarty);

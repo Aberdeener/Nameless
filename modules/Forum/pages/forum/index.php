@@ -9,12 +9,12 @@
  *  Forum index page
  */
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 
 // Always define page name
 define('PAGE', 'forum');
 $page_title = $forum_language->get('forum', 'forum');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Initialise
 $forum = new Forum();
@@ -64,7 +64,7 @@ $smarty->assign('LATEST_DISCUSSIONS_TITLE', $forum_language->get('forum', 'lates
 $smarty->assign('NO_TOPICS', $forum_language->get('forum', 'no_topics_short'));
 
 // Get forums
-$cache_name = 'forum_forums_'.rtrim(implode('-', $groups), '-');
+$cache_name = 'forum_forums_' . rtrim(implode('-', $groups), '-');
 $cache->setCache($cache_name);
 
 if ($cache->isCached('forums')) {
@@ -75,7 +75,7 @@ if ($cache->isCached('forums')) {
     // Loop through to get last poster avatars and to format a date
     if (count($forums)) {
         foreach ($forums as $key => $item) {
-            $forums[$key]['link'] = URL::build('/forum/view/'.$key.'-'.$forum->titleToURL($forums[$key]['title']));
+            $forums[$key]['link'] = URL::build('/forum/view/' . $key . '-' . $forum->titleToURL($forums[$key]['title']));
             if (isset($item['subforums']) && count($item['subforums'])) {
                 foreach ($item['subforums'] as $subforum_id => $subforum) {
                     if (isset($subforum->last_post)) {
@@ -126,8 +126,8 @@ $template->onPageLoad();
 $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
 $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('forum/forum_index.tpl', $smarty);

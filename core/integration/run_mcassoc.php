@@ -14,10 +14,10 @@ if (! defined('MCASSOC') || ! (isset($_POST['username']) || isset($_SESSION['mca
 }
 
 $page_title = $language->get('general', 'verify_account');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/client.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => [],
 ]);
 
 // Assign post data to session variable
@@ -42,7 +42,7 @@ if (! isset($_GET['step'])) {
         }
     }
 
-    $return_link = Output::getClean(rtrim(Util::getSelfURL(), '/')).URL::build('/register/', 'step=2');
+    $return_link = Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/register/', 'step=2');
     $key = $mcassoc->generateKey($username);
 
     $smarty->assign('MCASSOC', '
@@ -51,9 +51,9 @@ if (! isset($_GET['step'])) {
 	  </center>
     ');
 
-    $template->addJSFiles([(defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/js/client.js' => []]);
+    $template->addJSFiles([(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/client.js' => []]);
     $template->addJSScript('
-	  MCAssoc.init("'.$mcassoc_site_id.'", "'.$key.'", "'.$return_link.'");
+	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
 	');
 } elseif ($_GET['step'] == 2) {
     // Final step - verify data matches form
@@ -118,7 +118,7 @@ if (! isset($_GET['step'])) {
             $smarty->assign('LOGIN_TEXT', $language->get('general', 'sign_in'));
         }
     } catch (Exception $e) {
-        $smarty->assign('ERROR', $language->get('user', 'verification_failed').' - '.$e->getMessage());
+        $smarty->assign('ERROR', $language->get('user', 'verification_failed') . ' - ' . $e->getMessage());
         $smarty->assign('RETRY_LINK', URL::build('/register'));
         $smarty->assign('RETRY_TEXT', $language->get('general', 'register'));
 
@@ -134,8 +134,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('mcassoc.tpl', $smarty);

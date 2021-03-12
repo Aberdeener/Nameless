@@ -33,7 +33,7 @@ if (isset($_GET['key'])) {
 } else {
     if ($cache->isCached('last_query')) {
         $last_query = $cache->retrieve('last_query');
-        if ($last_query > strtotime($query_interval.' minutes ago')) {
+        if ($last_query > strtotime($query_interval . ' minutes ago')) {
             // No need to re-query
             exit('1');
         }
@@ -59,7 +59,7 @@ if (count($servers)) {
 
     foreach ($servers as $server) {
         // Get query address for server
-        $full_ip = ['ip' => $server->ip.(is_null($server->port) ? '' : ':'.$server->port), 'pre' => $server->pre, 'name' => $server->name];
+        $full_ip = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
         $result = MCQuery::singleQuery($full_ip, $query_type, $language, $queries);
 
         if ($server->parent_server > 0) {

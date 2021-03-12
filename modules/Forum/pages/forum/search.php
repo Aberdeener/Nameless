@@ -9,12 +9,12 @@
  *  Forum search page
  */
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 if (! isset($forum) || (isset($forum) && ! $forum instanceof Forum)) {
     $forum = new Forum();
 }
 
-require_once ROOT_PATH.'/core/includes/emojione/autoload.php'; // Emojione
+require_once ROOT_PATH . '/core/includes/emojione/autoload.php'; // Emojione
 
 define('PAGE', 'forum');
 
@@ -41,7 +41,7 @@ if (! isset($_GET['s'])) {
                 $search = str_replace(' ', '+', htmlspecialchars(Input::get('forum_search')));
                 $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
-                Redirect::to(URL::build('/forum/search/', 's='.$search.'&p=1'));
+                Redirect::to(URL::build('/forum/search/', 's=' . $search . '&p=1'));
                 exit();
             } else {
                 $error = $forum_language->get('forum', 'invalid_search_query');
@@ -66,11 +66,11 @@ if (! isset($_GET['s'])) {
         exit();
     }
 
-    $cache->setCache($search.'-'.rtrim(implode('-', $user_groups), '-'));
+    $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
     if (! $cache->isCached('result')) {
         // Execute search
-        $search_topics = $queries->getLike('topics', 'topic_title', '%'.$search.'%');
-        $search_posts = $queries->getLike('posts', 'post_content', '%'.$search.'%');
+        $search_topics = $queries->getLike('topics', 'topic_title', '%' . $search . '%');
+        $search_posts = $queries->getLike('posts', 'post_content', '%' . $search . '%');
 
         $search_results = array_merge((array) $search_topics, (array) $search_posts);
 
@@ -105,7 +105,7 @@ if (! isset($_GET['s'])) {
                         }
                     } else {
                         // Topic, get associated post
-                        $post = $queries->orderWhere('posts', 'topic_id = '.$result->id, 'post_date', 'ASC LIMIT 1');
+                        $post = $queries->orderWhere('posts', 'topic_id = ' . $result->id, 'post_date', 'ASC LIMIT 1');
                         if (count($post)) {
                             $post = $post[0];
                             if (! isset($results[$post->id]) && $post->deleted == 0) {
@@ -149,21 +149,21 @@ if (! isset($_GET['s'])) {
 if (! isset($_GET['s'])) {
     $page_title = $forum_language->get('forum', 'forum_search');
 } else {
-    $page_title = $forum_language->get('forum', 'forum_search').' - '.Output::getClean(substr($search, 0, 20)).' - '.str_replace('{x}', $p, $language->get('general', 'page_x'));
+    $page_title = $forum_language->get('forum', 'forum_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
 }
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
 ]);
 
 $template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => [],
 ]);
 
 if (isset($_GET['s'])) {
@@ -171,7 +171,7 @@ if (isset($_GET['s'])) {
     if (count($results)) {
         $paginator = new Paginator((isset($template_pagination) ? $template_pagination : []));
         $results = $paginator->getLimited($results, 10, $p, count($results));
-        $pagination = $paginator->generate(7, URL::build('/forum/search/', 's='.$search.'&'));
+        $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . $search . '&'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -195,7 +195,7 @@ if (isset($_GET['s'])) {
                 'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language->getTimeLanguage()),
                 'content' => $content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),
-                'post_url' => URL::build('/forum/topic/'.$results->data[$n]['topic_id'].'-'.$forum->titleToURL($results->data[$n]['topic_title']), 'pid='.$results->data[$n]['post_id']),
+                'post_url' => URL::build('/forum/topic/' . $results->data[$n]['topic_id'] . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id']),
             ];
             $n++;
         }
@@ -225,8 +225,8 @@ if (isset($_GET['s'])) {
 
     $template->onPageLoad();
 
-    require ROOT_PATH.'/core/templates/navbar.php';
-    require ROOT_PATH.'/core/templates/footer.php';
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
     $template->displayTemplate('forum/search_results.tpl', $smarty);
@@ -255,8 +255,8 @@ if (isset($_GET['s'])) {
 
     $template->onPageLoad();
 
-    require ROOT_PATH.'/core/templates/navbar.php';
-    require ROOT_PATH.'/core/templates/footer.php';
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
     $template->displayTemplate('forum/search.tpl', $smarty);

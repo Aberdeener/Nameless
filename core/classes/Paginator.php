@@ -60,65 +60,65 @@ class Paginator
         $end = (($this->_page + $links) < $last) ? $this->_page + $links : $last;
 
         if (isset($this->_class['div']) && ! empty($this->_class['div'])) {
-            $html = '<div class="'.$this->_class['div'].'">';
+            $html = '<div class="' . $this->_class['div'] . '">';
         } else {
-            $html = '<ul class="'.$this->_class['ul'].'">';
+            $html = '<ul class="' . $this->_class['ul'] . '">';
         }
 
         if (empty($this->_class['ul'])) {
             $class = str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), ($this->_class['a']));
 
-            $html .= '<a class="'.$class.'" href="'.(($this->_page == 1) ? '#' : $href.'p='.($this->_page - 1)).'">&laquo;</a>';
+            $html .= '<a class="' . $class . '" href="' . (($this->_page == 1) ? '#' : $href . 'p=' . ($this->_page - 1)) . '">&laquo;</a>';
         } else {
             $class = str_replace('{x}', ($this->_page == 1) ? ' disabled' : '', $this->_class['li']);
 
-            $html .= '<li class="'.$class.'"><a class="'.str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), $this->_class['a']).'" href="';
+            $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), $this->_class['a']) . '" href="';
             if ($this->_page == 1) {
                 $html .= '#';
             } else {
-                $html .= $href.'p='.($this->_page - 1);
+                $html .= $href . 'p=' . ($this->_page - 1);
             }
             $html .= '">&laquo;</a></li>';
         }
 
         if ($start > 1) {
             if (empty($this->_class['ul'])) {
-                $html .= '<a class="'.str_replace('{x}', '', $this->_class['a']).'" href="'.$href.'p=1">1</a>';
-                $html .= '<a class="'.str_replace('{x}', ' disabled ', $this->_class['a']).'" href="#">...</a>';
+                $html .= '<a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=1">1</a>';
+                $html .= '<a class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '" href="#">...</a>';
             } else {
-                $html .= '<li class="'.str_replace('{x}', '', $this->_class['li']).'"><a class="'.str_replace('{x}', '', $this->_class['a']).'" href="'.$href.'p=1">1</a></li>';
-                $html .= '<li class="'.str_replace('{x}', ' disabled ', $this->_class['li']).'"><a href="#" class="'.str_replace('{x}', ' disabled ', $this->_class['a']).'">...</a></li>';
+                $html .= '<li class="' . str_replace('{x}', '', $this->_class['li']) . '"><a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=1">1</a></li>';
+                $html .= '<li class="' . str_replace('{x}', ' disabled ', $this->_class['li']) . '"><a href="#" class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '">...</a></li>';
             }
         }
 
         for ($i = $start; $i <= $end; $i++) {
             if (empty($this->_class['ul'])) {
                 $class = str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['a']);
-                $html .= '<a class="'.$class.'" href="'.$href.'p='.$i.'">'.$i.'</a>';
+                $html .= '<a class="' . $class . '" href="' . $href . 'p=' . $i . '">' . $i . '</a>';
             } else {
                 $class = str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['li']);
-                $html .= '<li class="'.$class.'"><a class="'.str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['a']).'" href="'.$href.'p='.$i.'">'.$i.'</a></li>';
+                $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['a']) . '" href="' . $href . 'p=' . $i . '">' . $i . '</a></li>';
             }
         }
 
         if ($end < $last) {
             if (empty($this->_class['ul'])) {
-                $html .= '<a class="'.str_replace('{x}', ' disabled ', $this->_class['a']).'">...</a>';
-                $html .= '<a class="'.str_replace('{x}', '', $this->_class['a']).'" href="'.$href.'p='.$last.'">'.$last.'</a>';
+                $html .= '<a class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '">...</a>';
+                $html .= '<a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=' . $last . '">' . $last . '</a>';
             } else {
-                $html .= '<li class="'.str_replace('{x}', ' disabled ', $this->_class['li']).'"><a href="#" class="'.str_replace('{x}', ' disabled ', $this->_class['a']).'">...</a></li>';
-                $html .= '<li class="'.str_replace('{x}', '', $this->_class['li']).'"><a class="'.str_replace('{x}', '', $this->_class['a']).'" href="'.$href.'p='.$last.'">'.$last.'</a></li>';
+                $html .= '<li class="' . str_replace('{x}', ' disabled ', $this->_class['li']) . '"><a href="#" class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '">...</a></li>';
+                $html .= '<li class="' . str_replace('{x}', '', $this->_class['li']) . '"><a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=' . $last . '">' . $last . '</a></li>';
             }
         }
 
         if (empty($this->_class['ul'])) {
-            $html .= '<a class="'.str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']).'" href="'.(($this->_page == $last) ? '#' : $href.'p='.($this->_page + 1)).'">&raquo;</a>';
+            $html .= '<a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page == $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">&raquo;</a>';
         } else {
-            $html .= '<li class="'.str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['li']).'"><a class="'.str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']).'" href="';
+            $html .= '<li class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['li']) . '"><a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="';
             if ($this->_page == $last) {
                 $html .= '#';
             } else {
-                $html .= $href.'p='.($this->_page + 1);
+                $html .= $href . 'p=' . ($this->_page + 1);
             }
             $html .= '">&raquo;</a></li>';
         }

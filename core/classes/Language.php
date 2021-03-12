@@ -32,10 +32,10 @@ class Language
             $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage]);
             $this->_module = 'Core';
         } else {
-            $path = str_replace('/', DIRECTORY_SEPARATOR, $module).DIRECTORY_SEPARATOR.$this->_activeLanguage;
+            $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . $this->_activeLanguage;
 
             if (! is_dir($path)) {
-                $path = str_replace('/', DIRECTORY_SEPARATOR, $module).DIRECTORY_SEPARATOR.'EnglishUK';
+                $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . 'EnglishUK';
             }
 
             $this->_module = Output::getClean($module);
@@ -44,8 +44,8 @@ class Language
         $this->_activeLanguageDirectory = $path;
 
         // HTML language definition
-        if (is_file($path.DIRECTORY_SEPARATOR.'version.php')) {
-            require $path.DIRECTORY_SEPARATOR.'version.php';
+        if (is_file($path . DIRECTORY_SEPARATOR . 'version.php')) {
+            require $path . DIRECTORY_SEPARATOR . 'version.php';
 
             if (isset($language_html)) {
                 if (! defined('HTML_LANG')) {
@@ -68,22 +68,22 @@ class Language
     public function get($file, $term, $number = null)
     {
         // Ensure the file exists + term is set
-        if (! is_file($this->_activeLanguageDirectory.DIRECTORY_SEPARATOR.$file.'.php')) {
+        if (! is_file($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php')) {
             if ($this->_activeLanguage != 'EnglishUK') {
-                if (is_file(rtrim($this->_activeLanguageDirectory, $this->_activeLanguage).DIRECTORY_SEPARATOR.'EnglishUK'.DIRECTORY_SEPARATOR.$file.'.php')) {
+                if (is_file(rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . 'EnglishUK' . DIRECTORY_SEPARATOR . $file . '.php')) {
                     if (! isset($this->_activeLanguageEntries[$file])) {
-                        require rtrim($this->_activeLanguageDirectory, $this->_activeLanguage).DIRECTORY_SEPARATOR.'EnglishUK'.DIRECTORY_SEPARATOR.$file.'.php';
+                        require rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . 'EnglishUK' . DIRECTORY_SEPARATOR . $file . '.php';
                         $this->_activeLanguageEntries[$file] = $language;
                     }
                 } else {
-                    exit('Error loading language file '.Output::getClean($file).'.php in '.($this->_module == 'Core' ? 'Core' : $this->_module));
+                    exit('Error loading language file ' . Output::getClean($file) . '.php in ' . ($this->_module == 'Core' ? 'Core' : $this->_module));
                 }
             } else {
-                exit('Error loading language file '.Output::getClean($file).'.php in '.($this->_module == 'Core' ? 'Core' : $this->_module));
+                exit('Error loading language file ' . Output::getClean($file) . '.php in ' . ($this->_module == 'Core' ? 'Core' : $this->_module));
             }
         } else {
             if (! isset($this->_activeLanguageEntries[$file])) {
-                require $this->_activeLanguageDirectory.DIRECTORY_SEPARATOR.$file.'.php';
+                require $this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php';
                 $this->_activeLanguageEntries[$file] = $language;
             }
         }
@@ -94,25 +94,25 @@ class Language
                 if (function_exists('pluralForm') && $number != null) {
                     return pluralForm($number, $this->_activeLanguageEntries[$file][$term]);
                 } else {
-                    return 'Plural form not set for '.Output::getClean($term);
+                    return 'Plural form not set for ' . Output::getClean($term);
                 }
             } else {
                 return $this->_activeLanguageEntries[$file][$term];
             }
         } else {
             // Not set, display an error
-            return 'Term '.Output::getClean($term).' not set (file: '.$file.'.php)';
+            return 'Term ' . Output::getClean($term) . ' not set (file: ' . $file . '.php)';
         }
     }
 
     public function set($file, $term, $value)
     {
-        $editing_file = ($this->_activeLanguageDirectory.DIRECTORY_SEPARATOR.$file.'.php');
+        $editing_file = ($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
         if (is_file($editing_file) && is_writable($editing_file)) {
             return file_put_contents($editing_file, html_entity_decode(
                 str_replace(
-                    htmlspecialchars("'".$term."'".' => '."'".$this->get($file, $term)."'"),
-                    htmlspecialchars("'".$term."'".' => '."'".$value."'"),
+                    htmlspecialchars("'" . $term . "'" . ' => ' . "'" . $this->get($file, $term) . "'"),
+                    htmlspecialchars("'" . $term . "'" . ' => ' . "'" . $value . "'"),
                     htmlspecialchars(file_get_contents($editing_file))
                 )
             ));

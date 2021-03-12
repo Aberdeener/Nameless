@@ -16,7 +16,7 @@ class Hash
     //         $salt (string)   - salt (optional)
     public static function make($string, $salt = '')
     {
-        return hash('sha256', $string.$salt);
+        return hash('sha256', $string . $salt);
     }
 
     // Generate a unique hash

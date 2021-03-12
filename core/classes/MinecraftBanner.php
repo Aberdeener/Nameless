@@ -33,9 +33,9 @@ class MinecraftBanner
 
         $canvas = imagecreatetruecolor($width, $height);
         if ($background == null) {
-            $background = imagecreatefrompng(ROOT_PATH.'/uploads/banners/texture.png');
-        } elseif (file_exists(ROOT_PATH.'/uploads/banners/'.$background)) {
-            $background = imagecreatefrompng(ROOT_PATH.'/uploads/banners/'.$background);
+            $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
+        } elseif (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
+            $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
         } else {
             if (stristr($background, 'http://') || stristr($background, 'https://') || file_exists($background)) {
                 $info = pathinfo($background);
@@ -52,10 +52,10 @@ class MinecraftBanner
                         $background = imagecreatefromgif($background);
                         break;
                     default:
-                        $background = imagecreatefrompng(ROOT_PATH.'/uploads/banners/texture.png');
+                        $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
                 }
             } else {
-                $background = imagecreatefrompng(ROOT_PATH.'/uploads/banners/texture.png');
+                $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
             }
         }
 
@@ -103,6 +103,6 @@ class MinecraftBanner
 
     public static function getFontFile()
     {
-        return ROOT_PATH.'/core/assets/fonts/minecraft.ttf';
+        return ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
     }
 }

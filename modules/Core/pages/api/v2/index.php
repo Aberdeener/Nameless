@@ -14,7 +14,7 @@
 header('Content-Type: application/json; charset=UTF-8');
 
 $page_title = 'api';
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -92,7 +92,7 @@ class Nameless2API
     {
         if ($api_key) {
             // Check cached key
-            if (! is_file(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('apicache').'.cache')) {
+            if (! is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
                 $correct_key = $this->_db->get('settings', ['name', '=', 'mc_api_key']);
@@ -100,9 +100,9 @@ class Nameless2API
                 $correct_key = htmlspecialchars($correct_key[0]->value);
 
                 // Store in cache file
-                file_put_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('apicache').'.cache', $correct_key);
+                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
             } else {
-                $correct_key = file_get_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('apicache').'.cache');
+                $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
             }
 
             if ($api_key == $correct_key) {
@@ -145,11 +145,11 @@ class Nameless2API
     public function validateParams($input, $required_fields, $type = 'post')
     {
         if (! isset($input) || empty($input)) {
-            $this->throwError(6, $this->_language->get('api', 'invalid_'.$type.'_contents'));
+            $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
         }
         foreach ($required_fields as $required) {
             if (! isset($input[$required]) || empty($input[$required])) {
-                $this->throwError(6, $this->_language->get('api', 'invalid_'.$type.'_contents'), ['field' => $required]);
+                $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'), ['field' => $required]);
             }
         }
 

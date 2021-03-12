@@ -29,7 +29,7 @@ $user = new User();
         <meta charset="<?php echo defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8'; ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="<?php echo $language->get('errors', 'fatal_error').' - '.SITE_NAME; ?>">
+        <meta name="description" content="<?php echo $language->get('errors', 'fatal_error') . ' - ' . SITE_NAME; ?>">
 
         <!-- Page Title -->
         <title><?php echo $language->get('errors', 'fatal_error'); ?> &bull; <?php echo SITE_NAME; ?></title>
@@ -37,17 +37,17 @@ $user = new User();
         <meta name="author" content="<?php echo SITE_NAME; ?>">
 
         <link rel="stylesheet" href="<?php if (defined('CONFIG_PATH')) {
-    echo CONFIG_PATH.'/';
+    echo CONFIG_PATH . '/';
 } else {
     echo '/';
 } ?>core/assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php if (defined('CONFIG_PATH')) {
-    echo CONFIG_PATH.'/';
+    echo CONFIG_PATH . '/';
 } else {
     echo '/';
 } ?>core/assets/css/custom.css">
         <link rel="stylesheet" href="<?php if (defined('CONFIG_PATH')) {
-    echo CONFIG_PATH.'/';
+    echo CONFIG_PATH . '/';
 } else {
     echo '/';
 } ?>core/assets/css/font-awesome.min.css">
@@ -71,7 +71,7 @@ $user = new User();
                 </div>
               </div>
               <?php
-                  echo '<div style="overflow-x: scroll;">'.str_replace('{x}', Output::getClean($errfile), $language->get('errors', 'in_file')).'</div>'.str_replace('{x}', Output::getClean($errline), $language->get('errors', 'on_line')).'<hr />';
+                  echo '<div style="overflow-x: scroll;">' . str_replace('{x}', Output::getClean($errfile), $language->get('errors', 'in_file')) . '</div>' . str_replace('{x}', Output::getClean($errline), $language->get('errors', 'on_line')) . '<hr />';
                             } else {
                                 ?>
                             <h4><?php echo $language->get('errors', 'fatal_error_message_user'); ?></h4>

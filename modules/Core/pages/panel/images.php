@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'layout');
 define('PANEL_PAGE', 'images');
 $page_title = $language->get('admin', 'images');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Reset background
 if (isset($_GET['action'])) {
@@ -58,19 +58,19 @@ if (Input::exists()) {
         $cache->setCache('backgroundcache');
 
         if (isset($_POST['bg'])) {
-            $cache->store('background_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/backgrounds/'.Input::get('bg'));
+            $cache->store('background_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/backgrounds/' . Input::get('bg'));
 
             Session::flash('panel_images_success', $language->get('admin', 'background_updated_successfully'));
         } elseif (isset($_POST['banner'])) {
-            $cache->store('banner_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/template_banners/'.Input::get('banner'));
+            $cache->store('banner_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/template_banners/' . Input::get('banner'));
 
             Session::flash('panel_images_success', $language->get('admin', 'template_banner_updated_successfully'));
         } elseif (isset($_POST['logo'])) {
-            $cache->store('logo_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/logos/'.Input::get('logo'));
+            $cache->store('logo_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/logos/' . Input::get('logo'));
 
             Session::flash('panel_images_success', $language->get('admin', 'logo_updated_successfully'));
         } elseif (isset($_POST['favicon'])) {
-            $cache->store('favicon_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/favicons/'.Input::get('favicon'));
+            $cache->store('favicon_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('favicon'));
 
             Session::flash('panel_images_success', $language->get('admin', 'favicon_updated_successfully'));
         }
@@ -115,8 +115,8 @@ if ($background_image == '') {
 
 // Get banner from cache
 if (! $cache->isCached('banner_image')) {
-    $cache->store('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/template_banners/homepage_bg_trimmed.jpg');
-    $banner_image = (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/template_banners/homepage_bg_trimmed.jpg';
+    $cache->store('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
+    $banner_image = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg';
 } else {
     $banner_image = $cache->retrieve('banner_image');
 }
@@ -159,9 +159,9 @@ foreach ($images as $image) {
         continue;
     }
     $template_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/backgrounds/'.$image,
+        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/backgrounds/' . $image,
         'value' => $image,
-        'selected' => ($background_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/backgrounds/'.$image),
+        'selected' => ($background_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/backgrounds/' . $image),
         'n' => $n,
     ];
     $n++;
@@ -179,9 +179,9 @@ foreach ($images as $image) {
         continue;
     }
     $template_banner_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/template_banners/'.$image,
+        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image,
         'value' => $image,
-        'selected' => ($banner_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/template_banners/'.$image),
+        'selected' => ($banner_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image),
         'n' => $n,
     ];
     $n++;
@@ -199,9 +199,9 @@ foreach ($images as $image) {
         continue;
     }
     $logo_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/logos/'.$image,
+        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image,
         'value' => $image,
-        'selected' => ($logo_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/logos/'.$image),
+        'selected' => ($logo_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image),
         'n' => $n,
     ];
     $n++;
@@ -219,27 +219,27 @@ foreach ($images as $image) {
         continue;
     }
     $favicon_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/favicons/'.$image,
+        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image,
         'value' => $image,
-        'selected' => ($favicon_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/uploads/favicons/'.$image),
+        'selected' => ($favicon_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image),
         'n' => $n,
     ];
     $n++;
 }
 
-if (! is_writable(ROOT_PATH.'/uploads/backgrounds')) {
+if (! is_writable(ROOT_PATH . '/uploads/backgrounds')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/backgrounds', $language->get('admin', 'x_directory_not_writable')));
 }
 
-if (! is_writable(ROOT_PATH.'/uploads/template_banners')) {
+if (! is_writable(ROOT_PATH . '/uploads/template_banners')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/template_banners', $language->get('admin', 'x_directory_not_writable')));
 }
 
-if (! is_writable(ROOT_PATH.'/uploads/logos')) {
+if (! is_writable(ROOT_PATH . '/uploads/logos')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/logos', $language->get('admin', 'x_directory_not_writable')));
 }
 
-if (! is_writable(ROOT_PATH.'/uploads/favicons')) {
+if (! is_writable(ROOT_PATH . '/uploads/favicons')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', str_replace('{x}', 'uploads/favicons', $language->get('admin', 'x_directory_not_writable')));
 }
 
@@ -252,7 +252,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'UPLOAD_NEW_IMAGE' => $language->get('admin', 'upload_new_image'),
-    'UPLOAD_PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/includes/image_upload.php',
+    'UPLOAD_PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/includes/image_upload.php',
     'CLOSE' => $language->get('general', 'close'),
     'BACKGROUND_IMAGE' => str_replace('{x}', $bg_img, $language->get('admin', 'background_image_x')),
     'RESET' => $language->get('admin', 'reset_background'),
@@ -280,7 +280,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('core/images.tpl', $smarty);

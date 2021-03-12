@@ -44,7 +44,7 @@ class Forum
                     $return[$forum->id]['icon'] = htmlspecialchars_decode($forum->icon);
 
                     // Get subforums
-                    $forums = $this->_db->orderWhere('forums', 'parent = '.$forum->id, 'forum_order', 'ASC')->results();
+                    $forums = $this->_db->orderWhere('forums', 'parent = ' . $forum->id, 'forum_order', 'ASC')->results();
                     if (count($forums)) {
                         foreach ($forums as $item) {
                             if ($this->forumExist($item->id, $groups)) {
@@ -52,15 +52,15 @@ class Forum
                                 $return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
                                 $return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
                                 $return[$forum->id]['subforums'][$item->id]->icon = htmlspecialchars_decode($item->icon);
-                                $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/'.$item->id.'-'.$this->titleToURL($item->forum_title));
+                                $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . $item->id . '-' . $this->titleToURL($item->forum_title));
                                 $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean(htmlspecialchars_decode($item->redirect_url));
 
                                 // Get topic/post count
-                                $topics = $this->_db->orderWhere('topics', 'forum_id = '.$item->id.' AND deleted = 0', 'id', 'ASC')->results();
+                                $topics = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
                                 $topics = count($topics);
                                 $return[$forum->id]['subforums'][$item->id]->topics = $topics;
 
-                                $posts = $this->_db->orderWhere('posts', 'forum_id = '.$item->id.' AND deleted = 0', 'id', 'ASC')->results();
+                                $posts = $this->_db->orderWhere('posts', 'forum_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
                                 $posts = count($posts);
                                 $return[$forum->id]['subforums'][$item->id]->posts = $posts;
 
@@ -68,14 +68,14 @@ class Forum
                                 if ($this->canViewOtherTopics($item->id, $groups) || $item->last_user_posted == $user_id) {
                                     if ($item->last_topic_posted) {
                                         // Last reply
-                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = '.$item->last_topic_posted, 'created', 'DESC')->results();
+                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $item->last_topic_posted, 'created', 'DESC')->results();
                                     } else {
                                         $last_reply = null;
                                     }
                                 } else {
-                                    $last_topic = $this->_db->orderWhere('topics', 'forum_id = '.$item->id.' AND deleted = 0 AND topic_creator = '.$user_id, 'topic_reply_date', 'DESC')->results();
+                                    $last_topic = $this->_db->orderWhere('topics', 'forum_id = ' . $item->id . ' AND deleted = 0 AND topic_creator = ' . $user_id, 'topic_reply_date', 'DESC')->results();
                                     if (count($last_topic)) {
-                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = '.$last_topic[0]->id, 'created', 'DESC')->results();
+                                        $last_reply = $this->_db->orderWhere('posts', 'topic_id = ' . $last_topic[0]->id, 'created', 'DESC')->results();
                                     } else {
                                         $last_reply = null;
                                     }
@@ -96,11 +96,11 @@ class Forum
 
                                     $return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
                                     $return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
-                                    $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/'.$last_reply[$n]->topic_id.'-'.$this->titleToURL($last_topic[0]->topic_title), 'pid='.$last_reply[0]->id);
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/' . $last_reply[$n]->topic_id . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
                                 }
 
                                 // Get list of subforums (names + links)
-                                $subforums = $this->_db->orderWhere('forums', 'parent = '.$item->id, 'forum_order', 'ASC')->results();
+                                $subforums = $this->_db->orderWhere('forums', 'parent = ' . $item->id, 'forum_order', 'ASC')->results();
                                 if (count($subforums)) {
                                     foreach ($subforums as $subforum) {
                                         if ($this->forumExist($subforum->id, $groups)) {
@@ -109,7 +109,7 @@ class Forum
                                             }
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id] = new stdClass();
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->title = Output::getClean($subforum->forum_title);
-                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/view/'.$subforum->id.'-'.$this->titleToURL($subforum->forum_title));
+                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/view/' . $subforum->id . '-' . $this->titleToURL($subforum->forum_title));
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->icon = htmlspecialchars_decode($subforum->icon);
                                         }
                                     }
@@ -132,10 +132,10 @@ class Forum
             $user_id = 0;
         }
 
-        $all_topics_forums = DB::getInstance()->query('SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ('.rtrim(implode(',', $groups), ',').') AND `view` = 1 AND view_other_topics = 1')->results();
+        $all_topics_forums = DB::getInstance()->query('SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (' . rtrim(implode(',', $groups), ',') . ') AND `view` = 1 AND view_other_topics = 1')->results();
 
         if ($user_id > 0) {
-            $own_topics_forums = DB::getInstance()->query('SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ('.rtrim(implode(',', $groups), ',').') AND `view` = 1 AND view_other_topics = 0')->results();
+            $own_topics_forums = DB::getInstance()->query('SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (' . rtrim(implode(',', $groups), ',') . ') AND `view` = 1 AND view_other_topics = 0')->results();
         } else {
             $own_topics_forums = [];
         }
@@ -146,7 +146,7 @@ class Forum
 
         $all_topics_forums_string = '(';
         foreach ($all_topics_forums as $forum) {
-            $all_topics_forums_string .= $forum->forum_id.',';
+            $all_topics_forums_string .= $forum->forum_id . ',';
         }
         $all_topics_forums_string = rtrim($all_topics_forums_string, ',');
         $all_topics_forums_string .= ')';
@@ -155,18 +155,18 @@ class Forum
             if (count($own_topics_forums)) {
                 $own_topics_forums_string = '(';
                 foreach ($own_topics_forums as $forum) {
-                    $own_topics_forums_string .= $forum->forum_id.',';
+                    $own_topics_forums_string .= $forum->forum_id . ',';
                 }
                 $own_topics_forums_string = rtrim($own_topics_forums_string, ',');
                 $own_topics_forums_string .= ')';
 
                 $query = DB::getInstance()->query('(
-		        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN '.$all_topics_forums_string.' ORDER BY topics.topic_reply_date DESC LIMIT 50
+		        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN ' . $all_topics_forums_string . ' ORDER BY topics.topic_reply_date DESC LIMIT 50
 		        ) UNION (
-		        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND ((topics.forum_id IN '.$own_topics_forums_string.' AND topics.topic_creator = ?) OR topics.sticky = 1) ORDER BY topics.topic_reply_date DESC LIMIT 50
+		        SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND ((topics.forum_id IN ' . $own_topics_forums_string . ' AND topics.topic_creator = ?) OR topics.sticky = 1) ORDER BY topics.topic_reply_date DESC LIMIT 50
 		        ) ORDER BY topic_reply_date DESC LIMIT 50', [$user_id], PDO::FETCH_ASSOC)->results();
             } else {
-                $query = DB::getInstance()->query('SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN '.$all_topics_forums_string.' ORDER BY topics.topic_reply_date DESC LIMIT 50', [], PDO::FETCH_ASSOC)->results();
+                $query = DB::getInstance()->query('SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN ' . $all_topics_forums_string . ' ORDER BY topics.topic_reply_date DESC LIMIT 50', [], PDO::FETCH_ASSOC)->results();
             }
         } catch (Exception $e) {
             // Likely no permissions to view any forums
@@ -248,7 +248,7 @@ class Forum
 
         foreach ($forums as $item) {
             if ($item->parent != 0) {
-                $latest_post_query = $this->_db->orderWhere('posts', 'forum_id = '.$item->id, 'post_date', 'DESC')->results();
+                $latest_post_query = $this->_db->orderWhere('posts', 'forum_id = ' . $item->id, 'post_date', 'DESC')->results();
 
                 if (! empty($latest_post_query)) {
                     foreach ($latest_post_query as $latest_post) {
@@ -310,7 +310,7 @@ class Forum
         $n = 0;
 
         foreach ($topics as $topic) {
-            $latest_post_query = $this->_db->orderWhere('posts', 'topic_id = '.$topic->id, 'post_date', 'DESC')->results();
+            $latest_post_query = $this->_db->orderWhere('posts', 'topic_id = ' . $topic->id, 'post_date', 'DESC')->results();
 
             if (count($latest_post_query)) {
                 foreach ($latest_post_query as $latest_post) {

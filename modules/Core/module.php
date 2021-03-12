@@ -150,12 +150,12 @@ class Core_Module extends Module
                                 if ($permission->page_id == $custom_page->id) {
                                     if ($permission->view == 1) {
                                         // Check cache for order
-                                        if (! $cache->isCached($custom_page->id.'_order')) {
+                                        if (! $cache->isCached($custom_page->id . '_order')) {
                                             // Create cache entry now
                                             $page_order = 200;
-                                            $cache->store($custom_page->id.'_order', 200);
+                                            $cache->store($custom_page->id . '_order', 200);
                                         } else {
-                                            $page_order = $cache->retrieve($custom_page->id.'_order');
+                                            $page_order = $cache->retrieve($custom_page->id . '_order');
                                         }
 
                                         switch ($custom_page->link_location) {
@@ -197,12 +197,12 @@ class Core_Module extends Module
                             if ($permission->page_id == $custom_page->id) {
                                 if ($permission->view == 1) {
                                     // Check cache for order
-                                    if (! $cache->isCached($custom_page->id.'_order')) {
+                                    if (! $cache->isCached($custom_page->id . '_order')) {
                                         // Create cache entry now
                                         $page_order = 200;
-                                        $cache->store($custom_page->id.'_order', 200);
+                                        $cache->store($custom_page->id . '_order', 200);
                                     } else {
-                                        $page_order = $cache->retrieve($custom_page->id.'_order');
+                                        $page_order = $cache->retrieve($custom_page->id . '_order');
                                     }
 
                                     switch ($custom_page->link_location) {
@@ -242,7 +242,7 @@ class Core_Module extends Module
         HookHandler::registerEvent('deleteUser', $language->get('admin', 'delete_hook_info'), ['user_id' => $language->get('admin', 'user_id'), 'username' => $language->get('user', 'username'), 'uuid' => $language->get('admin', 'uuid'), 'email_address' => $language->get('user', 'email_address')]);
 
         // Discord hook
-        require_once ROOT_PATH.'/modules/Core/hooks/DiscordHook.php';
+        require_once ROOT_PATH . '/modules/Core/hooks/DiscordHook.php';
 
         // Webhooks
         $cache->setCache('hooks');
@@ -305,84 +305,84 @@ class Core_Module extends Module
         // AdminCP
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
             'admincp.core' => $language->get('admin', 'core'),
-            'admincp.core.api' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'api'),
-            'admincp.core.seo' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'seo'),
-            'admincp.core.general' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'general_settings'),
-            'admincp.core.avatars' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'avatars'),
-            'admincp.core.fields' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'custom_fields'),
-            'admincp.core.debugging' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'debugging_and_maintenance'),
-            'admincp.errors' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'debugging_and_maintenance').' &raquo; '.$language->get('admin', 'error_logs'),
-            'admincp.core.emails' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'emails'),
-            'admincp.core.emails_mass_message' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'emails_mass_message'),
-            'admincp.core.navigation' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'navigation'),
-            'admincp.core.reactions' => $language->get('admin', 'core').' &raquo; '.$language->get('user', 'reactions'),
-            'admincp.core.registration' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'registration'),
-            'admincp.core.social_media' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'social_media'),
-            'admincp.core.terms' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'privacy_and_terms'),
-            'admincp.core.hooks' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'hooks'),
-            'admincp.core.announcements' => $language->get('admin', 'core').' &raquo; '.$language->get('admin', 'announcements'),
+            'admincp.core.api' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'api'),
+            'admincp.core.seo' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'seo'),
+            'admincp.core.general' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'general_settings'),
+            'admincp.core.avatars' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'avatars'),
+            'admincp.core.fields' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'custom_fields'),
+            'admincp.core.debugging' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance'),
+            'admincp.errors' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance') . ' &raquo; ' . $language->get('admin', 'error_logs'),
+            'admincp.core.emails' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails'),
+            'admincp.core.emails_mass_message' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails_mass_message'),
+            'admincp.core.navigation' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'navigation'),
+            'admincp.core.reactions' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'reactions'),
+            'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),
+            'admincp.core.social_media' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'social_media'),
+            'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'privacy_and_terms'),
+            'admincp.core.hooks' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'hooks'),
+            'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
-            'admincp.minecraft' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft'),
-            'admincp.discord' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'discord'),
-            'admincp.minecraft.authme' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'authme_integration'),
-            'admincp.minecraft.verification' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'account_verification'),
-            'admincp.minecraft.servers' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'minecraft_servers'),
-            'admincp.minecraft.query_errors' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'query_errors'),
-            'admincp.minecraft.banners' => $language->get('admin', 'integrations').' &raquo; '.$language->get('admin', 'minecraft').' &raquo; '.$language->get('admin', 'server_banners'),
+            'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
+            'admincp.discord' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'discord'),
+            'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
+            'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
+            'admincp.minecraft.servers' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
+            'admincp.minecraft.query_errors' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'query_errors'),
+            'admincp.minecraft.banners' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_banners'),
             'admincp.modules' => $language->get('admin', 'modules'),
             'admincp.pages' => $language->get('admin', 'pages'),
             'admincp.security' => $language->get('admin', 'security'),
-            'admincp.security.acp_logins' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'acp_logins'),
-            'admincp.security.template' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'template_changes'),
-            'admincp.security.emails' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'email_logs'),
-            'admincp.security.group_sync' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'group_sync_logs'),
-            'admincp.security.all' => $language->get('admin', 'security').' &raquo; '.$language->get('admin', 'all_logs'),
+            'admincp.security.acp_logins' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'acp_logins'),
+            'admincp.security.template' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'template_changes'),
+            'admincp.security.emails' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'email_logs'),
+            'admincp.security.group_sync' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'group_sync_logs'),
+            'admincp.security.all' => $language->get('admin', 'security') . ' &raquo; ' . $language->get('admin', 'all_logs'),
             'admincp.styles' => $language->get('admin', 'styles'),
-            'admincp.styles.panel_templates' => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'panel_templates'),
-            'admincp.styles.templates' => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'templates'),
-            'admincp.styles.templates.edit' => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'templates').' &raquo; '.$language->get('general', 'edit'),
-            'admincp.styles.images' => $language->get('admin', 'styles').' &raquo; '.$language->get('admin', 'images'),
+            'admincp.styles.panel_templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'panel_templates'),
+            'admincp.styles.templates' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates'),
+            'admincp.styles.templates.edit' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'templates') . ' &raquo; ' . $language->get('general', 'edit'),
+            'admincp.styles.images' => $language->get('admin', 'styles') . ' &raquo; ' . $language->get('admin', 'images'),
             'admincp.update' => $language->get('admin', 'update'),
             'admincp.users' => $language->get('admin', 'user_management'),
-            'modcp.ip_lookup' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'ip_lookup'),
-            'modcp.punishments' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments'),
-            'modcp.punishments.reset_avatar' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'reset_avatar'),
-            'modcp.punishments.warn' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'warn_user'),
-            'modcp.punishments.ban' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'ban_user'),
-            'modcp.punishments.banip' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'ban_ip'),
-            'modcp.punishments.revoke' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'punishments').' &raquo; '.$language->get('moderator', 'revoke'),
-            'modcp.reports' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'reports'),
-            'modcp.profile_banner_reset' => $language->get('admin', 'user_management').' &raquo; '.$language->get('moderator', 'reset_profile_banner'),
-            'admincp.users.edit' => $language->get('admin', 'user_management').' &raquo; '.$language->get('admin', 'users').' &raquo; '.$language->get('general', 'edit'),
+            'modcp.ip_lookup' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'ip_lookup'),
+            'modcp.punishments' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments'),
+            'modcp.punishments.reset_avatar' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'reset_avatar'),
+            'modcp.punishments.warn' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'warn_user'),
+            'modcp.punishments.ban' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'ban_user'),
+            'modcp.punishments.banip' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'ban_ip'),
+            'modcp.punishments.revoke' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'punishments') . ' &raquo; ' . $language->get('moderator', 'revoke'),
+            'modcp.reports' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'reports'),
+            'modcp.profile_banner_reset' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'reset_profile_banner'),
+            'admincp.users.edit' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('admin', 'users') . ' &raquo; ' . $language->get('general', 'edit'),
             'admincp.groups' => $language->get('admin', 'groups'),
-            'admincp.groups.self' => $language->get('admin', 'groups').' &raquo; '.$language->get('admin', 'can_edit_own_group'),
+            'admincp.groups.self' => $language->get('admin', 'groups') . ' &raquo; ' . $language->get('admin', 'can_edit_own_group'),
             'admincp.widgets' => $language->get('admin', 'widgets'),
         ]);
 
         // UserCP
         PermissionHandler::registerPermissions('UserCP', [
             'usercp.messaging' => $language->get('user', 'messaging'),
-            'usercp.signature' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'signature'),
-            'usercp.private_profile' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'private_profile'),
-            'usercp.nickname' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'nickname'),
-            'usercp.profile_banner' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'upload_profile_banner'),
-            'usercp.gif_avatar' => $language->get('user', 'profile_settings').' &raquo; '.$language->get('user', 'gif_avatar'),
+            'usercp.signature' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'signature'),
+            'usercp.private_profile' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'private_profile'),
+            'usercp.nickname' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'nickname'),
+            'usercp.profile_banner' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'upload_profile_banner'),
+            'usercp.gif_avatar' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'gif_avatar'),
         ]);
 
         // Profile Page
         PermissionHandler::registerPermissions('Profile', [
-            'profile.private.bypass' => $language->get('general', 'bypass').' &raquo; '.$language->get('user', 'private_profile'),
+            'profile.private.bypass' => $language->get('general', 'bypass') . ' &raquo; ' . $language->get('user', 'private_profile'),
         ]);
 
         // Sitemap
-        $pages->registerSitemapMethod(ROOT_PATH.'/modules/Core/classes/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');
+        $pages->registerSitemapMethod(ROOT_PATH . '/modules/Core/classes/Core_Sitemap.php', 'Core_Sitemap::generateSitemap');
 
         // Queries
         $queries = new Queries();
 
         // Widgets
         // Facebook
-        require_once ROOT_PATH.'/modules/Core/widgets/FacebookWidget.php';
+        require_once ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php';
         $cache->setCache('social_media');
         $fb_url = $cache->retrieve('facebook');
         if ($fb_url) {
@@ -393,7 +393,7 @@ class Core_Module extends Module
         }
 
         // Twitter
-        require_once ROOT_PATH.'/modules/Core/widgets/TwitterWidget.php';
+        require_once ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php';
         $twitter = $cache->retrieve('twitter');
 
         if ($twitter) {
@@ -404,33 +404,33 @@ class Core_Module extends Module
         }
 
         // Discord
-        require_once ROOT_PATH.'/modules/Core/widgets/DiscordWidget.php';
+        require_once ROOT_PATH . '/modules/Core/widgets/DiscordWidget.php';
         $discord = $cache->retrieve('discord');
         $module_pages = $widgets->getPages('Discord');
         $widgets->add(new DiscordWidget($module_pages, $language, $cache, $discord));
 
         // Profile Posts
-        require_once ROOT_PATH.'/modules/Core/widgets/ProfilePostsWidget.php';
+        require_once ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php';
         $module_pages = $widgets->getPages('Latest Profile Posts');
         $widgets->add(new ProfilePostsWidget($module_pages, $smarty, $language, $cache, $user, new Timeago(TIMEZONE)));
 
         // Online staff
-        require_once ROOT_PATH.'/modules/Core/widgets/OnlineStaff.php';
+        require_once ROOT_PATH . '/modules/Core/widgets/OnlineStaff.php';
         $module_pages = $widgets->getPages('Online Staff');
         $widgets->add(new OnlineStaffWidget($module_pages, $smarty, ['title' => $language->get('general', 'online_staff'), 'no_online_staff' => $language->get('general', 'no_online_staff'), 'total_online_staff' => $language->get('general', 'total_online_staff')], $cache));
 
         // Online users
-        require_once ROOT_PATH.'/modules/Core/widgets/OnlineUsers.php';
+        require_once ROOT_PATH . '/modules/Core/widgets/OnlineUsers.php';
         $module_pages = $widgets->getPages('Online Users');
         $widgets->add(new OnlineUsersWidget($module_pages, $cache, $smarty, ['title' => $language->get('general', 'online_users'), 'no_online_users' => $language->get('general', 'no_online_users'), 'total_online_users' => $language->get('general', 'total_online_users')]));
 
         // Online users
-        require_once ROOT_PATH.'/modules/Core/widgets/ServerStatusWidget.php';
+        require_once ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php';
         $module_pages = $widgets->getPages('Server Status');
         $widgets->add(new ServerStatusWidget($module_pages, $smarty, $language, $cache));
 
         // Statistics
-        require_once ROOT_PATH.'/modules/Core/widgets/StatsWidget.php';
+        require_once ROOT_PATH . '/modules/Core/widgets/StatsWidget.php';
         $module_pages = $widgets->getPages('Statistics');
         $widgets->add(new StatsWidget($module_pages, $smarty, [
             'statistics' => $language->get('general', 'statistics'),
@@ -457,7 +457,7 @@ class Core_Module extends Module
         }
 
         if ($validate_action['action'] == 'promote') {
-            require_once ROOT_PATH.'/modules/Core/hooks/ValidateHook.php';
+            require_once ROOT_PATH . '/modules/Core/hooks/ValidateHook.php';
             HookHandler::registerHook('validateUser', 'ValidateHook::validatePromote');
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
@@ -577,7 +577,7 @@ class Core_Module extends Module
                     }
 
                     if (! is_null($default) && isset($default->ip)) {
-                        $full_ip = ['ip' => $default->ip.(is_null($default->port) ? '' : ':'.$default->port), 'pre' => $default->pre, 'name' => $default->name];
+                        $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
                         $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
@@ -595,7 +595,7 @@ class Core_Module extends Module
                             $servers = [$full_ip];
 
                             foreach ($sub_servers as $server) {
-                                $servers[] = ['ip' => $server->ip.(is_null($server->port) ? '' : ':'.$server->port), 'pre' => $server->pre, 'name' => $server->name];
+                                $servers[] = ['ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port), 'pre' => $server->pre, 'name' => $server->name];
                             }
 
                             $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
@@ -647,8 +647,8 @@ class Core_Module extends Module
                 }
 
                 if (! is_null($default) && isset($default->ip)) {
-                    $smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">'.Output::getClean($default->ip.($default->port && $default->port != 25565 ? ':'.$default->port : '')).'</span>', $language->get('general', 'connect_with_ip_x')));
-                    $smarty->assign('DEFAULT_IP', Output::getClean($default->ip.($default->port != 25565 ? ':'.$default->port : '')));
+                    $smarty->assign('CONNECT_WITH', str_replace('{x}', '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>', $language->get('general', 'connect_with_ip_x')));
+                    $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
                     $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
                     $smarty->assign('COPIED', $language->get('general', 'copied'));
                 } else {
@@ -1147,7 +1147,7 @@ class Core_Module extends Module
                 if ($cache->isCached('core_data')) {
                     $data = $cache->retrieve('core_data');
                 } else {
-                    $users = $queries->orderWhere('users', 'joined > '.strtotime('-1 week'), 'joined', 'ASC');
+                    $users = $queries->orderWhere('users', 'joined > ' . strtotime('-1 week'), 'joined', 'ASC');
 
                     // Output array
                     $data = [];
@@ -1159,7 +1159,7 @@ class Core_Module extends Module
                         // Turn into format for graph
                         // First, order them per day
                         $date = date('d M Y', $member->joined);
-                        $date = '_'.strtotime($date);
+                        $date = '_' . strtotime($date);
 
                         if (isset($data[$date]['users'])) {
                             $data[$date]['users'] = $data[$date]['users'] + 1;
@@ -1215,7 +1215,7 @@ class Core_Module extends Module
                             $data['datasets']['players']['colour'] = '#ff0c00';
 
                             foreach ($players as $player) {
-                                $date = '_'.strtotime($player->date);
+                                $date = '_' . strtotime($player->date);
                                 $data[$date]['players'] = $player->players;
                             }
 
@@ -1229,12 +1229,12 @@ class Core_Module extends Module
                     $start = strtotime($start);
                     $end = strtotime(date('d M Y'));
                     while ($start <= $end) {
-                        if (! isset($data['_'.$start]['users'])) {
-                            $data['_'.$start]['users'] = 0;
+                        if (! isset($data['_' . $start]['users'])) {
+                            $data['_' . $start]['users'] = 0;
                         }
 
-                        if (! isset($player_count_error) && defined('MINECRAFT') && MINECRAFT && ! isset($data['_'.$start]['players'])) {
-                            $data['_'.$start]['players'] = 0;
+                        if (! isset($player_count_error) && defined('MINECRAFT') && MINECRAFT && ! isset($data['_' . $start]['players'])) {
+                            $data['_' . $start]['players'] = 0;
                         }
 
                         $start = strtotime('+1 day', $start);
@@ -1249,25 +1249,25 @@ class Core_Module extends Module
                 self::addDataToDashboardGraph($language->get('admin', 'overview'), $data);
 
                 // Dashboard stats
-                require_once ROOT_PATH.'/modules/Core/collections/panel/TotalUsers.php';
+                require_once ROOT_PATH . '/modules/Core/collections/panel/TotalUsers.php';
                 CollectionManager::addItemToCollection('dashboard_stats', new TotalUsersItem($smarty, $language, $cache));
 
-                require_once ROOT_PATH.'/modules/Core/collections/panel/RecentUsers.php';
+                require_once ROOT_PATH . '/modules/Core/collections/panel/RecentUsers.php';
                 CollectionManager::addItemToCollection('dashboard_stats', new RecentUsersItem($smarty, $language, $cache));
 
                 // Dashboard items
                 if ($user->hasPermission('modcp.punishments')) {
-                    require_once ROOT_PATH.'/modules/Core/collections/panel/RecentPunishments.php';
+                    require_once ROOT_PATH . '/modules/Core/collections/panel/RecentPunishments.php';
                     CollectionManager::addItemToCollection('dashboard_main_items', new RecentPunishmentsItem($smarty, $language, $cache));
                 }
 
                 if ($user->hasPermission('modcp.reports')) {
-                    require_once ROOT_PATH.'/modules/Core/collections/panel/RecentReports.php';
+                    require_once ROOT_PATH . '/modules/Core/collections/panel/RecentReports.php';
                     CollectionManager::addItemToCollection('dashboard_main_items', new RecentReportsItem($smarty, $language, $cache));
                 }
 
                 if ($user->hasPermission('admincp.users')) {
-                    require_once ROOT_PATH.'/modules/Core/collections/panel/RecentRegistrations.php';
+                    require_once ROOT_PATH . '/modules/Core/collections/panel/RecentRegistrations.php';
                     CollectionManager::addItemToCollection('dashboard_main_items', new RecentRegistrationsItem($smarty, $language, $cache));
                 }
             }
@@ -1291,7 +1291,7 @@ class Core_Module extends Module
             }
         }
 
-        require_once ROOT_PATH.'/modules/Core/hooks/DeleteUserHook.php';
+        require_once ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php';
         HookHandler::registerHook('deleteUser', 'DeleteUserHook::deleteUser');
     }
 

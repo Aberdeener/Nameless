@@ -25,7 +25,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'update');
 define('PANEL_PAGE', 'update');
 $page_title = $language->get('admin', 'update');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -66,7 +66,7 @@ if (! isset($update_check->error) && ! isset($update_check->no_update) && isset(
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/instructions.php?uid='.$uid.'&version='.$current_version);
+    curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . $current_version);
 
     $instructions = curl_exec($ch);
 
@@ -97,7 +97,7 @@ $smarty->assign([
     'CHECK_AGAIN' => $language->get('admin', 'check_again'),
     'CHECK_AGAIN_LINK' => URL::build('/panel/update/', 'recheck=true'),
     'UPGRADE_LINK' => URL::build('/panel/upgrade'),
-    'DOWNLOAD_LINK' => 'https://namelessmc.com/nl_core/nl2/updates/'.str_replace(['.', '-'], '', Output::getClean($update_check->new_version)).'.zip',
+    'DOWNLOAD_LINK' => 'https://namelessmc.com/nl_core/nl2/updates/' . str_replace(['.', '-'], '', Output::getClean($update_check->new_version)) . '.zip',
     'DOWNLOAD' => $language->get('admin', 'download'),
     'WARNING' => $language->get('general', 'warning'),
     'CANCEL' => $language->get('general', 'cancel'),
@@ -109,7 +109,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('core/update.tpl', $smarty);

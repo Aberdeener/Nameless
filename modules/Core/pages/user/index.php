@@ -18,7 +18,7 @@ if (! $user->isLoggedIn()) {
 // Always define page name for navbar
 define('PAGE', 'cc_overview');
 $page_title = $language->get('user', 'user_cp');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $user_details = [
     $language->get('user', 'username') => $user->getDisplayname(true),
@@ -94,60 +94,60 @@ if (isset($forum_enabled)) {
     $average_data = '';
     $total_data = '';
     foreach ($output as $date => $item) {
-        $labels .= '"'.date('Y-m-d', $date).'", ';
-        $user_data .= $item['user'].', ';
-        $average_data .= $item['average'].', ';
-        $total_data .= $item['total'].', ';
+        $labels .= '"' . date('Y-m-d', $date) . '", ';
+        $user_data .= $item['user'] . ', ';
+        $average_data .= $item['average'] . ', ';
+        $total_data .= $item['total'] . ', ';
     }
-    $labels = '['.rtrim($labels, ', ').']';
-    $user_data = '['.rtrim($user_data, ', ').']';
-    $average_data = '['.rtrim($average_data, ', ').']';
-    $total_data = '['.rtrim($total_data, ', ').']';
+    $labels = '[' . rtrim($labels, ', ') . ']';
+    $user_data = '[' . rtrim($user_data, ', ') . ']';
+    $average_data = '[' . rtrim($average_data, ', ') . ']';
+    $total_data = '[' . rtrim($total_data, ', ') . ']';
 
     $smarty->assign('FORUM_GRAPH', $forum_language->get('forum', 'last_7_days_posts'));
 }
 
 if (isset($forum_enabled)) {
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/moment/moment.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/charts/Chart.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => [],
     ]);
     $template->addJSScript(
         '
 		$(document).ready(function() {
 			var ctx = $("#dataChart").get(0).getContext("2d");
 		
-			moment.locale(\''.(defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en').'\');
+			moment.locale(\'' . (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en') . '\');
 		
 			var data = {
-				labels: '.$labels.',
+				labels: ' . $labels . ',
 				datasets: [
 					{
-						label: "'.$forum_language->get('forum', 'your_posts').'",
+						label: "' . $forum_language->get('forum', 'your_posts') . '",
 						fill: false,
 						borderColor: "rgba(255,12,0,0.5)",
 						pointBorderColor: "rgba(255,0,5,0.5)",
 						pointBackgroundColor: "#fff",
 						tension: 0.1,
-						data: '.$user_data.'
+						data: ' . $user_data . '
 					},
 					{
-						label: "'.$forum_language->get('forum', 'average_posts').'",
+						label: "' . $forum_language->get('forum', 'average_posts') . '",
 						fill: false,
 						borderColor: "#0004FF",
 						pointBorderColor: "#0004FF",
 						pointBackgroundColor: "#fff",
 						tension: 0.1,
-						data: '.$average_data.'
+						data: ' . $average_data . '
 					},
 					{
-						label: "'.$forum_language->get('forum', 'total_posts').'",
+						label: "' . $forum_language->get('forum', 'total_posts') . '",
 						fill: false,
 						borderColor: "#00931D",
 						pointBorderColor: "#00931D",
 						pointBackgroundColor: "#fff",
 						tension: 0.1,
-						data: '.$total_data.'
+						data: ' . $total_data . '
 					},
 				]
 			}
@@ -187,15 +187,15 @@ if (isset($forum_enabled)) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
-require ROOT_PATH.'/core/templates/cc_navbar.php';
+require ROOT_PATH . '/core/templates/cc_navbar.php';
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('user/index.tpl', $smarty);

@@ -22,7 +22,7 @@ if ($user->isLoggedIn()) {
         exit();
     } else {
         if (! $user->hasPermission('admincp.forums')) {
-            require_once ROOT_PATH.'/403.php';
+            require_once ROOT_PATH . '/403.php';
             exit();
         }
     }
@@ -36,7 +36,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'forum');
 define('PANEL_PAGE', 'forum_labels');
 $page_title = $forum_language->get('forum', 'labels');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (! isset($_GET['action'])) {
     // Topic labels
@@ -58,7 +58,7 @@ if (! isset($_GET['action'])) {
             foreach ($enabled_forums as $item) {
                 $forum_name = $queries->getWhere('forums', ['id', '=', $item]);
                 if (count($forum_name)) {
-                    $forums_string .= Output::getClean($forum_name[0]->forum_title).', ';
+                    $forums_string .= Output::getClean($forum_name[0]->forum_title) . ', ';
                 } else {
                     $forums_string .= $forum_language->get('forum', 'no_forums');
                 }
@@ -67,8 +67,8 @@ if (! isset($_GET['action'])) {
 
             $template_array[] = [
                 'name' => str_replace('{x}', Output::getClean(Output::getDecoded($topic_label->name)), Output::getDecoded($label_type->html)),
-                'edit_link' => URL::build('/panel/forums/labels/', 'action=edit&lid='.Output::getClean($topic_label->id)),
-                'delete_link' => URL::build('/panel/forums/labels/', 'action=delete&lid='.Output::getClean($topic_label->id)),
+                'edit_link' => URL::build('/panel/forums/labels/', 'action=edit&lid=' . Output::getClean($topic_label->id)),
+                'delete_link' => URL::build('/panel/forums/labels/', 'action=delete&lid=' . Output::getClean($topic_label->id)),
                 'enabled_forums' => $forums_string,
             ];
         }
@@ -118,7 +118,7 @@ if (! isset($_GET['action'])) {
                         if (isset($_POST['label_forums']) && count($_POST['label_forums'])) {
                             // Turn array of inputted forums into string of forums
                             foreach ($_POST['label_forums'] as $item) {
-                                $forum_string .= $item.',';
+                                $forum_string .= $item . ',';
                             }
                         }
 
@@ -127,7 +127,7 @@ if (! isset($_GET['action'])) {
                         $group_string = '';
                         if (isset($_POST['label_groups']) && count($_POST['label_groups'])) {
                             foreach ($_POST['label_groups'] as $item) {
-                                $group_string .= $item.',';
+                                $group_string .= $item . ',';
                             }
                         }
 
@@ -261,7 +261,7 @@ if (! isset($_GET['action'])) {
                         if (isset($_POST['label_forums']) && count($_POST['label_forums'])) {
                             foreach ($_POST['label_forums'] as $item) {
                                 // Turn array of inputted forums into string of forums
-                                $forum_string .= $item.',';
+                                $forum_string .= $item . ',';
                             }
                         }
 
@@ -270,7 +270,7 @@ if (! isset($_GET['action'])) {
                         $group_string = '';
                         if (isset($_POST['label_groups']) && count($_POST['label_groups'])) {
                             foreach ($_POST['label_groups'] as $item) {
-                                $group_string .= $item.',';
+                                $group_string .= $item . ',';
                             }
                         }
 
@@ -285,7 +285,7 @@ if (! isset($_GET['action'])) {
                             ]);
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_edit_success'));
-                            Redirect::to(URL::build('/panel/forums/labels', 'action=edit&lid='.Output::getClean($label->id)));
+                            Redirect::to(URL::build('/panel/forums/labels', 'action=edit&lid=' . Output::getClean($label->id)));
                             exit();
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -400,8 +400,8 @@ if (! isset($_GET['action'])) {
                 foreach ($labels as $label) {
                     $template_array[] = [
                         'name' => str_replace('{x}', Output::getClean(Output::getDecoded($label->name)), Output::getDecoded($label->html)),
-                        'edit_link' => URL::build('/panel/forums/labels/', 'action=edit_type&lid='.Output::getClean($label->id)),
-                        'delete_link' => URL::build('/panel/forums/labels/', 'action=delete_type&lid='.Output::getClean($label->id)),
+                        'edit_link' => URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)),
+                        'delete_link' => URL::build('/panel/forums/labels/', 'action=delete_type&lid=' . Output::getClean($label->id)),
                     ];
                 }
             }
@@ -538,7 +538,7 @@ if (! isset($_GET['action'])) {
                             ]);
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_type_edit_success'));
-                            Redirect::to(URL::build('/panel/forums/labels/', 'action=edit_type&lid='.Output::getClean($label->id)));
+                            Redirect::to(URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)));
                             exit();
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -637,7 +637,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

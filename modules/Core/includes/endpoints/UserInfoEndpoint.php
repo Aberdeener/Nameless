@@ -39,7 +39,7 @@ class UserInfoEndpoint extends EndpointBase
         }
 
         // Ensure the user exists
-        $user = $api->getDb()->query($query.$where, $params);
+        $user = $api->getDb()->query($query . $where, $params);
 
         if (! $user->count()) {
             $api->returnArray(['exists' => false]);

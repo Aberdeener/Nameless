@@ -19,13 +19,13 @@ if ($cache->isCached('enabled')) {
 }
 
 if (! defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1) {
-    require_once ROOT_PATH.'/403.php';
+    require_once ROOT_PATH . '/403.php';
     exit();
 }
 
 define('PAGE', 'status');
 $page_title = $language->get('general', 'status');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $servers = $queries->orderWhere('mc_servers', 'display = 1', '`order`', 'ASC');
 
@@ -49,8 +49,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('status.tpl', $smarty);

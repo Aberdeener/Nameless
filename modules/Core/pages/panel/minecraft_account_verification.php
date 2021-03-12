@@ -16,7 +16,7 @@ define('PARENT_PAGE', 'integrations');
 define('PANEL_PAGE', 'minecraft');
 define('MINECRAFT_PAGE', 'verification');
 $page_title = $language->get('admin', 'account_verification');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Handle input
 if (Input::exists()) {
@@ -141,7 +141,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('integrations/minecraft/minecraft_account_verification.tpl', $smarty);

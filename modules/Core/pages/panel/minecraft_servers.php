@@ -16,7 +16,7 @@ define('PARENT_PAGE', 'integrations');
 define('PANEL_PAGE', 'minecraft');
 define('MINECRAFT_PAGE', 'servers');
 $page_title = $language->get('admin', 'minecraft_servers');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -366,7 +366,7 @@ if (isset($_GET['action'])) {
                             ]);
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
-                            Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id='.Output::getClean($server_editing->id)));
+                            Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id=' . Output::getClean($server_editing->id)));
                             exit();
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -618,8 +618,8 @@ if (isset($_GET['action'])) {
                 'name' => Output::getClean($server->name),
                 'id' => Output::getClean($server->id),
                 'server_id' => str_replace('{x}', Output::getClean($server->id), $language->get('admin', 'server_id_x')),
-                'edit_link' => URL::build('/panel/minecraft/servers/', 'action=edit&id='.Output::getClean($server->id)),
-                'delete_link' => URL::build('/panel/minecraft/servers/', 'action=delete&id='.Output::getClean($server->id)),
+                'edit_link' => URL::build('/panel/minecraft/servers/', 'action=edit&id=' . Output::getClean($server->id)),
+                'delete_link' => URL::build('/panel/minecraft/servers/', 'action=delete&id=' . Output::getClean($server->id)),
                 'is_default' => $server->is_default,
             ];
         }
@@ -720,7 +720,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

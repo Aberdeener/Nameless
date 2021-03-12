@@ -119,5 +119,5 @@ $smarty->assign([
     'DARK_MODE_VALUE' => $darkMode,
     'NAVBAR_COLOUR' => $language->get('admin', 'navbar_colour'),
     'NAVBAR_COLOURS' => $nav_colours,
-    'SETTINGS_TEMPLATE' => ROOT_PATH.'/custom/templates/DefaultRevamp/template_settings/settings.tpl',
+    'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl',
 ]);

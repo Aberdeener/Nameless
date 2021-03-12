@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'hooks');
 $page_title = $language->get('admin', 'hooks');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (! isset($_GET['action'])) {
     // View all hooks
@@ -27,8 +27,8 @@ if (! isset($_GET['action'])) {
             $hooks_array[] = [
                 'name' => Output::getClean($hook->name),
                 'url' => Output::getClean($hook->url),
-                'edit_link' => URL::build('/panel/core/hooks/', 'action=edit&id='.Output::getClean($hook->id)),
-                'delete_link' => URL::build('/panel/core/hooks/', 'action=delete&id='.Output::getClean($hook->id)),
+                'edit_link' => URL::build('/panel/core/hooks/', 'action=edit&id=' . Output::getClean($hook->id)),
+                'delete_link' => URL::build('/panel/core/hooks/', 'action=delete&id=' . Output::getClean($hook->id)),
             ];
         }
     }
@@ -286,7 +286,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

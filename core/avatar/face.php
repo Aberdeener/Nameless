@@ -20,7 +20,7 @@ function get_skin($user, $cache)
 {
 
     // Check cache
-    $cache->setCache('avatarCache_'.$user);
+    $cache->setCache('avatarCache_' . $user);
     if ($cache->isCached($user)) {
         return 'cached';
     }
@@ -49,7 +49,7 @@ function get_skin($user, $cache)
     $output .= 'Ne9AAAAAElFTkSuQmCC';
     $output = base64_decode($output);
     if ($user != '') {
-        $ch = curl_init('https://sessionserver.mojang.com/session/minecraft/profile/'.$user);
+        $ch = curl_init('https://sessionserver.mojang.com/session/minecraft/profile/' . $user);
 
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -75,7 +75,7 @@ function get_skin($user, $cache)
     }
 
     // Cache image
-    $cache->setCache('avatarCache_'.$user);
+    $cache->setCache('avatarCache_' . $user);
     $cache->store($user, 'cached', 3600);
 
     return $output;
@@ -100,13 +100,13 @@ if ($skin != 'cached') {
     imagepng($av);
 
     // To file
-    imagepng($av, 'cache/'.$user.'.png');
+    imagepng($av, 'cache/' . $user . '.png');
 
     imagedestroy($im);
     imagedestroy($av);
 } else {
     // Output - already cached
-    $im = imagecreatefrompng('cache/'.$user.'.png');
+    $im = imagecreatefrompng('cache/' . $user . '.png');
     header('Content-type: image/png');
     imagepng($im);
     imagedestroy($im);

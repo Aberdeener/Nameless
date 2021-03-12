@@ -22,7 +22,7 @@ class ServerInfoEndpoint extends EndpointBase
         $server_query = $api->getDb()->get('mc_servers', ['id', '=', $serverId]);
 
         if (! $server_query->count()) {
-            $api->throwError(27, $api->getLanguage()->get('api', 'invalid_server_id').' - '.$serverId);
+            $api->throwError(27, $api->getLanguage()->get('api', 'invalid_server_id') . ' - ' . $serverId);
         }
 
         try {
@@ -37,8 +37,8 @@ class ServerInfoEndpoint extends EndpointBase
                 ]
             );
 
-            if (file_exists(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('server_query_cache').'.cache')) {
-                $query_cache = file_get_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('server_query_cache').'.cache');
+            if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
+                $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
                 $query_cache = json_decode($query_cache);
                 if (isset($query_cache->query_interval)) {
                     $query_interval = unserialize($query_cache->query_interval->data);
@@ -60,7 +60,7 @@ class ServerInfoEndpoint extends EndpointBase
                 ];
 
                 // Store in cache file
-                file_put_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('server_query_cache').'.cache', json_encode($to_cache));
+                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
             }
         } catch (Exception $e) {
             $api->throwError(25, $api->getLanguage()->get('api', 'unable_to_update_server_info'), $e->getMessage());

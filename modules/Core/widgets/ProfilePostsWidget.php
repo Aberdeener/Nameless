@@ -49,8 +49,8 @@ class ProfilePostsWidget extends WidgetBase
         $this->_cache->setCache('profile_posts_widget');
 
         $posts_array = [];
-        if ($this->_cache->isCached('profile_posts_'.$user_id)) {
-            $posts_array = $this->_cache->retrieve('profile_posts_'.$user_id);
+        if ($this->_cache->isCached('profile_posts_' . $user_id)) {
+            $posts_array = $this->_cache->retrieve('profile_posts_' . $user_id);
         } else {
             $posts = DB::getInstance()->query('SELECT * FROM nl2_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
             foreach ($posts as $post) {
@@ -74,14 +74,14 @@ class ProfilePostsWidget extends WidgetBase
                     'username' => $post_author->getDisplayname(),
                     'username_style' => $post_author->getGroupClass(),
                     'content' => Util::truncate(strip_tags(Output::getDecoded($post->content)), 20),
-                    'link' => $link.'/#post-'.$post->id,
+                    'link' => $link . '/#post-' . $post->id,
                     'date_ago' => date('d M Y, H:i', $post->time),
                     'user_id' => $post->author_id,
                     'user_profile_link' => $post_author->getProfileURL(),
                     'ago' => $this->_timeago->inWords(date('d M Y, H:i', $post->time), $this->_language->getTimeLanguage()),
                 ];
             }
-            $this->_cache->store('profile_posts_'.$user_id, $posts_array, 120);
+            $this->_cache->store('profile_posts_' . $user_id, $posts_array, 120);
         }
         if (count($posts_array) >= 1) {
             $this->_smarty->assign([

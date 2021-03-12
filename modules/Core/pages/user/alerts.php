@@ -18,14 +18,14 @@ if (! $user->isLoggedIn()) {
 // Always define page name for navbar
 define('PAGE', 'cc_alerts');
 $page_title = $language->get('user', 'user_cp');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $timeago = new Timeago(TIMEZONE);
 
 if (! isset($_GET['view'])) {
     if (! isset($_GET['action'])) {
         // Get alerts
-        $alerts = $queries->orderWhere('alerts', 'user_id = '.$user->data()->id, 'created', 'DESC');
+        $alerts = $queries->orderWhere('alerts', 'user_id = ' . $user->data()->id, 'created', 'DESC');
 
         $alerts_limited = [];
         $n = 0;
@@ -41,7 +41,7 @@ if (! isset($_GET['view'])) {
             // Get date
             $alerts[$n]->date = date('d M Y, H:i', $alerts[$n]->created);
             $alerts[$n]->date_nice = $timeago->inWords(date('d M Y, H:i', $alerts[$n]->created), $language->getTimeLanguage());
-            $alerts[$n]->view_link = URL::build('/user/alerts/', 'view='.$alerts[$n]->id);
+            $alerts[$n]->view_link = URL::build('/user/alerts/', 'view=' . $alerts[$n]->id);
 
             $alerts_limited[] = $alerts[$n];
 
@@ -62,15 +62,15 @@ if (! isset($_GET['view'])) {
         // Load modules + template
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
-        require ROOT_PATH.'/core/templates/cc_navbar.php';
+        require ROOT_PATH . '/core/templates/cc_navbar.php';
 
         $page_load = microtime(true) - $start;
         define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
         $template->onPageLoad();
 
-        require ROOT_PATH.'/core/templates/navbar.php';
-        require ROOT_PATH.'/core/templates/footer.php';
+        require ROOT_PATH . '/core/templates/navbar.php';
+        require ROOT_PATH . '/core/templates/footer.php';
 
         // Display template
         $template->displayTemplate('user/alerts.tpl', $smarty);

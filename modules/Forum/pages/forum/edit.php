@@ -12,14 +12,14 @@
 // Always define page name
 define('PAGE', 'forum');
 $page_title = $forum_language->get('forum', 'edit_post');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
 ]);
 
 // User must be logged in to proceed
@@ -29,11 +29,11 @@ if (! $user->isLoggedIn()) {
 }
 
 // Initialise
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 $forum = new Forum();
 $mentionsParser = new MentionsParser();
 
-require ROOT_PATH.'/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
+require ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
 
 if (isset($_GET['pid']) && isset($_GET['tid'])) {
     if (is_numeric($_GET['pid']) && is_numeric($_GET['tid'])) {
@@ -52,7 +52,7 @@ if (isset($_GET['pid']) && isset($_GET['tid'])) {
  *  Is the post the first in the topic? If so, allow the title to be edited.
  */
 
-$post_editing = $queries->orderWhere('posts', 'topic_id = '.$topic_id, 'id', 'ASC LIMIT 1');
+$post_editing = $queries->orderWhere('posts', 'topic_id = ' . $topic_id, 'id', 'ASC LIMIT 1');
 
 // Check topic exists
 if (! count($post_editing)) {
@@ -91,12 +91,12 @@ $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
 if ($user->data()->id === $post_editing[0]->post_creator && ! $forum->canEditTopic($forum_id, $user_groups) && ! $forum->canModerateForum($forum_id, $user_groups)) {
-    Redirect::to(URL::build('/forum/topic/'.$post_id));
+    Redirect::to(URL::build('/forum/topic/' . $post_id));
     exit();
 }
 
 if ($user->data()->id !== $post_editing[0]->post_creator && ! ($forum->canModerateForum($forum_id, $user_groups))) {
-    Redirect::to(URL::build('/forum/topic/'.$post_id));
+    Redirect::to(URL::build('/forum/topic/' . $post_id));
     exit();
 }
 
@@ -181,7 +181,7 @@ if (Input::exists()) {
 
                 // Display success message and redirect
                 Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
-                Redirect::to(URL::build('/forum/topic/'.$topic_id, 'pid='.$post_id));
+                Redirect::to(URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id));
                 exit();
             } catch (Exception $e) {
                 exit($e->getMessage());
@@ -289,7 +289,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/'.$topic_id, 'pid='.$post_id),
+    'CANCEL_LINK' => URL::build('/forum/topic/' . $topic_id, 'pid=' . $post_id),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
     'CONTENT' => Output::getPurified(Output::getDecoded($post_editing[0]->post_content)),
 ]);
@@ -303,15 +303,15 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN', true);
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
-    require ROOT_PATH.'/core/includes/markdown/tomarkdown/autoload.php';
+    require ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php';
     $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 
     $clean = $converter->convert(Output::getDecoded($post_editing[0]->post_content));
     $clean = Output::getPurified($clean);
 
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
     ]);
 
     $template->addJSScript('
@@ -320,7 +320,7 @@ if ($formatting == 'markdown') {
 			pickerPosition: "bottom"
 		});
 
-		el[0].emojioneArea.setText(\''.str_replace(["'", '&gt;', '&amp;'], ['&#39;', '>', '&'], str_replace(["\r", "\n"], ['\\r', '\\n'], $clean)).'\');
+		el[0].emojioneArea.setText(\'' . str_replace(["'", '&gt;', '&amp;'], ['&#39;', '>', '&'], str_replace(["\r", "\n"], ['\\r', '\\n'], $clean)) . '\');
  	 });
 	');
 } else {
@@ -328,9 +328,9 @@ if ($formatting == 'markdown') {
     $clean = Output::getPurified($clean);
 
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => [],
     ]);
 
     $template->addJSScript(Input::createTinyEditor($language, 'editor'));
@@ -344,8 +344,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('forum/forum_edit_post.tpl', $smarty);

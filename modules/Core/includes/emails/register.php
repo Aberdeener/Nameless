@@ -14,13 +14,13 @@ function sendRegisterEmail(Queries $queries, Language $language, $email_address,
     $php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
     $php_mailer = $php_mailer[0]->value;
 
-    $link = rtrim(Util::getSelfURL(), '/').URL::build('/validate/', 'c='.$code);
+    $link = rtrim(Util::getSelfURL(), '/') . URL::build('/validate/', 'c=' . $code);
 
     if ($php_mailer == '1') {
         // PHP Mailer
         $email = [
             'to' => ['email' => Output::getClean($email_address), 'name' => Output::getClean($username)],
-            'subject' => SITE_NAME.' - '.$language->get('emails', 'register_subject'),
+            'subject' => SITE_NAME . ' - ' . $language->get('emails', 'register_subject'),
             'message' => str_replace('[Link]', $link, Email::formatEmail('register', $language)),
         ];
 
@@ -45,15 +45,15 @@ function sendRegisterEmail(Queries $queries, Language $language, $email_address,
         $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
         $siteemail = $siteemail[0]->value;
 
-        $headers = 'From: '.$siteemail."\r\n".
-            'Reply-To: '.$siteemail."\r\n".
-            'X-Mailer: PHP/'.phpversion()."\r\n".
-            'MIME-Version: 1.0'."\r\n".
-            'Content-type: text/html; charset=UTF-8'."\r\n";
+        $headers = 'From: ' . $siteemail . "\r\n" .
+            'Reply-To: ' . $siteemail . "\r\n" .
+            'X-Mailer: PHP/' . phpversion() . "\r\n" .
+            'MIME-Version: 1.0' . "\r\n" .
+            'Content-type: text/html; charset=UTF-8' . "\r\n";
 
         $email = [
             'to' => $email_address,
-            'subject' => SITE_NAME.' - '.$language->get('emails', 'register_subject'),
+            'subject' => SITE_NAME . ' - ' . $language->get('emails', 'register_subject'),
             'message' => str_replace('[Link]', $link, Email::formatEmail('register', $language)),
             'headers' => $headers,
         ];

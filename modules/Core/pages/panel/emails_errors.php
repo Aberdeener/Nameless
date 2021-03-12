@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'emails');
 $page_title = $language->get('admin', 'email_errors');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'purge') {
@@ -86,7 +86,7 @@ if (isset($_GET['do'])) {
             'CONTENT_VALUE' => Output::getPurified($error->content),
             'ACTIONS' => $language->get('general', 'actions'),
             'DELETE_ERROR' => $language->get('admin', 'delete_email_error'),
-            'DELETE_ERROR_LINK' => URL::build('/panel/core/emails/errors/', 'do=delete&amp;id='.$error->id),
+            'DELETE_ERROR_LINK' => URL::build('/panel/core/emails/errors/', 'do=delete&amp;id=' . $error->id),
             'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_email_error_deletion'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'YES' => $language->get('general', 'yes'),
@@ -100,7 +100,7 @@ if (isset($_GET['do'])) {
                 $user_validated = $user_validated[0];
                 if ($user_validated->active == 0) {
                     $smarty->assign([
-                        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id='.$error->user_id.'&amp;action=validate'),
+                        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . $error->user_id . '&amp;action=validate'),
                         'VALIDATE_USER_TEXT' => $language->get('admin', 'validate_user'),
                     ]);
                 }
@@ -113,7 +113,7 @@ if (isset($_GET['do'])) {
                     $smarty->assign([
                         'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
                         'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
-                        'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/').URL::build('/complete_signup/', 'c='.Output::getClean($user_error->reset_code)),
+                        'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . Output::getClean($user_error->reset_code)),
                     ]);
                 }
             }
@@ -191,7 +191,7 @@ if (isset($_GET['do'])) {
                 'type' => $type,
                 'date' => date('d M Y, H:i', $results->data[$n]->at),
                 'user' => Output::getClean($user->idToName($results->data[$n]->user_id)),
-                'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id='.$results->data[$n]->id),
+                'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id=' . $results->data[$n]->id),
                 'id' => $results->data[$n]->id,
             ];
         }
@@ -250,7 +250,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

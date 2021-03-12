@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
         if ($mysqli->connect_errno) {
-            $error = $mysqli->connect_errno.' - '.$mysqli->connect_error;
+            $error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
         } else {
             $_SESSION['db_address'] = $db_address;
             $_SESSION['db_port'] = $db_port;

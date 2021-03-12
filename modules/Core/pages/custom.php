@@ -12,7 +12,7 @@
 // Get page info from URL
 $custom_page = $queries->getWhere('custom_pages', ['url', '=', rtrim($route, '/')]);
 if (! count($custom_page)) {
-    require ROOT_PATH.'/404.php';
+    require ROOT_PATH . '/404.php';
     exit();
 } else {
     $custom_page = $custom_page[0];
@@ -47,13 +47,13 @@ if ($user->isLoggedIn()) {
 }
 
 if (! isset($can_view)) {
-    require ROOT_PATH.'/403.php';
+    require ROOT_PATH . '/403.php';
     exit();
 }
 
 if ($custom_page->redirect) {
     header('X-Robots-Tag: noindex, nofollow', true);
-    header('Location: '.Output::getClean($custom_page->link));
+    header('Location: ' . Output::getClean($custom_page->link));
 
     exit(str_replace('{x}', Output::getClean($custom_page->link), $language->get('general', 'redirecting_message')));
 }
@@ -62,7 +62,7 @@ if ($custom_page->redirect) {
 define('PAGE', $custom_page->id);
 define('CUSTOM_PAGE', $custom_page->title);
 $page_title = Output::getClean($custom_page->title);
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
@@ -74,11 +74,11 @@ $smarty->assign([
 ]);
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
 ]);
 
 $template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
 ]);
 
 $page_load = microtime(true) - $start;
@@ -86,8 +86,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 if ($custom_page->basic) {
     $template->displayTemplate('custom_basic.tpl', $smarty);

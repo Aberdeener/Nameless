@@ -19,7 +19,7 @@ class ListUsersEndpoint extends EndpointBase
         $query = 'SELECT id, username, uuid, isbanned, discord_id AS banned, active FROM nl2_users';
 
         if (isset($_GET['banned'])) {
-            $query .= ' WHERE `isbanned` = '.($_GET['banned'] == 'true' ? '1' : '0');
+            $query .= ' WHERE `isbanned` = ' . ($_GET['banned'] == 'true' ? '1' : '0');
             $filterBanned = true;
         }
 
@@ -29,7 +29,7 @@ class ListUsersEndpoint extends EndpointBase
             } else {
                 $query .= ' WHERE';
             }
-            $query .= ' `active` = '.($_GET['active'] == 'true' ? '1' : '0');
+            $query .= ' `active` = ' . ($_GET['active'] == 'true' ? '1' : '0');
             $filterActive = true;
         }
 
@@ -39,7 +39,7 @@ class ListUsersEndpoint extends EndpointBase
             } else {
                 $query .= ' WHERE';
             }
-            $query .= ' `discord_id` IS '.($_GET['discord_linked'] == 'true' ? 'NOT' : '').' NULL';
+            $query .= ' `discord_id` IS ' . ($_GET['discord_linked'] == 'true' ? 'NOT' : '') . ' NULL';
         }
 
         $users = $api->getDb()->query($query)->results();

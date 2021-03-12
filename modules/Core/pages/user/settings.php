@@ -18,19 +18,19 @@ if (! $user->isLoggedIn()) {
 // Always define page name for navbar
 define('PAGE', 'cc_settings');
 $page_title = $language->get('user', 'user_cp');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
-require ROOT_PATH.'/core/includes/password.php'; // For password hashing
-require ROOT_PATH.'/core/includes/phpass.php'; // phpass for Wordpress auth
-require ROOT_PATH.'/core/includes/emojione/autoload.php'; // Emojione
-require ROOT_PATH.'/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
+require ROOT_PATH . '/core/includes/password.php'; // For password hashing
+require ROOT_PATH . '/core/includes/phpass.php'; // phpass for Wordpress auth
+require ROOT_PATH . '/core/includes/emojione/autoload.php'; // Emojione
+require ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Two factor auth?
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'enable_tfa') {
         // Enable TFA
-        require ROOT_PATH.'/core/includes/tfa/autoload.php';
+        require ROOT_PATH . '/core/includes/tfa/autoload.php';
 
         // Ensure TFA is currently disabled
         if ($user->data()->tfa_enabled == 1) {
@@ -56,7 +56,7 @@ if (isset($_GET['do'])) {
             $smarty->assign([
                 'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
                 'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
-                'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(SITE_NAME.':'.Output::getClean($user->data()->username), $secret),
+                'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(SITE_NAME . ':' . Output::getClean($user->data()->username), $secret),
                 'TFA_CODE_TEXT' => $language->get('user', 'tfa_code'),
                 'TFA_CODE' => chunk_split($secret, 4, ' '),
                 'NEXT' => $language->get('general', 'next'),
@@ -75,15 +75,15 @@ if (isset($_GET['do'])) {
             // Load modules + template
             Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
-            require ROOT_PATH.'/core/templates/cc_navbar.php';
+            require ROOT_PATH . '/core/templates/cc_navbar.php';
 
             $page_load = microtime(true) - $start;
             define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
             $template->onPageLoad();
 
-            require ROOT_PATH.'/core/templates/navbar.php';
-            require ROOT_PATH.'/core/templates/footer.php';
+            require ROOT_PATH . '/core/templates/navbar.php';
+            require ROOT_PATH . '/core/templates/footer.php';
 
             // Display template
             $template->displayTemplate('user/tfa.tpl', $smarty);
@@ -130,15 +130,15 @@ if (isset($_GET['do'])) {
             // Load modules + template
             Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
-            require ROOT_PATH.'/core/templates/cc_navbar.php';
+            require ROOT_PATH . '/core/templates/cc_navbar.php';
 
             $page_load = microtime(true) - $start;
             define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
             $template->onPageLoad();
 
-            require ROOT_PATH.'/core/templates/navbar.php';
-            require ROOT_PATH.'/core/templates/footer.php';
+            require ROOT_PATH . '/core/templates/navbar.php';
+            require ROOT_PATH . '/core/templates/footer.php';
 
             // Display template
             $template->displayTemplate('user/tfa.tpl', $smarty);
@@ -349,17 +349,17 @@ if (isset($_GET['do'])) {
                     // Validation errors
                     foreach ($validation->errors() as $item) {
                         if (strpos($item, 'signature') !== false) {
-                            $errors[] = $language->get('user', 'signature_max_900').'<br />';
+                            $errors[] = $language->get('user', 'signature_max_900') . '<br />';
                         } elseif (strpos($item, 'nickname') !== false) {
                             if (strpos($item, 'required') !== false) {
-                                $errors[] = $language->get('user', 'username_required').'<br />';
+                                $errors[] = $language->get('user', 'username_required') . '<br />';
                             } elseif (strpos($item, 'min') !== false) {
-                                $errors[] = $language->get('user', 'username_minimum_3').'<br />';
+                                $errors[] = $language->get('user', 'username_minimum_3') . '<br />';
                             } elseif (strpos($item, 'max') !== false) {
-                                $errors[] = $language->get('user', 'username_maximum_20').'<br />';
+                                $errors[] = $language->get('user', 'username_maximum_20') . '<br />';
                             }
                         } elseif (strpos($item, 'timezone') !== false) {
-                            $errors[] = $language->get('general', 'invalid_timezone').'<br />';
+                            $errors[] = $language->get('general', 'invalid_timezone') . '<br />';
                         } else {
                             // Get field name
                             $id = explode(' ', $item);
@@ -368,7 +368,7 @@ if (isset($_GET['do'])) {
                             $field = $queries->getWhere('profile_fields', ['id', '=', $id]);
                             if (count($field)) {
                                 $field = $field[0];
-                                $errors[] = str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')).'<br />';
+                                $errors[] = str_replace('{x}', Output::getClean($field->name), $language->get('user', 'field_is_required')) . '<br />';
                             }
                         }
                     }
@@ -423,25 +423,25 @@ if (isset($_GET['do'])) {
                             if (strpos($error, $language->get('user', 'password_required')) !== false) {
                                 // Only add error once
                             } else {
-                                $errors[] = $language->get('user', 'password_required').'<br />';
+                                $errors[] = $language->get('user', 'password_required') . '<br />';
                             }
                         } elseif (strpos($item, 'minimum') !== false) {
                             // Field under 6 chars
                             if (strpos($error, $language->get('user', 'password_minimum_6')) !== false) {
                                 // Only add error once
                             } else {
-                                $errors[] = $language->get('user', 'password_minimum_6').'<br />';
+                                $errors[] = $language->get('user', 'password_minimum_6') . '<br />';
                             }
                         } elseif (strpos($item, 'maximum') !== false) {
                             // Field under 6 chars
                             if (strpos($error, $language->get('user', 'password_maximum_30')) !== false) {
                                 // Only add error once
                             } else {
-                                $errors[] = $language->get('user', 'password_maximum_30').'<br />';
+                                $errors[] = $language->get('user', 'password_maximum_30') . '<br />';
                             }
                         } elseif (strpos($item, 'must match') !== false) {
                             // Password must match password again
-                            $errors[] = $language->get('user', 'passwords_dont_match').'<br />';
+                            $errors[] = $language->get('user', 'passwords_dont_match') . '<br />';
                         }
                     }
                 }
@@ -495,19 +495,19 @@ if (isset($_GET['do'])) {
                         if (strpos($item, 'is required') !== false) {
                             // Empty field
                             if (strpos($item, 'password') !== false) {
-                                $errors[] = $language->get('user', 'password_required').'<br />';
+                                $errors[] = $language->get('user', 'password_required') . '<br />';
                             } else {
-                                $errors[] = $language->get('user', 'email_required').'<br />';
+                                $errors[] = $language->get('user', 'email_required') . '<br />';
                             }
                         } elseif (strpos($item, 'minimum') !== false) {
                             // Field under 4 chars
-                            $errors[] = $language->get('user', 'invalid_email').'<br />';
+                            $errors[] = $language->get('user', 'invalid_email') . '<br />';
                         } elseif (strpos($item, 'maximum') !== false) {
                             // Field over 64 chars
-                            $errors[] = $language->get('user', 'invalid_email').'<br />';
+                            $errors[] = $language->get('user', 'invalid_email') . '<br />';
                         } elseif (strpos($item, 'email') !== false) {
                             // Validate email
-                            $errors[] = $language->get('general', 'contact_message_email').'<br />';
+                            $errors[] = $language->get('general', 'contact_message_email') . '<br />';
                         }
                     }
                 }
@@ -544,16 +544,16 @@ if (isset($_GET['do'])) {
     }
 
     $template->addCSSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
     ]);
 
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' => [],
     ]);
 
     $template->addJSScript('$(\'.datepicker\').datepicker();');
@@ -562,8 +562,8 @@ if (isset($_GET['do'])) {
     $formatting = $cache->retrieve('formatting');
     if ($formatting == 'markdown') {
         $template->addJSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
         ]);
 
         $template->addJSScript('
@@ -575,9 +575,9 @@ if (isset($_GET['do'])) {
 		');
     } else {
         $template->addJSFiles([
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-            (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => [],
         ]);
 
         $template->addJSScript(Input::createTinyEditor($language, 'inputSignature'));
@@ -689,7 +689,7 @@ if (isset($_GET['do'])) {
 
         if ($formatting == 'markdown') {
             // Markdown
-            require ROOT_PATH.'/core/includes/markdown/tomarkdown/autoload.php';
+            require ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php';
             $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 
             $signature = $converter->convert(htmlspecialchars_decode($user->data()->signature));
@@ -786,7 +786,7 @@ if (isset($_GET['do'])) {
     if (defined('CUSTOM_AVATARS')) {
         $smarty->assign([
             'CUSTOM_AVATARS' => true,
-            'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'core/includes/image_upload.php',
+            'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',
             'BROWSE' => $language->get('general', 'browse'),
             'UPLOAD_NEW_PROFILE_IMAGE' => $language->get('user', 'upload_new_avatar'),
         ]);
@@ -815,15 +815,15 @@ if (isset($_GET['do'])) {
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
-    require ROOT_PATH.'/core/templates/cc_navbar.php';
+    require ROOT_PATH . '/core/templates/cc_navbar.php';
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 
-    require ROOT_PATH.'/core/templates/navbar.php';
-    require ROOT_PATH.'/core/templates/footer.php';
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
     $template->displayTemplate('user/settings.tpl', $smarty);

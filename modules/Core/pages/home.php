@@ -12,16 +12,16 @@
 // Always define page name
 define('PAGE', 'index');
 $page_title = $language->get('general', 'home');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
 ]);
 
 $template->addJSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
 ]);
 
 if (Session::exists('home')) {
@@ -35,7 +35,7 @@ if (Session::exists('home_error')) {
 
 if (isset($front_page_modules)) {
     foreach ($front_page_modules as $module) {
-        require ROOT_PATH.'/'.$module;
+        require ROOT_PATH . '/' . $module;
     }
 }
 
@@ -53,8 +53,8 @@ $template->onPageLoad();
 $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
 $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('index.tpl', $smarty);

@@ -9,7 +9,7 @@
  *  View topic page
  */
 
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 
 // Set the page name for the active link in navbar
 define('PAGE', 'forum');
@@ -18,8 +18,8 @@ $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
 $mentionsParser = new MentionsParser();
 
-require ROOT_PATH.'/core/includes/emojione/autoload.php'; // Emojione
-require ROOT_PATH.'/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
+require ROOT_PATH . '/core/includes/emojione/autoload.php'; // Emojione
+require ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php'; // Markdown to HTML
 $emojione = new Emojione\Client(new Emojione\Ruleset());
 
 // Get topic ID
@@ -27,13 +27,13 @@ $tid = explode('/', $route);
 $tid = $tid[count($tid) - 1];
 
 if (! strlen($tid)) {
-    require_once ROOT_PATH.'/404.php';
+    require_once ROOT_PATH . '/404.php';
     exit();
 }
 
 $tid = explode('-', $tid);
 if (! is_numeric($tid[0])) {
-    require_once ROOT_PATH.'/404.php';
+    require_once ROOT_PATH . '/404.php';
     exit();
 }
 $tid = $tid[0];
@@ -43,7 +43,7 @@ $user_groups = $user->getAllGroupIds();
 
 $list = $forum->topicExist($tid, $user_groups);
 if (! $list) {
-    require_once ROOT_PATH.'/404.php';
+    require_once ROOT_PATH . '/404.php';
     exit();
 }
 
@@ -52,13 +52,13 @@ $topic = $queries->getWhere('topics', ['id', '=', $tid]);
 $topic = $topic[0];
 
 if ($topic->deleted == 1) {
-    require_once ROOT_PATH.'/404.php';
+    require_once ROOT_PATH . '/404.php';
     exit();
 }
 
 $list = $forum->canViewForum($topic->forum_id, $user_groups);
 if (! $list) {
-    require_once ROOT_PATH.'/403.php';
+    require_once ROOT_PATH . '/403.php';
     exit();
 }
 
@@ -71,7 +71,7 @@ if ($user->isLoggedIn()) {
 if ($topic->topic_creator != $user_id && ! $forum->canViewOtherTopics($topic->forum_id, $user_groups)) {
     // Only allow viewing stickied topics
     if ($topic->sticky == 0) {
-        require_once ROOT_PATH.'/403.php';
+        require_once ROOT_PATH . '/403.php';
         exit();
     }
 }
@@ -84,7 +84,7 @@ if (isset($_GET['p'])) {
     } else {
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
-            Redirect::to(URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title)));
+            Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
             exit();
         }
         $p = $_GET['p'];
@@ -106,14 +106,14 @@ if (isset($_GET['pid'])) {
             $i++;
         }
         if (ceil($output / 10) != $p) {
-            Redirect::to(URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title), 'p='.ceil($output / 10)).'#post-'.$_GET['pid']);
+            Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'p=' . ceil($output / 10)) . '#post-' . $_GET['pid']);
             exit();
         } else {
-            Redirect::to(URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title)).'#post-'.$_GET['pid']);
+            Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
             exit();
         }
     } else {
-        require_once ROOT_PATH.'/404.php';
+        require_once ROOT_PATH . '/404.php';
         exit();
     }
 }
@@ -144,7 +144,7 @@ if (isset($_GET['action'])) {
         }
     }
 
-    Redirect::to(URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title)));
+    Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
     exit();
 }
 
@@ -152,29 +152,29 @@ $forum_parent = $queries->getWhere('forums', ['id', '=', $topic->forum_id]);
 
 $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', '/forum/topic']);
 if (count($page_metadata)) {
-    $first_post = $queries->orderWhere('posts', 'topic_id = '.$topic->id, 'created', 'ASC LIMIT 1');
+    $first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
     $first_post = strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], Output::getDecoded($first_post[0]->post_content)));
 
-    define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160).'...'], $page_metadata[0]->description));
+    define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
 } else {
     $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', '/forum/view_topic']);
 
     if (count($page_metadata)) {
-        $first_post = $queries->orderWhere('posts', 'topic_id = '.$topic->id, 'created', 'ASC LIMIT 1');
+        $first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
         $first_post = strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], Output::getDecoded($first_post[0]->post_content)));
 
-        define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160).'...'], $page_metadata[0]->description));
+        define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
     }
 }
 
-$page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(mb_substr($topic->topic_title, 0, 20)).'...' : Output::getClean($topic->topic_title)).' - '.str_replace('{x}', $p, $language->get('general', 'page_x'));
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+$page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(mb_substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Assign author + title to Smarty variables
 // Get first post
-$first_post = $queries->orderWhere('posts', 'topic_id = '.$tid, 'id', 'ASC LIMIT 1');
+$first_post = $queries->orderWhere('posts', 'topic_id = ' . $tid, 'id', 'ASC LIMIT 1');
 $first_post = $first_post[0];
 
 $topic_user = new User($topic->topic_creator);
@@ -286,7 +286,7 @@ if (Input::exists()) {
 
                 // Get last post ID
                 $last_post_id = $queries->getLastId();
-                $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/'.$tid, 'pid='.$last_post_id), ['path' => ROOT_PATH.'/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH.'/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
+                $content = $mentionsParser->parse($user->data()->id, $content, URL::build('/forum/topic/' . $tid, 'pid=' . $last_post_id), ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'], ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{x}', 'replace_with' => Output::getClean($user->data()->nickname)]);
 
                 $queries->update('posts', $last_post_id, [
                     'post_content' => $content,
@@ -312,9 +312,9 @@ if (Input::exists()) {
                                 Alert::create(
                                     $user_following->user_id,
                                     'new_reply',
-                                    ['path' => ROOT_PATH.'/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                    ['path' => ROOT_PATH.'/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                    URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title), 'pid='.$last_post_id)
+                                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{x}', '{y}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                    URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
                                 );
                                 $queries->update('topics_following', $user_following->id, [
                                     'existing_alerts' => 1,
@@ -337,12 +337,12 @@ if (Input::exists()) {
                             str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject')),
                             $language->get('emails', 'greeting'),
                             str_replace(['{x}', '{z}'], [$user->data()->username, html_entity_decode($content)], $language->get('emails', 'forum_topic_reply_message')),
-                            rtrim(Util::getSelfURL(), '/').URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title), 'pid='.$last_post_id),
+                            rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
                             $language->get('emails', 'thanks'),
                         ],
                         $html
                     );
-                    $subject = SITE_NAME.' - '.str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject'));
+                    $subject = SITE_NAME . ' - ' . str_replace(['{x}', '{y}'], [$user->data()->username, $topic->topic_title], $language->get('emails', 'forum_topic_reply_subject'));
                     $siteemail = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
                     $siteemail = $siteemail[0]->value;
                     $contactemail = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
@@ -374,11 +374,11 @@ if (Input::exists()) {
                         } else {
                             foreach ($users_following_info as $user_info) {
                                 // PHP mail function
-                                $headers = 'From: '.$siteemail."\r\n".
-                                    'Reply-To: '.$contactemail."\r\n".
-                                    'X-Mailer: PHP/'.phpversion()."\r\n".
-                                    'MIME-Version: 1.0'."\r\n".
-                                    'Content-type: text/html; charset=UTF-8'."\r\n";
+                                $headers = 'From: ' . $siteemail . "\r\n" .
+                                    'Reply-To: ' . $contactemail . "\r\n" .
+                                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                                    'MIME-Version: 1.0' . "\r\n" .
+                                    'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                                 $email = [
                                     'to' => $user_info['email'],
@@ -406,7 +406,7 @@ if (Input::exists()) {
                     }
                 }
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
-                Redirect::to(URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title), 'pid='.$last_post_id));
+                Redirect::to(URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
                 exit();
             } catch (Exception $e) {
                 exit($e->getMessage());
@@ -435,22 +435,22 @@ if ($user->isLoggedIn()) {
 
 // View count
 if ($user->isLoggedIn() || Cookie::exists('alert-box')) {
-    if (! Cookie::exists('nl-topic-'.$tid)) {
+    if (! Cookie::exists('nl-topic-' . $tid)) {
         $queries->increment('topics', $tid, 'topic_views');
-        Cookie::put('nl-topic-'.$tid, 'true', 3600);
+        Cookie::put('nl-topic-' . $tid, 'true', 3600);
     }
 } else {
-    if (! Session::exists('nl-topic-'.$tid)) {
+    if (! Session::exists('nl-topic-' . $tid)) {
         $queries->increment('topics', $tid, 'topic_views');
-        Session::put('nl-topic-'.$tid, 'true');
+        Session::put('nl-topic-' . $tid, 'true');
     }
 }
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
 ]);
 
 if ($user->isLoggedIn()) {
@@ -473,12 +473,12 @@ $breadcrumbs = [
         'id' => 0,
         'forum_title' => Output::getClean($topic->topic_title),
         'active' => 1,
-        'link' => URL::build('/forum/topic/'.$topic->id.'-'.$forum->titleToURL($topic->topic_title)),
+        'link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title)),
     ],
     1 => [
         'id' => $forum_parent[0]->id,
         'forum_title' => Output::getClean($forum_parent[0]->forum_title),
-        'link' => URL::build('/forum/view/'.$forum_parent[0]->id.'-'.$forum->titleToURL($forum_parent[0]->forum_title)),
+        'link' => URL::build('/forum/view/' . $forum_parent[0]->id . '-' . $forum->titleToURL($forum_parent[0]->forum_title)),
     ],
 ];
 if (! empty($parent_category) && $parent_category[0]->parent == 0) {
@@ -486,14 +486,14 @@ if (! empty($parent_category) && $parent_category[0]->parent == 0) {
     $breadcrumbs[] = [
         'id' => $parent_category[0]->id,
         'forum_title' => Output::getClean($parent_category[0]->forum_title),
-        'link' => URL::build('/forum/view/'.$parent_category[0]->id.'-'.$forum->titleToURL($parent_category[0]->forum_title)),
+        'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title)),
     ];
 } elseif (! empty($parent_category)) {
     // Parent forum, get its category
     $breadcrumbs[] = [
         'id' => $parent_category[0]->id,
         'forum_title' => Output::getClean($parent_category[0]->forum_title),
-        'link' => URL::build('/forum/view/'.$parent_category[0]->id.'-'.$forum->titleToURL($parent_category[0]->forum_title)),
+        'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title)),
     ];
     $parent = false;
     while ($parent == false) {
@@ -501,7 +501,7 @@ if (! empty($parent_category) && $parent_category[0]->parent == 0) {
         $breadcrumbs[] = [
             'id' => $parent_category[0]->id,
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
-            'link' => URL::build('/forum/view/'.$parent_category[0]->id.'-'.$forum->titleToURL($parent_category[0]->forum_title)),
+            'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title)),
         ];
         if ($parent_category[0]->parent == 0) {
             $parent = true;
@@ -560,18 +560,18 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
     $smarty->assign([
         'CAN_MODERATE' => true,
         'MOD_ACTIONS' => $forum_language->get('forum', 'mod_actions'),
-        'LOCK_URL' => URL::build('/forum/lock/', 'tid='.$tid),
+        'LOCK_URL' => URL::build('/forum/lock/', 'tid=' . $tid),
         'LOCK' => (($topic->locked == 1) ? $forum_language->get('forum', 'unlock_topic') : $forum_language->get('forum', 'lock_topic')),
-        'MERGE_URL' => URL::build('/forum/merge/', 'tid='.$tid),
+        'MERGE_URL' => URL::build('/forum/merge/', 'tid=' . $tid),
         'MERGE' => $forum_language->get('forum', 'merge_topic'),
-        'DELETE_URL' => URL::build('/forum/delete/', 'tid='.$tid),
+        'DELETE_URL' => URL::build('/forum/delete/', 'tid=' . $tid),
         'CONFIRM_DELETE' => $forum_language->get('forum', 'confirm_delete_topic'),
         'CONFIRM_DELETE_SHORT' => $language->get('general', 'confirm_delete'),
         'CONFIRM_DELETE_POST' => $forum_language->get('forum', 'confirm_delete_post'),
         'DELETE' => $forum_language->get('forum', 'delete_topic'),
-        'MOVE_URL' => URL::build('/forum/move/', 'tid='.$tid),
+        'MOVE_URL' => URL::build('/forum/move/', 'tid=' . $tid),
         'MOVE' => $forum_language->get('forum', 'move_topic'),
-        'STICK_URL' => URL::build('/forum/stick/', 'tid='.$tid),
+        'STICK_URL' => URL::build('/forum/stick/', 'tid=' . $tid),
         'STICK' => (($topic->sticky == 1) ? $forum_language->get('forum', 'unstick_topic') : $forum_language->get('forum', 'stick_topic')),
         'MARK_AS_SPAM' => $language->get('moderator', 'mark_as_spam'),
         'CONFIRM_SPAM_POST' => $language->get('moderator', 'confirm_spam'),
@@ -582,15 +582,15 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
 $smarty->assign([
     'SHARE' => $forum_language->get('forum', 'share'),
     'SHARE_TWITTER' => $forum_language->get('forum', 'share_twitter'),
-    'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text='.Output::getClean(rtrim(Util::getSelfURL(), '/')).URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title)),
+    'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
     'SHARE_FACEBOOK' => $forum_language->get('forum', 'share_facebook'),
-    'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u='.Output::getClean(rtrim(Util::getSelfURL(), '/')).URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title)),
+    'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . Output::getClean(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)),
 ]);
 
 // Pagination
 $paginator = new Paginator((isset($template_pagination) ? $template_pagination : []));
 $results = $paginator->getLimited($posts, 10, $p, count($posts));
-$pagination = $paginator->generate(7, URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title), true));
+$pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), true));
 
 $smarty->assign('PAGINATION', $pagination);
 
@@ -608,10 +608,10 @@ for ($n = 0; $n < count($results->data); $n++) {
     $signature = $post_creator->getSignature();
 
     // Panel heading content
-    $url = URL::build('/forum/topic/'.$tid.'-'.$forum->titleToURL($topic->topic_title), 'pid='.$results->data[$n]->id);
+    $url = URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $results->data[$n]->id);
 
     if ($n != 0) {
-        $heading = $forum_language->get('forum', 're').Output::getClean($topic->topic_title);
+        $heading = $forum_language->get('forum', 're') . Output::getClean($topic->topic_title);
     } else {
         $heading = Output::getClean($topic->topic_title);
     }
@@ -626,13 +626,13 @@ for ($n = 0; $n < count($results->data); $n++) {
         // Edit button
         if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
             $buttons['edit'] = [
-                'URL' => URL::build('/forum/edit/', 'pid='.$results->data[$n]->id.'&amp;tid='.$tid),
+                'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
                 'TEXT' => $forum_language->get('forum', 'edit'),
             ];
         } elseif ($user->data()->id == $results->data[$n]->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
             if ($topic->locked != 1) { // Can't edit if topic is locked
                 $buttons['edit'] = [
-                    'URL' => URL::build('/forum/edit/', 'pid='.$results->data[$n]->id.'&amp;tid='.$tid),
+                    'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
                     'TEXT' => $forum_language->get('forum', 'edit'),
                 ];
             }
@@ -641,9 +641,9 @@ for ($n = 0; $n < count($results->data); $n++) {
         // Delete button
         if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
             $buttons['delete'] = [
-                'URL' => URL::build('/forum/delete_post/', 'pid='.$results->data[$n]->id.'&amp;tid='.$tid),
+                'URL' => URL::build('/forum/delete_post/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
                 'TEXT' => $language->get('general', 'delete'),
-                'NUMBER' => $p.$n,
+                'NUMBER' => $p . $n,
             ];
             $buttons['spam'] = [
                 'URL' => URL::build('/forum/spam/'),
@@ -794,12 +794,12 @@ if ($user->isLoggedIn()) {
 
         $smarty->assign([
             'UNFOLLOW' => $forum_language->get('forum', 'unfollow'),
-            'UNFOLLOW_URL' => URL::build('/forum/topic/'.$tid.'/', 'action=unfollow'),
+            'UNFOLLOW_URL' => URL::build('/forum/topic/' . $tid . '/', 'action=unfollow'),
         ]);
     } else {
         $smarty->assign([
             'FOLLOW' => $forum_language->get('forum', 'follow'),
-            'FOLLOW_URL' => URL::build('/forum/topic/'.$tid.'/', 'action=follow'),
+            'FOLLOW_URL' => URL::build('/forum/topic/' . $tid . '/', 'action=follow'),
         ]);
     }
 }
@@ -843,7 +843,7 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
     ]);
 
     $template->addJSScript('
@@ -855,9 +855,9 @@ if ($formatting == 'markdown') {
 	');
 } else {
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => [],
     ]);
 
     if ($user->isLoggedIn()) {
@@ -879,7 +879,7 @@ if ($user->isLoggedIn()) {
 
     $template->addJSScript('
 	$(document).ready(function() {
-		if(typeof $.cookie(\''.$tid.'-quoted\') === \'undefined\'){
+		if(typeof $.cookie(\'' . $tid . '-quoted\') === \'undefined\'){
 			$("#quoteButton").hide();
 		}
 	});
@@ -895,7 +895,7 @@ if ($user->isLoggedIn()) {
 			toastr.options.progressBar = true;
 			toastr.options.closeButton = true;
 			toastr.options.positionClass = \'toast-bottom-left\';
-			toastr.info(\''.$forum_language->get('forum', 'removed_quoted_post').'\');
+			toastr.info(\'' . $forum_language->get('forum', 'removed_quoted_post') . '\');
 		}
 		else {
 			quotedPosts.push(post);
@@ -904,18 +904,18 @@ if ($user->isLoggedIn()) {
 			toastr.options.progressBar = true;
 			toastr.options.closeButton = true;
 			toastr.options.positionClass = \'toast-bottom-left\';
-			toastr.info(\''.$forum_language->get('forum', 'quoted_post').'\');
+			toastr.info(\'' . $forum_language->get('forum', 'quoted_post') . '\');
 		}
 
 		if(quotedPosts.length == 0){
 			// Delete cookie
-			$.removeCookie(\''.$tid.'-quoted\');
+			$.removeCookie(\'' . $tid . '-quoted\');
 
 			// Hide insert quote button
 			$("#quoteButton").hide();
 		} else {
 			// Create cookie
-			$.cookie(\''.$tid.'-quoted\', JSON.stringify(quotedPosts));
+			$.cookie(\'' . $tid . '-quoted\', JSON.stringify(quotedPosts));
 
 			// Show insert quote button
 			$("#quoteButton").show();
@@ -925,30 +925,30 @@ if ($user->isLoggedIn()) {
 	// Insert quoted posts to editor
 	function insertQuotes(){
 		var postData = {
-			"posts": JSON.parse($.cookie(\''.$tid.'-quoted\')),
-			"topic": '.$tid.'
+			"posts": JSON.parse($.cookie(\'' . $tid . '-quoted\')),
+			"topic": ' . $tid . '
 		};
 
 		toastr.options.onclick = function () {};
 		toastr.options.progressBar = true;
 		toastr.options.closeButton = true;
 		toastr.options.positionClass = \'toast-bottom-left\';
-		toastr.info(\''.$forum_language->get('forum', 'quoting_posts').'\');
+		toastr.info(\'' . $forum_language->get('forum', 'quoting_posts') . '\');
 
 		var getQuotes = $.ajax({
 			  type: "POST",
-			  url: "'.URL::build('/forum/get_quotes').'",
+			  url: "' . URL::build('/forum/get_quotes') . '",
 			  data: postData,
 			  dataType: "json",
 			  success: function(resultData){
 				  for(var item in resultData){
 					  if(resultData.hasOwnProperty(item)){
-					  '.$js.'
+					  ' . $js . '
 					  }
 				  }
 
 				  // Remove cookie containing quoted posts, and hide quote button
-				  $.removeCookie(\''.$tid.'-quoted\');
+				  $.removeCookie(\'' . $tid . '-quoted\');
 				  $("#quoteButton").hide();
 			  },
 			  error: function(data){
@@ -956,7 +956,7 @@ if ($user->isLoggedIn()) {
 				  toastr.options.progressBar = true;
 				  toastr.options.closeButton = true;
 				  toastr.options.positionClass = \'toast-bottom-left\';
-				  toastr.error(\''.$forum_language->get('forum', 'error_quoting_posts').'\');
+				  toastr.error(\'' . $forum_language->get('forum', 'error_quoting_posts') . '\');
 			  }
 		});
 	}
@@ -971,8 +971,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('forum/view_topic.tpl', $smarty);

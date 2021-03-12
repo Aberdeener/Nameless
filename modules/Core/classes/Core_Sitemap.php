@@ -24,7 +24,7 @@ class Core_Sitemap
         $sitemap->addItem(URL::build('/login'), 0.8);
         $sitemap->addItem(URL::build('/register'));
 
-        $portal = file_get_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('portal_cache').'.cache');
+        $portal = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('portal_cache') . '.cache');
         $portal = json_decode($portal);
         $portal = unserialize($portal->portal->data);
 
@@ -37,7 +37,7 @@ class Core_Sitemap
         $users = $db->query('SELECT username FROM nl2_users')->results();
 
         foreach ($users as $user) {
-            $sitemap->addItem(URL::build('/profile/'.Output::getClean($user->username)));
+            $sitemap->addItem(URL::build('/profile/' . Output::getClean($user->username)));
         }
 
         $users = null;

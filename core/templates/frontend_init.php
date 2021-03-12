@@ -30,14 +30,14 @@ if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && P
     }
 }
 
-$template_path = ROOT_PATH.'/custom/templates/'.TEMPLATE;
+$template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
 $smarty->setTemplateDir($template_path);
-$smarty->setCompileDir(ROOT_PATH.'/cache/templates_c');
+$smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
 
-if (file_exists(ROOT_PATH.'/custom/templates/'.TEMPLATE.'/template.php')) {
-    require ROOT_PATH.'/custom/templates/'.TEMPLATE.'/template.php';
+if (file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php')) {
+    require ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php';
 } else {
-    require ROOT_PATH.'/custom/templates/DefaultRevamp/template.php';
+    require ROOT_PATH . '/custom/templates/DefaultRevamp/template.php';
 }
 
 // User related actions
@@ -51,7 +51,7 @@ if ($user->isLoggedIn()) {
                     'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
                     'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
                     'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
-                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/'.$warning->id),
+                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . $warning->id),
                 ]);
                 break;
             }
@@ -110,7 +110,7 @@ $background_image = $cache->retrieve('background_image');
 if (! empty($background_image)) {
     $template->addCSSStyle('
 			body {
-				background-image: url(\''.Output::getClean($background_image).'\');
+				background-image: url(\'' . Output::getClean($background_image) . '\');
 				background-repeat: no-repeat;
 				background-attachment: fixed;
 				background-size: cover;

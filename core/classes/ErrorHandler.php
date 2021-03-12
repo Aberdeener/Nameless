@@ -20,21 +20,21 @@ class ErrorHandler
         switch ($errno) {
             case E_USER_ERROR:
                 define('ERRORHANDLER', true);
-                require_once ROOT_PATH.DIRECTORY_SEPARATOR.'error.php';
-                self::logError('fatal', '['.date('Y-m-d, H:i:s').'] '.$errfile.'('.$errline.') '.$errno.': '.$errstr);
+                require_once ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php';
+                self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
                 exit(1);
                 break;
 
             case E_USER_WARNING:
-                self::logError('warning', '['.date('Y-m-d, H:i:s').'] '.$errfile.'('.$errline.') '.$errno.': '.$errstr);
+                self::logError('warning', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
                 break;
 
             case E_USER_NOTICE:
-                self::logError('notice', '['.date('Y-m-d, H:i:s').'] '.$errfile.'('.$errline.') '.$errno.': '.$errstr);
+                self::logError('notice', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
                 break;
 
             default:
-                self::logError('other', '['.date('Y-m-d, H:i:s').'] '.$errfile.'('.$errline.') '.$errno.': '.$errstr);
+                self::logError('other', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . ') ' . $errno . ': ' . $errstr);
                 break;
         }
 
@@ -55,8 +55,8 @@ class ErrorHandler
             $errline = $error['line'];
 
             define('ERRORHANDLER', true);
-            require_once ROOT_PATH.DIRECTORY_SEPARATOR.'error.php';
-            self::logError('fatal', '['.date('Y-m-d, H:i:s').'] '.$errfile.'('.$errline.'): '.$errstr);
+            require_once ROOT_PATH . DIRECTORY_SEPARATOR . 'error.php';
+            self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $errfile . '(' . $errline . '): ' . $errstr);
             exit(1);
         }
     }
@@ -65,8 +65,8 @@ class ErrorHandler
     {
         try {
             if (! is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
-                if (is_writable(ROOT_PATH.DIRECTORY_SEPARATOR.'cache')) {
-                    mkdir(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'logs');
+                if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
+                    mkdir(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
                     $dir_exists = true;
                 }
             } else {
@@ -74,7 +74,7 @@ class ErrorHandler
             }
 
             if (isset($dir_exists)) {
-                file_put_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type.'-log.log']), $contents.PHP_EOL, FILE_APPEND);
+                file_put_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), $contents . PHP_EOL, FILE_APPEND);
             }
         } catch (Exception $e) {
             // Unable to write to file, ignore for now

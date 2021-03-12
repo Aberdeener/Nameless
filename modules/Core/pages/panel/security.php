@@ -17,7 +17,7 @@ define('PANEL_PAGE', 'security');
 // Define the sort column #, as for group_sync we dont show IP (since its from MC server or Discord bot)
 define('SORT', (isset($_GET['view']) && $_GET['view'] == 'group_sync') ? 1 : 2);
 $page_title = $language->get('admin', 'security');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (! isset($_GET['view'])) {
     $links = [];
@@ -87,10 +87,10 @@ if (! isset($_GET['view'])) {
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="'.$target_user->getGroupClass().'" href="'.URL::build('/panel/user/'.Output::getClean($log->user_id.'-'.$target_user->getDisplayname(true))).'">'.$target_user->getDisplayname().'</a>',
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>',
                     ],
                     1 => [
-                        'content' => '<a href="'.URL::build('/panel/users/ip_lookup/', 'ip='.Output::getClean($log->ip)).'">'.Output::getClean($log->ip).'</a>',
+                        'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>',
                     ],
                     2 => [
                         'content' => date('d M Y, H:i', $log->time),
@@ -124,10 +124,10 @@ if (! isset($_GET['view'])) {
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="'.$target_user->getGroupClass().'" href="'.URL::build('/panel/user/'.Output::getClean($log->user_id.'-'.$target_user->getDisplayname(true))).'">'.$target_user->getDisplayname().'</a>',
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>',
                     ],
                     1 => [
-                        'content' => '<a href="'.URL::build('/panel/users/ip_lookup/', 'ip='.Output::getClean($log->ip)).'">'.Output::getClean($log->ip).'</a>',
+                        'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>',
                     ],
                     2 => [
                         'content' => date('d M Y, H:i', $log->time),
@@ -163,10 +163,10 @@ if (! isset($_GET['view'])) {
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="'.$target_user->getGroupClass().'" href="'.URL::build('/panel/user/'.Output::getClean($log->user_id.'-'.$target_user->getDisplayname(true))).'">'.$target_user->getDisplayname().'</a>',
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>',
                     ],
                     1 => [
-                        'content' => '<a href="'.URL::build('/panel/users/ip_lookup/', 'ip='.Output::getClean($log->ip)).'">'.Output::getClean($log->ip).'</a>',
+                        'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>',
                     ],
                     2 => [
                         'content' => date('d M Y, H:i', $log->time),
@@ -200,19 +200,19 @@ if (! isset($_GET['view'])) {
 
                 $removed = '';
                 foreach (json_decode($log->info, true)['removed'] as $r) {
-                    $removed .= $r.', ';
+                    $removed .= $r . ', ';
                 }
                 $removed = rtrim($removed, ', ');
 
                 $added = '';
                 foreach (json_decode($log->info, true)['added'] as $a) {
-                    $added .= $a.', ';
+                    $added .= $a . ', ';
                 }
                 $added = rtrim($added, ', ');
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="'.$target_user->getGroupClass().'" href="'.URL::build('/panel/user/'.Output::getClean($log->user_id.'-'.$target_user->getDisplayname(true))).'">'.$target_user->getDisplayname().'</a>',
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>',
                     ],
                     1 => [
                         'content' => date('d M Y, H:i', $log->time),
@@ -257,10 +257,10 @@ if (! isset($_GET['view'])) {
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="'.$target_user->getGroupClass().'" href="'.URL::build('/panel/user/'.Output::getClean($log->user_id.'-'.$target_user->getDisplayname(true))).'">'.$target_user->getDisplayname().'</a>',
+                        'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>',
                     ],
                     1 => [
-                        'content' => '<a href="'.URL::build('/panel/users/ip_lookup/', 'ip='.Output::getClean($log->ip)).'">'.Output::getClean($log->ip).'</a>',
+                        'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>',
                     ],
                     2 => [
                         'content' => date('d M Y, H:i', $log->time),
@@ -326,7 +326,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

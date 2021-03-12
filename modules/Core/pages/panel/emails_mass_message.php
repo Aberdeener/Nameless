@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'emails');
 $page_title = $language->get('admin', 'emails_mass_message');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Handle input
 if (Input::exists()) {
@@ -71,11 +71,11 @@ if (Input::exists()) {
                 } else {
                     foreach ($users as $email_user) {
                         // PHP mail function
-                        $headers = 'From: '.$siteemail."\r\n".
-                            'Reply-To: '.$contactemail."\r\n".
-                            'X-Mailer: PHP/'.phpversion()."\r\n".
-                            'MIME-Version: 1.0'."\r\n".
-                            'Content-type: text/html; charset=UTF-8'."\r\n";
+                        $headers = 'From: ' . $siteemail . "\r\n" .
+                            'Reply-To: ' . $contactemail . "\r\n" .
+                            'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                            'MIME-Version: 1.0' . "\r\n" .
+                            'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                         $email = [
                             'to' => $email_user->email,
@@ -125,7 +125,7 @@ $php_mailer = $php_mailer[0]->value;
 $outgoing_email = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
 $outgoing_email = $outgoing_email[0]->value;
 
-require ROOT_PATH.'/core/email.php';
+require ROOT_PATH . '/core/email.php';
 
 $smarty->assign([
     'SENDING_MASS_MESSAGE' => $language->get('admin', 'sending_mass_message'),
@@ -140,8 +140,8 @@ $smarty->assign([
 ]);
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
 ]);
 
 // Get post formatting type (HTML or Markdown)
@@ -154,8 +154,8 @@ if ($formatting == 'markdown') {
     $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
 
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
     ]);
 
     $template->addJSScript('
@@ -167,10 +167,10 @@ if ($formatting == 'markdown') {
     ');
 } else {
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/prism/prism.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/tinymce/tinymce.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/prism/prism.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/plugins/spoiler/js/spoiler.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/tinymce/tinymce.min.js' => [],
     ]);
 
     $template->addJSScript(Input::createTinyEditor($language, 'reply'));
@@ -214,7 +214,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

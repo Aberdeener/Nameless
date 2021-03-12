@@ -5,15 +5,15 @@ $s = (isset($_GET['s']) ? (int) $_GET['s'] : 0);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
         try {
-            require realpath(__DIR__.'/../includes/upgrade_perform.php');
-            $redirect_url = ($s < 9 ? '?step=upgrade_perform&s='.($s + 1) : '?step=finish');
+            require realpath(__DIR__ . '/../includes/upgrade_perform.php');
+            $redirect_url = ($s < 9 ? '?step=upgrade_perform&s=' . ($s + 1) : '?step=finish');
 
             if (! empty($errors)) {
                 if (! isset($message)) {
-                    $message = '<p>'.$language['errors_logged'].'</p>';
-                    $message .= '<div class="ui bulleted list">'.implode('', array_map(function ($err) {
-                        return '<div class="item">'.$err.'</div>';
-                    }, $errors)).'</div>';
+                    $message = '<p>' . $language['errors_logged'] . '</p>';
+                    $message .= '<div class="ui bulleted list">' . implode('', array_map(function ($err) {
+                        return '<div class="item">' . $err . '</div>';
+                    }, $errors)) . '</div>';
                 }
 
                 $json = [

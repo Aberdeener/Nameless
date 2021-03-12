@@ -37,7 +37,7 @@ if (! ini_get('upload_tmp_dir')) {
     $tmp_dir = ini_get('upload_tmp_dir');
 }
 
-ini_set('open_basedir', ROOT_PATH.PATH_SEPARATOR.$tmp_dir.PATH_SEPARATOR.'/proc/stat');
+ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
 
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
@@ -51,24 +51,24 @@ if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
 
 try {
     // Start initialising the page
-    require ROOT_PATH.'/core/init.php';
+    require ROOT_PATH . '/core/init.php';
 } catch (Exception $e) {
     exit($e->getMessage());
 }
 
-if (! isset($GLOBALS['config']['core']) && is_file(ROOT_PATH.'/install.php')) {
+if (! isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
     Redirect::to('install.php');
 }
 
 // Get page to load from URL
 if (! isset($_GET['route']) || $_GET['route'] == '/') {
     if (count($directories) > 1 && (! isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/'))) {
-        require ROOT_PATH.'/404.php';
+        require ROOT_PATH . '/404.php';
     } else {
         // Homepage
         $pages->setActivePage($pages->getPageByURL('/'));
     }
-    require ROOT_PATH.'/modules/Core/pages/index.php';
+    require ROOT_PATH . '/modules/Core/pages/index.php';
 } else {
     $route = rtrim(strtok($_GET['route'], '?'), '/');
 
@@ -82,7 +82,7 @@ if (! isset($_GET['route']) || $_GET['route'] == '/') {
             $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $modules[$route]['module'], $modules[$route]['file']]);
 
             if (! file_exists($path)) {
-                require ROOT_PATH.'/404.php';
+                require ROOT_PATH . '/404.php';
             } else {
                 require $path;
             }
@@ -98,7 +98,7 @@ if (! isset($_GET['route']) || $_GET['route'] == '/') {
         for ($i = count($path_array) - 2; $i > 0; $i--) {
             $new_path = '/';
             for ($n = 1; $n <= $i; $n++) {
-                $new_path .= $path_array[$n].'/';
+                $new_path .= $path_array[$n] . '/';
             }
             $new_path = rtrim($new_path, '/');
             if (array_key_exists($new_path, $modules)) {
@@ -112,6 +112,6 @@ if (! isset($_GET['route']) || $_GET['route'] == '/') {
         }
 
         // 404
-        require ROOT_PATH.'/404.php';
+        require ROOT_PATH . '/404.php';
     }
 }

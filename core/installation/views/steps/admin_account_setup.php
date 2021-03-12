@@ -9,7 +9,7 @@ if (! isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != t
     exit();
 }
 
-require ROOT_PATH.'/core/includes/password.php';
+require ROOT_PATH . '/core/includes/password.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $validate = new Validate();
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $queries->delete('users', ['id', '=', 1]);
         } catch (Exception $e) {
-            $error = $language['unable_to_create_account'].': '.$e->getMessage();
+            $error = $language['unable_to_create_account'] . ': ' . $e->getMessage();
         }
     }
 }

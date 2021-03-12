@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'announcements');
 define('PANEL_PAGE', 'announcements');
 $page_title = $language->get('admin', 'announcements');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 $queries = new Queries();
 
 if (! isset($_GET['action'])) {
@@ -77,7 +77,7 @@ if (! isset($_GET['action'])) {
                             $all_groups[] = '0';
                         }
                         foreach ($groups as $group) {
-                            if (Input::get('perm-view-'.$group->id)) {
+                            if (Input::get('perm-view-' . $group->id)) {
                                 $all_groups[] = $group->id;
                             }
                         }
@@ -114,7 +114,7 @@ if (! isset($_GET['action'])) {
                                         $errors[] = $language->get('admin', 'text_colour_required');
                                         break;
                                     default:
-                                        $errors[] = $validation_error.'.';
+                                        $errors[] = $validation_error . '.';
                                 }
                             }
                         }
@@ -184,7 +184,7 @@ if (! isset($_GET['action'])) {
                             $all_groups[] = '0';
                         }
                         foreach ($queries->getWhere('groups', ['id', '<>', '0']) as $group) {
-                            if (Input::get('perm-view-'.$group->id)) {
+                            if (Input::get('perm-view-' . $group->id)) {
                                 $all_groups[] = $group->id;
                             }
                         }
@@ -221,7 +221,7 @@ if (! isset($_GET['action'])) {
                                         $errors[] = $language->get('admin', 'text_colour_required');
                                         break;
                                     default:
-                                        $errors[] = $validation_error.'.';
+                                        $errors[] = $validation_error . '.';
                                 }
                             }
                         }
@@ -329,7 +329,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

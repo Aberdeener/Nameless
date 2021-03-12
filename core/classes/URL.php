@@ -47,10 +47,10 @@ class URL
                 $params = '';
             }
 
-            $params = '?'.$params;
+            $params = '?' . $params;
         }
 
-        return (defined('CONFIG_PATH') ? CONFIG_PATH : '').$url.((substr($url, -1) == '/') ? '' : '/').$params;
+        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . ((substr($url, -1) == '/') ? '' : '/') . $params;
     }
 
     // Returns a non-friendly URL
@@ -63,9 +63,9 @@ class URL
                 $params = '';
             }
 
-            return (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/index.php?route='.$url.((substr($url, -1) == '/') ? '' : '/').'&'.$params;
+            return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/') . '&' . $params;
         } else {
-            return (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/index.php?route='.$url.((substr($url, -1) == '/') ? '' : '/');
+            return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/');
         }
     }
 }

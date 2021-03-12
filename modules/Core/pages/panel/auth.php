@@ -29,9 +29,9 @@ if ($user->isLoggedIn()) {
 define('PAGE', 'panel');
 define('PANEL_PAGE', 'auth');
 $page_title = $language->get('admin', 're-authenticate');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
-require ROOT_PATH.'/core/includes/password.php'; // Require password compat library
+require ROOT_PATH . '/core/includes/password.php'; // Require password compat library
 
 // Get login method
 $method = $queries->getWhere('settings', ['name', '=', 'login_method']);
@@ -118,7 +118,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('auth.tpl', $smarty);

@@ -22,7 +22,7 @@ class Widgets
         // Assign name to use in cache file
         $this->_name = $name;
         $this->_cache = $cache;
-        $this->_cache->setCache($this->_name.'-widgets');
+        $this->_cache->setCache($this->_name . '-widgets');
 
         $this->_db = DB::getInstance();
 
@@ -48,7 +48,7 @@ class Widgets
     {
         // Add widget to enabled widget list
         $this->_enabled[$widget->getName()] = true;
-        $this->_cache->setCache($this->_name.'-widgets');
+        $this->_cache->setCache($this->_name . '-widgets');
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database
@@ -65,7 +65,7 @@ class Widgets
     public function disable($widget)
     {
         unset($this->_enabled[$widget->getName()]);
-        $this->_cache->setCache($this->_name.'-widgets');
+        $this->_cache->setCache($this->_name . '-widgets');
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database

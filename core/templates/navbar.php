@@ -112,7 +112,7 @@ if ($user->isLoggedIn()) {
 
     $user_section['account'] = [
         'title' => $user->getDisplayname(),
-        'icon' => '<img src="'.$user->getAvatar().'">',
+        'icon' => '<img src="' . $user->getAvatar() . '">',
         'link' => '',
         'meta' => '',
         'target' => '',

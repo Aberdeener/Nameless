@@ -52,7 +52,7 @@ class User
         $groups = $this->_groups;
         if (count($groups)) {
             foreach ($groups as $group) {
-                return 'color:'.htmlspecialchars($group->group_username_color).'; '.htmlspecialchars($group->group_username_css);
+                return 'color:' . htmlspecialchars($group->group_username_color) . '; ' . htmlspecialchars($group->group_username_css);
             }
         }
 
@@ -216,7 +216,7 @@ class User
                     $hash = $hashCheck->first()->hash;
                 }
 
-                Cookie::put($this->_cookieName.'_adm', $hash, 3600);
+                Cookie::put($this->_cookieName . '_adm', $hash, 3600);
 
                 return true;
             }
@@ -244,7 +244,7 @@ class User
                     $salt = $exploded[0];
                     $pass = $exploded[1];
 
-                    return $salt.hash('sha256', hash('sha256', $password).$salt) == $salt.$pass;
+                    return $salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass;
                     break;
 
                 case 'pbkdf2':
@@ -288,7 +288,7 @@ class User
     // Build profile link
     public function getProfileURL()
     {
-        return Output::getClean(URL::build('/profile/'.$this->data()->username));
+        return Output::getClean(URL::build('/profile/' . $this->data()->username));
     }
 
     // Get the order of a specified group
@@ -363,13 +363,13 @@ class User
             // Custom avatars
             if ($data->gravatar == 1) {
                 // Gravatar
-                return 'https://secure.gravatar.com/avatar/'.md5(strtolower(trim($data->email))).'?s=128';
+                return 'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($data->email))) . '?s=128';
             } elseif ($data->has_avatar == 1) {
                 // Custom avatar
                 $exts = ['gif', 'png', 'jpg', 'jpeg'];
                 foreach ($exts as $ext) {
-                    if (file_exists(ROOT_PATH.'/uploads/avatars/'.$data->id.'.'.$ext)) {
-                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '').((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/avatars/'.$data->id.'.'.$ext.'?v='.Output::getClean($data->avatar_updated);
+                    if (file_exists(ROOT_PATH . '/uploads/avatars/' . $data->id . '.' . $ext)) {
+                        $avatar_path = ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $data->id . '.' . $ext . '?v=' . Output::getClean($data->avatar_updated);
                         break;
                     }
                 }
@@ -382,7 +382,7 @@ class User
         // Default avatar
         if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom') {
             // Custom default avatar
-            return ($full ? rtrim(Util::getSelfURL(), '/') : '').((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/avatars/defaults/'.DEFAULT_AVATAR_IMAGE;
+            return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
         } else {
             // Minecraft avatar
             if (defined('DEFAULT_AVATAR_SOURCE')) {
@@ -395,9 +395,9 @@ class User
                 switch (DEFAULT_AVATAR_SOURCE) {
                     case 'crafatar':
                         if ($perspective == 'face') {
-                            return 'https://crafatar.com/avatars/'.Output::getClean($uuid).'?size='.$size.'&amp;overlay';
+                            return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
                         } else {
-                            return 'https://crafatar.com/renders/head/'.Output::getClean($uuid).'?overlay';
+                            return 'https://crafatar.com/renders/head/' . Output::getClean($uuid) . '?overlay';
                         }
 
                         break;
@@ -405,38 +405,38 @@ class User
                     case 'nameless':
                         // Only supports face currently
                         if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) {
-                            return ($full ? rtrim(Util::getSelfURL(), '/') : '').URL::build('/avatar/'.Output::getClean($uuid));
+                            return ($full ? rtrim(Util::getSelfURL(), '/') : '') . URL::build('/avatar/' . Output::getClean($uuid));
                         } else {
-                            return ($full ? rtrim(Util::getSelfURL(), '/') : '').((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'core/avatar/face.php?u='.Output::getClean($uuid);
+                            return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid);
                         }
 
                         break;
 
                     case 'mc-heads':
                         if ($perspective == 'face') {
-                            return 'https://mc-heads.net/avatar/'.Output::getClean($uuid).'/'.$size;
+                            return 'https://mc-heads.net/avatar/' . Output::getClean($uuid) . '/' . $size;
                         } else {
-                            return 'https://mc-heads.net/head/'.Output::getClean($uuid).'/'.$size;
+                            return 'https://mc-heads.net/head/' . Output::getClean($uuid) . '/' . $size;
                         }
 
                         break;
 
                     case 'minotar':
                         if ($perspective == 'face') {
-                            return 'https://minotar.net/helm/'.Output::getClean($uuid).'/'.$size.'.png';
+                            return 'https://minotar.net/helm/' . Output::getClean($uuid) . '/' . $size . '.png';
                         } else {
-                            return 'https://minotar.net/cube/'.Output::getClean($uuid).'/'.$size.'.png';
+                            return 'https://minotar.net/cube/' . Output::getClean($uuid) . '/' . $size . '.png';
                         }
 
                         break;
 
                     case 'visage':
                         if ($perspective == 'face') {
-                            return 'https://visage.surgeplay.com/face/'.$size.'/'.Output::getClean($uuid);
+                            return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
                         } elseif ($perspective == 'bust') {
-                            return 'https://visage.surgeplay.com/bust/'.$size.'/'.Output::getClean($uuid);
+                            return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
                         } else {
-                            return 'https://visage.surgeplay.com/head/'.$size.'/'.Output::getClean($uuid);
+                            return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);
                         }
 
                         break;
@@ -444,15 +444,15 @@ class User
                     case 'cravatar':
                     default:
                         if ($perspective == 'face') {
-                            return 'https://cravatar.eu/helmavatar/'.Output::getClean($uuid).'/'.$size.'.png';
+                            return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
                         } else {
-                            return 'https://cravatar.eu/helmhead/'.Output::getClean($uuid).'/'.$size.'.png';
+                            return 'https://cravatar.eu/helmhead/' . Output::getClean($uuid) . '/' . $size . '.png';
                         }
                         break;
                 }
             } else {
                 // Fall back to cravatar
-                return 'https://cravatar.eu/helmavatar/'.Output::getClean($uuid).'/'.$size.'.png';
+                return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
             }
         }
     }
@@ -501,7 +501,7 @@ class User
         $this->_db->delete('users_admin_session', ['user_id', '=', $this->data()->id]);
 
         Session::delete($this->_admSessionName);
-        Cookie::delete($this->_cookieName.'_adm');
+        Cookie::delete($this->_cookieName . '_adm');
     }
 
     // Returns the currently logged in user's data
@@ -604,7 +604,7 @@ class User
         }
 
         $this->_db->createQuery(
-            'DELETE FROM `nl2_users_groups` '.$where,
+            'DELETE FROM `nl2_users_groups` ' . $where,
             [
                 $this->data()->id,
             ]
@@ -638,9 +638,9 @@ class User
 
         foreach ($data as $item) {
             if ($i != count($data)) {
-                $return .= '"'.$item->username.'",';
+                $return .= '"' . $item->username . '",';
             } else {
-                $return .= '"'.$item->username.'"';
+                $return .= '"' . $item->username . '"';
             }
             $i++;
         }
@@ -865,7 +865,7 @@ class User
         }
 
         if ($permission != null && ! $this->hasPermission($permission)) {
-            require_once ROOT_PATH.'/404.php';
+            require_once ROOT_PATH . '/404.php';
             exit();
         }
     }
@@ -1035,11 +1035,11 @@ class User
         $groups = '(';
         foreach ($this->_groups as $group) {
             if (is_numeric($group->id)) {
-                $groups .= ((int) $group->id).',';
+                $groups .= ((int) $group->id) . ',';
             }
         }
-        $groups = rtrim($groups, ',').')';
+        $groups = rtrim($groups, ',') . ')';
 
-        return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN '.$groups.')')->results();
+        return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
     }
 }

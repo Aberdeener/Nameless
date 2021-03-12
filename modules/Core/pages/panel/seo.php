@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'seo');
 $page_title = $language->get('admin', 'seo');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 $timeago = new Timeago(TIMEZONE);
 
@@ -23,12 +23,12 @@ $timeago = new Timeago(TIMEZONE);
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
 $errors = [];
-if (! is_dir(ROOT_PATH.'/cache/sitemaps')) {
-    if (! is_writable(ROOT_PATH.'/cache')) {
+if (! is_dir(ROOT_PATH . '/cache/sitemaps')) {
+    if (! is_writable(ROOT_PATH . '/cache')) {
         $errors[] = $language->get('admin', 'cache_not_writable');
     } else {
-        mkdir(ROOT_PATH.'/cache/sitemaps');
-        file_put_contents(ROOT_PATH.'/cache/sitemaps/.htaccess', 'Allow from all');
+        mkdir(ROOT_PATH . '/cache/sitemaps');
+        file_put_contents(ROOT_PATH . '/cache/sitemaps/.htaccess', 'Allow from all');
     }
 }
 
@@ -37,9 +37,9 @@ if (! isset($_GET['metadata'])) {
     if (Input::exists()) {
         if (Token::check(Input::get('token'))) {
             if (Input::get('type') == 'sitemap') {
-                require_once ROOT_PATH.'/core/includes/sitemapphp/Sitemap.php';
+                require_once ROOT_PATH . '/core/includes/sitemapphp/Sitemap.php';
                 $sitemap = new SitemapPHP\Sitemap(rtrim(Util::getSelfURL(), '/'));
-                $sitemap->setPath(ROOT_PATH.'/cache/sitemaps/');
+                $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
 
                 $methods = $pages->getSitemapMethods();
                 if (count($methods)) {
@@ -54,7 +54,7 @@ if (! isset($_GET['metadata'])) {
                     }
                 }
 
-                $sitemap->createSitemapIndex(rtrim(Util::getSelfURL(), '/').(defined('CONFIG_PATH') ? CONFIG_PATH : '').'/cache/sitemaps/');
+                $sitemap->createSitemapIndex(rtrim(Util::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/');
 
                 $cache->setCache('sitemap_cache');
                 $cache->store('updated', date('d M Y, H:i'));
@@ -70,10 +70,10 @@ if (! isset($_GET['metadata'])) {
         }
     }
 
-    if (! is_writable(ROOT_PATH.'/cache/sitemaps')) {
+    if (! is_writable(ROOT_PATH . '/cache/sitemaps')) {
         $errors[] = $language->get('admin', 'sitemap_not_writable');
     } else {
-        if (file_exists(ROOT_PATH.'/cache/sitemaps/sitemap-index.xml')) {
+        if (file_exists(ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')) {
             $cache->setCache('sitemap_cache');
             if ($cache->isCached('updated')) {
                 $updated = $cache->retrieve('updated');
@@ -84,8 +84,8 @@ if (! isset($_GET['metadata'])) {
 
             $smarty->assign([
                 'SITEMAP_LAST_GENERATED' => str_replace('{x}', $updated, $language->get('admin', 'sitemap_last_generated_x')),
-                'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/cache/sitemaps/sitemap-index.xml',
-                'SITEMAP_FULL_LINK' => rtrim(Util::getSelfURL(), '/').(defined('CONFIG_PATH') ? CONFIG_PATH : '').'/cache/sitemaps/sitemap-index.xml',
+                'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
+                'SITEMAP_FULL_LINK' => rtrim(Util::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
                 'LINK' => $language->get('admin', 'sitemap_link'),
             ]);
@@ -206,7 +206,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

@@ -40,7 +40,7 @@ class Util
             return false;
         }
 
-        foreach (glob($directory.'/*') as $file) {
+        foreach (glob($directory . '/*') as $file) {
             if (is_dir($file)) {
                 if (! self::recursiveRemoveDirectory($file)) {
                     return false;
@@ -80,7 +80,7 @@ class Util
             $offsets[] = $current->getOffset();
 
             // Format timezone offset
-            $offset = 'GMT '.intval($current->getOffset() / 3600).':'.str_pad(abs(intval($current->getOffset() % 3600 / 60)), 2, 0);
+            $offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($current->getOffset() % 3600 / 60)), 2, 0);
 
             // Prettify timezone name
             $name = Output::getClean(str_replace(['/', '_'], [', ', ' '], $timezone));
@@ -106,12 +106,12 @@ class Util
             function ($matches) {
                 $url = array_shift($matches);
 
-                $text = parse_url($url, PHP_URL_HOST).parse_url($url, PHP_URL_PATH);
+                $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);
                 $text = preg_replace('/^www./', '', $text);
 
                 $last = -(strlen(strrchr($text, '/'))) + 1;
                 if ($last < 0) {
-                    $text = substr($text, 0, $last).'&hellip;';
+                    $text = substr($text, 0, $last) . '&hellip;';
                 }
 
                 return sprintf('<a rel="nofollow noopener" target="_blank" href="%s">%s</a>', $url, $text);
@@ -133,9 +133,9 @@ class Util
             switch (DEFAULT_AVATAR_SOURCE) {
                 case 'crafatar':
                     if ($perspective == 'face') {
-                        return 'https://crafatar.com/avatars/'.Output::getClean($uuid).'?size='.$size.'&amp;overlay';
+                        return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
                     } else {
-                        return 'https://crafatar.com/renders/head/'.Output::getClean($uuid).'?overlay';
+                        return 'https://crafatar.com/renders/head/' . Output::getClean($uuid) . '?overlay';
                     }
 
                     break;
@@ -143,38 +143,38 @@ class Util
                 case 'nameless':
                     // Only supports face currently
                     if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) {
-                        return URL::build('/avatar/'.Output::getClean($uuid));
+                        return URL::build('/avatar/' . Output::getClean($uuid));
                     } else {
-                        return ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'core/avatar/face.php?u='.Output::getClean($uuid);
+                        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid);
                     }
 
                     break;
 
                 case 'mc-heads':
                     if ($perspective == 'face') {
-                        return 'https://mc-heads.net/avatar/'.Output::getClean($uuid).'/'.$size;
+                        return 'https://mc-heads.net/avatar/' . Output::getClean($uuid) . '/' . $size;
                     } else {
-                        return 'https://mc-heads.net/head/'.Output::getClean($uuid).'/'.$size;
+                        return 'https://mc-heads.net/head/' . Output::getClean($uuid) . '/' . $size;
                     }
 
                     break;
 
                 case 'minotar':
                     if ($perspective == 'face') {
-                        return 'https://minotar.net/helm/'.Output::getClean($uuid).'/'.$size.'.png';
+                        return 'https://minotar.net/helm/' . Output::getClean($uuid) . '/' . $size . '.png';
                     } else {
-                        return 'https://minotar.net/cube/'.Output::getClean($uuid).'/'.$size.'.png';
+                        return 'https://minotar.net/cube/' . Output::getClean($uuid) . '/' . $size . '.png';
                     }
 
                     break;
 
                 case 'visage':
                     if ($perspective == 'face') {
-                        return 'https://visage.surgeplay.com/face/'.$size.'/'.Output::getClean($uuid);
+                        return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
                     } elseif ($perspective == 'bust') {
-                        return 'https://visage.surgeplay.com/bust/'.$size.'/'.Output::getClean($uuid);
+                        return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
                     } else {
-                        return 'https://visage.surgeplay.com/head/'.$size.'/'.Output::getClean($uuid);
+                        return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);
                     }
 
                     break;
@@ -182,15 +182,15 @@ class Util
                 case 'cravatar':
                 default:
                     if ($perspective == 'face') {
-                        return 'https://cravatar.eu/helmavatar/'.Output::getClean($uuid).'/'.$size.'.png';
+                        return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
                     } else {
-                        return 'https://cravatar.eu/helmhead/'.Output::getClean($uuid).'/'.$size.'.png';
+                        return 'https://cravatar.eu/helmhead/' . Output::getClean($uuid) . '/' . $size . '.png';
                     }
                     break;
             }
         } else {
             // Fall back to cravatar
-            return 'https://cravatar.eu/helmavatar/'.Output::getClean($uuid).'/'.$size.'.png';
+            return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
         }
     }
 
@@ -217,7 +217,7 @@ class Util
                     if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) {
                         return URL::build('/avatar/{x}');
                     } else {
-                        return ((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'core/avatar/face.php?u={x}';
+                        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={x}';
                     }
                     break;
                 case 'mc-heads':
@@ -281,12 +281,12 @@ class Util
 
         if ($protocol) {
             if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
-                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http').'://'.$www.Output::getClean($hostname);
+                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . $www . Output::getClean($hostname);
             } else {
-                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http').'://'.$www.Output::getClean($hostname).':'.$_SERVER['SERVER_PORT'];
+                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . $www . Output::getClean($hostname) . ':' . $_SERVER['SERVER_PORT'];
             }
         } else {
-            $url = $www.Output::getClean($hostname);
+            $url = $www . Output::getClean($hostname);
         }
 
         if (substr($url, -1) !== '/') {
@@ -430,7 +430,7 @@ class Util
 
         if ($html) {
             foreach ($openTags as $tag) {
-                $truncate .= '</'.$tag.'>';
+                $truncate .= '</' . $tag . '>';
             }
         }
 
@@ -457,7 +457,7 @@ class Util
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid='.$uid.'&version='.$current_version.'&php_version='.urlencode(phpversion()).'&language='.LANGUAGE.'&docker='.(getenv('NAMELESSMC_METRICS_DOCKER') == true));
+        curl_setopt($ch, CURLOPT_URL, 'https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid . '&version=' . $current_version . '&php_version=' . urlencode(phpversion()) . '&language=' . LANGUAGE . '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') == true));
 
         $update_check = curl_exec($ch);
 
@@ -554,9 +554,9 @@ class Util
     {
         $data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', function ($m) {
             if (strpos($m[1], self::getSelfURL()) === false) {
-                return '<a href="'.$m[1].'" rel="nofollow noopener" target="_blank">'.$m[2].'</a>';
+                return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
             } else {
-                return '<a href="'.$m[1].'" target="_blank">'.$m[2].'</a>';
+                return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
             }
         }, $data);
 
@@ -585,7 +585,7 @@ class Util
                 $endpoint_file_name = $file->getFilename();
                 require_once $endpoint_path;
                 $endpoint_class_name = str_replace('.php', '', $endpoint_file_name);
-                $endpoints->add(new $endpoint_class_name);
+                $endpoints->add(new $endpoint_class_name());
             }
         }
     }

@@ -42,7 +42,7 @@ class ServerBanner
         $canvas = MinecraftBanner::getBackgroundCanvas(650, 80, $background);
 
         if ($favicon == null) {
-            $favicon = imagecreatefrompng(ROOT_PATH.'/core/assets/img/favicon.png');
+            $favicon = imagecreatefrompng(ROOT_PATH . '/core/assets/img/favicon.png');
         }
 
         //center the image in y-direction and add padding to the left side
@@ -99,23 +99,23 @@ class ServerBanner
         }
 
         if ($ping < 0) {
-            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/-1.png');
+            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/-1.png');
         } elseif ($ping > 0 && $ping <= 150) {
-            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/5.png');
+            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/5.png');
         } elseif ($ping <= 300) {
-            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/4.png');
+            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/4.png');
         } elseif ($ping <= 400) {
-            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/3.png');
+            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/3.png');
         } elseif ($ping <= 400) {
-            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/2.png');
+            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/2.png');
         } elseif ($ping > 400) {
-            $image = imagecreatefrompng(ROOT_PATH.'/core/assets/img/ping/1.png');
+            $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/1.png');
         }
 
         $ping_posX = 650 - 36 - 3;
         imagecopy($canvas, $image, $ping_posX, $favicon_posY, 0, 0, 36, 29);
 
-        $text = $players.' / '.$max_players;
+        $text = $players . ' / ' . $max_players;
         $box = imagettfbbox(14, 0, MinecraftBanner::getFontFile(), $text);
         $text_width = abs($box[4] - $box[0]);
 

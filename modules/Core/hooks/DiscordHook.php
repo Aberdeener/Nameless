@@ -28,10 +28,10 @@ class DiscordHook
         } else {
             $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));
             if (mb_strlen($content) > 512) {
-                $content = mb_substr($content, 0, 512).'...';
+                $content = mb_substr($content, 0, 512) . '...';
             }
 
-            $return['username'] = $params['username'].' | '.SITE_NAME;
+            $return['username'] = $params['username'] . ' | ' . SITE_NAME;
             $return['avatar_url'] = $params['avatar_url'];
             $return['embeds'] = [[
                 'description' =>  $content,

@@ -105,11 +105,11 @@ class MinecraftPing
         $Data = "\x00"; // packet ID = 0 (varint)
 
         $Data .= "\x04"; // Protocol version (varint)
-        $Data .= pack('c', strlen($this->ServerAddress)).$this->ServerAddress; // Server (varint len + UTF-8 addr)
+        $Data .= pack('c', strlen($this->ServerAddress)) . $this->ServerAddress; // Server (varint len + UTF-8 addr)
         $Data .= pack('n', $this->ServerPort); // Server port (unsigned short)
         $Data .= "\x01"; // Next state: status (varint)
 
-        $Data = pack('c', strlen($Data)).$Data; // prepend length of packet ID + data
+        $Data = pack('c', strlen($Data)) . $Data; // prepend length of packet ID + data
 
         fwrite($this->Socket, $Data); // handshake
         fwrite($this->Socket, "\x01\x00"); // status ping
@@ -230,7 +230,7 @@ class MinecraftPing
             return;
         }
 
-        $Record = dns_get_record('_minecraft._tcp.'.$this->ServerAddress, DNS_SRV);
+        $Record = dns_get_record('_minecraft._tcp.' . $this->ServerAddress, DNS_SRV);
 
         if (empty($Record)) {
             return;

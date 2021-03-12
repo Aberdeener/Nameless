@@ -16,7 +16,7 @@ define('PARENT_PAGE', 'integrations');
 define('PANEL_PAGE', 'minecraft');
 define('MINECRAFT_PAGE', 'query_errors');
 $page_title = $language->get('admin', 'query_errors');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (! isset($_GET['id'])) {
     if (isset($_GET['action']) && $_GET['action'] == 'purge') {
@@ -52,8 +52,8 @@ if (! isset($_GET['id'])) {
                 'ip' => Output::getClean($result->ip),
                 'port' => Output::getClean($result->port),
                 'date' => date('d M Y, H:i', $result->date),
-                'view_link' => URL::build('/panel/minecraft/query_errors/', 'id='.Output::getClean($result->id)),
-                'delete_link' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id='.Output::getClean($result->id)),
+                'view_link' => URL::build('/panel/minecraft/query_errors/', 'id=' . Output::getClean($result->id)),
+                'delete_link' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id=' . Output::getClean($result->id)),
             ];
         }
 
@@ -98,7 +98,7 @@ if (! isset($_GET['id'])) {
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_query_error_deletion'),
-        'DELETE_LINK' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id='.Output::getClean($query_error->id)),
+        'DELETE_LINK' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id=' . Output::getClean($query_error->id)),
         'SERVER_ADDRESS' => $language->get('admin', 'server_address'),
         'SERVER_PORT' => $language->get('admin', 'server_port'),
         'DATE' => $language->get('general', 'date'),
@@ -159,7 +159,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

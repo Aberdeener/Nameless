@@ -234,7 +234,7 @@ $language = [
     /*
      *  Hooks
      */
-    'user_x_has_registered' => '{x} has joined '.SITE_NAME.'!',
+    'user_x_has_registered' => '{x} has joined ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
 
     // Discord

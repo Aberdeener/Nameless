@@ -9,7 +9,7 @@
  *  Image upload handler
  */
 
-define('ROOT_PATH', realpath(__DIR__.'/..'));
+define('ROOT_PATH', realpath(__DIR__ . '/..'));
 $page = 'image_upload';
 
 require '../core/init.php';
@@ -18,8 +18,8 @@ if ($user->isLoggedIn()) {
     // Require Bulletproof
     require '../core/includes/bulletproof/bulletproof.php';
 
-    if (! is_dir(ROOT_PATH.'/uploads/images')) {
-        mkdir(ROOT_PATH.'/uploads/images');
+    if (! is_dir(ROOT_PATH . '/uploads/images')) {
+        mkdir(ROOT_PATH . '/uploads/images');
     }
 
     $image = new Bulletproof\Image($_FILES);
@@ -27,7 +27,7 @@ if ($user->isLoggedIn()) {
     $image->setSize(1000, 2 * 1048576)
         ->setMime(['jpeg', 'png', 'gif'])
         ->setDimension(2000, 2000)
-        ->setLocation(ROOT_PATH.'/uploads/images/'.$user->data()->id, 0777);
+        ->setLocation(ROOT_PATH . '/uploads/images/' . $user->data()->id, 0777);
 
     if ($image['upload']) {
         $upload = $image->upload();
@@ -40,17 +40,17 @@ if ($user->isLoggedIn()) {
 
             $langCode = $_GET['langCode'];
 
-            $url = ((defined('CONFIG_PATH')) ? CONFIG_PATH : ''.'/uploads/images/'.$user->data()->id.'/'.$image->getName().'.'.$image->getMime());
+            $url = ((defined('CONFIG_PATH')) ? CONFIG_PATH : '' . '/uploads/images/' . $user->data()->id . '/' . $image->getName() . '.' . $image->getMime());
 
             echo json_encode([
                 'uploaded' => '1',
-                'fileName' => $image->getName().$image->getMime(),
+                'fileName' => $image->getName() . $image->getMime(),
                 'url' => $url,
             ]);
         } else {
             echo json_encode([
                 'uploaded' => '0',
-                'error' => ['message' => $image->getError().' '.$image->getMime()],
+                'error' => ['message' => $image->getError() . ' ' . $image->getMime()],
             ]);
         }
     }

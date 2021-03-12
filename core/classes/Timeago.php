@@ -217,7 +217,7 @@ class TimeAgo
                 if (isset($replace)) {
                     return str_replace('{x}', $replace, pluralForm($replace, $time_language[$key]));
                 } else {
-                    return 'Plural specified but replace not set for '.Output::getClean($key);
+                    return 'Plural specified but replace not set for ' . Output::getClean($key);
                 }
             } else {
                 return 'Plural form function not defined';

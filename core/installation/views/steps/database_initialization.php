@@ -23,7 +23,7 @@ $scripts = [
 						$("#continue-button").removeClass("disabled");
 					}
 					if (response.error) {
-						$("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">'.$language['reload'].'</button>");
+						$("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">' . $language['reload'] . '</button>");
 					}
 				}
 			});

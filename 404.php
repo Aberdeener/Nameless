@@ -14,7 +14,7 @@ header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
 
 define('PAGE', 404);
 $page_title = '404';
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -34,8 +34,8 @@ $template->onPageLoad();
 $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
 $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Assign Smarty variables
 $smarty->assign(
@@ -44,7 +44,7 @@ $smarty->assign(
         'CONTENT' => $language->get('errors', '404_content'),
         'BACK' => $language->get('errors', '404_back'),
         'HOME' => $language->get('errors', '404_home'),
-        'ERROR' => str_replace(['{x}', '{y}'], ['<a href="'.URL::build('/contact').'">', '</a>'], $language->get('errors', '404_error')),
+        'ERROR' => str_replace(['{x}', '{y}'], ['<a href="' . URL::build('/contact') . '">', '</a>'], $language->get('errors', '404_error')),
         'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : ''),
     ]
 );

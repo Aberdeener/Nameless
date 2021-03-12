@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'api');
 $page_title = $language->get('admin', 'api');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (! isset($_GET['view'])) {
     if (isset($_GET['action']) && $_GET['action'] == 'api_regen') {
@@ -36,7 +36,7 @@ if (! isset($_GET['view'])) {
         );
 
         // Cache
-        file_put_contents(ROOT_PATH.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.sha1('apicache').'.cache', $new_api_key);
+        file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
 
         // Redirect
         Session::flash('api_success', $language->get('admin', 'api_key_regenerated'));
@@ -337,7 +337,7 @@ if (! isset($_GET['view'])) {
             'NO' => $language->get('general', 'no'),
             'CHANGE' => $language->get('general', 'change'),
             'API_URL' => $language->get('admin', 'api_url'),
-            'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/').rtrim(URL::build('/api/v2/'.Output::getClean($plugin_api), '', 'non-friendly'), '/'),
+            'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/' . Output::getClean($plugin_api), '', 'non-friendly'), '/'),
             'ENABLE_API_FOR_URL' => $language->get('api', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
             'ENABLE_LEGACY_API' => $language->get('admin', 'enable_legacy_api'),
@@ -393,7 +393,7 @@ if (! isset($_GET['view'])) {
                 'ingame' => Output::getClean($group->ingame_rank_name),
                 'discord' => $group->discord_role_id,
                 'website' => $group->website_group_id,
-                'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id='.Output::getClean($group->id)),
+                'delete_link' => URL::build('/panel/core/api/', 'view=group_sync&action=delete&id=' . Output::getClean($group->id)),
             ];
         }
 
@@ -463,7 +463,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

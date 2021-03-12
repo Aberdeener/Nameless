@@ -15,10 +15,10 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'debugging_and_maintenance');
 $page_title = $language->get('admin', 'error_logs');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (isset($_GET['log']) && isset($_GET['do']) && $_GET['do'] == 'purge') {
-    file_put_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'].'-log.log']), '');
+    file_put_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
     Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
     Redirect::to(URL::build('/panel/core/errors'));
     exit();
@@ -61,8 +61,8 @@ if (isset($_GET['log'])) {
             break;
     }
 
-    if (file_exists(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'].'-log.log']))) {
-        $smarty->assign('LOG', nl2br(Output::getClean(file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type.'-log.log'])))));
+    if (file_exists(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
+        $smarty->assign('LOG', nl2br(Output::getClean(file_get_contents(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
     } else {
         $smarty->assign('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
     }
@@ -76,7 +76,7 @@ if (isset($_GET['log'])) {
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-        'PURGE_LOG_LINK' => URL::build('/panel/core/errors/', 'log='.$type.'&do=purge'),
+        'PURGE_LOG_LINK' => URL::build('/panel/core/errors/', 'log=' . $type . '&do=purge'),
     ]);
 } else {
     $smarty->assign([
@@ -107,7 +107,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 if (! isset($_GET['log'])) {

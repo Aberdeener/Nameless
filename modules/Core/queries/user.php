@@ -7,13 +7,13 @@ if (! isset($_GET['id'])) {
 
 define('PAGE', 'user_query');
 $page_title = 'user_query';
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 if (! is_numeric($_GET['id'])) {
     // Username
     $username = Output::getClean($_GET['id']);
     $nickname = $username;
-    $profile = URL::build('/profile/'.$username);
+    $profile = URL::build('/profile/' . $username);
     $avatar = (isset($_GET['uuid']) ? Util::getAvatarFromUUID(Output::getClean($_GET['uuid']), 128) : Util::getAvatarFromUUID($username, 128));
     $style = '';
     $groups = [];

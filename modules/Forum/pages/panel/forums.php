@@ -22,7 +22,7 @@ if ($user->isLoggedIn()) {
         exit();
     } else {
         if (! $user->hasPermission('admincp.forums')) {
-            require_once ROOT_PATH.'/403.php';
+            require_once ROOT_PATH . '/403.php';
             exit();
         }
     }
@@ -36,7 +36,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'forum');
 define('PANEL_PAGE', 'forums');
 $page_title = $forum_language->get('forum', 'forums');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
     if (Input::exists()) {
@@ -97,10 +97,10 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
             }
 
             $template_array[] = [
-                'edit_link' => URL::build('/panel/forums/', 'forum='.Output::getClean($item->id)),
-                'delete_link' => URL::build('/panel/forums/', 'action=delete&fid='.Output::getClean($item->id)),
-                'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid='.Output::getClean($item->id)) : null),
-                'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid='.Output::getClean($item->id)) : null),
+                'edit_link' => URL::build('/panel/forums/', 'forum=' . Output::getClean($item->id)),
+                'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . Output::getClean($item->id)),
+                'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid=' . Output::getClean($item->id)) : null),
+                'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid=' . Output::getClean($item->id)) : null),
                 'title' => Output::getClean(Output::getDecoded($item->forum_title)),
                 'description' => Output::getPurified(Output::getDecoded($item->forum_description)),
                 'id' => Output::getClean($item->id),
@@ -172,7 +172,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
 
                                 $forum_id = $queries->getLastId();
 
-                                Redirect::to(URL::build('/panel/forums/', 'action=new&step=2&forum='.$forum_id));
+                                Redirect::to(URL::build('/panel/forums/', 'action=new&step=2&forum=' . $forum_id));
                                 exit();
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
@@ -243,7 +243,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
 
                 // Forums only
                 if ($forum->forum_type == 'category') {
-                    Redirect::to(URL::build('/panel/forums/', 'forum='.$forum->id));
+                    Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
                     exit();
                 }
 
@@ -286,7 +286,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
                                     'hooks' => $hooks,
                                 ]);
 
-                                Redirect::to(URL::build('/panel/forums/', 'forum='.$forum->id));
+                                Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
                                 exit();
                             } else {
                                 $errors[] = $forum_language->get('forum', 'invalid_redirect_url');
@@ -353,12 +353,12 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
 
         case 'order':
             if (! isset($_GET['dir'])) {
-                echo $forum_language->get('forum', 'invalid_action').' - <a href="'.URL::build('/panel/forums').'">'.$language->get('general', 'back').'</a>';
+                echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
                 exit();
             }
             if ($_GET['dir'] == 'up' || $_GET['dir'] == 'down') {
                 if (! isset($_GET['fid']) || ! is_numeric($_GET['fid'])) {
-                    echo $forum_language->get('forum', 'invalid_action').' - <a href="'.URL::build('/panel/forums').'">'.$language->get('general', 'back').'</a>';
+                    echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
                     exit();
                 }
 
@@ -441,7 +441,7 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
 
                 exit('Complete');
             } else {
-                echo $forum_language->get('forum', 'invalid_action').' - <a href="'.URL::build('/panel/forums').'">'.$language->get('general', 'back').'</a>';
+                echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
                 exit();
             }
             break;
@@ -702,12 +702,12 @@ if (! isset($_GET['action']) && ! isset($_GET['forum'])) {
 
                     // Group forum permissions
                     foreach ($groups as $group) {
-                        $view = Input::get('perm-view-'.$group->id);
-                        $create = Input::get('perm-topic-'.$group->id);
-                        $edit = Input::get('perm-edit_topic-'.$group->id);
-                        $post = Input::get('perm-post-'.$group->id);
-                        $view_others = Input::get('perm-view_others-'.$group->id);
-                        $moderate = Input::get('perm-moderate-'.$group->id);
+                        $view = Input::get('perm-view-' . $group->id);
+                        $create = Input::get('perm-topic-' . $group->id);
+                        $edit = Input::get('perm-edit_topic-' . $group->id);
+                        $post = Input::get('perm-post-' . $group->id);
+                        $view_others = Input::get('perm-view_others-' . $group->id);
+                        $moderate = Input::get('perm-moderate-' . $group->id);
 
                         if (! ($view)) {
                             $view = 0;
@@ -945,7 +945,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

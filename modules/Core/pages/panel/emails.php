@@ -15,7 +15,7 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'core_configuration');
 define('PANEL_PAGE', 'emails');
 $page_title = $language->get('admin', 'emails');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Since emails are sent in the user's language, they need to be able to pick which language's messages to edit
 if (Session::exists('editing_language')) {
@@ -51,8 +51,8 @@ if (isset($_GET['action'])) {
                 // PHP Mailer
                 $email = [
                     'to' => ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
-                    'subject' => SITE_NAME.' - Test Email',
-                    'message' => SITE_NAME.' - Test email successful!',
+                    'subject' => SITE_NAME . ' - Test Email',
+                    'message' => SITE_NAME . ' - Test email successful!',
                 ];
 
                 $sent = Email::send($email, 'mailer');
@@ -67,15 +67,15 @@ if (isset($_GET['action'])) {
                 $siteemail = $siteemail[0]->value;
 
                 $to = $user->data()->email;
-                $subject = SITE_NAME.' - Test Email';
+                $subject = SITE_NAME . ' - Test Email';
 
-                $message = SITE_NAME.' - Test email successful!';
+                $message = SITE_NAME . ' - Test email successful!';
 
-                $headers = 'From: '.$siteemail."\r\n".
-                    'Reply-To: '.$siteemail."\r\n".
-                    'X-Mailer: PHP/'.phpversion()."\r\n".
-                    'MIME-Version: 1.0'."\r\n".
-                    'Content-type: text/html; charset=UTF-8'."\r\n";
+                $headers = 'From: ' . $siteemail . "\r\n" .
+                    'Reply-To: ' . $siteemail . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                    'MIME-Version: 1.0' . "\r\n" .
+                    'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                 $email = [
                     'to' => $to,
@@ -111,7 +111,7 @@ if (isset($_GET['action'])) {
         $languages = $queries->getWhere('languages', ['id', '<>', 0]);
         foreach ($languages as $language_db) {
             $lang = new Language(null, $language_db->name);
-            $lang_file = ($lang->getActiveLanguageDirectory().DIRECTORY_SEPARATOR.'emails.php');
+            $lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
             if (file_exists($lang_file) && is_writable($lang_file)) {
                 array_push($available_languages, $language_db);
             }
@@ -147,7 +147,7 @@ if (isset($_GET['action'])) {
 
         $smarty->assign([
             'USER_NAME' => $user->data()->username,
-            'SUBJECT' => $viewing_language->get('emails', $_GET['email'].'_subject'),
+            'SUBJECT' => $viewing_language->get('emails', $_GET['email'] . '_subject'),
             'MESSAGE' => Email::formatEmail($_GET['email'], $viewing_language),
         ]);
 
@@ -170,8 +170,8 @@ if (isset($_GET['action'])) {
                 $editing_lang->set('emails', 'thanks', Output::getClean(Input::get('thanks')));
 
                 foreach ($emails as $email) {
-                    $editing_lang->set('emails', $email[0].'_subject', Output::getClean(Input::get($email[0].'_subject')));
-                    $editing_lang->set('emails', $email[0].'_message', Output::getClean(Input::get($email[0].'_message')));
+                    $editing_lang->set('emails', $email[0] . '_subject', Output::getClean(Input::get($email[0] . '_subject')));
+                    $editing_lang->set('emails', $email[0] . '_message', Output::getClean(Input::get($email[0] . '_message')));
                 }
 
                 if (! count($errors)) {
@@ -203,22 +203,22 @@ if (isset($_GET['action'])) {
                 }
 
                 // Update config
-                $config_path = ROOT_PATH.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'email.php';
+                $config_path = ROOT_PATH . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'email.php';
                 if (file_exists($config_path)) {
                     if (is_writable($config_path)) {
-                        require ROOT_PATH.'/core/email.php';
+                        require ROOT_PATH . '/core/email.php';
 
                         // Build new email config
-                        $config = '<?php'.PHP_EOL.
-                            '$GLOBALS[\'email\'] = array('.PHP_EOL.
-                            '    \'email\' => \''.str_replace('\'', '\\\'', (! empty($_POST['email']) ? $_POST['email'] : $GLOBALS['email']['email'])).'\','.PHP_EOL.
-                            '    \'username\' => \''.str_replace('\'', '\\\'', (! empty($_POST['username']) ? $_POST['username'] : $GLOBALS['email']['username'])).'\','.PHP_EOL.
-                            '    \'password\' => \''.str_replace('\'', '\\\'', ((! empty($_POST['password'])) ? $_POST['password'] : $GLOBALS['email']['password'])).'\','.PHP_EOL.
-                            '    \'name\' => \''.str_replace('\'', '\\\'', (! empty($_POST['name']) ? $_POST['name'] : $GLOBALS['email']['name'])).'\','.PHP_EOL.
-                            '    \'host\' => \''.str_replace('\'', '\\\'', (! empty($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])).'\','.PHP_EOL.
-                            '    \'port\' => '.str_replace('\'', '\\\'', (! empty($_POST['port']) ? $_POST['port'] : $GLOBALS['email']['port'])).','.PHP_EOL.
-                            '    \'secure\' => \''.str_replace('\'', '\\\'', $GLOBALS['email']['secure']).'\','.PHP_EOL.
-                            '    \'smtp_auth\' => '.(($GLOBALS['email']['smtp_auth']) ? 'true' : 'false').PHP_EOL.
+                        $config = '<?php' . PHP_EOL .
+                            '$GLOBALS[\'email\'] = array(' . PHP_EOL .
+                            '    \'email\' => \'' . str_replace('\'', '\\\'', (! empty($_POST['email']) ? $_POST['email'] : $GLOBALS['email']['email'])) . '\',' . PHP_EOL .
+                            '    \'username\' => \'' . str_replace('\'', '\\\'', (! empty($_POST['username']) ? $_POST['username'] : $GLOBALS['email']['username'])) . '\',' . PHP_EOL .
+                            '    \'password\' => \'' . str_replace('\'', '\\\'', ((! empty($_POST['password'])) ? $_POST['password'] : $GLOBALS['email']['password'])) . '\',' . PHP_EOL .
+                            '    \'name\' => \'' . str_replace('\'', '\\\'', (! empty($_POST['name']) ? $_POST['name'] : $GLOBALS['email']['name'])) . '\',' . PHP_EOL .
+                            '    \'host\' => \'' . str_replace('\'', '\\\'', (! empty($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])) . '\',' . PHP_EOL .
+                            '    \'port\' => ' . str_replace('\'', '\\\'', (! empty($_POST['port']) ? $_POST['port'] : $GLOBALS['email']['port'])) . ',' . PHP_EOL .
+                            '    \'secure\' => \'' . str_replace('\'', '\\\'', $GLOBALS['email']['secure']) . '\',' . PHP_EOL .
+                            '    \'smtp_auth\' => ' . (($GLOBALS['email']['smtp_auth']) ? 'true' : 'false') . PHP_EOL .
                             ');';
 
                         $file = fopen($config_path, 'w');
@@ -230,18 +230,18 @@ if (isset($_GET['action'])) {
                     }
                 } else {
                     // Create one now
-                    if (is_writable(ROOT_PATH.DIRECTORY_SEPARATOR.'core')) {
+                    if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'core')) {
                         // Build new email config
-                        $config = '<?php'.PHP_EOL.
-                            '$GLOBALS[\'email\'] = array('.PHP_EOL.
-                            '    \'email\' => \''.str_replace('\'', '\\\'', (! empty($_POST['email']) ? $_POST['email'] : '')).'\','.PHP_EOL.
-                            '    \'username\' => \''.str_replace('\'', '\\\'', (! empty($_POST['username']) ? $_POST['username'] : '')).'\','.PHP_EOL.
-                            '    \'password\' => \''.str_replace('\'', '\\\'', ((! empty($_POST['password'])) ? $_POST['password'] : '')).'\','.PHP_EOL.
-                            '    \'name\' => \''.str_replace('\'', '\\\'', (! empty($_POST['name']) ? $_POST['name'] : '')).'\','.PHP_EOL.
-                            '    \'host\' => \''.str_replace('\'', '\\\'', (! empty($_POST['host']) ? $_POST['host'] : '')).'\','.PHP_EOL.
-                            '    \'port\' => \''.str_replace('\'', '\\\'', (! empty($_POST['port']) ? $_POST['host'] : 587)).','.PHP_EOL.
-                            '    \'secure\' => \'tls\','.PHP_EOL.
-                            '    \'smtp_auth\' => true'.PHP_EOL.
+                        $config = '<?php' . PHP_EOL .
+                            '$GLOBALS[\'email\'] = array(' . PHP_EOL .
+                            '    \'email\' => \'' . str_replace('\'', '\\\'', (! empty($_POST['email']) ? $_POST['email'] : '')) . '\',' . PHP_EOL .
+                            '    \'username\' => \'' . str_replace('\'', '\\\'', (! empty($_POST['username']) ? $_POST['username'] : '')) . '\',' . PHP_EOL .
+                            '    \'password\' => \'' . str_replace('\'', '\\\'', ((! empty($_POST['password'])) ? $_POST['password'] : '')) . '\',' . PHP_EOL .
+                            '    \'name\' => \'' . str_replace('\'', '\\\'', (! empty($_POST['name']) ? $_POST['name'] : '')) . '\',' . PHP_EOL .
+                            '    \'host\' => \'' . str_replace('\'', '\\\'', (! empty($_POST['host']) ? $_POST['host'] : '')) . '\',' . PHP_EOL .
+                            '    \'port\' => \'' . str_replace('\'', '\\\'', (! empty($_POST['port']) ? $_POST['host'] : 587)) . ',' . PHP_EOL .
+                            '    \'secure\' => \'tls\',' . PHP_EOL .
+                            '    \'smtp_auth\' => true' . PHP_EOL .
                             ');';
                         $file = fopen($config_path, 'w');
                         fwrite($file, $config);
@@ -269,7 +269,7 @@ if (isset($_GET['action'])) {
     $outgoing_email = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
     $outgoing_email = $outgoing_email[0]->value;
 
-    require ROOT_PATH.'/core/email.php';
+    require ROOT_PATH . '/core/email.php';
 
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
         $smarty->assign([
@@ -348,7 +348,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

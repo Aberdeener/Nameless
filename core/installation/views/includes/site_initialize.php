@@ -341,7 +341,7 @@ $queries->create('settings', [
 
 $queries->create('settings', [
     'name' => 't_and_c',
-    'value' => 'By registering on our website, you agree to the following:<p>'.$nameless_terms.'</p>',
+    'value' => 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>',
 ]);
 
 $queries->create('privacy_terms', [
@@ -658,7 +658,7 @@ $cache->store('enabled', [
 ]);
 
 $config_path = $conf['core']['path'];
-$config_path = ($config_path ? '/'.trim($config_path, '/') : '');
+$config_path = ($config_path ? '/' . trim($config_path, '/') : '');
 
 $cache->setCache('backgroundcache');
-$cache->store('banner_image', $config_path.'/uploads/template_banners/homepage_bg_trimmed.jpg');
+$cache->store('banner_image', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');

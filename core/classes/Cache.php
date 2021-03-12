@@ -252,7 +252,7 @@ class Cache
             $filename = $this->getCache();
             $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
 
-            return $this->getCachePath().$this->_getHash($filename).$this->getExtension();
+            return $this->getCachePath() . $this->_getHash($filename) . $this->getExtension();
         }
     }
 
@@ -292,10 +292,10 @@ class Cache
     private function _checkCacheDir()
     {
         if (! is_dir($this->getCachePath()) && ! mkdir($this->getCachePath(), 0775, true)) {
-            throw new Exception('Unable to create cache directory '.$this->getCachePath());
+            throw new Exception('Unable to create cache directory ' . $this->getCachePath());
         } elseif (! is_readable($this->getCachePath()) || ! is_writable($this->getCachePath())) {
             if (! chmod($this->getCachePath(), 0775)) {
-                throw new Exception('Your <b>'.$this->getCachePath().'</b> directory must be readable and writeable. Check your file permissions.');
+                throw new Exception('Your <b>' . $this->getCachePath() . '</b> directory must be readable and writeable. Check your file permissions.');
             }
         }
 

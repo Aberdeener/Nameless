@@ -18,8 +18,8 @@ if (! $user->isLoggedIn()) {
 // Always define page name for navbar
 define('PAGE', 'cc_following_topics');
 $page_title = $forum_language->get('forum', 'following_topics');
-require_once ROOT_PATH.'/core/templates/frontend_init.php';
-require_once ROOT_PATH.'/modules/Forum/classes/Forum.php';
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/modules/Forum/classes/Forum.php';
 
 $forum = new Forum();
 $timeago = new Timeago(TIMEZONE);
@@ -34,10 +34,10 @@ if (Input::exists() && Input::get('action') == 'purge') {
 $user_groups = $user->getGroups();
 $groups = '(';
 foreach ($user_groups as $group) {
-    $groups .= Output::getClean($group->id).',';
+    $groups .= Output::getClean($group->id) . ',';
 }
-$groups = rtrim($groups, ',').')';
-$topics = DB::getInstance()->query('SELECT nl2_topics.id AS id, nl2_topics.topic_title AS topic_title, nl2_topics.topic_creator AS topic_creator, nl2_topics.topic_date AS topic_date, nl2_topics.topic_last_user AS last_user, nl2_topics.topic_reply_date AS topic_reply_date, nl2_topics_following.existing_alerts AS existing_alerts FROM nl2_topics LEFT JOIN nl2_topics_following ON nl2_topics.id = nl2_topics_following.topic_id WHERE deleted = 0 AND nl2_topics.id IN (SELECT topic_id FROM nl2_topics_following WHERE user_id = ?) AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN '.$groups.' AND `view` = 1) ORDER BY nl2_topics.topic_reply_date DESC', [$user->data()->id])->results();
+$groups = rtrim($groups, ',') . ')';
+$topics = DB::getInstance()->query('SELECT nl2_topics.id AS id, nl2_topics.topic_title AS topic_title, nl2_topics.topic_creator AS topic_creator, nl2_topics.topic_date AS topic_date, nl2_topics.topic_last_user AS last_user, nl2_topics.topic_reply_date AS topic_reply_date, nl2_topics_following.existing_alerts AS existing_alerts FROM nl2_topics LEFT JOIN nl2_topics_following ON nl2_topics.id = nl2_topics_following.topic_id WHERE deleted = 0 AND nl2_topics.id IN (SELECT topic_id FROM nl2_topics_following WHERE user_id = ?) AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN ' . $groups . ' AND `view` = 1) ORDER BY nl2_topics.topic_reply_date DESC', [$user->data()->id])->results();
 
 // Pagination
 $p = (isset($_GET['p']) && is_numeric($_GET['p'])) ? $_GET['p'] : 1;
@@ -76,19 +76,19 @@ for ($n = 0; $n < count($results->data); $n++) {
         'topic_author_username' => $authors[$topic->topic_creator]->getDisplayname(true),
         'topic_author_avatar' => $authors[$topic->topic_creator]->getAvatar(null, 128),
         'topic_author_style' => $authors[$topic->topic_creator]->getGroupClass(),
-        'topic_author_link' => URL::build('/profile/'.Output::getClean($authors[$topic->topic_creator]->getDisplayname(true))),
+        'topic_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_creator]->getDisplayname(true))),
         'reply_author_id' => Output::getClean($authors[$topic->topic_last_user]->data()->id),
         'reply_author_nickname' => $authors[$topic->topic_last_user]->getDisplayname(),
         'reply_author_username' => $authors[$topic->topic_last_user]->getDisplayname(true),
         'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(null, 128),
         'reply_author_style' => $authors[$topic->topic_last_user]->getGroupClass(),
-        'reply_author_link' => URL::build('/profile/'.Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
+        'reply_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
         'reply_date' => $timeago->inWords(date('d M Y, H:i', $topic->topic_reply_date), $language->getTimeLanguage()),
         'reply_date_full' => date('d M Y, H:i', $topic->topic_reply_date),
-        'topic_link' => URL::build('/forum/topic/'.$topic->id.'-'.$forum->titleToURL($topic->topic_title)),
-        'last_post_link' => URL::build('/forum/topic/'.$topic->id.'-'.$forum->titleToURL($topic->topic_title), 'pid='.$last_post->id),
+        'topic_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title)),
+        'last_post_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post->id),
         'unread' => $topic->existing_alerts == 1,
-        'unfollow_link' => URL::build('/forum/topic/'.$topic->id, 'action=unfollow&return=list'),
+        'unfollow_link' => URL::build('/forum/topic/' . $topic->id, 'action=unfollow&return=list'),
     ];
 }
 
@@ -115,15 +115,15 @@ $smarty->assign([
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
-require ROOT_PATH.'/core/templates/cc_navbar.php';
+require ROOT_PATH . '/core/templates/cc_navbar.php';
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/navbar.php';
-require ROOT_PATH.'/core/templates/footer.php';
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('forum/following_topics.tpl', $smarty);

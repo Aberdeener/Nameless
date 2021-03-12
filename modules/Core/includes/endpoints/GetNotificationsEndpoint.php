@@ -37,7 +37,7 @@ class GetNotificationsEndpoint extends EndpointBase
                     'type' => $result->type,
                     'message_short' => $result->content_short,
                     'message' => ($result->content) ? strip_tags($result->content) : $result->content_short,
-                    'url' => rtrim(Util::getSelfURL(), '/').URL::build('/user/alerts/', 'view='.$result->id),
+                    'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/user/alerts/', 'view=' . $result->id),
                 ];
             }
         }
@@ -48,7 +48,7 @@ class GetNotificationsEndpoint extends EndpointBase
             foreach ($messages->results() as $result) {
                 $return['notifications'][] = [
                     'type' => 'message',
-                    'url' => Util::getSelfURL().ltrim(URL::build('/user/messaging/', 'action=view&message='.$result->id), '/'),
+                    'url' => Util::getSelfURL() . ltrim(URL::build('/user/messaging/', 'action=view&message=' . $result->id), '/'),
                     'message_short' => $result->title,
                     'message' => $result->title,
                 ];

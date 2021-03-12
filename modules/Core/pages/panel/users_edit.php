@@ -28,8 +28,8 @@ define('PARENT_PAGE', 'users');
 define('PANEL_PAGE', 'users');
 define('EDITING_USER', true);
 $page_title = $language->get('admin', 'users');
-require_once ROOT_PATH.'/core/templates/backend_init.php';
-require_once ROOT_PATH.'/core/includes/markdown/tohtml/Markdown.inc.php';
+require_once ROOT_PATH . '/core/templates/backend_init.php';
+require_once ROOT_PATH . '/core/includes/markdown/tohtml/Markdown.inc.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
@@ -54,7 +54,7 @@ if (isset($_GET['action'])) {
             Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
         }
     } elseif ($_GET['action'] == 'update_mcname') {
-        require_once ROOT_PATH.'/core/integration/uuid.php';
+        require_once ROOT_PATH . '/core/integration/uuid.php';
         $uuid = $user_query->uuid;
 
         $profile = ProfileUtils::getProfile($uuid);
@@ -78,7 +78,7 @@ if (isset($_GET['action'])) {
             }
         }
     } elseif ($_GET['action'] == 'update_uuid') {
-        require_once ROOT_PATH.'/core/integration/uuid.php';
+        require_once ROOT_PATH . '/core/integration/uuid.php';
 
         $profile = ProfileUtils::getProfile($user_query->username);
 
@@ -94,7 +94,7 @@ if (isset($_GET['action'])) {
             }
         }
     } elseif ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
-        require_once ROOT_PATH.'/modules/Core/includes/emails/register.php';
+        require_once ROOT_PATH . '/modules/Core/includes/emails/register.php';
         if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
         } else {
@@ -102,7 +102,7 @@ if (isset($_GET['action'])) {
         }
     }
 
-    Redirect::to(URL::build('/panel/users/edit/', 'id='.Output::getClean($user_query->id)));
+    Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
     exit();
 }
 
@@ -242,7 +242,7 @@ if (Input::exists()) {
                     }
 
                     Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-                    Redirect::to(URL::build('/panel/users/edit/', 'id='.Output::getClean($user_query->id)));
+                    Redirect::to(URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id)));
                     exit();
                 } catch (Exception $e) {
                     $errors[] = $e->getMessage();
@@ -347,18 +347,18 @@ if (isset($warnings) && count($warnings)) {
 if ($user_query->active == 0) {
     $smarty->assign([
         'VALIDATE_USER' => $language->get('admin', 'validate_user'),
-        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id='.Output::getClean($user_query->id).'&action=validate'),
+        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=validate'),
         'RESEND_ACTIVATION_EMAIL' => $language->get('admin', 'resend_activation_email'),
-        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id='.Output::getClean($user_query->id).'&action=resend_email'),
+        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=resend_email'),
     ]);
 }
 
 if (defined('MINECRAFT') && MINECRAFT === true) {
     $smarty->assign([
         'UPDATE_MINECRAFT_USERNAME' => $language->get('admin', 'update_mc_name'),
-        'UPDATE_MINECRAFT_USERNAME_LINK' => URL::build('/panel/users/edit/', 'id='.Output::getClean($user_query->id).'&action=update_mcname'),
+        'UPDATE_MINECRAFT_USERNAME_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=update_mcname'),
         'UPDATE_UUID' => $language->get('admin', 'update_uuid'),
-        'UPDATE_UUID_LINK' => URL::build('/panel/users/edit/', 'id='.Output::getClean($user_query->id).'&action=update_uuid'),
+        'UPDATE_UUID_LINK' => URL::build('/panel/users/edit/', 'id=' . Output::getClean($user_query->id) . '&action=update_uuid'),
     ]);
 }
 
@@ -419,7 +419,7 @@ $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');
 
 if ($formatting == 'markdown') {
-    require ROOT_PATH.'/core/includes/markdown/tomarkdown/autoload.php';
+    require ROOT_PATH . '/core/includes/markdown/tomarkdown/autoload.php';
     $converter = new League\HTMLToMarkdown\HtmlConverter(['strip_tags' => true]);
 
     $signature = $converter->convert(Output::getDecoded($user_query->signature));
@@ -489,8 +489,8 @@ $cache->setCache('post_formatting');
 $formatting = $cache->retrieve('formatting');
 if ($formatting == 'markdown') {
     $template->addJSFiles([
-        (defined('CONFIG_PATH' ? CONFIG_PATH : '')).'/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH' ? CONFIG_PATH : '')).'/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
+        (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH' ? CONFIG_PATH : '')) . '/core/assets/plugins/emojionearea/js/emojionearea.min.js' => [],
     ]);
 
     $template->addJSScript('
@@ -502,20 +502,20 @@ if ($formatting == 'markdown') {
         ');
 } else {
     $template->addJSFiles([
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/js/emojione.min.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/ckeditor.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/ckeditor.js' => [],
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/js/emojione.min.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/emojione/dialogs/emojione.json' => [],
     ]);
 
     $template->addJSScript(Input::createEditor('InputSignature'));
 }
 
 $template->addCSSFiles([
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.min.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.min.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emoji/css/emojione.sprites.css' => [],
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/emojionearea/css/emojionearea.min.css' => [],
 ]);
 
 $page_load = microtime(true) - $start;
@@ -523,7 +523,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-require ROOT_PATH.'/core/templates/panel_navbar.php';
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate('core/users_edit.tpl', $smarty);
