@@ -8,8 +8,8 @@
  *
  * @return string JSON Array
  */
-class GetNotificationsEndpoint extends EndpointBase {
-
+class GetNotificationsEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'getNotifications';
         $this->_module = 'Core';

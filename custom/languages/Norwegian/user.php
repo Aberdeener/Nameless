@@ -187,7 +187,7 @@ $language = array(
     'no_about_fields' => 'Denne brukeren har ikke skrevet noe om seg selv enda.',
     'reply' => 'Svar',
     'discord_username' => 'Discord-brukernavn',
-    
+
     // Reports
     'invalid_report_content' => 'Kunne ikke fullføre rapporteringen. Pass på at den er mellom 2 og 1024 tegn.',
     'report_post_content' => 'Vennligst oppgi grunnlaget for rapporteringen.',

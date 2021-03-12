@@ -6,8 +6,8 @@
  *
  * @return string JSON Array
  */
-class GroupInfoEndpoint extends EndpointBase {
-
+class GroupInfoEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'groupInfo';
         $this->_module = 'Core';
@@ -32,7 +32,7 @@ class GroupInfoEndpoint extends EndpointBase {
                 $where .= 'OR id = ?';
                 $params = array($_GET['id']);
             }
-        } else if (isset($_GET['name'])) {
+        } elseif (isset($_GET['name'])) {
             $where .= ' WHERE name = null ';
             if (is_array($_GET['name'])) {
                 foreach ($_GET['name'] as $value) {

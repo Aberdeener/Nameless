@@ -9,8 +9,8 @@
  *  URL class
  */
 
-class URL {
-
+class URL
+{
     // Returns a URL in the correct format (friendly or not)
     // Params:  $url (string) - contains the URL which will be formatted
     // 			$params (string) - contains string with URL parameters (optional)
@@ -27,7 +27,7 @@ class URL {
         } else {
             if ($force == 'friendly') {
                 return self::buildFriendly($url, $params);
-            } else if ($force == 'non-friendly') {
+            } elseif ($force == 'non-friendly') {
                 return self::buildNonFriendly($url, $params);
             } else return false;
         }

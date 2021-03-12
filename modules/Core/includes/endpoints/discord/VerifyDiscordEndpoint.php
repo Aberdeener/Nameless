@@ -5,8 +5,8 @@
  *
  * @return string JSON Array
  */
-class VerifyDiscordEndpoint extends EndpointBase {
-
+class VerifyDiscordEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'verifyDiscord';
         $this->_module = 'Core';

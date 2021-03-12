@@ -4,8 +4,8 @@
  *
  * @return string JSON Array
  */
-class UpdateDiscordUsernames extends EndpointBase {
-
+class UpdateDiscordUsernames extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'updateDiscordUsernames';
         $this->_module = 'Core';

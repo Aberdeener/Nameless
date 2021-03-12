@@ -547,7 +547,7 @@ if (!isset($_GET['action'])) {
                 ));
 
                 $template_file = 'core/templates_list_files.tpl';
-            } else if (isset($_GET['dir']) && !isset($_GET['file'])) {
+            } elseif (isset($_GET['dir']) && !isset($_GET['file'])) {
                 // List files in dir
                 $realdir = realpath(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['dir']))));
                 $dir = ltrim(explode('custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_query->name, $realdir)[1], '/');
@@ -600,7 +600,7 @@ if (!isset($_GET['action'])) {
                 ));
 
                 $template_file = 'core/templates_list_files.tpl';
-            } else if (isset($_GET['file'])) {
+            } elseif (isset($_GET['file'])) {
                 $file = basename(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['file']))));
 
                 if (isset($_GET['dir'])) {
@@ -623,11 +623,11 @@ if (!isset($_GET['action'])) {
 
                 if (pathinfo($file, PATHINFO_EXTENSION) == 'tpl')
                     $file_type = 'smarty';
-                else if (pathinfo($file, PATHINFO_EXTENSION) == 'css')
+                elseif (pathinfo($file, PATHINFO_EXTENSION) == 'css')
                     $file_type = 'css';
-                else if (pathinfo($file, PATHINFO_EXTENSION) == 'js')
+                elseif (pathinfo($file, PATHINFO_EXTENSION) == 'js')
                     $file_type = 'javascript';
-                else if (pathinfo($file, PATHINFO_EXTENSION) == 'conf')
+                elseif (pathinfo($file, PATHINFO_EXTENSION) == 'conf')
                     $file_type = 'properties';
 
                 // Deal with input

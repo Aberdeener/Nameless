@@ -9,8 +9,8 @@
  * https://github.com/NamelessMC/Nameless/
  * NamelessMC version 2.0.0-pr9
  */
-class MentionsParser {
-
+class MentionsParser
+{
     private $_db;
 
     /**
@@ -45,7 +45,7 @@ class MentionsParser {
                     $user = new user($possible_username, 'nickname');
 
                     if($user->data()){
-                        $value = preg_replace("/".preg_quote("@{$possible_username}", "/")."/", "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@{$possible_username}</a>", $value);
+                        $value = preg_replace("/" . preg_quote("@{$possible_username}", "/") . "/", "<a style=\"" . Output::getClean($user->getGroupClass()) . "\" href=\"" . $user->getProfileURL() . "\">@{$possible_username}</a>", $value);
 
                         // Check if user is blocked by OP
                         if(isset($author_id)){
@@ -73,7 +73,7 @@ class MentionsParser {
                 }
             }
         }
-        
+
         return $value;
     }
 }

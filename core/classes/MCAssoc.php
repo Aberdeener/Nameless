@@ -1,12 +1,12 @@
 <?php
 
-class MCAssoc {
-
-    private $siteId,
-            $sharedSecret,
-            $instanceSecret,
-            $timestampLeeway,
-            $insecureMode = false;
+class MCAssoc
+{
+    private $siteId;
+    private $sharedSecret;
+    private $instanceSecret;
+    private $timestampLeeway;
+    private $insecureMode = false;
 
     public function __construct($siteId, $sharedSecret, $instanceSecret, $timestampLeeway = 300) {
         $this->siteId = $siteId;
@@ -22,7 +22,7 @@ class MCAssoc {
     private function baseSign($data, $key) {
         if (!$key && !$this->insecureMode) {
             throw new Exception("key must be provided");
-        } else if ($this->insecureMode) {
+        } elseif ($this->insecureMode) {
             $key = "insecure";
         }
 

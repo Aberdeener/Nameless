@@ -8,8 +8,8 @@
  *
  *  Redirect class
  */
-class Redirect {
-
+class Redirect
+{
     // Redirect the user to the specified location
     // Params: $location (string) - path or URL to redirect to, or (int) 404 if the page is not found
     public static function to($location = null) {

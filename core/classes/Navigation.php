@@ -9,11 +9,11 @@
  *  Navigation class
  */
 
-class Navigation {
-
-    private $_topNavbar = array(),
-            $_footerNav = array(),
-            $_panel;
+class Navigation
+{
+    private $_topNavbar = array();
+    private $_footerNav = array();
+    private $_panel;
 
     // Panel sidebars discard provided order for links
     public function __construct($panel = false) {
@@ -113,7 +113,7 @@ class Navigation {
                 'icon' => $icon,
                 'order' => $order
             );
-        } else if (isset($this->_footerNav[$dropdown])) {
+        } elseif (isset($this->_footerNav[$dropdown])) {
             // Footer
             $this->_footerNav[$dropdown]['items'][$name] = array(
                 'title' => $title,
@@ -148,7 +148,7 @@ class Navigation {
                                 function ($a, $b) {
                                     if ($a['order'] > $b['order']) {
                                         return 1;
-                                    } else if ($a['order'] < $b['order']) {
+                                    } elseif ($a['order'] < $b['order']) {
                                         return -1;
                                     }
                                     return 0;
@@ -175,7 +175,7 @@ class Navigation {
                             function ($a, $b) {
                                 if ($a['order'] > $b['order']) {
                                     return 1;
-                                } else if ($a['order'] < $b['order']) {
+                                } elseif ($a['order'] < $b['order']) {
                                     return -1;
                                 }
                                 return 0;
@@ -190,7 +190,7 @@ class Navigation {
             $result = 0;
             if ($a['order'] > $b['order']) {
                 $result = 1;
-            } else if ($a['order'] < $b['order']) {
+            } elseif ($a['order'] < $b['order']) {
                 $result = -1;
             }
             return $result;

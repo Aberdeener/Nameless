@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class ServerBanner {
+class ServerBanner
+{
     /**
      *
      * @param string $address the server address
@@ -99,15 +100,15 @@ class ServerBanner {
 
         if ($ping < 0) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/-1.png');
-        } else if ($ping > 0 && $ping <= 150) {
+        } elseif ($ping > 0 && $ping <= 150) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/5.png');
-        } else if ($ping <= 300) {
+        } elseif ($ping <= 300) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/4.png');
-        } else if ($ping <= 400) {
+        } elseif ($ping <= 400) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/3.png');
-        } else if ($ping <= 400) {
+        } elseif ($ping <= 400) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/2.png');
-        } else if ($ping > 400) {
+        } elseif ($ping > 400) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/1.png');
         }
 

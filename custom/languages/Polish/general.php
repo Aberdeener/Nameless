@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'Ta strefa czasowa nie istnieje',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact form
      */

@@ -10,8 +10,8 @@
  *  Error handler class
  */
 
-class ErrorHandler {
-
+class ErrorHandler
+{
     /*
      * Defined for easy changing.
      * This constant indicates how many LOC from each frame's PHP file to show before and after the highlighted line

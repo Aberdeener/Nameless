@@ -9,8 +9,8 @@
  *  Hash class
  */
 
-class Hash {
-
+class Hash
+{
     // Generate a hash using sha256
     // Params: $string (string) - string to hash
     //         $salt (string)   - salt (optional)

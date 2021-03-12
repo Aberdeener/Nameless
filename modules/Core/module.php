@@ -9,11 +9,14 @@
  *  Core module file
  */
 
-class Core_Module extends Module {
+class Core_Module extends Module
+{
     private $_language;
-    private static $_dashboard_graph = array(), $_notices = array(), $_user_actions = array();
+    private static $_dashboard_graph = array();
+    private static $_notices = array();
+    private static $_user_actions = array();
 
-    public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints){
+    public function __construct($language, $pages, $user, $queries, $navigation, $cache, $endpoints) {
         $this->_language = $language;
 
         $name = 'Core';
@@ -267,23 +270,23 @@ class Core_Module extends Module {
         Util::loadEndpoints(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'includes', 'endpoints')), $endpoints);
     }
 
-    public function onInstall(){
+    public function onInstall() {
         // Not necessary for Core
     }
 
-    public function onUninstall(){
+    public function onUninstall() {
         // Not necessary for Core
     }
 
-    public function onEnable(){
+    public function onEnable() {
         // Not necessary for Core
     }
 
-    public function onDisable(){
+    public function onDisable() {
         // Not necessary for Core
     }
 
-    public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template){
+    public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template) {
         $language = $this->_language;
 
         // Permissions
@@ -981,7 +984,7 @@ class Core_Module extends Module {
                 } else {
                     $order = $cache->retrieve('pages_order');
                 }
-                
+
                 if(!$cache->isCached('pages_icon')){
                     $icon = '<i class="nav-icon fas fa-file"></i>';
                     $cache->store('pages_icon', $icon);
@@ -1152,7 +1155,7 @@ class Core_Module extends Module {
                                     // Unable to obtain player count
                                     $player_count_error = true;
                                 }
-                            } else if(version_compare($version, '5.7.8', '>=')){
+                            } elseif(version_compare($version, '5.7.8', '>=')){
                                 try {
                                     $players = DB::getInstance()->query('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch(Exception $e){
@@ -1244,33 +1247,33 @@ class Core_Module extends Module {
         HookHandler::registerHook('deleteUser', 'DeleteUserHook::deleteUser');
     }
 
-    public static function addDataToDashboardGraph($title, $data){
+    public static function addDataToDashboardGraph($title, $data) {
         if(isset(self::$_dashboard_graph[$title]))
             self::$_dashboard_graph[$title] = array_merge_recursive(self::$_dashboard_graph[$title], $data);
         else
             self::$_dashboard_graph[$title] = $data;
     }
 
-    public static function getDashboardGraphs(){
+    public static function getDashboardGraphs() {
         return self::$_dashboard_graph;
     }
 
-    public static function addNotice($url, $text){
+    public static function addNotice($url, $text) {
         self::$_notices[$url] = $text;
     }
 
-    public static function getNotices(){
+    public static function getNotices() {
         return self::$_notices;
     }
 
-    public static function addUserAction($title, $link){
+    public static function addUserAction($title, $link) {
         self::$_user_actions[] = array('title' => $title, 'link' => $link);
     }
 
-    public static function getUserActions(){
+    public static function getUserActions() {
         $return = self::$_user_actions;
 
-        uasort($return, function($a, $b){
+        uasort($return, function ($a, $b) {
             return $a['title'] > $b['title'];
         });
 

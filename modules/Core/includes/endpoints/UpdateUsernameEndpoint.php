@@ -6,8 +6,8 @@
  *
  * @return string JSON Array
  */
-class UpdateUsernameEndpoint extends EndpointBase {
-
+class UpdateUsernameEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'updateUsername';
         $this->_module = 'Core';

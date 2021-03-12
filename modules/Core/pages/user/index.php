@@ -11,27 +11,27 @@
 
 // Must be logged in
 if(!$user->isLoggedIn()){
-	Redirect::to(URL::build('/'));
-	die();
+    Redirect::to(URL::build('/'));
+    die();
 }
- 
+
 // Always define page name for navbar
 define('PAGE', 'cc_overview');
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $user_details = array(
-	$language->get('user', 'username') => $user->getDisplayname(true),
-	$language->get('admin', 'group') => Output::getClean($user->getMainGroup()->name),
-	$language->get('admin', 'registered') => date('d M Y, H:i', $user->data()->joined)
+    $language->get('user', 'username') => $user->getDisplayname(true),
+    $language->get('admin', 'group') => Output::getClean($user->getMainGroup()->name),
+    $language->get('admin', 'registered') => date('d M Y, H:i', $user->data()->joined)
 );
 
 // Language values
 $smarty->assign(array(
-	'USER_CP' => $language->get('user', 'user_cp'),
-	'USER_DETAILS' => $language->get('user', 'user_details'),
-	'USER_DETAILS_VALUES' => $user_details,
-	'OVERVIEW' => $language->get('user', 'overview')
+    'USER_CP' => $language->get('user', 'user_cp'),
+    'USER_DETAILS' => $language->get('user', 'user_details'),
+    'USER_DETAILS_VALUES' => $user_details,
+    'OVERVIEW' => $language->get('user', 'overview')
 ));
 
 // Get graph data
@@ -40,9 +40,9 @@ $enabled_modules = $cache->retrieve('enabled_modules');
 foreach($enabled_modules as $module){
   // Forum module enabled?
   if($module['name'] == 'Forum'){
-	  // Enabled
-	  $forum_enabled = true;
-	  break;
+      // Enabled
+      $forum_enabled = true;
+      break;
   }
 }
 
@@ -53,16 +53,16 @@ if(isset($forum_enabled)){
 
   $output = array();
   foreach($forum_query_user as $item){
-	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
-	  $output[$date]['user'] = $item->{'COUNT(*)'};
+      $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
+      $output[$date]['user'] = $item->{'COUNT(*)'};
   }
   foreach($forum_query_average as $item){
-	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
-	  $output[$date]['average'] = $item->{'(COUNT(*) / COUNT(Distinct post_creator))'};
+      $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
+      $output[$date]['average'] = $item->{'(COUNT(*) / COUNT(Distinct post_creator))'};
 }
   foreach($forum_query_total as $item){
-	  $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
-	  $output[$date]['total'] = $item->{'COUNT(*)'};
+      $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
+      $output[$date]['total'] = $item->{'COUNT(*)'};
   }
 
   // Fill in missing dates
@@ -71,16 +71,16 @@ if(isset($forum_enabled)){
   $graph_start = strtotime($graph_start);
   $end = strtotime(date('d M Y'));
   while($graph_start <= $end){
-	  if(!isset($output[$graph_start]['user']))
-		  $output[$graph_start]['user'] = 0;
+      if(!isset($output[$graph_start]['user']))
+          $output[$graph_start]['user'] = 0;
 
-	  if(!isset($output[$graph_start]['average']))
-		  $output[$graph_start]['average'] = 0;
+      if(!isset($output[$graph_start]['average']))
+          $output[$graph_start]['average'] = 0;
 
-	  if(!isset($output[$graph_start]['total']))
-		  $output[$graph_start]['total'] = 0;
+      if(!isset($output[$graph_start]['total']))
+          $output[$graph_start]['total'] = 0;
 
-	  $graph_start = $graph_start + 86400;
+      $graph_start = $graph_start + 86400;
   }
 
   ksort($output);
@@ -91,10 +91,10 @@ if(isset($forum_enabled)){
   $average_data = '';
   $total_data = '';
   foreach($output as $date => $item){
-	  $labels .= '"' . date('Y-m-d', $date) . '", ';
-	  $user_data .= $item['user'] . ', ';
-	  $average_data .= $item['average'] . ', ';
-	  $total_data .= $item['total'] . ', ';
+      $labels .= '"' . date('Y-m-d', $date) . '", ';
+      $user_data .= $item['user'] . ', ';
+      $average_data .= $item['average'] . ', ';
+      $total_data .= $item['total'] . ', ';
   }
   $labels = '[' . rtrim($labels, ', ') . ']';
   $user_data = '[' . rtrim($user_data, ', ') . ']';
@@ -105,16 +105,16 @@ if(isset($forum_enabled)){
 }
 
 if(isset($forum_enabled)){
-	$template->addJSFiles(array(
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => array(),
-		(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => array()
-	));
-	$template->addJSScript(
-		'
+    $template->addJSFiles(array(
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/moment/moment.min.js' => array(),
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/charts/Chart.min.js' => array()
+    ));
+    $template->addJSScript(
+        '
 		$(document).ready(function() {
 			var ctx = $("#dataChart").get(0).getContext("2d");
 		
-			moment.locale(\'' . (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en'). '\');
+			moment.locale(\'' . (defined('HTML_LANG') ? strtolower(HTML_LANG) : 'en') . '\');
 		
 			var data = {
 				labels: ' . $labels . ',
@@ -178,7 +178,7 @@ if(isset($forum_enabled)){
 			});
 		});
 		'
-	);
+    );
 }
 
 // Load modules + template

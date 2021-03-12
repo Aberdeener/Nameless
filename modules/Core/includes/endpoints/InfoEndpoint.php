@@ -5,8 +5,8 @@
  *
  * @return string JSON Array of NamelessMC information
  */
-class InfoEndpoint extends EndpointBase {
-
+class InfoEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'info';
         $this->_module = 'Core';
@@ -31,9 +31,9 @@ class InfoEndpoint extends EndpointBase {
             if ($item->name == 'nameless_version') {
                 $ret[$item->name] = $item->value;
                 $current_version = $item->value;
-            } else if ($item->name == 'version_update') {
+            } elseif ($item->name == 'version_update') {
                 $version_update = $item->value;
-            } else if ($item->name == 'version_checked') {
+            } elseif ($item->name == 'version_checked') {
                 $version_checked = (int) $item->value;
             } else {
                 $new_version = $item->value;

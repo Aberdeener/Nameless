@@ -6,8 +6,8 @@
  *
  * @return string JSON Array of latest announcements
  */
-class GetAnnouncementsEndpoint extends EndpointBase {
-
+class GetAnnouncementsEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'getAnnouncements';
         $this->_module = 'Core';
@@ -18,7 +18,7 @@ class GetAnnouncementsEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $tempUser = $api->getUser('id', $_GET['id']);
-        } else if (isset($_GET['username'])) {
+        } elseif (isset($_GET['username'])) {
             $tempUser = $api->getUser('username', $_GET['username']);
         } else {
             $tempUser = null;

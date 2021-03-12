@@ -26,8 +26,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
  * https://github.com/NamelessMC/Nameless
  */
 
-class Cache {
-
+class Cache
+{
     /**
      * The path to the cache file folder
      *
@@ -59,7 +59,7 @@ class Cache {
         if (isset($config)) {
             if (is_string($config)) {
                 $this->setCache($config);
-            } else if (is_array($config)) {
+            } elseif (is_array($config)) {
                 $this->setCache($config['name']);
                 $this->setCachePath($config['path']);
                 $this->setExtension($config['extension']);

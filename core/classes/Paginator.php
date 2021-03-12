@@ -9,14 +9,14 @@
  *  Paginator class
  */
 
-class Paginator {
+class Paginator
+{
+    private $_limit;
+    private $_page;
+    private $_total;
+    private $_class;
 
-    private $_limit,
-            $_page,
-            $_total,
-            $_class;
-
-    public function __construct($class = array()){
+    public function __construct($class = array()) {
         // Constructor
         if(!count($class))
             $this->_class = array('ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link');
@@ -24,7 +24,7 @@ class Paginator {
             $this->_class = $class;
     }
 
-    public function getLimited($data, $limit = 10, $page = 1, $total = 10){
+    public function getLimited($data, $limit = 10, $page = 1, $total = 10) {
         $this->_limit   = $limit;
         $this->_page    = (int)$page;
 
@@ -47,7 +47,7 @@ class Paginator {
         return $result;
     }
 
-    public function generate($links, $href = '?'){
+    public function generate($links, $href = '?') {
         $last = ceil($this->_total / $this->_limit);
 
         $start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;
@@ -92,7 +92,7 @@ class Paginator {
             }
         }
 
-        if($end < $last ){
+        if($end < $last){
             if(empty($this->_class['ul'])){
                 $html .= '<a class="' . str_replace('{x}', ' disabled ', $this->_class['a']) . '">...</a>';
                 $html .= '<a class="' . str_replace('{x}', '', $this->_class['a']) . '" href="' . $href . 'p=' . $last . '">' . $last . '</a>';
@@ -118,7 +118,7 @@ class Paginator {
         return $html;
     }
 
-    public function setValues($total, $limit, $page){
+    public function setValues($total, $limit, $page) {
         $this->_total = $total;
         $this->_limit = $limit;
         $this->_page = $page;

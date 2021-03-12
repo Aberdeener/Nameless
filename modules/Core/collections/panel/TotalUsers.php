@@ -9,10 +9,10 @@
  *  Total users dashboard collection item
  */
 
-class TotalUsersItem extends CollectionItemBase {
-
-    private $_smarty, 
-            $_language;
+class TotalUsersItem extends CollectionItemBase
+{
+    private $_smarty;
+    private $_language;
 
     public function __construct($smarty, $language, $cache) {
         $cache->setCache('dashboard_stats_collection');

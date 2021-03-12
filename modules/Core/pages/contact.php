@@ -31,10 +31,10 @@ if(Input::exists()){
     if(!isset($_SESSION['last_contact_sent']) || (isset($_SESSION['last_contact_sent']) && $_SESSION['last_contact_sent'] < strtotime('-1 hour'))){
         // Check recaptcha
         if($recaptcha == 'true'){
-			// Check captcha
-			$url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
+            // Check captcha
+            $url = $captcha_type === 'hCaptcha' ? 'https://hcaptcha.com/siteverify' : 'https://www.google.com/recaptcha/api/siteverify';
 
-			$post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
+            $post_data = 'secret=' . $recaptcha_secret[0]->value . '&response=' . ($captcha_type === 'hCaptcha' ? Input::get('h-captcha-response') : Input::get('g-recaptcha-response'));
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -113,7 +113,7 @@ if(Input::exists()){
                         $headers = 'From: ' . $siteemail . "\r\n" .
                             'Reply-To: ' . $fromemail . "\r\n" .
                             'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                            'MIME-Version: 1.0' . "\r\n" . 
+                            'MIME-Version: 1.0' . "\r\n" .
                             'Content-type: text/html; charset=UTF-8' . "\r\n";
 
                         $email = array(
@@ -185,25 +185,25 @@ if ($recaptcha === 'true') {
 }
 
 if(isset($error))
-	$smarty->assign('ERROR', $error);
+    $smarty->assign('ERROR', $error);
 
 if(isset($erroremail))
-	$smarty->assign('ERROR_EMAIL', $erroremail);
+    $smarty->assign('ERROR_EMAIL', $erroremail);
 
 if(isset($errorcontent))
-	$smarty->assign('ERROR_CONTENT', $errorcontent);
+    $smarty->assign('ERROR_CONTENT', $errorcontent);
 
 if(isset($success))
-	$smarty->assign('SUCCESS', $success);
+    $smarty->assign('SUCCESS', $success);
 
 $smarty->assign(array(
-	'EMAIL' => $language->get('general', 'email_address'),
-	'CONTACT' => $language->get('general', 'contact'),
-	'MESSAGE' => $language->get('general', 'message'),
-	'TOKEN' => Token::get(),
-	'SUBMIT' => $language->get('general', 'submit'),
-	'ERROR_TITLE' => $language->get('general', 'error'),
-	'SUCCESS_TITLE' => $language->get('general', 'success'),
+    'EMAIL' => $language->get('general', 'email_address'),
+    'CONTACT' => $language->get('general', 'contact'),
+    'MESSAGE' => $language->get('general', 'message'),
+    'TOKEN' => Token::get(),
+    'SUBMIT' => $language->get('general', 'submit'),
+    'ERROR_TITLE' => $language->get('general', 'error'),
+    'SUCCESS_TITLE' => $language->get('general', 'success'),
     'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha'
 ));
 

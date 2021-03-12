@@ -9,8 +9,8 @@
  *  Collection manager class
  */
 
-class CollectionManager {
-
+class CollectionManager
+{
     private static $_collections = array();
 
     public static function addItemToCollection($collection, $item) {
@@ -30,8 +30,8 @@ class CollectionManager {
     }
 }
 
-class Collection {
-
+class Collection
+{
     private $_items;
 
     public function __construct() {
@@ -63,7 +63,7 @@ class Collection {
         uasort($items, function ($a, $b) {
             return $a->getOrder() - $b->getOrder();
         });
-        
+
         return $items;
     }
 }

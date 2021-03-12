@@ -6,8 +6,8 @@
  *
  * @return string JSON Array
  */
-class SetDiscordRolesEndpoint extends EndpointBase {
-
+class SetDiscordRolesEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'setDiscordRoles';
         $this->_module = 'Core';

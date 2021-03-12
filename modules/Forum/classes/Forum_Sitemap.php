@@ -8,8 +8,8 @@
  *
  *  Forum module Sitemap method
  */
-class Forum_Sitemap {
-    
+class Forum_Sitemap
+{
     public static function generateSitemap($sitemap = null) {
         if (!$sitemap)
             return;

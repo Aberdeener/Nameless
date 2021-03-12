@@ -9,8 +9,8 @@
  *  External Minecraft query class
  */
 
-class ExternalMCQuery {
-
+class ExternalMCQuery
+{
     // Basic server query
     // Returns array containing query result
     // Params: $ip = IP to query, $port = port to query
@@ -50,7 +50,7 @@ class ExternalMCQuery {
             if(count($query_ip) == 2){
                 $ip = $query_ip[0];
                 $port = $query_ip[1];
-            } else if(count($query_ip) == 1) {
+            } elseif(count($query_ip) == 1) {
                 $ip = $query_ip[0];
                 $port = $query_ip[1];
             } else

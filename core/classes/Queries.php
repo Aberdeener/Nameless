@@ -8,7 +8,8 @@
  *
  *  Queries class
  */
-class Queries {
+class Queries
+{
     private $_db;
 
     public function __construct() {
@@ -35,7 +36,7 @@ class Queries {
         return $data->results();
     }
 
-    public function getLike($table, $where, $like){
+    public function getLike($table, $where, $like) {
         $data = $this->_db->like($table, $where, $like);
         return $data->results();
     }
@@ -80,13 +81,13 @@ class Queries {
         return $this->_db->lastId();
     }
 
-    public function alterTable($table, $column, $attributes){
+    public function alterTable($table, $column, $attributes) {
         if(!$this->_db->alterTable($table, $column, $attributes)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function tableExists($table){
+    public function tableExists($table) {
         return $this->_db->showTables($table);
     }
 
@@ -103,7 +104,7 @@ class Queries {
         }
     }
 
-    public function dbInitialise($charset = 'latin1', $engine = 'InnoDB'){
+    public function dbInitialise($charset = 'latin1', $engine = 'InnoDB') {
         $data = $this->_db->showTables('settings');
         if(!empty($data)){
             return '<div class="alert alert-warning">Database already initialised!</div>';

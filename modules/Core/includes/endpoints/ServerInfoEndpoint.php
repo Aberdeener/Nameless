@@ -1,7 +1,7 @@
 <?php
 
-class ServerInfoEndpoint extends EndpointBase {
-
+class ServerInfoEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'serverInfo';
         $this->_module = 'Core';
@@ -160,7 +160,7 @@ class ServerInfoEndpoint extends EndpointBase {
                             if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
                                 continue;
                             }
-                            
+
                             $group_info = $group_sync_updates[$ingame_rank_name];
 
                             // Only create a log entry if at least one new group was added/removed

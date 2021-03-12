@@ -53,7 +53,7 @@ if (isset($_GET['action'])) {
 
             Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
         }
-    } else if ($_GET['action'] == 'update_mcname') {
+    } elseif ($_GET['action'] == 'update_mcname') {
         require_once(ROOT_PATH . '/core/integration/uuid.php');
         $uuid = $user_query->uuid;
 
@@ -77,7 +77,7 @@ if (isset($_GET['action'])) {
                 Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
         }
-    } else if ($_GET['action'] == 'update_uuid') {
+    } elseif ($_GET['action'] == 'update_uuid') {
         require_once(ROOT_PATH . '/core/integration/uuid.php');
 
         $profile = ProfileUtils::getProfile($user_query->username);
@@ -93,7 +93,7 @@ if (isset($_GET['action'])) {
                 Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
         }
-    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
+    } elseif ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
         require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
         if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
@@ -259,7 +259,7 @@ if (Input::exists()) {
                                 $errors[] = $language->get('user', 'mcname_required');
                                 break;
                         }
-                    } else if (strpos($error, 'minimum') !== false) {
+                    } elseif (strpos($error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
                         switch ($error) {
                             case (strpos($error, 'nickname') !== false):
@@ -269,7 +269,7 @@ if (Input::exists()) {
                                 $errors[] = $language->get('user', 'mcname_minimum_3');
                                 break;
                         }
-                    } else if (strpos($error, 'maximum') !== false) {
+                    } elseif (strpos($error, 'maximum') !== false) {
                         // x must be a maximum of y characters long
                         switch ($error) {
                             case (strpos($error, 'nickname') !== false):
@@ -288,7 +288,7 @@ if (Input::exists()) {
                     }
                 }
             }
-        } else if (Input::get('action') == 'delete') {
+        } elseif (Input::get('action') == 'delete') {
             if ($user_query->id > 1) {
                 HookHandler::executeEvent('deleteUser', array(
                     'user_id' => $user_query->id,

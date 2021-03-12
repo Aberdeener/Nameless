@@ -16,7 +16,7 @@ if (strpos($route, 'view_forum') !== false) {
     } else {
         $url = URL::build('/forum');
     }
-} else if (strpos($route, 'view_topic') !== false) {
+} elseif (strpos($route, 'view_topic') !== false) {
     // Build new topic URL
     if (isset($_GET['tid']) && is_numeric($_GET['tid'])) {
         $url = URL::build('/forum/topic/' . Output::getClean($_GET['tid']));
@@ -27,5 +27,5 @@ if (strpos($route, 'view_forum') !== false) {
     $url = URL::build('/forum');
 }
 
-header("Location: " . $url, TRUE, 301);
+header("Location: " . $url, true, 301);
 die();

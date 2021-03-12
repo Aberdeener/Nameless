@@ -9,8 +9,8 @@
  *
  *
  */
-class Log {
-    
+class Log
+{
     private static $_actions = [
         'admin' => [
             'login' => 'acp_login',

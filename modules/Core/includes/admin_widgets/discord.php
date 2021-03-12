@@ -38,7 +38,7 @@ if (Input::exists()) {
                 foreach ($validation->errors() as $validation_error) {
                     if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
                         $errors[] = $language->get('admin', 'discord_id_length');
-                    } else if (strpos($validation_error, 'numeric') !== false) {
+                    } elseif (strpos($validation_error, 'numeric') !== false) {
                         $errors[] = $language->get('admin', 'discord_id_numeric');
                     }
                 }

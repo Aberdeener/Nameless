@@ -10,7 +10,7 @@
  *  Czech Language - Errors
  */
 
-$language = array (
+$language = array(
     /*
      *  Errors
      */

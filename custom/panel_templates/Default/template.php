@@ -14,9 +14,12 @@
 
 // Always have the following if statement around your class
 if (!class_exists('Default_Panel_Template')) {
-    class Default_Panel_Template extends TemplateBase {
+    class Default_Panel_Template extends TemplateBase
+{
         // Private variable to store language + user
-        private $_language, $_user, $_pages;
+        private $_language;
+        private $_user;
+        private $_pages;
 
         // Constructor - set template name, version, Nameless version and author here
         public function __construct($cache, $smarty, $language, $user, $pages) {
@@ -461,7 +464,7 @@ if (!class_exists('Default_Panel_Template')) {
 						    }
 							');
 
-                        } else if (MINECRAFT_PAGE == 'authme') {
+                        } elseif (MINECRAFT_PAGE == 'authme') {
 
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
@@ -479,7 +482,7 @@ if (!class_exists('Default_Panel_Template')) {
 						    }
 							');
 
-                        } else if (MINECRAFT_PAGE == 'verification') {
+                        } elseif (MINECRAFT_PAGE == 'verification') {
 
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
@@ -497,7 +500,7 @@ if (!class_exists('Default_Panel_Template')) {
 						    }
 							');
 
-                        } else if (MINECRAFT_PAGE == 'servers') {
+                        } elseif (MINECRAFT_PAGE == 'servers') {
                             $this->addJSFiles(array(
                                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => array()
                             ));
@@ -510,7 +513,7 @@ if (!class_exists('Default_Panel_Template')) {
 							});
 							');
 
-                        } else if (MINECRAFT_PAGE == 'query_errors') {
+                        } elseif (MINECRAFT_PAGE == 'query_errors') {
                             $this->addCSSStyle('
 							.error_log {
 		                        width: 100%;
@@ -526,7 +529,7 @@ if (!class_exists('Default_Panel_Template')) {
 		                    }
 							');
 
-                        } else if (MINECRAFT_PAGE == 'server_banners') {
+                        } elseif (MINECRAFT_PAGE == 'server_banners') {
                             if (isset($_GET['edit'])) {
                                 $this->addCSSFiles(array(
                                     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => array()

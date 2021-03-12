@@ -8,7 +8,8 @@
  * https://github.com/NamelessMC/Nameless
  */
 
-class MinecraftProfile {
+class MinecraftProfile
+{
     private $username;
     private $uuid;
     private $properties;
@@ -18,7 +19,7 @@ class MinecraftProfile {
      * @param string $uuid The player's UUID.
      * @param array $properties The player's properties specified on their Mojang profile.
      */
-    function __CONSTRUCT($username, $uuid, $properties = array()) {
+    public function __CONSTRUCT($username, $uuid, $properties = array()) {
         $this->username = $username;
         $this->uuid = $uuid;
         $this->properties = $properties;
@@ -53,7 +54,8 @@ class MinecraftProfile {
     }
 }
 
-class ProfileUtils {
+class ProfileUtils
+{
     /**
      * @param string $identifier Either the player's Username or UUID.
      * @param int $timeout The length in seconds of the http request timeout.
@@ -62,22 +64,22 @@ class ProfileUtils {
     public static function getProfile($identifier, $timeout = 5) {
         if(strlen($identifier) <= 16){
             $identifier = ProfileUtils::getUUIDFromUsername($identifier, $timeout);
-            $url = "https://sessionserver.mojang.com/session/minecraft/profile/".$identifier['uuid'];
+            $url = "https://sessionserver.mojang.com/session/minecraft/profile/" . $identifier['uuid'];
         } else {
             $url = "https://sessionserver.mojang.com/session/minecraft/profile/" . $identifier;
         }
 
-		// Use cURL instead of file_get_contents
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
-		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-		curl_setopt($ch, CURLOPT_URL, $url);
-		
-		// Execute
-		$ret = curl_exec($ch);
-		
+        // Use cURL instead of file_get_contents
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        // Execute
+        $ret = curl_exec($ch);
+
         if(!empty($ret) && $ret != null && $ret != false) {
             $data = json_decode($ret, true);
             return new MinecraftProfile($data['name'], $data['id'], $data['properties']);
@@ -94,25 +96,25 @@ class ProfileUtils {
     public static function getUUIDFromUsername($username, $timeout = 5) {
         if(strlen($username) > 16)
             return array("username" => "", "uuid" => "");
-        $url = 'https://api.mojang.com/users/profiles/minecraft/'.htmlspecialchars($username);
-		
-		// Use cURL instead of file_get_contents
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
-		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		
-		// Execute
-		$result = curl_exec($ch);
+        $url = 'https://api.mojang.com/users/profiles/minecraft/' . htmlspecialchars($username);
+
+        // Use cURL instead of file_get_contents
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Execute
+        $result = curl_exec($ch);
 
         // Verification
         if(isset($result) && $result != null && $result != false)
         {
             $ress = json_decode($result, true);
-            $res = Array("username" =>  $ress['name'], "uuid" => $ress['id']);
+            $res = array("username" =>  $ress['name'], "uuid" => $ress['id']);
             return $res;
         }
         else
@@ -125,10 +127,10 @@ class ProfileUtils {
     */
     public static function formatUUID($uuid) {
         $uid = "";
-        $uid .= substr($uuid, 0, 8)."-";
-        $uid .= substr($uuid, 8, 4)."-";
-        $uid .= substr($uuid, 12, 4)."-";
-        $uid .= substr($uuid, 16, 4)."-";
+        $uid .= substr($uuid, 0, 8) . "-";
+        $uid .= substr($uuid, 8, 4) . "-";
+        $uid .= substr($uuid, 12, 4) . "-";
+        $uid .= substr($uuid, 16, 4) . "-";
         $uid .= substr($uuid, 20);
         return $uid;
     }

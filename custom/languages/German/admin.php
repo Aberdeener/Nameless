@@ -503,7 +503,7 @@ $language = array(
     'action_info' => 'Aktion Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Update',
     'current_version_x' => 'Aktuelle Version: <strong>{x}</strong>', // Don't replaec {x}

@@ -7,8 +7,8 @@
  *
  * @return string JSON Array
  */
-class CreateReportEndpoint extends EndpointBase {
-
+class CreateReportEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'createReport';
         $this->_module = 'Core';

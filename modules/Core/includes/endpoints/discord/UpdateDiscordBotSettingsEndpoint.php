@@ -5,8 +5,8 @@
  *
  * @return string JSON Array
  */
-class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
-
+class UpdateDiscordBotSettingsEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'updateDiscordBotSettings';
         $this->_module = 'Core';
@@ -27,7 +27,7 @@ class UpdateDiscordBotSettingsEndpoint extends EndpointBase {
             try {
                 $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', array($_POST['guild_id'], 'discord'));
             } catch (Exception $e) {
-                $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_set_discord_id'),  $e->getMessage());
+                $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_set_discord_id'), $e->getMessage());
             }
         }
 

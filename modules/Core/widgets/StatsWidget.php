@@ -9,11 +9,11 @@
  *  Statistics Widget // By Xemah // https://xemah.me
  */
 
-class StatsWidget extends WidgetBase {
-
-    private $_cache,
-            $_smarty,
-            $_language;
+class StatsWidget extends WidgetBase
+{
+    private $_cache;
+    private $_smarty;
+    private $_language;
 
     public function __construct($pages = array(), $smarty, $language, $cache) {
         $this->_cache = $cache;

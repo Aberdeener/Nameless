@@ -1,4 +1,5 @@
 <?php
+
 $nameless_terms = 'This website uses "Nameless" website software. The ' .
 '"Nameless" software creators will not be held responsible for any content ' .
 'that may be experienced whilst browsing this site, nor are they responsible ' .
@@ -15,7 +16,7 @@ function create_step($name, $icon, $child_steps = array()) {
         if (in_array('welcome', $child_steps)) {
             $active = 'active ';
         }
-    } else if (in_array($step, $child_steps)) {
+    } elseif (in_array($step, $child_steps)) {
         $active = 'active ';
     }
 

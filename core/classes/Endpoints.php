@@ -10,8 +10,8 @@
  *  Endpoints class
  */
 
-class Endpoints {
-
+class Endpoints
+{
     private $_endpoints = array();
 
     public function getAll() {

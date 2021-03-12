@@ -210,7 +210,7 @@ if(!isset($_GET['action'])){
         Redirect::to(URL::build('/panel/core/modules'));
         die();
 
-    } else if($_GET['action'] == 'disable'){
+    } elseif($_GET['action'] == 'disable'){
         // Disable a module
         if(!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) die('Invalid module!');
 
@@ -258,9 +258,9 @@ if(!isset($_GET['action'])){
         Redirect::to(URL::build('/panel/core/modules'));
         die();
 
-    } else if($_GET['action'] == 'install'){
+    } elseif($_GET['action'] == 'install'){
         // Install any new modules
-        $directories = glob(ROOT_PATH . '/modules/*' , GLOB_ONLYDIR);
+        $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
 
         define('MODULE_INSTALL', true);
 

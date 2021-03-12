@@ -6,16 +6,16 @@
  *
  *  User class
  */
-class User {
-
-    private $_db,
-            $_data,
-            $_groups,
-            $_sessionName,
-            $_cookieName,
-            $_isLoggedIn,
-            $_admSessionName,
-            $_isAdmLoggedIn;
+class User
+{
+    private $_db;
+    private $_data;
+    private $_groups;
+    private $_sessionName;
+    private $_cookieName;
+    private $_isLoggedIn;
+    private $_admSessionName;
+    private $_isAdmLoggedIn;
 
     public function __construct($user = null, $field = 'id') {
         $this->_db = DB::getInstance();
@@ -60,7 +60,7 @@ class User {
     public function getIP() {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
@@ -212,7 +212,7 @@ class User {
             switch ($this->data()->pass_method) {
                 case 'wordpress':
                     // phpass
-                    $phpass = new PasswordHash(8, FALSE);
+                    $phpass = new PasswordHash(8, false);
 
                     return ($phpass->checkPassword($password, $this->data()->password));
                     break;
@@ -332,7 +332,7 @@ class User {
             if ($data->gravatar == 1) {
                 // Gravatar
                 return "https://secure.gravatar.com/avatar/" . md5(strtolower(trim($data->email))) . "?s=128";
-            } else if ($data->has_avatar == 1) {
+            } elseif ($data->has_avatar == 1) {
                 // Custom avatar
                 $exts = array('gif', 'png', 'jpg', 'jpeg');
                 foreach ($exts as $ext) {
@@ -387,16 +387,16 @@ class User {
 
                     case 'minotar':
                         if ($perspective == 'face')
-                            return 'https://minotar.net/helm/' .  Output::getClean($uuid) . '/' . $size . '.png';
+                            return 'https://minotar.net/helm/' . Output::getClean($uuid) . '/' . $size . '.png';
                         else
-                            return 'https://minotar.net/cube/' .  Output::getClean($uuid) . '/' . $size . '.png';
+                            return 'https://minotar.net/cube/' . Output::getClean($uuid) . '/' . $size . '.png';
 
                         break;
 
                     case 'visage':
                         if ($perspective == 'face')
                             return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
-                        else if ($perspective == 'bust')
+                        elseif ($perspective == 'bust')
                             return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
                         else
                             return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);

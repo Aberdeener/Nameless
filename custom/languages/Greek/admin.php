@@ -507,7 +507,7 @@ $language = array(
     'action_info' => 'Action Info',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Ενημέρωση',
     'current_version_x' => 'Τρέχουσα Έκδοση: <strong>{x}</strong>', // Don't replaec {x}

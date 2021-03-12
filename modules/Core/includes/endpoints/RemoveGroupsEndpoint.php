@@ -6,8 +6,8 @@
  *
  * @return string JSON Array
  */
-class RemoveGroupsEndpoint extends EndpointBase {
-
+class RemoveGroupsEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'removeGroups';
         $this->_module = 'Core';

@@ -4,7 +4,8 @@
  *
  * @return string JSON Array
  */
-class ListUsersEndpoint extends EndpointBase {
+class ListUsersEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'listUsers';
         $this->_module = 'Core';

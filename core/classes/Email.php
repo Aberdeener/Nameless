@@ -9,16 +9,16 @@
 *  Email class
 */
 
-class Email {
-
+class Email
+{
     // Send an email
     // Params:  $email - array containing all necessary email information to send as per the sendPHP and sendMailer functions
     //          $method - email sending method to use (php or mailer)
     public static function send($email, $method = 'php') {
         if ($method == 'php') {
             return self::sendPHP($email);
-        } 
-        else if ($method == 'mailer') {
+        }
+        elseif ($method == 'mailer') {
             return self::sendMailer($email);
         }
         else {

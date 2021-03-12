@@ -49,10 +49,10 @@ if(!isset($can_view)){
 }
 
 if($custom_page->redirect) {
-	header("X-Robots-Tag: noindex, nofollow", true);
-	header('Location: ' . Output::getClean($custom_page->link));
+    header("X-Robots-Tag: noindex, nofollow", true);
+    header('Location: ' . Output::getClean($custom_page->link));
 
-	die(str_replace('{x}', Output::getClean($custom_page->link), $language->get('general', 'redirecting_message')));
+    die(str_replace('{x}', Output::getClean($custom_page->link), $language->get('general', 'redirecting_message')));
 }
 
 // Always define page name
@@ -67,15 +67,15 @@ Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mo
 $smarty->assign(array(
     'WIDGETS_LEFT' => $widgets->getWidgets('left'),
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
-	'CONTENT' => (($custom_page->all_html == 0) ? Output::getPurified(htmlspecialchars_decode($custom_page->content)) : htmlspecialchars_decode($custom_page->content))
+    'CONTENT' => (($custom_page->all_html == 0) ? Output::getPurified(htmlspecialchars_decode($custom_page->content)) : htmlspecialchars_decode($custom_page->content))
 ));
 
 $template->addCSSFiles(array(
-	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array()
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array()
 ));
 
 $template->addJSFiles(array(
-	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array()
+    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array()
 ));
 
 $page_load = microtime(true) - $start;
@@ -87,7 +87,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 if ($custom_page->basic) {
-	$template->displayTemplate('custom_basic.tpl', $smarty);
+    $template->displayTemplate('custom_basic.tpl', $smarty);
 } else {
-	$template->displayTemplate('custom.tpl', $smarty);
+    $template->displayTemplate('custom.tpl', $smarty);
 }

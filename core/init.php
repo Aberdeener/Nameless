@@ -43,7 +43,7 @@ require(ROOT_PATH . '/core/config.php');
 
 if (isset($conf) && is_array($conf)) {
     $GLOBALS['config'] = $conf;
-} else if (!isset($GLOBALS['config'])) {
+} elseif (!isset($GLOBALS['config'])) {
     $page = 'install';
 }
 
@@ -59,7 +59,7 @@ spl_autoload_register(function ($class) {
         require_once($path);
     }
 });
-    
+
 // If we're accessing the upgrade script don't initialise further
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
@@ -163,7 +163,7 @@ if ($page != 'install') {
             ini_set('display_errors', 0);
         }
     }
-    
+
     // Configurations
     $configuration = new Configuration($cache);
 
@@ -643,4 +643,3 @@ if ($page != 'install') {
         unset($_SESSION['password']);
     }
 }
-

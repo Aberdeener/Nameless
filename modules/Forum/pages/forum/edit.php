@@ -64,8 +64,8 @@ if ($post_editing[0]->id == $post_id) {
     $edit_title = true;
 
     /*
-	 *  Get the title of the topic
-	 */
+     *  Get the title of the topic
+     */
 
     $post_title = $queries->getWhere("topics", array("id", "=", $topic_id));
     $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : array();
@@ -196,7 +196,7 @@ if (Input::exists()) {
                             $errors[] = $forum_language->get('forum', 'content_required');
                             break;
                     }
-                } else if (strpos($item, 'minimum') !== false) {
+                } elseif (strpos($item, 'minimum') !== false) {
                     switch ($item) {
                         case (strpos($item, 'title') !== false):
                             $errors[] = $forum_language->get('forum', 'title_min_2');
@@ -205,7 +205,7 @@ if (Input::exists()) {
                             $errors[] = $forum_language->get('forum', 'content_min_2');
                             break;
                     }
-                } else if (strpos($item, 'maximum') !== false) {
+                } elseif (strpos($item, 'maximum') !== false) {
                     switch ($item) {
                         case (strpos($item, 'title') !== false):
                             $errors[] = $forum_language->get('forum', 'title_max_64');

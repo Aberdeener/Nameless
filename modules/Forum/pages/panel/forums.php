@@ -121,7 +121,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     ));
 
     $template_file = 'forum/forums.tpl';
-} else if (isset($_GET['action'])) {
+} elseif (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'new':
             if (!isset($_GET['step'])) {
@@ -178,13 +178,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                             $errors[] = $forum_language->get('forum', 'input_forum_title');
                                             break;
                                     }
-                                } else if (strpos($item, 'minimum') !== false) {
+                                } elseif (strpos($item, 'minimum') !== false) {
                                     switch ($item) {
                                         case (strpos($item, 'forumname') !== false):
                                             $errors[] = $forum_language->get('forum', 'forum_name_minimum');
                                             break;
                                     }
-                                } else if (strpos($item, 'maximum') !== false) {
+                                } elseif (strpos($item, 'maximum') !== false) {
                                     switch ($item) {
                                         case (strpos($item, 'forumname') !== false):
                                             $errors[] = $forum_language->get('forum', 'forum_name_maximum');
@@ -385,7 +385,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                     Redirect::to(URL::build('/panel/forums'));
                     die();
-                } else if ($dir == 'down') {
+                } elseif ($dir == 'down') {
                     $n = 0;
                     foreach ($previous_forums as $previous_forum) {
                         if ($previous_forum->id == $_GET['fid']) {
@@ -411,7 +411,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     Redirect::to(URL::build('/panel/forums'));
                     die();
                 }
-            } else if ($_GET['dir'] == 'drag') {
+            } elseif ($_GET['dir'] == 'drag') {
                 // Get forums
                 if (isset($_GET['forums'])) {
                     $forums = json_decode($_GET['forums'])->forums;
@@ -541,7 +541,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             die();
             break;
     }
-} else if (isset($_GET['forum'])) {
+} elseif (isset($_GET['forum'])) {
     // Editing forum
     if (!is_numeric($_GET['forum'])) {
         die();
@@ -743,13 +743,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     $errors[] = $forum_language->get('forum', 'input_forum_title');
                                     break;
                             }
-                        } else if (strpos($error, 'minimum') !== false) {
+                        } elseif (strpos($error, 'minimum') !== false) {
                             switch ($error) {
                                 case (strpos($error, 'title') !== false):
                                     $errors[] = $forum_language->get('forum', 'forum_name_minimum');
                                     break;
                             }
-                        } else if (strpos($error, 'maximum') !== false) {
+                        } elseif (strpos($error, 'maximum') !== false) {
                             switch ($error) {
                                 case (strpos($error, 'title') !== false):
                                     $errors[] = $forum_language->get('forum', 'forum_name_maximum');

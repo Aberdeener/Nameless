@@ -71,7 +71,7 @@ $language = array(
     'invalid_timezone' => 'Die tijdzone is ongeldig',
     'link' => 'Link',
     'unlink' => 'Unlink',
-    
+
     /*
      *  Contact formulier
      */

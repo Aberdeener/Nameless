@@ -302,7 +302,7 @@ switch ($s) {
                         if ($private_messages[$item->pm_id]['created'] > $item->created)
                             $private_messages[$item->pm_id]['created'] = $item->created;
 
-                        else if ($private_messages[$item->pm_id]['updated'] < $item->created) {
+                        elseif ($private_messages[$item->pm_id]['updated'] < $item->created) {
                             $private_messages[$item->pm_id]['updated'] = $item->created;
                             $private_messages[$item->pm_id]['last_reply_user'] = $item->user_id;
                         }

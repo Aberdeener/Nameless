@@ -9,13 +9,13 @@
  *  Widget class
  */
 
-class Widgets {
-
-    private $_widgets = array(),
-            $_enabled = array(),
-            $_cache,
-            $_db,
-            $_name;
+class Widgets
+{
+    private $_widgets = array();
+    private $_enabled = array();
+    private $_cache;
+    private $_db;
+    private $_name;
 
     public function __construct($cache, $name = 'core') {
         // Assign name to use in cache file
@@ -110,7 +110,7 @@ class Widgets {
      */
     public function getAll() {
         $widgets = $this->_widgets;
-        uasort($widgets, function($a, $b) {
+        uasort($widgets, function ($a, $b) {
             return $a->getOrder() - $b->getOrder();
         });
 

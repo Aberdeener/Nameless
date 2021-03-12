@@ -8,8 +8,8 @@
  *
  *  Facebook Widget
  */
-class FacebookWidget extends WidgetBase {
-
+class FacebookWidget extends WidgetBase
+{
     public function __construct($pages = array(), $fb_url = '') {
         parent::__construct($pages);
 

@@ -60,7 +60,7 @@ if(!isset($_GET['metadata'])){
                 $cache->store('updated', date('d M Y, H:i'));
 
                 $success = $language->get('admin', 'sitemap_generated');
-            } else if(Input::get('type') == 'google_analytics') {
+            } elseif(Input::get('type') == 'google_analytics') {
                 $configuration->set('Core', 'ga_script', Input::get('analyticsid'));
 
                 $success = $language->get('admin', 'settings_updated_successfully');

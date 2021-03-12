@@ -115,7 +115,7 @@ if (!isset($_GET['c'])) {
 
     if (isset($error))
         $smarty->assign('ERROR', $error);
-    else if (isset($success))
+    elseif (isset($success))
         $smarty->assign('SUCCESS', $success);
 
     $smarty->assign(array(
@@ -193,13 +193,13 @@ if (!isset($_GET['c'])) {
                                 $errors[] = $language->get('user', 'password_required');
                                 break;
                         }
-                    } else if (strpos($validation_error, 'minimum') !== false) {
+                    } elseif (strpos($validation_error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
                         $errors[] = $language->get('user', 'password_minimum_6');
-                    } else if (strpos($validation_error, 'maximum') !== false) {
+                    } elseif (strpos($validation_error, 'maximum') !== false) {
                         // x must be a maximum of y characters long
                         $errors[] = $language->get('user', 'password_maximum_30');
-                    } else if (strpos($validation_error, 'must match') !== false) {
+                    } elseif (strpos($validation_error, 'must match') !== false) {
                         // password must match password again
                         $errors[] = $language->get('user', 'passwords_dont_match');
                     }

@@ -87,7 +87,7 @@ if (!isset($_GET['action'])) {
 
         Redirect::to(URL::build('/panel/core/widgets'));
         die();
-    } else if ($_GET['action'] == 'disable') {
+    } elseif ($_GET['action'] == 'disable') {
         // Disable a widget
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             die('Invalid widget!');
@@ -116,7 +116,7 @@ if (!isset($_GET['action'])) {
 
         Redirect::to(URL::build('/panel/core/widgets'));
         die();
-    } else if ($_GET['action'] == 'edit') {
+    } elseif ($_GET['action'] == 'edit') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             Redirect::to(URL::build('/panel/core/widgets'));
@@ -204,7 +204,7 @@ if (!isset($_GET['action'])) {
         );
 
         $template_file = 'core/widgets_edit.tpl';
-    } else if ($_GET['action'] == 'settings') {
+    } elseif ($_GET['action'] == 'settings') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             Redirect::to(URL::build('/panel/core/widgets'));

@@ -310,6 +310,6 @@ if (!isset($_GET['id']) && !isset($_GET['action']))
 else {
     if (isset($_GET['id']) && !isset($_GET['action']))
         $template->displayTemplate('core/profile_fields_edit.tpl', $smarty);
-    else if (isset($_GET['action']) && $_GET['action'] == 'new')
+    elseif (isset($_GET['action']) && $_GET['action'] == 'new')
         $template->displayTemplate('core/profile_fields_create.tpl', $smarty);
 }

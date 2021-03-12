@@ -9,8 +9,8 @@
  *  Config class
  */
 
-class Config {
-
+class Config
+{
     public static function get($path = null) {
         if ($path) {
 
@@ -29,7 +29,7 @@ class Config {
             }
             return $config;
         }
-        
+
         return false;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 // Check cache to see when servers were last queried
 $cache->setCache('server_query_cache');
 if ($cache->isCached('query_interval')) {

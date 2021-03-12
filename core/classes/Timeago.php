@@ -46,8 +46,8 @@ function timeAgoInWords($timestring, $timezone = null) {
  * @since 0.2.0 (2010/05/05)
  * @site http://github.com/jimmiw/php-time-ago
  */
-class TimeAgo {
-    
+class TimeAgo
+{
     // defines the number of seconds per "unit"
     private $secondsPerMinute = 60;
     private $secondsPerHour = 3600;
@@ -82,18 +82,18 @@ class TimeAgo {
             $key = 'less_than_a_minute';
         }
         // more than 29secs and less than 1min29secss
-        else if($timeDifference > 29 && $timeDifference <= 89) {
+        elseif($timeDifference > 29 && $timeDifference <= 89) {
             $key = '1_minute';
         }
         // between 1min30secs and 44mins29secs
-        else if($timeDifference > 89 &&
+        elseif($timeDifference > 89 &&
             $timeDifference <= (($this->secondsPerMinute * 44) + 29)
         ) {
             $replace = floor($timeDifference / $this->secondsPerMinute);
             $key = '_minutes';
         }
         // between 44mins30secs and 1hour29mins29secs
-        else if(
+        elseif(
             $timeDifference > (($this->secondsPerMinute * 44) + 29)
             &&
             $timeDifference < (($this->secondsPerMinute * 89) + 29)
@@ -101,7 +101,7 @@ class TimeAgo {
             $key = 'about_1_hour';
         }
         // between 1hour29mins30secs and 23hours59mins29secs
-        else if(
+        elseif(
             $timeDifference > (
                 ($this->secondsPerMinute * 89) +
                 29
@@ -121,7 +121,7 @@ class TimeAgo {
                 $key = '_hours';
         }
         // between 23hours59mins30secs and 47hours59mins29secs
-        else if(
+        elseif(
             $timeDifference > (
                 ($this->secondsPerHour * 23) +
                 ($this->secondsPerMinute * 59) +
@@ -137,7 +137,7 @@ class TimeAgo {
             $key = '1_day';
         }
         // between 47hours59mins30secs and 29days23hours59mins29secs
-        else if(
+        elseif(
             $timeDifference > (
                 ($this->secondsPerHour * 47) +
                 ($this->secondsPerMinute * 59) +
@@ -155,7 +155,7 @@ class TimeAgo {
             $key = '_days';
         }
         // between 29days23hours59mins30secs and 59days23hours59mins29secs
-        else if(
+        elseif(
             $timeDifference > (
                 ($this->secondsPerDay * 29) +
                 ($this->secondsPerHour * 23) +
@@ -173,7 +173,7 @@ class TimeAgo {
             $key = 'about_1_month';
         }
         // between 59days23hours59mins30secs and 1year (minus 1sec)
-        else if(
+        elseif(
             $timeDifference > (
                 ($this->secondsPerDay * 59) +
                 ($this->secondsPerHour * 23) +
@@ -192,7 +192,7 @@ class TimeAgo {
             $key = '_months';
         }
         // between 1year and 2years (minus 1sec)
-        else if(
+        elseif(
             $timeDifference >= $this->secondsPerYear
             &&
             $timeDifference < ($this->secondsPerYear * 2)
@@ -258,6 +258,7 @@ class TimeAgo {
                     $timeDifference = $timeDifference-($years * $this->secondsPerYear);
 
                 // finds the number of months
+                // no break
                 case ($timeDifference >= $this->secondsPerMonth && $timeDifference <= ($this->secondsPerYear-1)):
                     // uses floor to remove decimals
                     $months = floor($timeDifference / $this->secondsPerMonth);
@@ -265,6 +266,7 @@ class TimeAgo {
                     $timeDifference = $timeDifference-($months * $this->secondsPerMonth);
 
                 // finds the number of days
+                // no break
                 case ($timeDifference >= $this->secondsPerDay && $timeDifference <= ($this->secondsPerYear-1)):
                     // uses floor to remove decimals
                     $days = floor($timeDifference / $this->secondsPerDay);
@@ -272,6 +274,7 @@ class TimeAgo {
                     $timeDifference = $timeDifference-($days * $this->secondsPerDay);
 
                 // finds the number of hours
+                // no break
                 case ($timeDifference >= $this->secondsPerHour && $timeDifference <= ($this->secondsPerDay-1)):
                     // uses floor to remove decimals
                     $hours = floor($timeDifference / $this->secondsPerHour);
@@ -279,6 +282,7 @@ class TimeAgo {
                     $timeDifference = $timeDifference-($hours * $this->secondsPerHour);
 
                 // finds the number of minutes
+                // no break
                 case ($timeDifference >= $this->secondsPerMinute && $timeDifference <= ($this->secondsPerHour-1)):
                     // uses floor to remove decimals
                     $minutes = floor($timeDifference / $this->secondsPerMinute);
@@ -286,6 +290,7 @@ class TimeAgo {
                     $timeDifference = $timeDifference-($minutes * $this->secondsPerMinute);
 
                 // finds the number of seconds
+                // no break
                 case ($timeDifference <= ($this->secondsPerMinute-1)):
                     // seconds is just what there is in the timeDifference variable
                     $seconds = $timeDifference;

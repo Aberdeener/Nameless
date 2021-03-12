@@ -140,7 +140,7 @@ if (Input::exists()) {
                                 if ($hasperm) $post_labels[] = $label[0]->id;
                             }
                         }
-                    } else if (count($default_labels)) {
+                    } elseif (count($default_labels)) {
                         $post_labels = $default_labels;
                     }
 
@@ -226,7 +226,7 @@ if (Input::exists()) {
                                 $error[] = $forum_language->get('forum', 'content_required');
                                 break;
                         }
-                    } else if (strpos($item, 'minimum') !== false) {
+                    } elseif (strpos($item, 'minimum') !== false) {
                         switch ($item) {
                             case (strpos($item, 'title') !== false):
                                 $error[] = $forum_language->get('forum', 'title_min_2');
@@ -235,7 +235,7 @@ if (Input::exists()) {
                                 $error[] = $forum_language->get('forum', 'content_min_2');
                                 break;
                         }
-                    } else if (strpos($item, 'maximum') !== false) {
+                    } elseif (strpos($item, 'maximum') !== false) {
                         switch ($item) {
                             case (strpos($item, 'title') !== false):
                                 $error[] = $forum_language->get('forum', 'title_max_64');

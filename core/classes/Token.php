@@ -9,8 +9,8 @@
  *  Token class
  */
 
-class Token {
-
+class Token
+{
     // Generate a form token and store in a session variable
     // No parameters
     public static function generate() {

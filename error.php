@@ -26,7 +26,7 @@ $language = new Language('core', LANGUAGE);
 $user = new User();
 
 if (defined('CONFIG_PATH')) {
-    $path = CONFIG_PATH . '/core/assets/'; 
+    $path = CONFIG_PATH . '/core/assets/';
 } else {
     $path = '/core/assets/';
 }

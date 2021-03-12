@@ -7,8 +7,8 @@
  *  Delete user hook handler class for Core module
  */
 
-class DeleteUserHook {
-    
+class DeleteUserHook
+{
     // Execute hook
     public static function deleteUser($params = array()) {
         if (isset($params['user_id']) && $params['user_id'] > 1) {

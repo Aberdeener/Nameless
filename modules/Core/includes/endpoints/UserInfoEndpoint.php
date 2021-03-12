@@ -6,8 +6,8 @@
  *
  * @return string JSON Array
  */
-class UserInfoEndpoint extends EndpointBase {
-
+class UserInfoEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'userInfo';
         $this->_module = 'Core';
@@ -23,13 +23,13 @@ class UserInfoEndpoint extends EndpointBase {
         if (isset($_GET['id'])) {
             $where .= ' WHERE nl2_users.id = ?';
             array_push($params, $_GET['id']);
-        } else if (isset($_GET['username'])) {
+        } elseif (isset($_GET['username'])) {
             $where .= ' WHERE nl2_users.username = ?';
             array_push($params, $_GET['username']);
-        } else if (isset($_GET['uuid'])) {
+        } elseif (isset($_GET['uuid'])) {
             $where .= ' WHERE nl2_users.uuid = ?';
             array_push($params, str_replace('-', '', $_GET['uuid']));
-        } else if (isset($_GET['discord_id'])) {
+        } elseif (isset($_GET['discord_id'])) {
             $where .= ' WHERE nl2_users.discord_id = ?';
             array_push($params, $_GET['discord_id']);
         } else {

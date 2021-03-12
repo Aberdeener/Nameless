@@ -7,8 +7,8 @@
  *  Permission handler class
  */
 
-class PermissionHandler {
-
+class PermissionHandler
+{
     private static $_permissions;
 
     /*

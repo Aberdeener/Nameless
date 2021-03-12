@@ -7,8 +7,8 @@
  *
  * @return string JSON Array
  */
-class RegisterEndpoint extends EndpointBase {
-
+class RegisterEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'register';
         $this->_module = 'Core';

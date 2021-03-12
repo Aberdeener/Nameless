@@ -52,7 +52,7 @@ if (Input::exists()) {
             } catch (Exception $e) {
                 $errors = array($e->getMessage());
             }
-        } else if (isset($_POST['avatar'])) {
+        } elseif (isset($_POST['avatar'])) {
             // Selecting a new default avatar
             try {
                 $default_avatar = $queries->getWhere('settings', array('name', '=', 'custom_default_avatar'));

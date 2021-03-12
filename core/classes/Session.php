@@ -9,8 +9,8 @@
  *  Session class
  */
 
-class Session {
-
+class Session
+{
     // Check to see if a session exists
     // Params: $name (string) - contains the session variable name to check for
     public static function exists($name) {

@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -14,7 +15,7 @@
 $language = array(
     /*
      *  Forums
-     */ 
+     */
     'forum' => 'Forum',
     'forums' => 'Forumer',
     'forum_index' => 'Hem',
@@ -97,11 +98,11 @@ $language = array(
     'new_reply_in_topic' => '{x} has replied to topic {y}', // Don't replace {x} (username) or {y} (topic title)
     'started_by_x' => 'Started by {x}', // Don't replace {x}
     'sticky_topics' => 'Sticky Topics',
-    
+
     // Homepage
     'latest_announcements' => 'Latest Announcements',
     'read_full_post' => 'Read full post',
-    
+
     // Admin tab
     'labels' => 'Labels',
     'new_forum' => '<i class="fa fa-plus-circle"></i> New Forum',
@@ -185,7 +186,7 @@ $language = array(
     'new_search' => 'New Search',
     'invalid_search_query' => 'Please enter a search query between 3 and 128 characters long.',
     'no_results_found' => 'No results found.',
-    
+
     // Profile tab
     'user_no_posts' => 'This user has not made any forum posts yet.',
     'latest_posts' => 'Latest Posts',

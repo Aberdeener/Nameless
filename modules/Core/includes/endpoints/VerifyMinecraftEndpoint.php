@@ -6,8 +6,8 @@
  *
  * @return string JSON Array
  */
-class VerifyMinecraftEndpoint extends EndpointBase {
-
+class VerifyMinecraftEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'verifyMinecraft';
         $this->_module = 'Core';

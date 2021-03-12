@@ -12,7 +12,7 @@
 define('PAGE', 'banner');
 
 if(!function_exists('exif_imagetype'))
-	die('exif_imagetype is required to use server banners.');
+    die('exif_imagetype is required to use server banners.');
 
 // Minecraft integration?
 if(defined('MINECRAFT') && MINECRAFT === true){

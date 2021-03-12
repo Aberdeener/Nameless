@@ -37,7 +37,7 @@ if (!ini_get('upload_tmp_dir')) {
     $tmp_dir = ini_get('upload_tmp_dir');
 }
 
-ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
+ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
 
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
@@ -81,10 +81,10 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
 
             if (!file_exists($path)) {
                 require(ROOT_PATH . '/404.php');
-            } else { 
+            } else {
                 require($path);
             }
-            
+
             die();
         } else {
             require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php')));

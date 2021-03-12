@@ -39,7 +39,7 @@ if (isset($_GET['do'])) {
         }
 
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
-    } else if ($_GET['do'] == 'updateLanguages') {
+    } elseif ($_GET['do'] == 'updateLanguages') {
         $active_language = $queries->getWhere('languages', array('is_default', '=', 1));
         if (count($active_language)) {
             DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', array($active_language[0]->id));
@@ -290,7 +290,7 @@ if (Input::exists()) {
             foreach ($validation->errors() as $error) {
                 if (strpos($error, 'sitename') !== false) {
                     $errors[] = $language->get('admin', 'missing_sitename');
-                } else if (strpos($error, 'email') !== false) {
+                } elseif (strpos($error, 'email') !== false) {
                     $errors[] = $language->get('admin', 'missing_contact_address');
                 }
             }

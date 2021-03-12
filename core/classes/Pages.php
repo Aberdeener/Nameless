@@ -9,12 +9,12 @@
  *  Pages class
  */
 
-class Pages {
-
-    private $_pages,
-			$_active_page,
-            $_sm_methods,
-            $_ajax_requests = array();
+class Pages
+{
+    private $_pages;
+    private $_active_page;
+    private $_sm_methods;
+    private $_ajax_requests = array();
 
     private $_id = 1;
 
@@ -93,29 +93,29 @@ class Pages {
         }
         return null;
     }
-	
+
     // Get page by URL
     public function getPageByURL($url = null) {
         if ($url) {
             foreach ($this->_pages as $key => $page) {
                 if ($key == $url) {
-					$page['key'] = $key;
+                    $page['key'] = $key;
                     return $page;
                 }
             }
         }
         return null;
     }
-	
-	// Set the page the user currently viewing
-	public function setActivePage($page) {
-		$this->_active_page = $page;
-	}
-	
-	// Get the page details the user currently viewing
-	public function getActivePage() {
-		return $this->_active_page;
-	}
+
+    // Set the page the user currently viewing
+    public function setActivePage($page) {
+        $this->_active_page = $page;
+    }
+
+    // Get the page details the user currently viewing
+    public function getActivePage() {
+        return $this->_active_page;
+    }
 
     // Add a script for Javascript to perform a GET request to
     public function addAjaxScript($script = null) {

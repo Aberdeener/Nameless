@@ -10,7 +10,7 @@
  *  Czech Language - Table
  */
 
-$language = array (
+$language = array(
     /*
      *  Tables
      */

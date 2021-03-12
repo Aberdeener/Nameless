@@ -9,11 +9,11 @@
  *
  *  Discord Widget
  */
-class DiscordWidget extends WidgetBase {
-
-    private $_language,
-            $_cache,
-            $_discord;
+class DiscordWidget extends WidgetBase
+{
+    private $_language;
+    private $_cache;
+    private $_discord;
 
     public function __construct($pages = array(), $language, $cache, $discord = '') {
         $this->_language = $language;

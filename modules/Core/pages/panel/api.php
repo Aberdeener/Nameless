@@ -157,7 +157,7 @@ if (!isset($_GET['view'])) {
 
                 if (empty($_POST['ingame_rank_name']) && empty($_POST['discord_role_id'])) {
                     $errors[] = $language->get('admin', 'at_least_one_external');
-                } else if ($validation->passed()) {
+                } elseif ($validation->passed()) {
 
                     $discord_role_id = intval(Input::get('discord_role_id'));
                     if ($discord_role_id == 0) {
@@ -193,17 +193,17 @@ if (!isset($_GET['view'])) {
                         if (strpos($error, 'ingame_rank') !== false) {
                             if (strpos($error, 'required') !== false) {
                                 $errors[] = $language->get('admin', 'group_name_required');
-                            } else if (strpos($error, 'minimum') !== false) {
+                            } elseif (strpos($error, 'minimum') !== false) {
                                 $errors[] = $language->get('admin', 'group_name_minimum');
-                            } else if (strpos($error, 'maximum') !== false) {
+                            } elseif (strpos($error, 'maximum') !== false) {
                                 $errors[] = $language->get('admin', 'ingame_group_maximum');
                             } else {
                                 $errors[] = $language->get('admin', 'ingame_group_already_exists');
                             }
-                        } else if (strpos($error, 'discord_role_id') !== false) {
+                        } elseif (strpos($error, 'discord_role_id') !== false) {
                             if (strpos($error, 'numeric') !== false) {
                                 $errors[] = $language->get('admin', 'discord_role_id_numeric');
-                            } else if (strpos($error, 'length') !== false) {
+                            } elseif (strpos($error, 'length') !== false) {
                                 $errors[] = $language->get('admin', 'discord_role_id_length');
                             } else {
                                 $errors[] = $language->get('user', 'discord_id_taken');
@@ -211,7 +211,7 @@ if (!isset($_GET['view'])) {
                         }
                     }
                 }
-            } else if ($_POST['action'] == 'update') {
+            } elseif ($_POST['action'] == 'update') {
                 $errors = array();
 
                 if (isset($_POST['ingame_group']) && isset($_POST['discord_role']) && isset($_POST['website_group'])) {
@@ -426,7 +426,7 @@ if (!isset($_GET['view'])) {
         );
 
         $template_file = 'core/api_group_sync.tpl';
-    } else if ($_GET['view'] == 'api_endpoints') {
+    } elseif ($_GET['view'] == 'api_endpoints') {
 
         $endpoints_array = array();
         foreach ($endpoints->getAll() as $endpoint) {

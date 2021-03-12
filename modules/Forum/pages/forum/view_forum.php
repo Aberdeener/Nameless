@@ -54,7 +54,7 @@ if (isset($_GET['p'])) {
     } else {
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
-            Redirect::to(URL::build('/forum/view/' . $fid . '-' .  $forum->titleToURL($forum_query->forum_title)));
+            Redirect::to(URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title)));
             die();
         }
         $p = $_GET['p'];
@@ -141,7 +141,7 @@ if ($forum_query->redirect_forum == 1) {
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
             'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
         );
-    } else if (!empty($parent_category)) {
+    } elseif (!empty($parent_category)) {
         // Parent forum, get its category
         $breadcrumbs[] = array(
             'id' => $parent_category[0]->id,

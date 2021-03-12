@@ -52,7 +52,7 @@ if (isset($_GET['user'])) {
                 // Error
                 $errors = array($e->getMessage());
             }
-        } else if ($infraction->type == 3) {
+        } elseif ($infraction->type == 3) {
             // Unban IP
             try {
                 $queries->update('users', $query->id, array(
@@ -166,7 +166,7 @@ if (isset($_GET['user'])) {
                                         'reason' => $_POST['reason']
                                     ));
                                 }
-                            } else if ($type == 4) {
+                            } elseif ($type == 4) {
                                 // Need to delete any other avatars
                                 $diff_str = implode(',', array('jpg', 'png', 'jpeg', 'gif'));
 

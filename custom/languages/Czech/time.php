@@ -10,7 +10,7 @@
  *  Czech Language - Time
  */
 
-$language = array (
+$language = array(
     /*
      *  Time
      */

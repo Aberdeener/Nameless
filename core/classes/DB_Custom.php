@@ -9,16 +9,16 @@
  *  Custom database class
  */
 
-class DB_Custom {
-
+class DB_Custom
+{
     private static $_instance = null;
 
-    private $_pdo,
-        $_query,
-        $_error = false,
-        $_results,
-        $_prefix,
-        $_count = 0;
+    private $_pdo;
+    private $_query;
+    private $_error = false;
+    private $_results;
+    private $_prefix;
+    private $_count = 0;
 
     public function __construct($host, $database, $username, $password, $port = 3306) {
         try {
@@ -282,7 +282,7 @@ class DB_Custom {
         return false;
     }
 
-    public function showTables($showTable)  {
+    public function showTables($showTable) {
         $showTable = $this->_prefix . $showTable;
         $sql = "SHOW TABLES LIKE '{$showTable}'";
 

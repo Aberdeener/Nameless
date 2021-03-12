@@ -97,7 +97,7 @@ if (!isset($_GET['action'])) {
                         foreach ($validation->errors() as $error) {
                             if (strpos($error, 'url') !== false) {
                                 $errors[] = $language->get('admin', 'invalid_hook_url');
-                            } else if (strpos($error, 'name') !== false) {
+                            } elseif (strpos($error, 'name') !== false) {
                                 $errors[] = $language->get('admin', 'invalid_hook_name');
                             }
                         }
@@ -185,7 +185,7 @@ if (!isset($_GET['action'])) {
                         foreach ($validation->errors() as $error) {
                             if (strpos($error, 'url') !== false) {
                                 $errors[] = $language->get('admin', 'invalid_hook_url');
-                            } else if (strpos($error, 'name') !== false) {
+                            } elseif (strpos($error, 'name') !== false) {
                                 $errors[] = $language->get('admin', 'invalid_hook_name');
                             }
                         }

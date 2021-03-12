@@ -7,8 +7,8 @@
  *  Hook handler class
  */
 
-class HookHandler {
-
+class HookHandler
+{
     private static $_events = array();
     private static $_hooks = array();
 

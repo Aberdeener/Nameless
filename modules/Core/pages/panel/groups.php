@@ -55,7 +55,7 @@ if (isset($_GET['action'])) {
                         $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
                         if (!count($default_group) && $default == 0)
                             $default = 1;
-                        
+
                         $last_group_order = DB::getInstance()->query('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
                         if (count($last_group_order)) $last_group_order = $last_group_order[0]->order;
                         else $last_group_order = 0;
@@ -99,13 +99,13 @@ if (isset($_GET['action'])) {
                     foreach ($validation->errors() as $error) {
                         if (strpos($error, 'is required') !== false) {
                             $errors[] = $language->get('admin', 'group_name_required');
-                        } else if (strpos($error, 'minimum') !== false) {
+                        } elseif (strpos($error, 'minimum') !== false) {
                             switch ($error) {
                                 case (strpos($error, 'groupname') !== false):
                                     $errors[] = $language->get('admin', 'group_name_minimum') . '<br />';
                                     break;
                             }
-                        } else if (strpos($error, 'maximum') !== false) {
+                        } elseif (strpos($error, 'maximum') !== false) {
                             switch ($error) {
                                 case (strpos($error, 'groupname') !== false):
                                     $errors[] = $language->get('admin', 'group_name_maximum') . '<br />';
@@ -141,7 +141,7 @@ if (isset($_GET['action'])) {
         ));
 
         $template_file = 'core/groups_new.tpl';
-    } else if ($_GET['action'] == 'edit') {
+    } elseif ($_GET['action'] == 'edit') {
         if (!isset($_GET['group']) || !is_numeric($_GET['group'])) {
             Redirect::to(URL::build('/panel/core/groups'));
             die();
@@ -200,7 +200,7 @@ if (isset($_GET['action'])) {
                                 $queries->update('groups', $default_group[0]->id, array(
                                     'default_group' => 0
                                 ));
-                            else if (!count($default_group) && $default == 0)
+                            elseif (!count($default_group) && $default == 0)
                                 $default = 1;
 
                             if ($group->id == 2) {
@@ -235,13 +235,13 @@ if (isset($_GET['action'])) {
                         foreach ($validation->errors() as $error) {
                             if (strpos($error, 'is required') !== false) {
                                 $errors[] = $language->get('admin', 'group_name_required');
-                            } else if (strpos($error, 'minimum') !== false) {
+                            } elseif (strpos($error, 'minimum') !== false) {
                                 switch ($error) {
                                     case (strpos($error, 'groupname') !== false):
                                         $errors[] = $language->get('admin', 'group_name_minimum') . '<br />';
                                         break;
                                 }
-                            } else if (strpos($error, 'maximum') !== false) {
+                            } elseif (strpos($error, 'maximum') !== false) {
                                 switch ($error) {
                                     case (strpos($error, 'groupname') !== false):
                                         $errors[] = $language->get('admin', 'group_name_maximum') . '<br />';
@@ -253,7 +253,7 @@ if (isset($_GET['action'])) {
                             }
                         }
                     }
-                } else if (Input::get('action') == 'delete') {
+                } elseif (Input::get('action') == 'delete') {
                     try {
                         $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
 
@@ -307,7 +307,7 @@ if (isset($_GET['action'])) {
         ));
 
         $template_file = 'core/groups_edit.tpl';
-    } else if ($_GET['action'] == 'permissions') {
+    } elseif ($_GET['action'] == 'permissions') {
         if (!isset($_GET['group']) || !is_numeric($_GET['group'])) {
             Redirect::to(URL::build('/panel/core/groups'));
             die();
@@ -363,7 +363,7 @@ if (isset($_GET['action'])) {
         ));
 
         $template_file = 'core/groups_permissions.tpl';
-    } else if ($_GET['action'] == 'order') {
+    } elseif ($_GET['action'] == 'order') {
         // Get groups
         if(isset($_GET['groups'])){
             $groups = json_decode($_GET['groups'])->groups;

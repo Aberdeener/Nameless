@@ -1,4 +1,5 @@
 <?php
+
 // Check server ID is specified
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die();

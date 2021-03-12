@@ -27,11 +27,11 @@ if (!Util::getSetting(DB::getInstance(), 'use_api')) {
 // Initialise
 $api = new Nameless2API($route, $language, $endpoints);
 
-class Nameless2API {
-
-    private $_db,
-            $_language,
-            $_endpoints;
+class Nameless2API
+{
+    private $_db;
+    private $_language;
+    private $_endpoints;
 
     public function getDb() {
         return $this->_db;

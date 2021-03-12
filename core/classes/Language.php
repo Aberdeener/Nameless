@@ -8,12 +8,12 @@
  *
  *  Language class
  */
-class Language {
-
-    private $_activeLanguage,
-        $_activeLanguageDirectory,
-        $_activeLanguageEntries,
-        $_module;
+class Language
+{
+    private $_activeLanguage;
+    private $_activeLanguageDirectory;
+    private $_activeLanguageEntries;
+    private $_module;
 
     // Construct Language class
     // Params: 	$active_language (string) 	- contains the active language set in cache (optional)

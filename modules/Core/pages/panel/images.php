@@ -27,21 +27,21 @@ if (isset($_GET['action'])) {
         Redirect::to(URL::build('/panel/core/images'));
         die();
 
-    } else if ($_GET['action'] == 'reset_banner') {
+    } elseif ($_GET['action'] == 'reset_banner') {
         $cache->setCache('backgroundcache');
         $cache->store('banner_image', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'template_banner_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
         die();
-    } else if ($_GET['action'] == 'reset_logo') {
+    } elseif ($_GET['action'] == 'reset_logo') {
         $cache->setCache('backgroundcache');
         $cache->store('logo_image', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'logo_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
         die();
-    } else if ($_GET['action'] == 'reset_favicon') {
+    } elseif ($_GET['action'] == 'reset_favicon') {
         $cache->setCache('backgroundcache');
         $cache->store('favicon_image', '');
 
@@ -63,17 +63,17 @@ if (Input::exists()) {
 
             Session::flash('panel_images_success', $language->get('admin', 'background_updated_successfully'));
 
-        } else if (isset($_POST['banner'])) {
+        } elseif (isset($_POST['banner'])) {
             $cache->store('banner_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/template_banners/' . Input::get('banner'));
 
             Session::flash('panel_images_success', $language->get('admin', 'template_banner_updated_successfully'));
 
-        } else if (isset($_POST['logo'])) {
+        } elseif (isset($_POST['logo'])) {
             $cache->store('logo_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/logos/' . Input::get('logo'));
 
             Session::flash('panel_images_success', $language->get('admin', 'logo_updated_successfully'));
 
-        } else if (isset($_POST['favicon'])) {
+        } elseif (isset($_POST['favicon'])) {
             $cache->store('favicon_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('favicon'));
 
             Session::flash('panel_images_success', $language->get('admin', 'favicon_updated_successfully'));

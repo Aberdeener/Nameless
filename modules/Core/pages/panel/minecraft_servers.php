@@ -104,7 +104,7 @@ if(isset($_GET['action'])){
                                 $query_port = Input::get('query_port');
                             else
                                 $query_port = 25565;
-                            
+
                             $last_server_order = DB::getInstance()->query('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
                             if (count($last_server_order)) $last_server_order = $last_server_order[0]->order;
                             else $last_server_order = 0;
@@ -149,7 +149,7 @@ if(isset($_GET['action'])){
                                         $errors[] = $language->get('admin', 'server_parent_required');
                                         break;
                                 }
-                            } else if(strpos($item, 'minimum') !== false){
+                            } elseif(strpos($item, 'minimum') !== false){
                                 switch($item){
                                     case (strpos($item, 'server_name') !== false):
                                         $errors[] = $language->get('admin', 'server_name_minimum');
@@ -161,7 +161,7 @@ if(isset($_GET['action'])){
                                         $errors[] = $language->get('admin', 'server_port_minimum');
                                         break;
                                 }
-                            } else if(strpos($item, 'maximum') !== false){
+                            } elseif(strpos($item, 'maximum') !== false){
                                 switch($item){
                                     case (strpos($item, 'server_name') !== false):
                                         $errors[] = $language->get('admin', 'server_name_maximum');
@@ -373,7 +373,7 @@ if(isset($_GET['action'])){
                                         $errors[] = $language->get('admin', 'server_parent_required');
                                         break;
                                 }
-                            } else if(strpos($item, 'minimum') !== false){
+                            } elseif(strpos($item, 'minimum') !== false){
                                 switch($item){
                                     case (strpos($item, 'server_name') !== false):
                                         $errors[] = $language->get('admin', 'server_name_minimum');
@@ -385,7 +385,7 @@ if(isset($_GET['action'])){
                                         $errors[] = $language->get('admin', 'server_port_minimum');
                                         break;
                                 }
-                            } else if(strpos($item, 'maximum') !== false){
+                            } elseif(strpos($item, 'maximum') !== false){
                                 switch($item){
                                     case (strpos($item, 'server_name') !== false):
                                         $errors[] = $language->get('admin', 'server_name_maximum');

@@ -9,8 +9,8 @@
  *
  *  Announcements class
  */
-class Announcements {
-
+class Announcements
+{
     public static function getAll() {
         $cache = new Cache();
         $cache->setCache('custom_announcements');
@@ -45,7 +45,7 @@ class Announcements {
         return $available_pages;
     }
 
-    public static function getPagesCsv($pages_json = null){
+    public static function getPagesCsv($pages_json = null) {
         $pages = json_decode($pages_json);
         if (!$pages) return null;
         return implode(', ', array_map('ucfirst', $pages));
@@ -65,7 +65,7 @@ class Announcements {
         return true;
     }
 
-    public static function resetCache(){
+    public static function resetCache() {
         $cache = new Cache();
         $cache->setCache('custom_announcements');
         if ($cache->isCached('custom_announcements')) $cache->erase('custom_announcements');

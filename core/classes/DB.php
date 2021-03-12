@@ -9,16 +9,16 @@
  *  Database class
  */
 
-class DB {
-
+class DB
+{
     private static $_instance = null;
 
-    private $_pdo,
-            $_query,
-            $_error = false,
-            $_results,
-            $_prefix,
-            $_count = 0;
+    private $_pdo;
+    private $_query;
+    private $_error = false;
+    private $_results;
+    private $_prefix;
+    private $_count = 0;
 
     private function __construct() {
         try {
@@ -84,7 +84,7 @@ class DB {
         return $this;
     }
 
-    public function createTable($name, $table_data, $other){
+    public function createTable($name, $table_data, $other) {
         $name = $this->_prefix . $name;
         $sql = "CREATE TABLE `{$name}` ({$table_data}) {$other}";
 

@@ -8,8 +8,8 @@
  *
  *  Alert class
  */
-class Alert {
-
+class Alert
+{
     // Creates an alert for the specified user
     // Params:  $user_id (int) 			- contains the ID of the user who we are creating the alert for
     // 			$type (string) 			- contains the alert type, eg 'tag' for user tagging

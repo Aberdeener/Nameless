@@ -242,7 +242,7 @@ if(!isset($_GET['action'])) {
                     if (isset($blocked)) {
                         $error = $language->get('user', 'one_or_more_users_blocked');
 
-                    } else if (!count($users)) {
+                    } elseif (!count($users)) {
                         $error = $language->get('user', 'cant_send_to_self');
 
                     } else {
@@ -338,23 +338,23 @@ if(!isset($_GET['action'])) {
                         if (strpos($item, 'is required') !== false) {
                             if (strpos($item, 'title')) {
                                 $errors[] = $language->get('user', 'title_required');
-                            } else if (strpos($item, 'content') !== false) {
+                            } elseif (strpos($item, 'content') !== false) {
                                 $errors[] = $language->get('user', 'content_required');
                                 break;
-                            } else if (strpos($item, 'to')) {
+                            } elseif (strpos($item, 'to')) {
                                 $errors[] = $language->get('user', 'users_to_required');
                             }
-                        } else if (strpos($item, 'minimum') !== false) {
+                        } elseif (strpos($item, 'minimum') !== false) {
                             if (strpos($item, 'title') !== false) {
                                 $errors[] = $language->get('user', 'title_min_2');
-                            } else if (strpos($item, 'content') !== false) {
+                            } elseif (strpos($item, 'content') !== false) {
                                 $errors[] = $language->get('user', 'content_min_2');
                                 break;
                             }
-                        } else if (strpos($item, 'maximum') !== false) {
+                        } elseif (strpos($item, 'maximum') !== false) {
                             if (strpos($item, 'title') !== false) {
                                 $errors[] = $language->get('user', 'title_max_64');
-                            } else if (strpos($item, 'content') !== false) {
+                            } elseif (strpos($item, 'content') !== false) {
                                 $errors[] = $language->get('user', 'content_max_20480');
                             }
                         }
@@ -426,7 +426,7 @@ if(!isset($_GET['action'])) {
         // Display template
         $template->displayTemplate('user/new_message.tpl', $smarty);
 
-    } else if ($_GET['action'] == 'view') {
+    } elseif ($_GET['action'] == 'view') {
         // Ensure message is specified
         if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));
@@ -517,9 +517,9 @@ if(!isset($_GET['action'])) {
                     foreach ($validation->errors() as $item) {
                         if (strpos($item, 'is required') !== false) {
                             $error = $language->get('user', 'content_required');
-                        } else if (strpos($item, 'minimum') !== false) {
+                        } elseif (strpos($item, 'minimum') !== false) {
                             $error = $language->get('user', 'content_min_2');
-                        } else if (strpos($item, 'maximum') !== false) {
+                        } elseif (strpos($item, 'maximum') !== false) {
                             $error = $language->get('user', 'content_max_20480');
                         }
                     }
@@ -621,7 +621,7 @@ if(!isset($_GET['action'])) {
         // Display template
         $template->displayTemplate('user/view_message.tpl', $smarty);
 
-    } else if ($_GET['action'] == 'leave') {
+    } elseif ($_GET['action'] == 'leave') {
         // Try to remove the user from the conversation
         if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));

@@ -9,16 +9,16 @@
  *  Modules class
  */
 
-abstract class Module {
-    
+abstract class Module
+{
     private static $_modules = array();
 
-    private $_name, 
-            $_author,  
-            $_version, 
-            $_nameless_version,
-            $_load_before,
-            $_load_after;
+    private $_name;
+    private $_author;
+    private $_version;
+    private $_nameless_version;
+    private $_load_before;
+    private $_load_after;
 
     public function __construct($module, $name, $author, $version, $nameless_version, $load_before = array(), $load_after = array()) {
         self::$_modules[] = $module;
@@ -35,27 +35,27 @@ abstract class Module {
         $this->_load_after = $load_after;
     }
 
-    protected final function setName($name) {
+    final protected function setName($name) {
         $this->_name = $name;
     }
 
-    protected final function setVersion($version) {
+    final protected function setVersion($version) {
         $this->_version = $version;
     }
 
-    protected final function setNamelessVersion($nameless_version) {
+    final protected function setNamelessVersion($nameless_version) {
         $this->_nameless_version = $nameless_version;
     }
 
-    protected final function setAuthor($author) {
+    final protected function setAuthor($author) {
         $this->_author = $author;
     }
 
-    abstract function onInstall();
-    abstract function onUninstall(); // TODO: Implement
-    abstract function onEnable();
-    abstract function onDisable();
-    abstract function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
+    abstract public function onInstall();
+    abstract public function onUninstall(); // TODO: Implement
+    abstract public function onEnable();
+    abstract public function onDisable();
+    abstract public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
 
     public static function loadPage($user, $pages, $cache, $smarty, $navs, $widgets, $template = null) {
         foreach (self::$_modules as $module) {
@@ -99,7 +99,7 @@ abstract class Module {
         foreach ($modules as $module) {
             if ($found) {
                 $after[] = $module;
-            } else if ($module == $current) {
+            } elseif ($module == $current) {
                 $found = true;
             } else {
                 $before[] = $module;

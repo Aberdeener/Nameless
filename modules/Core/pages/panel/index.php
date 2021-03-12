@@ -179,7 +179,7 @@ if(is_dir(ROOT_PATH . '/modules/Core/pages/admin'))
         'DIRECTORY_WARNING' => $language->get('admin', 'admin_dir_still_exists')
     ));
 
-else if(is_dir(ROOT_PATH . '/modules/Core/pages/mod'))
+elseif(is_dir(ROOT_PATH . '/modules/Core/pages/mod'))
     $smarty->assign(array(
         'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
     ));

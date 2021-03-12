@@ -1,4 +1,5 @@
 <?php
+
 $language = array(
     //forums
     'info_forums_lock' => 'Locked',

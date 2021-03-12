@@ -224,7 +224,7 @@ if (isset($_GET['s'])) {
     // Search bar
     if (isset($error))
         $smarty->assign('ERROR', $error);
-    else if (Session::exists('search_error'))
+    elseif (Session::exists('search_error'))
         $smarty->assign('ERROR', Session::flash('search_error'));
 
     $smarty->assign(array(

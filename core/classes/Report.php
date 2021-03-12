@@ -8,17 +8,18 @@
  *
  *  Report class
  */
-class Report {
+class Report
+{
     private $_db;
 
     // Construct Report class
-    public function __construct(){
+    public function __construct() {
         $this->_db = DB::getInstance();
     }
 
     // Create a report
     // Params: $post - array containing fields
-    public function create($post = array()){
+    public function create($post = array()) {
         // Insert into database
         if(!$this->_db->insert('reports', $post)) {
             throw new Exception('There was a problem creating the report.');

@@ -407,9 +407,9 @@ if (Input::exists()) {
             foreach ($validation->errors() as $item) {
                 if (strpos($item, 'is required') !== false) {
                     $error[] = $forum_language->get('forum', 'content_required');
-                } else if (strpos($item, 'minimum') !== false) {
+                } elseif (strpos($item, 'minimum') !== false) {
                     $error[] = $forum_language->get('forum', 'content_min_2');
-                } else if (strpos($item, 'maximum') !== false) {
+                } elseif (strpos($item, 'maximum') !== false) {
                     $error[] = $forum_language->get('forum', 'content_max_50000');
                 }
             }
@@ -477,7 +477,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
         'forum_title' => Output::getClean($parent_category[0]->forum_title),
         'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
     );
-} else if (!empty($parent_category)) {
+} elseif (!empty($parent_category)) {
     // Parent forum, get its category
     $breadcrumbs[] = array(
         'id' => $parent_category[0]->id,
@@ -614,7 +614,7 @@ for ($n = 0; $n < count($results->data); $n++) {
                 'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
                 'TEXT' => $forum_language->get('forum', 'edit')
             );
-        } else if ($user->data()->id == $results->data[$n]->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
+        } elseif ($user->data()->id == $results->data[$n]->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
             if ($topic->locked != 1) { // Can't edit if topic is locked
                 $buttons['edit'] = array(
                     'URL' => URL::build('/forum/edit/', 'pid=' . $results->data[$n]->id . '&amp;tid=' . $tid),
@@ -681,7 +681,7 @@ for ($n = 0; $n < count($results->data); $n++) {
                     $post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
 
                     if ($reaction[0]->type == 2) $total_karma++;
-                    else if ($reaction[0]->type == 0) $total_karma--;
+                    elseif ($reaction[0]->type == 0) $total_karma--;
                 } else {
                     $post_reactions[$item->reaction_id]['count']++;
                 }
@@ -803,7 +803,7 @@ $smarty->assign(array(
     'POSTS' => $forum_language->get('forum', 'posts'),
     'BY' => ucfirst($forum_language->get('forum', 'by')),
     'CANCEL' => $language->get('general', 'cancel'),
-    'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id  : 0),
+    'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id : 0),
     'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
     'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title),
     'STARTED_BY' => $forum_language->get('forum', 'started_by_x'),
@@ -856,7 +856,7 @@ if ($user->isLoggedIn()) {
 
     $template->addJSScript('
 	$(document).ready(function() {
-		if(typeof $.cookie(\'' .  $tid . '-quoted\') === \'undefined\'){
+		if(typeof $.cookie(\'' . $tid . '-quoted\') === \'undefined\'){
 			$("#quoteButton").hide();
 		}
 	});
@@ -872,7 +872,7 @@ if ($user->isLoggedIn()) {
 			toastr.options.progressBar = true;
 			toastr.options.closeButton = true;
 			toastr.options.positionClass = \'toast-bottom-left\';
-			toastr.info(\'' .  $forum_language->get('forum', 'removed_quoted_post') . '\');
+			toastr.info(\'' . $forum_language->get('forum', 'removed_quoted_post') . '\');
 		}
 		else {
 			quotedPosts.push(post);
@@ -902,7 +902,7 @@ if ($user->isLoggedIn()) {
 	// Insert quoted posts to editor
 	function insertQuotes(){
 		var postData = {
-			"posts": JSON.parse($.cookie(\'' .  $tid . '-quoted\')),
+			"posts": JSON.parse($.cookie(\'' . $tid . '-quoted\')),
 			"topic": ' . $tid . '
 		};
 

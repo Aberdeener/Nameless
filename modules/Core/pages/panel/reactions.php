@@ -131,14 +131,14 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                                     if (strpos($error, 'name') !== false) {
                                         // Name
                                         $errors[] = $language->get('admin', 'name_required');
-                                    } else if (strpos($error, 'html') !== false) {
+                                    } elseif (strpos($error, 'html') !== false) {
                                         // HTML
                                         $errors[] = $language->get('admin', 'html_required');
                                     } else {
                                         // Type
                                         $errors[] = $language->get('admin', 'type_required');
                                     }
-                                } else if (strpos($error, 'maximum') !== false) {
+                                } elseif (strpos($error, 'maximum') !== false) {
                                     // Maximum
                                     if (strpos($error, 'name') !== false) {
                                         // Name
@@ -270,14 +270,14 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             if (strpos($error, 'name') !== false) {
                                 // Name
                                 $errors[] = $language->get('admin', 'name_required');
-                            } else if (strpos($error, 'html') !== false) {
+                            } elseif (strpos($error, 'html') !== false) {
                                 // HTML
                                 $errors[] = $language->get('admin', 'html_required');
                             } else {
                                 // Type
                                 $errors[] = $language->get('admin', 'type_required');
                             }
-                        } else if (strpos($error, 'maximum') !== false) {
+                        } elseif (strpos($error, 'maximum') !== false) {
                             // Maximum
                             if (strpos($error, 'name') !== false) {
                                 // Name

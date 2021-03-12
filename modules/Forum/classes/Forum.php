@@ -9,8 +9,8 @@
  *  Forum class
  */
 
-class Forum {
-
+class Forum
+{
     private $_db;
 
     // Constructor, connect to database

@@ -168,30 +168,30 @@ if(!isset($_GET['action'])){
                                 if(strpos($item, 'page_title') !== false)
                                     $errors[] = $language->get('admin', 'page_title_required');
 
-                                else if(strpos($item, 'page_url') !== false)
+                                elseif(strpos($item, 'page_url') !== false)
                                     $errors[] = $language->get('admin', 'page_url_required');
 
-                                else if(strpos($item, 'link_location') !== false)
+                                elseif(strpos($item, 'link_location') !== false)
                                     $errors[] = $language->get('admin', 'link_location_required');
 
-                            } else if(strpos($item, 'minimum') !== false){
+                            } elseif(strpos($item, 'minimum') !== false){
                                 if(strpos($item, 'page_title') !== false)
                                     $errors[] = $language->get('admin', 'page_title_minimum_2');
 
-                                else if(strpos($item, 'page_url') !== false)
+                                elseif(strpos($item, 'page_url') !== false)
                                     $errors[] = $language->get('admin', 'page_url_minimum_2');
 
-                            } else if(strpos($item, 'maximum') !== false){
+                            } elseif(strpos($item, 'maximum') !== false){
                                 if(strpos($item, 'page_title') !== false)
                                     $errors[] = $language->get('admin', 'page_title_maximum_30');
 
-                                else if(strpos($item, 'page_url') !== false)
+                                elseif(strpos($item, 'page_url') !== false)
                                     $errors[] = $language->get('admin', 'page_url_maximum_20');
 
-                                else if(strpos($item, 'content') !== false)
+                                elseif(strpos($item, 'content') !== false)
                                     $errors[] = $language->get('admin', 'page_content_maximum_100000');
 
-                                else if(strpos($item, 'redirect_link') !== false)
+                                elseif(strpos($item, 'redirect_link') !== false)
                                     $errors[] = $language->get('admin', 'page_redirect_link_maximum_512');
 
                             }
@@ -326,7 +326,7 @@ if(!isset($_GET['action'])){
                             else $basic = 0;
 
                             $page_url = Output::getClean(rtrim(Input::get('page_url'), '/'));
-                            
+
                             $queries->update('custom_pages', $page->id, array(
                                 'url' => $page_url,
                                 'title' => Output::getClean(Input::get('page_title')),
@@ -469,30 +469,30 @@ if(!isset($_GET['action'])){
                                 if(strpos($item, 'page_title') !== false)
                                     $errors[] = $language->get('admin', 'page_title_required');
 
-                                else if(strpos($item, 'page_url') !== false)
+                                elseif(strpos($item, 'page_url') !== false)
                                     $errors[] = $language->get('admin', 'page_url_required');
 
-                                else if(strpos($item, 'link_location') !== false)
+                                elseif(strpos($item, 'link_location') !== false)
                                     $errors[] = $language->get('admin', 'link_location_required');
 
-                            } else if(strpos($item, 'minimum') !== false){
+                            } elseif(strpos($item, 'minimum') !== false){
                                 if(strpos($item, 'page_title') !== false)
                                     $errors[] = $language->get('admin', 'page_title_minimum_2');
 
-                                else if(strpos($item, 'page_url') !== false)
+                                elseif(strpos($item, 'page_url') !== false)
                                     $errors[] = $language->get('admin', 'page_url_minimum_2');
 
-                            } else if(strpos($item, 'maximum') !== false){
+                            } elseif(strpos($item, 'maximum') !== false){
                                 if(strpos($item, 'page_title') !== false)
                                     $errors[] = $language->get('admin', 'page_title_maximum_30');
 
-                                else if(strpos($item, 'page_url') !== false)
+                                elseif(strpos($item, 'page_url') !== false)
                                     $errors[] = $language->get('admin', 'page_url_maximum_20');
 
-                                else if(strpos($item, 'content') !== false)
+                                elseif(strpos($item, 'content') !== false)
                                     $errors[] = $language->get('admin', 'page_content_maximum_100000');
 
-                                else if(strpos($item, 'redirect_link') !== false)
+                                elseif(strpos($item, 'redirect_link') !== false)
                                     $errors[] = $language->get('admin', 'page_redirect_link_maximum_512');
 
                             }

@@ -8,11 +8,11 @@
  *
  *  Recent topics dashboard collection item
  */
-class RecentTopicsItem extends CollectionItemBase {
-
-    private $_smarty, 
-            $_language, 
-            $_topics;
+class RecentTopicsItem extends CollectionItemBase
+{
+    private $_smarty;
+    private $_language;
+    private $_topics;
 
     public function __construct($smarty, $language, $cache, $topics) {
         $cache->setCache('dashboard_stats_collection');

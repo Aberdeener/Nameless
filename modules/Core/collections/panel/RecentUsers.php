@@ -9,10 +9,10 @@
  *  Recent users dashboard collection item
  */
 
-class RecentUsersItem extends CollectionItemBase {
-
-    private $_smarty, 
-            $_language;
+class RecentUsersItem extends CollectionItemBase
+{
+    private $_smarty;
+    private $_language;
 
     public function __construct($smarty, $language, $cache) {
         $cache->setCache('dashboard_stats_collection');

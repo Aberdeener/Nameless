@@ -8,8 +8,8 @@
  *
  *  Output class
  */
-class Output {
-    
+class Output
+{
     // Purifier object
     private static $_purifier = null;
 

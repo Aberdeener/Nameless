@@ -9,8 +9,8 @@
  *  Minecraft server query class
  */
 
-class MCQuery {
-
+class MCQuery
+{
     // Query a single server
     // Returns array containing query result
     // Params:  $ip - full server IP address with port (separated by :) to query

@@ -172,7 +172,7 @@ if(Input::exists()){
                                 break;
                         }
 
-                    } else if(strpos($validation_error, 'minimum') !== false){
+                    } elseif(strpos($validation_error, 'minimum') !== false){
                         // x must be a minimum of y characters long
                         switch($validation_error){
                             case (strpos($validation_error, 'nickname') !== false):
@@ -183,7 +183,7 @@ if(Input::exists()){
                                 break;
                         }
 
-                    } else if(strpos($validation_error, 'maximum') !== false){
+                    } elseif(strpos($validation_error, 'maximum') !== false){
                         // x must be a maximum of y characters long
                         switch($validation_error){
                             case (strpos($validation_error, 'username') !== false):
@@ -194,7 +194,7 @@ if(Input::exists()){
                                 break;
                         }
 
-                    } else if(strpos($validation_error, 'already exists') !== false){
+                    } elseif(strpos($validation_error, 'already exists') !== false){
                         // already exists
                         if(!in_array($language->get('user', 'username_mcname_email_exists'), $errors))
                             $errors[] = $language->get('user', 'username_mcname_email_exists');
@@ -374,7 +374,7 @@ if(Input::exists()){
                                     $errors[] = $language->get('user', 'accept_terms');
                                     break;
                             }
-                        } else if(strpos($validation_error, 'exists') !== false){
+                        } elseif(strpos($validation_error, 'exists') !== false){
                             $errors[] = $language->get('user', 'authme_username_exists');
                         }
                     }
@@ -438,9 +438,9 @@ if(!isset($_GET['step'])){
 }
 
 if($recaptcha === "true"){
-	$template->addJSFiles(array(
-		'https://www.google.com/recaptcha/api.js' => array()
-	));
+    $template->addJSFiles(array(
+        'https://www.google.com/recaptcha/api.js' => array()
+    ));
 }
 
 // Load modules + template

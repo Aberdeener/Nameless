@@ -23,11 +23,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class MinecraftPingException extends \Exception {
+class MinecraftPingException extends \Exception
+{
     // Exception thrown by MinecraftPing class
 }
 
-class MinecraftPing {
+class MinecraftPing
+{
     /*
      * Queries Minecraft server
      * Returns array on success, false on failure.
@@ -50,10 +52,10 @@ class MinecraftPing {
      *
      */
 
-    private $Socket,
-            $ServerAddress,
-            $ServerPort,
-            $Timeout;
+    private $Socket;
+    private $ServerAddress;
+    private $ServerPort;
+    private $Timeout;
 
     public function __construct($Address, $Port = 25565, $Timeout = 2, $ResolveSRV = true) {
         $this->ServerAddress = $Address;
@@ -110,7 +112,7 @@ class MinecraftPing {
         $Length = $this->ReadVarInt(); // full packet length
 
         if ($Length < 10) {
-            return FALSE;
+            return false;
         }
 
         $this->ReadVarInt(); // packet type, in server ping it's 0
@@ -133,7 +135,7 @@ class MinecraftPing {
             $Data .= $block;
         } while (StrLen($Data) < $Length);
 
-        if ($Data === FALSE) {
+        if ($Data === false) {
             throw new MinecraftPingException('Server didn\'t return any data');
         }
 
@@ -146,7 +148,7 @@ class MinecraftPing {
                 throw new MinecraftPingException('JSON parsing failed');
             }
 
-            return FALSE;
+            return false;
         }
 
         return $Data;
@@ -158,7 +160,7 @@ class MinecraftPing {
         $Len = StrLen($Data);
 
         if ($Len < 4 || $Data[0] !== "\xFF") {
-            return FALSE;
+            return false;
         }
 
         $Data = SubStr($Data, 3); // Strip packet header (kick message packet and short length)
@@ -195,7 +197,7 @@ class MinecraftPing {
         while (true) {
             $k = @fgetc($this->Socket);
 
-            if ($k === FALSE) {
+            if ($k === false) {
                 return 0;
             }
 

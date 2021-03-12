@@ -8,18 +8,18 @@
  *
  *  Input class
  */
-class Input {
-
+class Input
+{
     // Check that input actually exists
     // Params: $type (string) - check for either POST or GET submission (optional, defaults to POST)
     public static function exists($type = 'post') {
         switch ($type) {
-            case 'post';
+            case 'post':
                 // Check the $_POST variable
                 return (!empty($_POST)) ? true : false;
                 break;
 
-            case 'get';
+            case 'get':
                 // Check the $_GET variable
                 return (!empty($_GET)) ? true : false;
                 break;
@@ -36,8 +36,8 @@ class Input {
     public static function get($item) {
         if (isset($_POST[$item])) {
             return $_POST[$item];
-        } 
-        else if (isset($_GET[$item])) {
+        }
+        elseif (isset($_GET[$item])) {
             return $_GET[$item];
         }
 
@@ -139,7 +139,7 @@ class Input {
 
             return $editor;
         }
-        
+
         return null;
     }
 }

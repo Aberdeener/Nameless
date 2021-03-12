@@ -190,7 +190,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
                                 Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
-                            } else if ($post[0]->author_id != $user->data()->id) {
+                            } elseif ($post[0]->author_id != $user->data()->id) {
                                 // Alert post author
                                 if ($post[0]->author_id == $query->id) {
                                     Alert::create($query->id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname), URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
@@ -408,7 +408,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $queries->increment("users", $query->id, "profile_views");
             Cookie::put("nl-profile-" . $query->id, "true", 3600);
         }
-    } else if (!Session::exists('nl-profile-' . $query->id)) {
+    } elseif (!Session::exists('nl-profile-' . $query->id)) {
         $queries->increment("users", $query->id, "profile_views");
         Session::put("nl-profile-" . $query->id, "true");
     }

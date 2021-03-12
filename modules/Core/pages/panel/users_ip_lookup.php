@@ -61,7 +61,7 @@ if (isset($_GET['uid'])) {
 
         $template_file = 'core/users_ip_lookup.tpl';
     }
-} else if (isset($_GET['ip'])) {
+} elseif (isset($_GET['ip'])) {
     // IP has been specified
     // Get accounts with this IP
     $ip_accounts = $queries->getWhere('users_ips', array('ip', '=', Output::getClean($_GET['ip'])));

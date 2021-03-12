@@ -7,7 +7,8 @@
  *  Validate user hook handler class
  */
 
-class ValidateHook {
+class ValidateHook
+{
     public static function validatePromote($params = array()) {
         if (!defined('VALIDATED_DEFAULT'))
             define('VALIDATED_DEFAULT', 1);

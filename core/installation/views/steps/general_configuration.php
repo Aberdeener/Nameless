@@ -1,16 +1,16 @@
 <?php
 if (!isset($_SESSION['requirements_validated']) || $_SESSION['requirements_validated'] != true) {
-	Redirect::to('?step=requirements_validation');
-	die();
+    Redirect::to('?step=requirements_validation');
+    die();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$_SESSION['hostname'] = (isset($_POST['hostname']) ? $_POST['hostname'] : $_SERVER['SERVER_NAME']);
-	$_SESSION['install_path'] = (isset($_POST['install_path']) ? $_POST['install_path'] : '');
-	$_SESSION['friendly_urls'] = (isset($_POST['friendly']) ? $_POST['friendly'] : false);
+    $_SESSION['hostname'] = (isset($_POST['hostname']) ? $_POST['hostname'] : $_SERVER['SERVER_NAME']);
+    $_SESSION['install_path'] = (isset($_POST['install_path']) ? $_POST['install_path'] : '');
+    $_SESSION['friendly_urls'] = (isset($_POST['friendly']) ? $_POST['friendly'] : false);
 
-	Redirect::to('?step=database_configuration');
-	die();
+    Redirect::to('?step=database_configuration');
+    die();
 
 }
 ?>
@@ -33,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						<p><?php echo $language['nameless_path_info']; ?></p>
 						<div class="ui divider"></div>
 						<?php create_field('select', $language['friendly_urls'], 'friendly', 'inputFriendly', getenv('NAMELESS_FRIENDLY_URLS') ?: 'false', array(
-							'true' => $language['enabled'],
-							'false' => $language['disabled'],
-						)); ?>
+                            'true' => $language['enabled'],
+                            'false' => $language['disabled'],
+                        )); ?>
 						<p><?php echo $language['friendly_urls_info']; ?></p>
 					</div>
 				</div>

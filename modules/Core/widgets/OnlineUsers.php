@@ -8,11 +8,11 @@
  *
  *  Online users widget
  */
-class OnlineUsersWidget extends WidgetBase {
-
-    private $_smarty,
-            $_cache,
-            $_language;
+class OnlineUsersWidget extends WidgetBase
+{
+    private $_smarty;
+    private $_cache;
+    private $_language;
 
     public function __construct($pages = array(), $cache, $smarty, $language) {
         $this->_smarty = $smarty;

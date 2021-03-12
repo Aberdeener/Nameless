@@ -9,11 +9,11 @@
  *  Recent reports dashboard collection item
  */
 
-class RecentReportsItem extends CollectionItemBase {
-
-    private $_smarty, 
-            $_language, 
-            $_cache;
+class RecentReportsItem extends CollectionItemBase
+{
+    private $_smarty;
+    private $_language;
+    private $_cache;
 
     public function __construct($smarty, $language, $cache) {
         $cache->setCache('dashboard_main_items_collection');

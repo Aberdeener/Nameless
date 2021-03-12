@@ -8,11 +8,11 @@
  *
  *  Profile Posts Widget
  */
-class ServerStatusWidget extends WidgetBase {
-
-    private $_cache,
-            $_smarty,
-            $_language;
+class ServerStatusWidget extends WidgetBase
+{
+    private $_cache;
+    private $_smarty;
+    private $_language;
 
     public function __construct($pages = array(), $smarty, $language, $cache) {
         $this->_language = $language;
@@ -67,7 +67,7 @@ class ServerStatusWidget extends WidgetBase {
                     'ONLINE' => $this->_language->get('general', 'online'),
                     'OFFLINE' => $this->_language->get('general', 'offline'),
                     'IP' => $this->_language->get('general', 'ip'),
-                    'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>' , $this->_language->get('general', 'version')) : null
+                    'VERSION' => isset($server_array['version']) ? str_replace('{x}', '<strong>' . $server_array['version'] . '</strong>', $this->_language->get('general', 'version')) : null
                 )
             );
         }

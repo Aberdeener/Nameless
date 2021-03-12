@@ -9,11 +9,11 @@
  *  Recent posts dashboard collection item
  */
 
-class RecentPostsItem extends CollectionItemBase {
-
-    private $_smarty, 
-            $_language, 
-            $_posts;
+class RecentPostsItem extends CollectionItemBase
+{
+    private $_smarty;
+    private $_language;
+    private $_posts;
 
     public function __construct($smarty, $language, $cache, $posts) {
         $cache->setCache('dashboard_stats_collection');

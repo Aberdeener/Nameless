@@ -102,7 +102,7 @@ if (isset($_GET['action'])) {
         }
 
         $template_file = 'core/emails_test.tpl';
-    } else if ($_GET['action'] == 'edit_messages') {
+    } elseif ($_GET['action'] == 'edit_messages') {
 
         $available_languages = array();
 
@@ -138,7 +138,7 @@ if (isset($_GET['action'])) {
         ));
 
         $template_file = 'core/emails_edit_messages.tpl';
-    } else if ($_GET['action'] == 'preview') {
+    } elseif ($_GET['action'] == 'preview') {
 
         $viewing_language =  new Language(null, Session::get('editing_language'));
 

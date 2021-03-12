@@ -8,8 +8,8 @@
  *
  *  Twitter Widget
  */
-class TwitterWidget extends WidgetBase {
-
+class TwitterWidget extends WidgetBase
+{
     public function __construct($pages = array(), $twitter = '', $theme = '') {
         parent::__construct($pages);
 

@@ -8,8 +8,8 @@
  *
  *  Discord class
  */
-class Discord {
-
+class Discord
+{
     private static $_valid_responses = array('success', 'badparameter', 'error', 'invguild', 'invuser', 'notlinked', 'unauthorized', 'invrole');
 
     public static function discordBotRequest($url = '/status', $body = null) {
@@ -120,7 +120,7 @@ class Discord {
 
         return $errors;
     }
-    
+
     private static function assembleJson($user_id, $action, $role_id) {
         // TODO cache or define() website api key and discord guild id
         $return = array();

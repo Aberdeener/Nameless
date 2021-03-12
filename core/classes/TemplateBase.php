@@ -9,9 +9,21 @@
  *  Base template class
  */
 
-abstract class TemplateBase {
-    
-    protected $_name = '', $_version = '', $_nameless_version = '', $_author = '', $_settings = '', $_css = array(), $_js = array();
+abstract class TemplateBase
+{
+    protected $_name = '';
+
+    protected $_version = '';
+
+    protected $_nameless_version = '';
+
+    protected $_author = '';
+
+    protected $_settings = '';
+
+    protected $_css = array();
+
+    protected $_js = array();
 
     public function __construct($name, $version, $nameless_version, $author) {
         $this->_name = $name;
@@ -20,7 +32,7 @@ abstract class TemplateBase {
         $this->_author = $author;
     }
 
-    public abstract function onPageLoad();
+    abstract public function onPageLoad();
 
     public function addCSSFiles($files) {
         if (is_array($files) && count($files)) {

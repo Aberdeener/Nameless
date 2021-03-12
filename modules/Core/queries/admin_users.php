@@ -1,4 +1,5 @@
 <?php
+
 // Returns set of users for the StaffCP Users tab
 header('Content-type: application/json;charset=utf-8');
 

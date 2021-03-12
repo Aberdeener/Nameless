@@ -7,8 +7,8 @@
  *  Discord hook handler class
  */
 
-class DiscordHook {
-
+class DiscordHook
+{
     // Execute hook
     public static function execute($params = array()) {
         // Ensure hook is compatible

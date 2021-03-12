@@ -8,13 +8,13 @@
  *
  *  Profile Posts Widget
  */
-class ProfilePostsWidget extends WidgetBase {
-
-    private $_cache,
-            $_smarty,
-            $_language,
-            $_user,
-            $_timeago;
+class ProfilePostsWidget extends WidgetBase
+{
+    private $_cache;
+    private $_smarty;
+    private $_language;
+    private $_user;
+    private $_timeago;
 
     public function __construct($pages = array(), $smarty, $language, $cache, $user, $timeago) {
         $this->_language = $language;
@@ -57,7 +57,7 @@ class ProfilePostsWidget extends WidgetBase {
                 if ($this->_user->isLoggedIn()) {
                     if ($this->_user->isBlocked($post->author_id, $this->_user->data()->id)) continue;
                     if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) continue;
-                } else if ($post_author->isPrivateProfile()) continue;
+                } elseif ($post_author->isPrivateProfile()) continue;
 
                 $link =  rtrim($post_author->getProfileURL(), '/');
 

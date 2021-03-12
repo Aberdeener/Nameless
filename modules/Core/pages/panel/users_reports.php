@@ -308,7 +308,7 @@ if (!isset($_GET['id'])) {
 
             Redirect::to(URL::build('/panel/users/reports'));
             die();
-        } else if ($_GET['action'] == 'open') {
+        } elseif ($_GET['action'] == 'open') {
             // Reopen report
             if (is_numeric($_GET['id'])) {
                 // Get report
