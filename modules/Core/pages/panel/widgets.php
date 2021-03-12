@@ -34,8 +34,9 @@ if (!isset($_GET['action'])) {
                 )
             );
             $widget_query = $queries->getLastId();
-        } else
+        } else {
             $widget_query = $widget_query[0]->id;
+        }
 
         $template_array[] = array(
             'name' => Output::getClean($widget->getName()),
@@ -61,7 +62,9 @@ if (!isset($_GET['action'])) {
 } else {
     if ($_GET['action'] == 'enable') {
         // Enable a widget
-        if (!isset($_GET['w']) || !is_numeric($_GET['w'])) die('Invalid widget!');
+        if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
+            die('Invalid widget!');
+        }
 
         // Get widget name
         $name = $queries->getWhere('widgets', array('id', '=', $_GET['w']));
@@ -87,7 +90,7 @@ if (!isset($_GET['action'])) {
 
         Redirect::to(URL::build('/panel/core/widgets'));
         die();
-    } else if ($_GET['action'] == 'disable') {
+    } elseif ($_GET['action'] == 'disable') {
         // Disable a widget
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             die('Invalid widget!');
@@ -116,7 +119,7 @@ if (!isset($_GET['action'])) {
 
         Redirect::to(URL::build('/panel/core/widgets'));
         die();
-    } else if ($_GET['action'] == 'edit') {
+    } elseif ($_GET['action'] == 'edit') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             Redirect::to(URL::build('/panel/core/widgets'));
@@ -137,17 +140,20 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 try {
                     // Updated pages list
-                    if (isset($_POST['pages']) && count($_POST['pages']))
+                    if (isset($_POST['pages']) && count($_POST['pages'])) {
                         $active_pages = $_POST['pages'];
-                    else
+                    } else {
                         $active_pages = array();
+                    }
 
                     $active_pages_string = json_encode($active_pages);
 
                     $order = (isset($_POST['order']) ? $_POST['order'] : 10);
 
                     $location = Input::get('location');
-                    if (!in_array($location, array('left', 'right'))) $location = 'right';
+                    if (!in_array($location, array('left', 'right'))) {
+                        $location = 'right';
+                    }
 
                     $queries->update('widgets', $widget->id, array('pages' => $active_pages_string, '`order`' => $order, '`location`' => $location));
 
@@ -204,7 +210,7 @@ if (!isset($_GET['action'])) {
         );
 
         $template_file = 'core/widgets_edit.tpl';
-    } else if ($_GET['action'] == 'settings') {
+    } elseif ($_GET['action'] == 'settings') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             Redirect::to(URL::build('/panel/core/widgets'));

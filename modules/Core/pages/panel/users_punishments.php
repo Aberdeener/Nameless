@@ -52,7 +52,7 @@ if (isset($_GET['user'])) {
                 // Error
                 $errors = array($e->getMessage());
             }
-        } else if ($infraction->type == 3) {
+        } elseif ($infraction->type == 3) {
             // Unban IP
             try {
                 $queries->update('users', $query->id, array(
@@ -166,7 +166,7 @@ if (isset($_GET['user'])) {
                                         'reason' => $_POST['reason']
                                     ));
                                 }
-                            } else if ($type == 4) {
+                            } elseif ($type == 4) {
                                 // Need to delete any other avatars
                                 $diff_str = implode(',', array('jpg', 'png', 'jpeg', 'gif'));
 
@@ -209,16 +209,19 @@ if (isset($_GET['user'])) {
                                     }
                                 }
                             }
-                        } else
+                        } else {
                             $errors[] = $language->get('moderator', 'cant_punish_admin');
+                        }
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
                     }
-                } else
+                } else {
                     $errors[] = $language->get('moderator', 'enter_valid_punishment_reason');
+                }
             }
-        } else
+        } else {
             $errors[] = $language->get('general', 'invalid_token');
+        }
     }
 
     // Get any previous punishments
@@ -264,20 +267,25 @@ if (isset($_GET['user'])) {
         }
     }
 
-    if ($user->hasPermission('modcp.punishments.reset_avatar'))
+    if ($user->hasPermission('modcp.punishments.reset_avatar')) {
         $smarty->assign('RESET_AVATAR', $language->get('moderator', 'reset_avatar'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.warn'))
+    if ($user->hasPermission('modcp.punishments.warn')) {
         $smarty->assign('WARN', $language->get('moderator', 'warn'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.ban'))
+    if ($user->hasPermission('modcp.punishments.ban')) {
         $smarty->assign('BAN', $language->get('moderator', 'ban'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.banip'))
+    if ($user->hasPermission('modcp.punishments.banip')) {
         $smarty->assign('BAN_IP', $language->get('moderator', 'ban_ip'));
+    }
 
-    if ($user->hasPermission('modcp.punishments.revoke'))
+    if ($user->hasPermission('modcp.punishments.revoke')) {
         $smarty->assign('REVOKE_PERMISSION', true);
+    }
 
     $smarty->assign(array(
         'HAS_AVATAR' => $query->has_avatar,
@@ -413,20 +421,23 @@ if (isset($_GET['user'])) {
     $template_file = 'core/users_punishments.tpl';
 }
 
-if (Session::exists('user_punishment_success'))
+if (Session::exists('user_punishment_success')) {
     $success = Session::flash('user_punishment_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

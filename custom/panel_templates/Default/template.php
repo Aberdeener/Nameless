@@ -14,12 +14,16 @@
 
 // Always have the following if statement around your class
 if (!class_exists('Default_Panel_Template')) {
-    class Default_Panel_Template extends TemplateBase {
+    class Default_Panel_Template extends TemplateBase
+    {
         // Private variable to store language + user
-        private $_language, $_user, $_pages;
+        private $_language;
+        private $_user;
+        private $_pages;
 
         // Constructor - set template name, version, Nameless version and author here
-        public function __construct($cache, $smarty, $language, $user, $pages) {
+        public function __construct($cache, $smarty, $language, $user, $pages)
+        {
             $this->_language = $language;
             $this->_user = $user;
             $this->_pages = $pages;
@@ -148,7 +152,8 @@ if (!class_exists('Default_Panel_Template')) {
             define('PANEL_TEMPLATE_STAFF_USERS_AJAX', true);
         }
 
-        public function onPageLoad() {
+        public function onPageLoad()
+        {
             if (defined('PANEL_PAGE')) {
                 switch (PANEL_PAGE) {
                     case 'dashboard':
@@ -329,7 +334,6 @@ if (!class_exists('Default_Panel_Template')) {
                         }
 
                         if (isset($_GET['action']) && $_GET['action'] == 'permissions') {
-
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
@@ -438,13 +442,11 @@ if (!class_exists('Default_Panel_Template')) {
 								});
 							});
 							');
-
                         }
                         break;
 
                     case 'minecraft':
                         if (!defined('MINECRAFT_PAGE')) {
-
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
@@ -460,9 +462,7 @@ if (!class_exists('Default_Panel_Template')) {
 						        };
 						    }
 							');
-
-                        } else if (MINECRAFT_PAGE == 'authme') {
-
+                        } elseif (MINECRAFT_PAGE == 'authme') {
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
@@ -478,9 +478,7 @@ if (!class_exists('Default_Panel_Template')) {
 						        };
 						    }
 							');
-
-                        } else if (MINECRAFT_PAGE == 'verification') {
-
+                        } elseif (MINECRAFT_PAGE == 'verification') {
                             $this->addJSScript('
 							var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 
@@ -496,8 +494,7 @@ if (!class_exists('Default_Panel_Template')) {
 						        };
 						    }
 							');
-
-                        } else if (MINECRAFT_PAGE == 'servers') {
+                        } elseif (MINECRAFT_PAGE == 'servers') {
                             $this->addJSFiles(array(
                                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => array()
                             ));
@@ -509,8 +506,7 @@ if (!class_exists('Default_Panel_Template')) {
 							  var switchery = new Switchery(html, {color: \'#23923d\', secondaryColor: \'#e56464\'});
 							});
 							');
-
-                        } else if (MINECRAFT_PAGE == 'query_errors') {
+                        } elseif (MINECRAFT_PAGE == 'query_errors') {
                             $this->addCSSStyle('
 							.error_log {
 		                        width: 100%;
@@ -525,8 +521,7 @@ if (!class_exists('Default_Panel_Template')) {
 		                        background-color: #eceeef;
 		                    }
 							');
-
-                        } else if (MINECRAFT_PAGE == 'server_banners') {
+                        } elseif (MINECRAFT_PAGE == 'server_banners') {
                             if (isset($_GET['edit'])) {
                                 $this->addCSSFiles(array(
                                     (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/image-picker/image-picker.css' => array()
@@ -645,7 +640,6 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'forums':
                         if (isset($_GET['forum'])) {
-
                             $this->addJSFiles(array(
                                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array()
                             ));

@@ -7,10 +7,11 @@
  *  Discord hook handler class
  */
 
-class DiscordHook {
-
+class DiscordHook
+{
     // Execute hook
-    public static function execute($params = array()) {
+    public static function execute($params = array())
+    {
         // Ensure hook is compatible
         $return = array();
         if ($params['event'] == 'registerUser') {
@@ -55,8 +56,9 @@ class DiscordHook {
         $response = curl_exec($ch);
         $response = json_decode($response, true);
 
-        if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 204)
+        if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 204) {
             trigger_error($response['message'], E_USER_NOTICE);
+        }
 
         curl_close($ch);
 

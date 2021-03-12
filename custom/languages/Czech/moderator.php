@@ -10,7 +10,7 @@
  *  Czech Language - Moderator terms
  */
 
-$language = array (
+$language = array(
     'staff_cp' => 'Panel',
     'overview' => 'Nástěnka',
 

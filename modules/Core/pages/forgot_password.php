@@ -26,9 +26,9 @@ if (!isset($_GET['c'])) {
     // Enter email address form
     if (Input::exists()) {
         if (Token::check()) {
-            if (!isset($_POST['email']) || empty($_POST['email']))
+            if (!isset($_POST['email']) || empty($_POST['email'])) {
                 $error = $language->get('user', 'email_required');
-            else {
+            } else {
                 // Check to see if the email exists
                 $target_user = new User(Input::get('email'), 'email');
                 if ($target_user->data()) {
@@ -109,14 +109,16 @@ if (!isset($_GET['c'])) {
 
                 $success = $language->get('user', 'forgot_password_email_sent');
             }
-        } else
+        } else {
             $error = $language->get('general', 'invalid_token');
+        }
     }
 
-    if (isset($error))
+    if (isset($error)) {
         $smarty->assign('ERROR', $error);
-    else if (isset($success))
+    } elseif (isset($success)) {
         $smarty->assign('SUCCESS', $success);
+    }
 
     $smarty->assign(array(
         'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),
@@ -178,8 +180,9 @@ if (!isset($_GET['c'])) {
                     } catch (Exception $e) {
                         $errors = array($e->getMessage());
                     }
-                } else
+                } else {
                     $errors = array($language->get('user', 'incorrect_email'));
+                }
             } else {
                 $errors = array();
                 foreach ($validation->errors() as $validation_error) {
@@ -193,24 +196,26 @@ if (!isset($_GET['c'])) {
                                 $errors[] = $language->get('user', 'password_required');
                                 break;
                         }
-                    } else if (strpos($validation_error, 'minimum') !== false) {
+                    } elseif (strpos($validation_error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
                         $errors[] = $language->get('user', 'password_minimum_6');
-                    } else if (strpos($validation_error, 'maximum') !== false) {
+                    } elseif (strpos($validation_error, 'maximum') !== false) {
                         // x must be a maximum of y characters long
                         $errors[] = $language->get('user', 'password_maximum_30');
-                    } else if (strpos($validation_error, 'must match') !== false) {
+                    } elseif (strpos($validation_error, 'must match') !== false) {
                         // password must match password again
                         $errors[] = $language->get('user', 'passwords_dont_match');
                     }
                 }
             }
-        } else
+        } else {
             $errors = array($language->get('general', 'invalid_token'));
+        }
     }
 
-    if (isset($errors) && count($errors))
+    if (isset($errors) && count($errors)) {
         $smarty->assign('ERROR', $errors);
+    }
 
     $smarty->assign(array(
         'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),

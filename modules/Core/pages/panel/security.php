@@ -84,7 +84,7 @@ if (!isset($_GET['view'])) {
 
             foreach ($logs as $log) {
                 $target_user = new User($log->user_id);
-				
+
                 $rows[] = array(
                     0 => array(
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
@@ -121,7 +121,7 @@ if (!isset($_GET['view'])) {
 
             foreach ($logs as $log) {
                 $target_user = new User($log->user_id);
-				
+
                 $rows[] = array(
                     0 => array(
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
@@ -160,7 +160,7 @@ if (!isset($_GET['view'])) {
 
             foreach ($logs as $log) {
                 $target_user = new User($log->user_id);
-				
+
                 $rows[] = array(
                     0 => array(
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
@@ -181,7 +181,7 @@ if (!isset($_GET['view'])) {
                 Redirect::to(URL::build('/panel/security'));
                 die();
             }
-            
+
             $log_title = $language->get('admin', 'group_sync_logs');
             $logs_set = $queries->orderWhere('logs', 'action = \'discord_role_set\' OR action = \'mc_group_sync_set\' ', 'time', 'DESC');
 
@@ -254,7 +254,7 @@ if (!isset($_GET['view'])) {
 
             foreach ($logs as $log) {
                 $target_user = new User($log->user_id);
-				
+
                 $rows[] = array(
                     0 => array(
                         'content' => '<a style="' . $target_user->getGroupClass() . '" href="' . URL::build('/panel/user/' . Output::getClean($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . $target_user->getDisplayname() . '</a>'
@@ -298,17 +298,19 @@ if (!isset($_GET['view'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

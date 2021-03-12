@@ -9,12 +9,13 @@
  *  Configuration class
  */
 
-class Configuration {
+class Configuration
+{
+    private $_db;
+    private $_cache;
 
-    private $_db,
-            $_cache;
-
-    public function __construct($cache){
+    public function __construct($cache)
+    {
         $this->_db = DB::getInstance();
         $this->_cache = $cache;
     }
@@ -27,7 +28,8 @@ class Configuration {
      *
      * @return mixed Configuration value
      */
-    public function get($module, $setting) {
+    public function get($module, $setting)
+    {
         if ($module == null || $setting == null) {
             throw new InvalidArgumentException('Parameter is null');
         }
@@ -38,7 +40,7 @@ class Configuration {
         if ($this->_cache->isCached($setting)) {
             return $this->_cache->retrieve($setting);
         } else {
-            $data = $this->_db->query('SELECT value FROM `nl2_'. Output::getClean($module) .'settings` WHERE `name` = ?', array($setting));
+            $data = $this->_db->query('SELECT value FROM `nl2_' . Output::getClean($module) . 'settings` WHERE `name` = ?', array($setting));
             if ($data->count()) {
                 $results = $data->results();
                 $this->_cache->store($setting, $results[0]->value);
@@ -56,15 +58,16 @@ class Configuration {
      *
      * @return void
      */
-    public function set($module, $setting, $value) {
-        if ($module == null || $setting == null || $value === null ) {
+    public function set($module, $setting, $value)
+    {
+        if ($module == null || $setting == null || $value === null) {
             throw new InvalidArgumentException('Parameter is null');
         }
 
         $module = ($module == 'Core' ? '' : $module . '_');
 
         $this->_db->createQuery(
-            'UPDATE `nl2_'. Output::getClean($module) .'settings` SET `value` = ? WHERE `name` = ?',
+            'UPDATE `nl2_' . Output::getClean($module) . 'settings` SET `value` = ? WHERE `name` = ?',
             array(
                 $value,
                 $setting

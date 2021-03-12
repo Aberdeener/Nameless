@@ -18,16 +18,16 @@ $page_title = $language->get('admin', 'navigation');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Deal with input
-if(Input::exists()){
+if (Input::exists()) {
     $errors = array();
 
-    if(Token::check()){
+    if (Token::check()) {
         // Valid token
         // Update cache
         $cache->setCache('navbar_order');
-        if(isset($_POST['inputOrder']) && count($_POST['inputOrder'])){
-            foreach($_POST['inputOrder'] as $key => $item){
-                if(is_numeric($item) && $item > 0){
+        if (isset($_POST['inputOrder']) && count($_POST['inputOrder'])) {
+            foreach ($_POST['inputOrder'] as $key => $item) {
+                if (is_numeric($item) && $item > 0) {
                     $cache->store($key . '_order', $item);
                 }
             }
@@ -35,12 +35,12 @@ if(Input::exists()){
 
         // Icons
         $cache->setCache('navbar_icons');
-        if(isset($_POST['inputIcon']) && count($_POST['inputIcon'])){
-            foreach($_POST['inputIcon'] as $key => $item){
-                if(is_numeric($key)){
+        if (isset($_POST['inputIcon']) && count($_POST['inputIcon'])) {
+            foreach ($_POST['inputIcon'] as $key => $item) {
+                if (is_numeric($key)) {
                     // Custom page?
                     $custom_page = $queries->getWhere('custom_pages', array('id', '=', $key));
-                    if(count($custom_page)){
+                    if (count($custom_page)) {
                         $queries->update('custom_pages', $key, array(
                             'icon' => $item
                         ));
@@ -65,17 +65,19 @@ if(Input::exists()){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(Session::exists('navigation_success'))
+if (Session::exists('navigation_success')) {
     $smarty->assign(array(
         'SUCCESS' => Session::flash('navigation_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

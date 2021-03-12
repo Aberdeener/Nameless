@@ -9,7 +9,7 @@
  *  404 Not Found page
  */
 
-header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
+header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
 
 define('PAGE', 404);
 $page_title = '404';
@@ -23,7 +23,8 @@ define(
     'PAGE_LOAD_TIME',
     str_replace(
         '{x}',
-        round($page_load, 3), $language->get('general', 'page_loaded_in')
+        round($page_load, 3),
+        $language->get('general', 'page_loaded_in')
     )
 );
 

@@ -10,7 +10,7 @@
  */
 
 // Ensure user isn't already logged in
-if($user->isLoggedIn()){
+if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
     die();
 }
@@ -220,7 +220,6 @@ if (Input::exists()) {
 
                     $nickname = Output::getClean(Input::get('nickname'));
                     $username = Output::getClean(Input::get('username'));
-
                 } else {
                     $to_validation['username'] = array(
                         'required' => true,
@@ -231,9 +230,7 @@ if (Input::exists()) {
 
                     $nickname = Output::getClean(Input::get('username'));
                     $username = Output::getClean(Input::get('username'));
-
                 }
-
             } else {
                 // Just check username
                 $to_validation['username'] = array(
@@ -245,7 +242,6 @@ if (Input::exists()) {
 
                 $nickname = Output::getClean(Input::get('username'));
                 $username = Output::getClean(Input::get('username'));
-
             }
 
             // Validate custom fields
@@ -280,7 +276,6 @@ if (Input::exists()) {
                         if (count($uuid_query)) {
                             $uuid_error = $language->get('user', 'uuid_already_exists');
                         }
-
                     } else {
                         // Invalid
                         $invalid_mcname = true;
@@ -319,7 +314,6 @@ if (Input::exists()) {
 
                             require(ROOT_PATH . '/core/integration/run_mcassoc.php');
                             die();
-
                         } else {
                             // Disabled
                             $user = new User();
@@ -417,8 +411,7 @@ if (Input::exists()) {
                                 if ($api_verification != '1' && $email_verification == '1') {
                                     // Send registration email
                                     sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
-
-                                } else if ($api_verification != '1') {
+                                } elseif ($api_verification != '1') {
                                     // Email verification disabled
                                     HookHandler::executeEvent('registerUser', array(
                                         'event' => 'registerUser',
@@ -459,7 +452,6 @@ if (Input::exists()) {
 
                                 Redirect::to(URL::build('/'));
                                 die();
-
                             } catch (Exception $e) {
                                 die($e->getMessage());
                             }
@@ -467,65 +459,62 @@ if (Input::exists()) {
                     } else {
                         $errors = array($uuid_error);
                     }
-
                 } else {
                     // Invalid Minecraft name
                     $errors = array($language->get('user', 'invalid_mcname'));
                 }
-
             } else {
                 // Errors
                 $errors = array();
                 foreach ($validation->errors() as $validation_error) {
-
                     if (strpos($validation_error, 'is required') !== false) {
                         // x is required
                         if (strpos($validation_error, 'username') !== false) {
                             $errors[] = $language->get('user', 'username_required');
-                        } else if (strpos($validation_error, 'email') !== false) {
+                        } elseif (strpos($validation_error, 'email') !== false) {
                             $errors[] = $language->get('user', 'email_required');
-                        } else if (strpos($validation_error, 'password') !== false) {
+                        } elseif (strpos($validation_error, 'password') !== false) {
                             $errors[] = $language->get('user', 'password_required');
-                        } else if (strpos($validation_error, 'mcname') !== false) {
+                        } elseif (strpos($validation_error, 'mcname') !== false) {
                             $errors[] = $language->get('user', 'mcname_required');
-                        } else if (strpos($validation_error, 't_and_c') !== false) {
+                        } elseif (strpos($validation_error, 't_and_c') !== false) {
                             $errors[] = $language->get('user', 'accept_terms');
                         } else {
                             $errors[] = $validation_error . ".";
                         }
-                    } else if (strpos($validation_error, 'minimum') !== false) {
+                    } elseif (strpos($validation_error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
                         if (strpos($validation_error, 'username') !== false) {
                             $errors[] = $language->get('user', 'username_minimum_3');
-                        } else if (strpos($validation_error, 'mcname') !== false) {
+                        } elseif (strpos($validation_error, 'mcname') !== false) {
                             $errors[] = $language->get('user', 'mcname_minimum_3');
-                        } else if (strpos($validation_error, 'password') !== false) {
+                        } elseif (strpos($validation_error, 'password') !== false) {
                             $errors[] = $language->get('user', 'password_minimum_6');
                         }
-                    } else if (strpos($validation_error, 'maximum') !== false) {
+                    } elseif (strpos($validation_error, 'maximum') !== false) {
                         // x must be a maximum of y characters long
                         if (strpos($validation_error, 'username') !== false) {
                             $errors[] = $language->get('user', 'username_maximum_20');
-                        } else if (strpos($validation_error, 'mcname') !== false) {
+                        } elseif (strpos($validation_error, 'mcname') !== false) {
                             $errors[] = $language->get('user', 'mcname_maximum_20');
-                        } else if (strpos($validation_error, 'password') !== false) {
+                        } elseif (strpos($validation_error, 'password') !== false) {
                             $errors[] = $language->get('user', 'password_maximum_30');
                         }
-                    } else if (strpos($validation_error, 'must match') !== false) {
+                    } elseif (strpos($validation_error, 'must match') !== false) {
                         // password must match password again
                         $errors[] = $language->get('user', 'passwords_dont_match');
-                    } else if (strpos($validation_error, 'already exists') !== false) {
+                    } elseif (strpos($validation_error, 'already exists') !== false) {
                         // already exists
                         if (!in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
                             $errors[] = $language->get('user', 'username_mcname_email_exists');
                         }
-                    } else if (strpos($validation_error, 'not a valid Minecraft account') !== false) {
+                    } elseif (strpos($validation_error, 'not a valid Minecraft account') !== false) {
                         // Invalid Minecraft username
                         $errors[] = $language->get('user', 'invalid_mcname');
-                    } else if (strpos($validation_error, 'Mojang communication error') !== false) {
+                    } elseif (strpos($validation_error, 'Mojang communication error') !== false) {
                         // Mojang server error
                         $errors[] = $language->get('user', 'mcname_lookup_error');
-                    } else if (strpos($validation_error, 'valid email') !== false) {
+                    } elseif (strpos($validation_error, 'valid email') !== false) {
                         // Validate email
                         $errors[] = $language->get('general', 'contact_message_email');
                     }
@@ -535,7 +524,6 @@ if (Input::exists()) {
             // reCAPTCHA failed
             $errors = array($language->get('user', 'invalid_recaptcha'));
         }
-
     } else {
         // Invalid token
         $errors = array($language->get('general', 'invalid_token'));

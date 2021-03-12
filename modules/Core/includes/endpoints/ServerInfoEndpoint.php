@@ -1,15 +1,17 @@
 <?php
 
-class ServerInfoEndpoint extends EndpointBase {
-
-    public function __construct() {
+class ServerInfoEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'serverInfo';
         $this->_module = 'Core';
         $this->_description = 'Update the Minecraft server information NamelessMC tracks';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory', 'tps']);
         if (!isset($_POST['players'])) {
             $api->throwError(6, $this->_language->get('api', 'invalid_post_contents'), 'players');
@@ -38,10 +40,11 @@ class ServerInfoEndpoint extends EndpointBase {
             if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
                 $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
                 $query_cache = json_decode($query_cache);
-                if (isset($query_cache->query_interval))
+                if (isset($query_cache->query_interval)) {
                     $query_interval = unserialize($query_cache->query_interval->data);
-                else
+                } else {
                     $query_interval = 10;
+                }
 
                 $to_cache = array(
                     'query_interval' => array(
@@ -118,7 +121,6 @@ class ServerInfoEndpoint extends EndpointBase {
                 foreach ($_POST['players'] as $uuid => $player) {
                     $user = new User($uuid, 'uuid');
                     if ($user->data()) {
-
                         $should_log = false;
 
                         // Never edit root user
@@ -160,7 +162,7 @@ class ServerInfoEndpoint extends EndpointBase {
                             if (!array_key_exists($ingame_rank_name, $group_sync_updates)) {
                                 continue;
                             }
-                            
+
                             $group_info = $group_sync_updates[$ingame_rank_name];
 
                             // Only create a log entry if at least one new group was added/removed
@@ -175,7 +177,7 @@ class ServerInfoEndpoint extends EndpointBase {
 
                         if ($should_log) {
                             Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log_array), $user->data()->id);
-                       }
+                        }
                     }
                 }
             }

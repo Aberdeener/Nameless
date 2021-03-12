@@ -10,7 +10,7 @@
  *  Czech Language - General terms
  */
 
-$language = array (
+$language = array(
     /*
      *  General terms
      */

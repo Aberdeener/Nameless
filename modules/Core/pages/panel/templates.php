@@ -35,13 +35,15 @@ if (!isset($_GET['action'])) {
         if (in_array($item->name, $loaded_templates)) {
             $queries->delete('templates', array('id', '=', $item->id));
             continue;
-        } else $loaded_templates[] = $item->name;
+        } else {
+            $loaded_templates[] = $item->name;
+        }
 
         $template_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($item->name), 'template.php'));
 
-        if (file_exists($template_path))
+        if (file_exists($template_path)) {
             require($template_path);
-        else {
+        } else {
             $queries->delete('templates', array('id', '=', $item->id));
             continue;
         }
@@ -269,10 +271,11 @@ if (!isset($_GET['action'])) {
                     die();
                 }
 
-                if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/templates/' . $item))
+                if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/templates/' . $item)) {
                     Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
-                else
+                } else {
                     Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
+                }
 
                 // Delete from database
                 $queries->delete('templates', array('name', '=', $item));
@@ -396,7 +399,9 @@ if (!isset($_GET['action'])) {
                     // Guest template permissions
                     $can_use_template = Input::get('perm-use-0');
 
-                    if (!($can_use_template)) $can_use_template = 0;
+                    if (!($can_use_template)) {
+                        $can_use_template = 0;
+                    }
 
                     $perm_exists = 0;
 
@@ -432,7 +437,9 @@ if (!isset($_GET['action'])) {
                     foreach ($groups as $group) {
                         $can_use_template = Input::get('perm-use-' . $group->id);
 
-                        if (!($can_use_template)) $can_use_template = 0;
+                        if (!($can_use_template)) {
+                            $can_use_template = 0;
+                        }
 
                         $perm_exists = 0;
 
@@ -522,16 +529,17 @@ if (!isset($_GET['action'])) {
 
                 foreach ($files as $file) {
                     if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
-                        if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file))
+                        if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file)) {
                             $template_files[] = array(
                                 'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($template_query->id) . '&file=' . htmlspecialchars($file)),
                                 'name' => Output::getClean($file)
                             );
-                        else
+                        } else {
                             $template_dirs[] = array(
                                 'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($template_query->id) . '&dir=' . htmlspecialchars($file)),
                                 'name' => Output::getClean($file)
                             );
+                        }
                     }
                 }
 
@@ -547,7 +555,7 @@ if (!isset($_GET['action'])) {
                 ));
 
                 $template_file = 'core/templates_list_files.tpl';
-            } else if (isset($_GET['dir']) && !isset($_GET['file'])) {
+            } elseif (isset($_GET['dir']) && !isset($_GET['file'])) {
                 // List files in dir
                 $realdir = realpath(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['dir']))));
                 $dir = ltrim(explode('custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_query->name, $realdir)[1], '/');
@@ -565,16 +573,17 @@ if (!isset($_GET['action'])) {
 
                 foreach ($files as $file) {
                     if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
-                        if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file))
+                        if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file)) {
                             $template_files[] = array(
                                 'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($template_query->id) . '&dir=' . htmlspecialchars($dir) . '&file=' . htmlspecialchars($file)),
                                 'name' => Output::getClean($file)
                             );
-                        else
+                        } else {
                             $template_dirs[] = array(
                                 'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($template_query->id) . '&dir=' . htmlspecialchars($dir) . DIRECTORY_SEPARATOR . htmlspecialchars($file)),
                                 'name' => Output::getClean($file)
                             );
+                        }
                     }
                 }
 
@@ -600,7 +609,7 @@ if (!isset($_GET['action'])) {
                 ));
 
                 $template_file = 'core/templates_list_files.tpl';
-            } else if (isset($_GET['file'])) {
+            } elseif (isset($_GET['file'])) {
                 $file = basename(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), htmlspecialchars($_GET['file']))));
 
                 if (isset($_GET['dir'])) {
@@ -613,22 +622,24 @@ if (!isset($_GET['action'])) {
                     }
 
                     $file_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $dir, $file));
-                } else
+                } else {
                     $file_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'templates', htmlspecialchars($template_query->name), $file));
+                }
 
                 if (!file_exists($file_path) || !(pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js'|| pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
                     Redirect::to(URL::build('/panel/core/templates'));
                     die();
                 }
 
-                if (pathinfo($file, PATHINFO_EXTENSION) == 'tpl')
+                if (pathinfo($file, PATHINFO_EXTENSION) == 'tpl') {
                     $file_type = 'smarty';
-                else if (pathinfo($file, PATHINFO_EXTENSION) == 'css')
+                } elseif (pathinfo($file, PATHINFO_EXTENSION) == 'css') {
                     $file_type = 'css';
-                else if (pathinfo($file, PATHINFO_EXTENSION) == 'js')
+                } elseif (pathinfo($file, PATHINFO_EXTENSION) == 'js') {
                     $file_type = 'javascript';
-                else if (pathinfo($file, PATHINFO_EXTENSION) == 'conf')
+                } elseif (pathinfo($file, PATHINFO_EXTENSION) == 'conf') {
                     $file_type = 'properties';
+                }
 
                 // Deal with input
                 if (Input::exists()) {
@@ -647,10 +658,11 @@ if (!isset($_GET['action'])) {
                             Session::flash('admin_templates', $language->get('admin', 'template_updated'));
 
                             // Redirect to refresh page
-                            if (isset($_GET['dir']))
+                            if (isset($_GET['dir'])) {
                                 Redirect::to(URL::build('/panel/core/templates/', 'action=edit&template=' . $_GET['template'] . '&dir=' . Output::getClean($_GET['dir']) . '&file=' . Output::getClean($_GET['file'])));
-                            else
+                            } else {
                                 Redirect::to(URL::build('/panel/core/templates/', 'action=edit&template=' . $_GET['template'] . '&file=' . Output::getClean($_GET['file'])));
+                            }
                             die();
                         } else {
                             // No write permission
@@ -662,15 +674,17 @@ if (!isset($_GET['action'])) {
                     }
                 }
 
-                if (isset($_GET['dir']))
+                if (isset($_GET['dir'])) {
                     $cancel_link = URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($_GET['template']) . '&dir=' . Output::getClean($_GET['dir']));
-                else
+                } else {
                     $cancel_link = URL::build('/panel/core/templates/', 'action=edit&template=' . Output::getClean($_GET['template']));
+                }
 
-                if (isset($_GET['dir']))
+                if (isset($_GET['dir'])) {
                     $template_path = Output::getClean($_GET['dir'] . DIRECTORY_SEPARATOR . $_GET['file']);
-                else
+                } else {
                     $template_path = Output::getClean($_GET['file']);
+                }
 
                 $smarty->assign(array(
                     'EDITING_FILE' => str_replace(array('{x}', '{y}'), array($template_path, Output::getClean($template_query->name)), $language->get('admin', 'editing_template_file_in_template')),
@@ -703,23 +717,27 @@ if (!isset($_GET['action'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('admin_templates'))
+if (Session::exists('admin_templates')) {
     $success = Session::flash('admin_templates');
+}
 
-if (Session::exists('admin_templates_error'))
+if (Session::exists('admin_templates_error')) {
     $errors = array(Session::flash('admin_templates_error'));
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

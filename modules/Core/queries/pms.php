@@ -1,4 +1,5 @@
 <?php
+
 if (!$user->isLoggedIn()) {
     die(json_encode(array("value" => 0)));
 }

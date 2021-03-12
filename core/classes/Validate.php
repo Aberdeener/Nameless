@@ -11,15 +11,16 @@
  * 	TODO: Regex validation? Example: Discord
  */
 
-class Validate {
-
-    private $_passed = false,
-        $_errors = array(),
-        $_db = null;
+class Validate
+{
+    private $_passed = false;
+    private $_errors = array();
+    private $_db = null;
 
     // Construct Validate class
     // No parameters
-    public function __construct() {
+    public function __construct()
+    {
         // Connect to database in order to check whether user's data
         try {
             $host = Config::get('mysql/host');
@@ -35,14 +36,14 @@ class Validate {
     // Validate an array of inputs
     // Params: $source (array) - the array containing the form input (eg $_POST)
     //         $items (array)  - contains an array of items which need to be validated
-    public function check($source, $items = array()) {
+    public function check($source, $items = array())
+    {
 
         // Loop through the items which need validating
         foreach ($items as $item => $rules) {
 
             // Loop through each validation rule for the set item
             foreach ($rules as $rule => $rule_value) {
-
                 $value = trim($source[$item]);
 
                 // Escape the item's contents just in case
@@ -52,11 +53,11 @@ class Validate {
                 if ($rule === 'required' && empty($value)) {
                     // The post array does not include this value, return an error
                     $this->addError("{$item} is required");
-                } else if (!empty($value)) {
+                } elseif (!empty($value)) {
                     // The post array does include this value, continue validating
                     switch ($rule) {
                             // Minimum of $rule_value characters
-                        case 'min';
+                        case 'min':
                             if (mb_strlen($value) < $rule_value) {
                                 // Not a minumum of $rule_value characters, return an error
                                 $this->addError("{$item} must be a minimum of {$rule_value} characters.");
@@ -64,7 +65,7 @@ class Validate {
                             break;
 
                             // Maximum of $rule_value characters
-                        case 'max';
+                        case 'max':
                             if (mb_strlen($value) > $rule_value) {
                                 // Above the maximum of $rule_value characters, return an error
                                 $this->addError("{$item} must be a maximum of {$rule_value} characters.");
@@ -72,7 +73,7 @@ class Validate {
                             break;
 
                             // Check value matches another value
-                        case 'matches';
+                        case 'matches':
                             if ($value != $source[$rule_value]) {
                                 // Value does not match, return an error
                                 $this->addError("{$rule_value} must match {$item}.");
@@ -80,7 +81,7 @@ class Validate {
                             break;
 
                             // Check the user has agreed to the terms and conditions
-                        case 'agree';
+                        case 'agree':
                             if ($value != 1) {
                                 // The user has not agreed, return an error
                                 $this->addError("You must agree to our terms and conditions in order to register.");
@@ -88,7 +89,7 @@ class Validate {
                             break;
 
                             // Check the value has not already been inputted in the database
-                        case 'unique';
+                        case 'unique':
                             $check = $this->_db->get($rule_value, array($item, '=', $value));
                             if ($check->count()) {
                                 // The value has already been inputted, return an error
@@ -109,7 +110,7 @@ class Validate {
                         */
 
                             // Check if email is valid
-                        case 'email';
+                        case 'email':
                             if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                                 // Value is not a valid email
                                 $this->addError("{$value} is not a valid email.");
@@ -123,7 +124,7 @@ class Validate {
                             break;
 
                             // Check that the specified user account is set as active (ie validated)
-                        case 'isactive';
+                        case 'isactive':
                             $check = $this->_db->get('users', array($item, '=', $value));
                             if ($check->count()) {
                                 $isuseractive = $check->first()->active;
@@ -135,7 +136,7 @@ class Validate {
                             break;
 
                             // Check that the specified user account is not banned
-                        case 'isbanned';
+                        case 'isbanned':
                             $check = $this->_db->get('users', array($item, '=', $value));
                             if ($check->count()) {
                                 $isuserbanned = $check->first()->isbanned;
@@ -146,7 +147,7 @@ class Validate {
                             }
                             break;
 
-                        case 'isbannedip';
+                        case 'isbannedip':
                             // Todo: Check if IP is banned
                             break;
 
@@ -178,19 +179,22 @@ class Validate {
 
     // Add an error to the error array
     // No parameters
-    private function addError($error) {
+    private function addError($error)
+    {
         $this->_errors[] = $error;
     }
 
     // Return the array of errors
     // No parameters
-    public function errors() {
+    public function errors()
+    {
         return $this->_errors;
     }
 
     // Return whether the validation passed (true or false)
     // No parameters
-    public function passed() {
+    public function passed()
+    {
         return $this->_passed;
     }
 }

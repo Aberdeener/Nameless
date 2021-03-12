@@ -1,4 +1,5 @@
 <?php
+
 // Check user ID is specified
 if (!isset($_GET['id'])) {
     die(json_encode(array('html' => 'Error: Invalid ID')));

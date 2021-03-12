@@ -19,7 +19,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
 // Validate code
-if(!isset($_GET['c'])){
+if (!isset($_GET['c'])) {
     Redirect::to(URL::build('/'));
     die();
 } else {
@@ -27,18 +27,18 @@ if(!isset($_GET['c'])){
 
     // Ensure API is enabled
     $is_api_enabled = $queries->getWhere('settings', array('name', '=', 'use_api'));
-    if($is_api_enabled[0]->value != '1'){
+    if ($is_api_enabled[0]->value != '1') {
         $is_legacy_enabled = $queries->getWhere('settings', array('name', '=', 'use_legacy_api'));
-        if($is_legacy_enabled[0]->value != '1'){
+        if ($is_legacy_enabled[0]->value != '1') {
             die('Legacy API is disabled');
         }
     }
 
-    if(!$user->isLoggedIn()){
-		$target_user = new User($_GET['c'], 'reset_code');
+    if (!$user->isLoggedIn()) {
+        $target_user = new User($_GET['c'], 'reset_code');
         if ($target_user->data()) {
-            if(Input::exists()){
-                if(Token::check()){
+            if (Input::exists()) {
+                if (Token::check()) {
                     // Validate input
                     $to_validation = array(
                         'password' => array(
@@ -58,7 +58,7 @@ if(!isset($_GET['c'])){
                     $validate = new Validate();
                     $validation = $validate->check($_POST, $to_validation);
 
-                    if($validation->passed()){
+                    if ($validation->passed()) {
                         // Complete registration
                         // Hash password
                         $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
@@ -70,7 +70,7 @@ if(!isset($_GET['c'])){
                                 'last_online' => date('U'),
                                 'active' => 1
                             ));
-                        } catch(Exception $e){
+                        } catch (Exception $e) {
                             die($e->getMessage());
                         }
 
@@ -88,15 +88,14 @@ if(!isset($_GET['c'])){
                         Session::flash('home', $language->get('user', 'validation_complete'));
                         Redirect::to(URL::build('/'));
                         die();
-
                     } else {
                         // Errors
                         $errors = array();
 
-                        foreach($validation->errors() as $validation_error){
-                            if(strpos($validation_error, 'is required') !== false){
+                        foreach ($validation->errors() as $validation_error) {
+                            if (strpos($validation_error, 'is required') !== false) {
                                 // x is required
-                                switch($validation_error){
+                                switch ($validation_error) {
                                     case (strpos($validation_error, 'password') !== false):
                                         $errors[] = $language->get('user', 'password_required');
                                         break;
@@ -104,20 +103,16 @@ if(!isset($_GET['c'])){
                                         $errors[] = $language->get('user', 'accept_terms');
                                         break;
                                 }
-
-                            } else if(strpos($validation_error, 'minimum') !== false){
+                            } elseif (strpos($validation_error, 'minimum') !== false) {
                                 $errors[] = $language->get('user', 'password_minimum_6');
-
-                            } else if(strpos($validation_error, 'maximum') !== false){
+                            } elseif (strpos($validation_error, 'maximum') !== false) {
                                 $errors[] = $language->get('user', 'password_maximum_30');
-
-                            } else if(strpos($validation_error, 'must match') !== false){
+                            } elseif (strpos($validation_error, 'must match') !== false) {
                                 // password must match password again
                                 $errors[] = $language->get('user', 'passwords_dont_match');
                             }
                         }
                     }
-
                 } else {
                     $errors[] = $language->get('general', 'invalid_token');
                 }
@@ -134,18 +129,18 @@ if(!isset($_GET['c'])){
 }
 
 // Smarty variables
-if(isset($errors) && count($errors)){
-	$smarty->assign('ERRORS', $errors);
+if (isset($errors) && count($errors)) {
+    $smarty->assign('ERRORS', $errors);
 }
 
 $smarty->assign(array(
-	'REGISTER' => $language->get('general', 'register'),
-	'PASSWORD' => $language->get('user', 'password'),
-	'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
-	'SUBMIT' => $language->get('general', 'submit'),
-	'I_AGREE' => $language->get('user', 'i_agree'),
-	'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
-	'TOKEN' => Token::get()
+    'REGISTER' => $language->get('general', 'register'),
+    'PASSWORD' => $language->get('user', 'password'),
+    'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
+    'SUBMIT' => $language->get('general', 'submit'),
+    'I_AGREE' => $language->get('user', 'i_agree'),
+    'AGREE_TO_TERMS' => str_replace('{x}', URL::build('/terms'), $language->get('user', 'agree_t_and_c')),
+    'TOKEN' => Token::get()
 ));
 
 $page_load = microtime(true) - $start;

@@ -10,7 +10,7 @@
  *  Czech Language - Installation
  */
 
-$language = array (
+$language = array(
     /*
      *  Installation
      */

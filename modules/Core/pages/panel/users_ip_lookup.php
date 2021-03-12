@@ -43,10 +43,11 @@ if (isset($_GET['uid'])) {
             );
         }
 
-        if (count($user_ips) == 1)
+        if (count($user_ips) == 1) {
             $count_accounts = str_replace('{y}', Output::getClean($user_query->username), $language->get('moderator', '1_ip_with_name'));
-        else
+        } else {
             $count_accounts = str_replace(array('{x}', '{y}'), array(count($user_ips), Output::getClean($user_query->username)), $language->get('moderator', 'count_ips_with_name'));
+        }
 
         $smarty->assign(array(
             'ACCOUNTS' => $accounts,
@@ -61,7 +62,7 @@ if (isset($_GET['uid'])) {
 
         $template_file = 'core/users_ip_lookup.tpl';
     }
-} else if (isset($_GET['ip'])) {
+} elseif (isset($_GET['ip'])) {
     // IP has been specified
     // Get accounts with this IP
     $ip_accounts = $queries->getWhere('users_ips', array('ip', '=', Output::getClean($_GET['ip'])));
@@ -76,7 +77,7 @@ if (isset($_GET['uid'])) {
         foreach ($ip_accounts as $account) {
             $username = $queries->getWhere('users', array('id', '=', $account->user_id));
 
-            if (count($username))
+            if (count($username)) {
                 $accounts[] = array(
                     'username' => Output::getClean($username[0]->username),
                     'nickname' => Output::getClean($username[0]->nickname),
@@ -84,12 +85,14 @@ if (isset($_GET['uid'])) {
                     'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid=' . $account->user_id),
                     'style' => $user->getGroupClass($username[0]->id)
                 );
+            }
         }
 
-        if (count($ip_accounts) == 1)
+        if (count($ip_accounts) == 1) {
             $count_accounts = str_replace('{y}', Output::getClean($_GET['ip']), $language->get('moderator', '1_account_with_ip'));
-        else
+        } else {
             $count_accounts = str_replace(array('{x}', '{y}'), array(count($ip_accounts), Output::getClean($_GET['ip'])), $language->get('moderator', 'count_accounts_with_ip'));
+        }
 
         $smarty->assign(array(
             'IP_SEARCH' => true,
@@ -135,17 +138,19 @@ if (isset($_GET['uid'])) {
     $template_file = 'core/users_ip_lookup.tpl';
 }
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

@@ -10,8 +10,8 @@
  *  Error handler class
  */
 
-class ErrorHandler {
-
+class ErrorHandler
+{
     /*
      * Defined for easy changing.
      * This constant indicates how many LOC from each frame's PHP file to show before and after the highlighted line
@@ -23,7 +23,8 @@ class ErrorHandler {
      * If this is called manually, the error_string, error_file and error_line must be manually provided,
      * and a single trace frame will be generated for it.
      */
-    public static function catchException($exception, $error_string = null, $error_file = null, $error_line = null) {
+    public static function catchException($exception, $error_string = null, $error_file = null, $error_line = null)
+    {
 
         // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
         $error_string = is_null($exception) ? $error_string : $exception->getMessage();
@@ -51,7 +52,6 @@ class ErrorHandler {
         if ($exception != null) {
             $i = count($exception->getTrace());
             foreach ($exception->getTrace() as $frame) {
-
                 $lines = file($frame['file']);
 
                 $code = self::parseFile($lines, $frame['line']);
@@ -73,8 +73,8 @@ class ErrorHandler {
         die();
     }
 
-    private static function parseFile($lines, $error_line) {
-
+    private static function parseFile($lines, $error_line)
+    {
         $return = '';
 
         if ($lines == false || count($lines) < 1) {
@@ -94,13 +94,13 @@ class ErrorHandler {
         return $return;
     }
 
-    public static function catchError($errno, $errstr, $errfile, $errline) {
-
-        if(!(error_reporting() & $errno)) {
+    public static function catchError($errno, $errstr, $errfile, $errline)
+    {
+        if (!(error_reporting() & $errno)) {
             return false;
         }
 
-        switch($errno) {
+        switch ($errno) {
             case E_USER_ERROR:
                 // Pass execution to new error handler
                 // Since we registered an exception handler, I dont think this will ever be called,
@@ -124,12 +124,11 @@ class ErrorHandler {
         return true;
     }
 
-    private static function logError($type, $contents) {
-
+    private static function logError($type, $contents)
+    {
         $dir_exists = false;
 
         try {
-
             if (!is_dir(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs')))) {
                 if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
                     mkdir(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
@@ -139,10 +138,9 @@ class ErrorHandler {
                 $dir_exists = true;
             }
 
-            if($dir_exists) {
+            if ($dir_exists) {
                 file_put_contents(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'cache', 'logs', $type . '-log.log')), $contents . PHP_EOL, FILE_APPEND);
             }
-
         } catch (Exception $exception) {
             // Unable to write to file, ignore for now
         }
@@ -150,7 +148,8 @@ class ErrorHandler {
 
     // Log a custom error
     // Not used internally. Only for modules
-    public static function logCustomError($contents) {
+    public static function logCustomError($contents)
+    {
         self::logError('other', $contents);
     }
 }

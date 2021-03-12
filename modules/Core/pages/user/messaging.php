@@ -80,10 +80,11 @@ if (isset($_GET['p'])) {
     } else {
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
-            if(isset($_GET['message']))
+            if (isset($_GET['message'])) {
                 Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . Output::getClean($_GET['message'])));
-            else
+            } else {
                 Redirect::to(URL::build('/user/messaging'));
+            }
             die();
         }
         $p = $_GET['p'];
@@ -92,7 +93,7 @@ if (isset($_GET['p'])) {
     $p = 1;
 }
 
-if(!isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     // Get private messages
     $messages = $user->listPMs($user->data()->id);
 
@@ -171,12 +172,11 @@ if(!isset($_GET['action'])) {
 
     // Display template
     $template->displayTemplate('user/messaging.tpl', $smarty);
-
 } else {
     if ($_GET['action'] == 'new') {
         if (!$user->hasPermission('usercp.messaging')) {
-          Redirect::to(URL::build('/user/messaging'));
-          die();
+            Redirect::to(URL::build('/user/messaging'));
+            die();
         }
         // New PM
         if (Input::exists()) {
@@ -241,10 +241,8 @@ if(!isset($_GET['action'])) {
 
                     if (isset($blocked)) {
                         $error = $language->get('user', 'one_or_more_users_blocked');
-
-                    } else if (!count($users)) {
+                    } elseif (!count($users)) {
                         $error = $language->get('user', 'cant_send_to_self');
-
                     } else {
                         // Ensure people haven't been added twice
                         $users = array_unique($users);
@@ -270,7 +268,7 @@ if(!isset($_GET['action'])) {
                                 $cache->setCache('post_formatting');
                                 $formatting = $cache->retrieve('formatting');
 
-                                if ($formatting == 'markdown'){
+                                if ($formatting == 'markdown') {
                                     $content = Michelf\Markdown::defaultTransform(Input::get('content'));
                                     $content = Output::getClean($content);
                                 } else {
@@ -319,12 +317,10 @@ if(!isset($_GET['action'])) {
                                 Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
                                 Redirect::to(URL::build('/user/messaging'));
                                 die();
-
-                            } catch(Exception $e){
+                            } catch (Exception $e) {
                                 // Exception
                                 die($e->getMessage());
                             }
-
                         } else {
                             // Over 10 users added
                             $error = $language->get('user', 'max_pm_10_users');
@@ -338,23 +334,23 @@ if(!isset($_GET['action'])) {
                         if (strpos($item, 'is required') !== false) {
                             if (strpos($item, 'title')) {
                                 $errors[] = $language->get('user', 'title_required');
-                            } else if (strpos($item, 'content') !== false) {
+                            } elseif (strpos($item, 'content') !== false) {
                                 $errors[] = $language->get('user', 'content_required');
                                 break;
-                            } else if (strpos($item, 'to')) {
+                            } elseif (strpos($item, 'to')) {
                                 $errors[] = $language->get('user', 'users_to_required');
                             }
-                        } else if (strpos($item, 'minimum') !== false) {
+                        } elseif (strpos($item, 'minimum') !== false) {
                             if (strpos($item, 'title') !== false) {
                                 $errors[] = $language->get('user', 'title_min_2');
-                            } else if (strpos($item, 'content') !== false) {
+                            } elseif (strpos($item, 'content') !== false) {
                                 $errors[] = $language->get('user', 'content_min_2');
                                 break;
                             }
-                        } else if (strpos($item, 'maximum') !== false) {
+                        } elseif (strpos($item, 'maximum') !== false) {
                             if (strpos($item, 'title') !== false) {
                                 $errors[] = $language->get('user', 'title_max_64');
-                            } else if (strpos($item, 'content') !== false) {
+                            } elseif (strpos($item, 'content') !== false) {
                                 $errors[] = $language->get('user', 'content_max_20480');
                             }
                         }
@@ -362,7 +358,6 @@ if(!isset($_GET['action'])) {
 
                     $error = implode('<br />', $errors);
                 }
-
             } else {
                 // Invalid token
                 $error = $language->get('general', 'invalid_token');
@@ -425,8 +420,7 @@ if(!isset($_GET['action'])) {
 
         // Display template
         $template->displayTemplate('user/new_message.tpl', $smarty);
-
-    } else if ($_GET['action'] == 'view') {
+    } elseif ($_GET['action'] == 'view') {
         // Ensure message is specified
         if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));
@@ -511,20 +505,18 @@ if(!isset($_GET['action'])) {
                     // Display success message
                     $smarty->assign('MESSAGE_SENT', $language->get('user', 'message_sent_successfully'));
                     unset($_POST['content']);
-
                 } else {
                     // Errors
                     foreach ($validation->errors() as $item) {
                         if (strpos($item, 'is required') !== false) {
                             $error = $language->get('user', 'content_required');
-                        } else if (strpos($item, 'minimum') !== false) {
+                        } elseif (strpos($item, 'minimum') !== false) {
                             $error = $language->get('user', 'content_min_2');
-                        } else if (strpos($item, 'maximum') !== false) {
+                        } elseif (strpos($item, 'maximum') !== false) {
                             $error = $language->get('user', 'content_max_20480');
                         }
                     }
                 }
-
             } else {
                 // Invalid token
                 $error = $language->get('general', 'invalid_token');
@@ -569,7 +561,7 @@ if(!isset($_GET['action'])) {
         // Get participants list
         $participants = '';
 
-        foreach ($pm[1] as $item){
+        foreach ($pm[1] as $item) {
             $participants .= '<a href="' . URL::build('/profile/' . Output::getClean($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
         }
         $participants = rtrim($participants, ', ');
@@ -596,15 +588,17 @@ if(!isset($_GET['action'])) {
         $cache->setCache('post_formatting');
         $formatting = $cache->retrieve('formatting');
 
-        if($formatting == 'markdown'){
+        if ($formatting == 'markdown') {
             // Markdown
             $smarty->assign('MARKDOWN', true);
             $smarty->assign('MARKDOWN_HELP', $language->get('general', 'markdown_help'));
         }
 
-        if(isset($_POST['content']))
+        if (isset($_POST['content'])) {
             $smarty->assign('CONTENT', Output::getClean($_POST['content']));
-        else $smarty->assign('CONTENT', '');
+        } else {
+            $smarty->assign('CONTENT', '');
+        }
 
         Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
 
@@ -620,8 +614,7 @@ if(!isset($_GET['action'])) {
 
         // Display template
         $template->displayTemplate('user/view_message.tpl', $smarty);
-
-    } else if ($_GET['action'] == 'leave') {
+    } elseif ($_GET['action'] == 'leave') {
         // Try to remove the user from the conversation
         if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));

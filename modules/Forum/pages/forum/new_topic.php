@@ -76,13 +76,17 @@ if (count($forum_labels)) {
                 }
             }
 
-            if (!$hasperm)
+            if (!$hasperm) {
                 continue;
+            }
 
             // Get label HTML
             $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
-            if (!count($label_html)) continue;
-            else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
+            if (!count($label_html)) {
+                continue;
+            } else {
+                $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
+            }
 
             $labels[] = array(
                 'id' => $label->id,
@@ -137,10 +141,12 @@ if (Input::exists()) {
                                     }
                                 }
 
-                                if ($hasperm) $post_labels[] = $label[0]->id;
+                                if ($hasperm) {
+                                    $post_labels[] = $label[0]->id;
+                                }
                             }
                         }
-                    } else if (count($default_labels)) {
+                    } elseif (count($default_labels)) {
                         $post_labels = $default_labels;
                     }
 
@@ -162,7 +168,9 @@ if (Input::exists()) {
                     if ($formatting == 'markdown') {
                         $content = Michelf\Markdown::defaultTransform(Input::get('content'));
                         $content = Output::getClean($content);
-                    } else $content = Output::getClean(Input::get('content'));
+                    } else {
+                        $content = Output::getClean(Input::get('content'));
+                    }
 
                     $queries->create("posts", array(
                         'forum_id' => $fid,
@@ -226,7 +234,7 @@ if (Input::exists()) {
                                 $error[] = $forum_language->get('forum', 'content_required');
                                 break;
                         }
-                    } else if (strpos($item, 'minimum') !== false) {
+                    } elseif (strpos($item, 'minimum') !== false) {
                         switch ($item) {
                             case (strpos($item, 'title') !== false):
                                 $error[] = $forum_language->get('forum', 'title_min_2');
@@ -235,7 +243,7 @@ if (Input::exists()) {
                                 $error[] = $forum_language->get('forum', 'content_min_2');
                                 break;
                         }
-                    } else if (strpos($item, 'maximum') !== false) {
+                    } elseif (strpos($item, 'maximum') !== false) {
                         switch ($item) {
                             case (strpos($item, 'title') !== false):
                                 $error[] = $forum_language->get('forum', 'title_max_64');

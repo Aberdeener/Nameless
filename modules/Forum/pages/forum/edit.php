@@ -64,8 +64,8 @@ if ($post_editing[0]->id == $post_id) {
     $edit_title = true;
 
     /*
-	 *  Get the title of the topic
-	 */
+     *  Get the title of the topic
+     */
 
     $post_title = $queries->getWhere("topics", array("id", "=", $topic_id));
     $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : array();
@@ -134,7 +134,9 @@ if (Input::exists()) {
                 if ($formatting == 'markdown') {
                     $content = Michelf\Markdown::defaultTransform(Input::get('content'));
                     $content = Output::getClean($content);
-                } else $content = Output::getClean(Input::get('content'));
+                } else {
+                    $content = Output::getClean(Input::get('content'));
+                }
 
                 // Update post content
                 $queries->update("posts", $post_id, array(
@@ -162,7 +164,9 @@ if (Input::exists()) {
                                     }
                                 }
 
-                                if ($hasperm) $post_labels[] = $label[0]->id;
+                                if ($hasperm) {
+                                    $post_labels[] = $label[0]->id;
+                                }
                             }
                         }
                     }
@@ -196,7 +200,7 @@ if (Input::exists()) {
                             $errors[] = $forum_language->get('forum', 'content_required');
                             break;
                     }
-                } else if (strpos($item, 'minimum') !== false) {
+                } elseif (strpos($item, 'minimum') !== false) {
                     switch ($item) {
                         case (strpos($item, 'title') !== false):
                             $errors[] = $forum_language->get('forum', 'title_min_2');
@@ -205,7 +209,7 @@ if (Input::exists()) {
                             $errors[] = $forum_language->get('forum', 'content_min_2');
                             break;
                     }
-                } else if (strpos($item, 'maximum') !== false) {
+                } elseif (strpos($item, 'maximum') !== false) {
                     switch ($item) {
                         case (strpos($item, 'title') !== false):
                             $errors[] = $forum_language->get('forum', 'title_max_64');
@@ -223,11 +227,12 @@ if (Input::exists()) {
     }
 }
 
-if (isset($errors))
+if (isset($errors)) {
     $smarty->assign(array(
         'ERROR_TITLE' => $language->get('general', 'error'),
         'ERRORS' => $errors
     ));
+}
 
 $smarty->assign('EDITING_POST', $forum_language->get('forum', 'edit_post'));
 
@@ -251,16 +256,22 @@ if (isset($edit_title) && isset($post_labels)) {
                 $perms = false;
 
                 foreach ($user_groups as $group) {
-                    if (in_array($group, $lgroups))
+                    if (in_array($group, $lgroups)) {
                         $perms = true;
+                    }
                 }
 
-                if ($perms == false) continue;
+                if ($perms == false) {
+                    continue;
+                }
 
                 // Get label HTML
                 $label_html = $queries->getWhere('forums_labels', array('id', '=', $label->label));
-                if (!count($label_html)) continue;
-                else $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
+                if (!count($label_html)) {
+                    continue;
+                } else {
+                    $label_html = str_replace('{x}', Output::getClean($label->name), $label_html[0]->html);
+                }
 
                 $labels[] = array(
                     'id' => $label->id,

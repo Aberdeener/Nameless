@@ -9,13 +9,14 @@
  *  Statistics Widget // By Xemah // https://xemah.me
  */
 
-class StatsWidget extends WidgetBase {
+class StatsWidget extends WidgetBase
+{
+    private $_cache;
+    private $_smarty;
+    private $_language;
 
-    private $_cache,
-            $_smarty,
-            $_language;
-
-    public function __construct($pages = array(), $smarty, $language, $cache) {
+    public function __construct($pages = array(), $smarty, $language, $cache)
+    {
         $this->_cache = $cache;
         $this->_smarty = $smarty;
         $this->_language = $language;
@@ -33,20 +34,18 @@ class StatsWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
-    public function initialise() {
+    public function initialise()
+    {
         $queries = new Queries();
         $user = new User();
 
         $this->_cache->setCache('statistics');
 
         if ($this->_cache->isCached('statistics')) {
-
             $users_query = $this->_cache->retrieve('statistics');
             $users_registered = $users_query['users_registered'];
             $latest_member = $users_query['latest_member'];
-
         } else {
-
             $users_query = $queries->orderAll('users', 'joined', 'DESC');
             $users_registered = count($users_query);
 
@@ -70,7 +69,6 @@ class StatsWidget extends WidgetBase {
                 ),
                 120
             );
-
         };
 
         if (!$this->_cache->isCached('online_users')) {
@@ -86,7 +84,7 @@ class StatsWidget extends WidgetBase {
                 $online_guests = DB::getInstance()->query('SELECT count(*) FROM nl2_online_guests WHERE last_seen > ?', array(strtotime('-5 minutes')))->first();
                 $online_guests = $online_guests->{'count(*)'};
                 $this->_cache->store('online_guests', $online_guests, 60);
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 // Upgrade script hasn't been run
                 $online_guests = 0;
             }

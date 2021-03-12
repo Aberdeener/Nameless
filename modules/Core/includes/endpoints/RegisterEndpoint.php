@@ -7,16 +7,18 @@
  *
  * @return string JSON Array
  */
-class RegisterEndpoint extends EndpointBase {
-
-    public function __construct() {
+class RegisterEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'register';
         $this->_module = 'Core';
         $this->_description = 'Register a new user, and send email verification if needed.';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $params = ['username', 'email'];
 
         $minecraft_integration = Util::getSetting($api->getDb(), 'mc_integration');
@@ -54,7 +56,9 @@ class RegisterEndpoint extends EndpointBase {
 
         if ($minecraft_integration) {
             $uuid = $api->getDb()->get('users', array('uuid', '=', Output::getClean($_POST['uuid'])));
-            if (count($uuid->results())) $api->throwError(12, $api->getLanguage()->get('api', 'uuid_already_exists'));
+            if (count($uuid->results())) {
+                $api->throwError(12, $api->getLanguage()->get('api', 'uuid_already_exists'));
+            }
         }
 
         $email = $api->getDb()->get('users', array('email', '=', Output::getClean($_POST['email'])));
@@ -87,7 +91,8 @@ class RegisterEndpoint extends EndpointBase {
      *
      * @return string JSON Array
      */
-    private function sendRegistrationEmail(Nameless2API $api, $username, $uuid, $email) {
+    private function sendRegistrationEmail(Nameless2API $api, $username, $uuid, $email)
+    {
         // Generate random code
         $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
 
@@ -193,7 +198,8 @@ class RegisterEndpoint extends EndpointBase {
      *
      * @return string JSON Array
      */
-    private function createUser(Nameless2API $api, $username, $uuid, $email, $return, $code = null) {
+    private function createUser(Nameless2API $api, $username, $uuid, $email, $return, $code = null)
+    {
         try {
             // Get default group ID
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {

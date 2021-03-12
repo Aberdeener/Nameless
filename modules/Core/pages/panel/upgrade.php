@@ -27,8 +27,9 @@ $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_v
 $current_version = $current_version[0]->value;
 
 // Perform the update
-if (is_file('core/includes/updates/' . str_replace('.', '', $current_version) . '.php'))
+if (is_file('core/includes/updates/' . str_replace('.', '', $current_version) . '.php')) {
     require(ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php');
+}
 
 $cache->setCache('update_check');
 if ($cache->isCached('update_check')) {

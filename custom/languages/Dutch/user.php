@@ -190,7 +190,7 @@ $language = array(
     'no_about_fields' => 'Deze gebruiker heeft nog geen over-velden toegevoegd.',
     'reply' => 'Antwoord',
     'discord_username' => 'Discord Username',
-    
+
     // Rapporten
     'invalid_report_content' => 'Kan geen rapport maken. Zorg ervoor dat je rapport reden tussen de 2 en 1024 karakters is.',
     'report_post_content' => 'Voer een reden in voor je rapport',

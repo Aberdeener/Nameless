@@ -19,14 +19,14 @@ $page_title = $language->get('admin', 'account_verification');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
-if(Input::exists()){
+if (Input::exists()) {
     $errors = array();
-    if(Token::check()){
-        if(!isset($_POST['premium'])){
+    if (Token::check()) {
+        if (!isset($_POST['premium'])) {
             $use_mcassoc = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
             $use_mcassoc = $use_mcassoc[0]->id;
 
-            if(isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on'){
+            if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on') {
                 $validate = new Validate();
                 $validation = $validate->check($_POST, array(
                     'mcassoc_key' => array(
@@ -40,7 +40,7 @@ if(Input::exists()){
                     )
                 ));
 
-                if($validation->passed()){
+                if ($validation->passed()) {
                     // Update settings
                     $mcassoc_key = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
                     $mcassoc_key = $mcassoc_key[0]->id;
@@ -53,52 +53,52 @@ if(Input::exists()){
                     $queries->update('settings', $mcassoc_instance, array('value' => Input::get('mcassoc_instance')));
 
                     $success = $language->get('admin', 'updated_mcassoc_successfully');
-
                 } else {
                     $errors[] = $language->get('admin', 'mcassoc_error');
                 }
-
             } else {
                 $queries->update('settings', $use_mcassoc, array('value' => 0));
                 $success = $language->get('admin', 'updated_mcassoc_successfully');
             }
-
         } else {
             $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
             $uuid_linking = $uuid_linking[0]->id;
 
-            if(isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1)
+            if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1) {
                 $use_premium = 1;
-            else
+            } else {
                 $use_premium = 0;
+            }
 
             $queries->update('settings', $uuid_linking, array('value' => $use_premium));
         }
-
-    } else
+    } else {
         $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 // Get UUID linking settings
 $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
 $uuid_linking = $uuid_linking[0]->value;
 
-if($uuid_linking == '1'){
+if ($uuid_linking == '1') {
     // Get mcassoc settings
     $use_mcassoc = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
     $use_mcassoc = $use_mcassoc[0]->value;

@@ -503,7 +503,7 @@ $language = array(
     'action_info' => 'Veiksmų Informacija',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Atnaujinti',
     'current_version_x' => 'Dabartinė versija: <strong>{x}</strong>', // Don't replace {x}

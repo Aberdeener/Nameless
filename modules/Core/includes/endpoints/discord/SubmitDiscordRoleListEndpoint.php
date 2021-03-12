@@ -5,16 +5,18 @@
  *
  * @return string JSON Array
  */
-class SubmitDiscordRoleListEndpoint extends EndpointBase {
-
-    public function __construct() {
+class SubmitDiscordRoleListEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'submitDiscordRoleList';
         $this->_module = 'Core';
         $this->_description = 'Update NamelessMC\'s list of your Discord guild\'s roles.';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $roles = array();
 
         if ($_POST['roles'] != null) {

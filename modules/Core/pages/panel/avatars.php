@@ -22,10 +22,11 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['avatar_source'])) {
             // Custom avatars?
-            if (isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1)
+            if (isset($_POST['custom_avatars']) && $_POST['custom_avatars'] == 1) {
                 $custom_avatars = 1;
-            else
+            } else {
                 $custom_avatars = 0;
+            }
 
             try {
                 $custom_avatars_id = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
@@ -52,7 +53,7 @@ if (Input::exists()) {
             } catch (Exception $e) {
                 $errors = array($e->getMessage());
             }
-        } else if (isset($_POST['avatar'])) {
+        } elseif (isset($_POST['avatar'])) {
             // Selecting a new default avatar
             try {
                 $default_avatar = $queries->getWhere('settings', array('name', '=', 'custom_default_avatar'));
@@ -69,24 +70,27 @@ if (Input::exists()) {
         //Log::getInstance()->log(Log::Action('admin/core/avatar'));
 
         $success = $language->get('admin', 'avatar_settings_updated_successfully');
-    } else
+    } else {
         $errors = array($language->get('general', 'invalid_token'));
+    }
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 // Get setting values
 $custom_avatars = $queries->getWhere('settings', array('name', '=', 'user_avatars'));

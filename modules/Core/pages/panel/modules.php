@@ -20,26 +20,27 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(!isset($_GET['action'])){
+if (!isset($_GET['action'])) {
     // Get all modules
     $modules = $queries->getWhere('modules', array('id', '<>', 0));
     $enabled_modules = Module::getModules();
 
     $template_array = array();
 
-    foreach($modules as $item){
+    foreach ($modules as $item) {
         $exists = false;
-        foreach($enabled_modules as $enabled_item){
-            if($enabled_item->getName() == $item->name){
+        foreach ($enabled_modules as $enabled_item) {
+            if ($enabled_item->getName() == $item->name) {
                 $exists = true;
                 $module = $enabled_item;
                 break;
             }
         }
 
-        if(!$exists){
-            if(!file_exists(ROOT_PATH . '/modules/' . $item->name . '/init.php'))
+        if (!$exists) {
+            if (!file_exists(ROOT_PATH . '/modules/' . $item->name . '/init.php')) {
                 continue;
+            }
 
             require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
         }
@@ -59,9 +60,8 @@ if(!isset($_GET['action'])){
 
     // Get templates from Nameless website
     $cache->setCache('all_templates');
-    if($cache->isCached('all_modules')){
+    if ($cache->isCached('all_modules')) {
         $all_modules = $cache->retrieve('all_modules');
-
     } else {
         $all_modules = array();
 
@@ -72,20 +72,19 @@ if(!isset($_GET['action'])){
 
         $all_modules_query = curl_exec($ch);
 
-        if(curl_error($ch)){
+        if (curl_error($ch)) {
             $all_modules_error = curl_error($ch);
         }
 
         curl_close($ch);
 
-        if(isset($all_modules_error)){
+        if (isset($all_modules_error)) {
             $smarty->assign('WEBSITE_MODULES_ERROR', $all_modules_error);
-
         } else {
             $all_modules_query = json_decode($all_modules_query);
             $timeago = new Timeago(TIMEZONE);
 
-            foreach($all_modules_query as $item){
+            foreach ($all_modules_query as $item) {
                 $all_modules[] = array(
                     'name' => Output::getClean($item->name),
                     'description' => Output::getPurified($item->description),
@@ -110,11 +109,10 @@ if(!isset($_GET['action'])){
 
             $cache->store('all_modules', $all_modules, 3600);
         }
-
     }
 
-    if(count($all_modules)){
-        if(count($all_modules) > 3){
+    if (count($all_modules)) {
+        if (count($all_modules) > 3) {
             $rand_keys = array_rand($all_modules, 3);
             $all_modules = array($all_modules[$rand_keys[0]], $all_modules[$rand_keys[1]], $all_modules[$rand_keys[2]]);
         }
@@ -138,15 +136,16 @@ if(!isset($_GET['action'])){
         'ACTIONS' => $language->get('general', 'actions'),
         'WARNING' => $language->get('general', 'warning')
     ));
-
 } else {
-    if($_GET['action'] == 'enable'){
+    if ($_GET['action'] == 'enable') {
         // Enable a module
-        if(!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) die('Invalid module!');
+        if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) {
+            die('Invalid module!');
+        }
 
         // Get module name
         $name = $queries->getWhere('modules', array('id', '=', $_GET['m']));
-        if(!count($name)){
+        if (!count($name)) {
             Redirect::to(URL::build('/panel/modules'));
             die();
         }
@@ -154,7 +153,7 @@ if(!isset($_GET['action'])){
         $name = Output::getClean($name[0]->name);
 
         // Ensure module is valid
-        if(!file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')){
+        if (!file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
             Redirect::to(URL::build('/panel/modules'));
             die();
         }
@@ -163,7 +162,7 @@ if(!isset($_GET['action'])){
 
         require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
 
-        if($module instanceof Module){
+        if ($module instanceof Module) {
             // Cache
             $cache->setCache('modulescache');
             $modules = array();
@@ -203,16 +202,17 @@ if(!isset($_GET['action'])){
                 }
                 Session::flash('admin_modules_error', $language->get('admin', 'unable_to_enable_module'));
             }
-
-        } else
+        } else {
             Session::flash('admin_modules_error', $language->get('admin', 'unable_to_enable_module'));
+        }
 
         Redirect::to(URL::build('/panel/core/modules'));
         die();
-
-    } else if($_GET['action'] == 'disable'){
+    } elseif ($_GET['action'] == 'disable') {
         // Disable a module
-        if(!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) die('Invalid module!');
+        if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) {
+            die('Invalid module!');
+        }
 
         // Get module name
         $name = $queries->getWhere('modules', array('id', '=', $_GET['m']));
@@ -249,7 +249,7 @@ if(!isset($_GET['action'])){
         // Store
         $cache->store('enabled_modules', $modules);
 
-        if(file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')){
+        if (file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
             require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
             $module->onDisable();
         }
@@ -257,27 +257,26 @@ if(!isset($_GET['action'])){
         Session::flash('admin_modules', $language->get('admin', 'module_disabled'));
         Redirect::to(URL::build('/panel/core/modules'));
         die();
-
-    } else if($_GET['action'] == 'install'){
+    } elseif ($_GET['action'] == 'install') {
         // Install any new modules
-        $directories = glob(ROOT_PATH . '/modules/*' , GLOB_ONLYDIR);
+        $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
 
         define('MODULE_INSTALL', true);
 
-        foreach($directories as $directory){
+        foreach ($directories as $directory) {
             $folders = explode('/', $directory);
 
-            if(file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')){
+            if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
                 // Is it already in the database?
                 $exists = $queries->getWhere('modules', array('name', '=', Output::getClean($folders[count($folders) - 1])));
 
-                if(!count($exists)){
+                if (!count($exists)) {
                     $module = null;
 
                     // No, add it now
                     require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
 
-                    if($module instanceof Module){
+                    if ($module instanceof Module) {
                         $queries->create('modules', array(
                             'name' => Output::getClean($folders[count($folders) - 1])
                         ));
@@ -293,23 +292,27 @@ if(!isset($_GET['action'])){
     }
 }
 
-if(Session::exists('admin_modules'))
+if (Session::exists('admin_modules')) {
     $success = Session::flash('admin_modules');
+}
 
-if(Session::exists('admin_modules_error'))
+if (Session::exists('admin_modules_error')) {
     $errors = array(Session::flash('admin_modules_error'));
+}
 
-if(isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

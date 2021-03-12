@@ -19,11 +19,11 @@ $page_title = $language->get('admin', 'authme_integration');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
-if(Input::exists()){
+if (Input::exists()) {
     $errors = array();
 
-    if(Token::check()){
-        if(isset($_POST['enable_authme'])){
+    if (Token::check()) {
+        if (isset($_POST['enable_authme'])) {
             // Either enable or disable Authme integration
             $enable_authme_id = $queries->getWhere('settings', array('name', '=', 'authme'));
             $enable_authme_id = $enable_authme_id[0]->id;
@@ -31,7 +31,6 @@ if(Input::exists()){
             $queries->update('settings', $enable_authme_id, array(
                 'value' => Input::get('enable_authme')
             ));
-
         } else {
             // AuthMe config settings
             $validate = new Validate();
@@ -53,18 +52,19 @@ if(Input::exists()){
                 )
             ));
 
-            if($validation->passed()){
+            if ($validation->passed()) {
                 $authme_db = $queries->getWhere('settings', array('name', '=', 'authme_db'));
                 $authme_db_id = $authme_db[0]->id;
                 $authme_db = json_decode($authme_db[0]->value);
 
-                if(isset($_POST['db_password'])){
+                if (isset($_POST['db_password'])) {
                     $password = $_POST['db_password'];
                 } else {
-                    if(isset($authme_db->password) && !empty($authme_db->password))
+                    if (isset($authme_db->password) && !empty($authme_db->password)) {
                         $password = $authme_db->password;
-                    else
+                    } else {
                         $password = '';
+                    }
                 }
 
                 $result = array(
@@ -84,12 +84,10 @@ if(Input::exists()){
                 $queries->update('settings', $authme_db_id, array(
                     'value' => json_encode($result)
                 ));
-
             } else {
                 $errors[] = $language->get('admin', 'enter_authme_db_details');
             }
         }
-
     } else {
         // Invalid token
         $errors[] = $language->get('general', 'invalid_token');
@@ -99,23 +97,25 @@ if(Input::exists()){
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if(isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 // Is Authme enabled?
 $authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
 $authme_enabled = $authme_enabled[0]->value;
 
-if($authme_enabled == '1'){
+if ($authme_enabled == '1') {
     // Retrieve Authme database details
     $authme_db = $queries->getWhere('settings', array('name', '=', 'authme_db'));
     $authme_db = json_decode($authme_db[0]->value);

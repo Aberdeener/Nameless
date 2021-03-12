@@ -7,16 +7,18 @@
  *
  * @return string JSON Array
  */
-class CreateReportEndpoint extends EndpointBase {
-
-    public function __construct() {
+class CreateReportEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'createReport';
         $this->_module = 'Core';
         $this->_description = 'Create a report';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['reporter', 'reported', 'content']);
 
         // Ensure content is correct length

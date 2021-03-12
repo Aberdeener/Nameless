@@ -9,25 +9,28 @@
  *  Recent punishments dashboard collection item
  */
 
-class RecentPunishmentsItem extends CollectionItemBase {
+class RecentPunishmentsItem extends CollectionItemBase
+{
+    private $_smarty;
+    private $_language;
+    private $_cache;
 
-    private $_smarty, 
-            $_language, 
-            $_cache;
-
-    public function __construct($smarty, $language, $cache) {
+    public function __construct($smarty, $language, $cache)
+    {
         $cache->setCache('dashboard_main_items_collection');
         if ($cache->isCached('recent_punishments')) {
             $from_cache = $cache->retrieve('recent_punishments');
-            if (isset($from_cache['order']))
+            if (isset($from_cache['order'])) {
                 $order = $from_cache['order'];
-            else
+            } else {
                 $order = 1;
+            }
 
-            if (isset($from_cache['enabled']))
+            if (isset($from_cache['enabled'])) {
                 $enabled = $from_cache['enabled'];
-            else
+            } else {
                 $enabled = 1;
+            }
         } else {
             $order = 1;
             $enabled = 1;
@@ -40,7 +43,8 @@ class RecentPunishmentsItem extends CollectionItemBase {
         $this->_cache = $cache;
     }
 
-    public function getContent() {
+    public function getContent()
+    {
         // Get recent punishments
         $timeago = new Timeago(TIMEZONE);
 
@@ -62,8 +66,9 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         $punished_user = $users[$item->punished];
                     } else {
                         $punished_user = new User($item->punished);
-                        if (!$punished_user->data())
+                        if (!$punished_user->data()) {
                             continue;
+                        }
                         $users[$item->punished] = $punished_user;
                     }
 
@@ -71,8 +76,9 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         $staff_user = $users[$item->staff];
                     } else {
                         $staff_user = new User($item->staff);
-                        if (!$staff_user->data())
+                        if (!$staff_user->data()) {
                             continue;
+                        }
                         $users[$item->staff] = $staff_user;
                     }
 
@@ -82,8 +88,9 @@ class RecentPunishmentsItem extends CollectionItemBase {
                             $revoked_by_user = $users[$item->revoked_by_user];
                         } else {
                             $revoked_by_user = new User($item->revoked_by);
-                            if (!$revoked_by_user->data())
+                            if (!$revoked_by_user->data()) {
                                 continue;
+                            }
                             $users[$item->revoked_by] = $revoked_by_user;
                         }
                     }
@@ -117,8 +124,9 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'revoked_at' => $timeago->inWords(date('Y-m-d H:i:s', $item->revoked_at), $this->_language->getTimeLanguage())
                     );
 
-                    if (++$i == 5)
+                    if (++$i == 5) {
                         break;
+                    }
                 }
             }
 
@@ -142,7 +150,8 @@ class RecentPunishmentsItem extends CollectionItemBase {
         return $this->_smarty->fetch('collections/dashboard_items/recent_punishments.tpl');
     }
 
-    public function getWidth() {
+    public function getWidth()
+    {
         return 0.33; // 1/3 width
     }
 }

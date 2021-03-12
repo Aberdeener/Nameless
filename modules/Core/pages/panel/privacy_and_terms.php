@@ -76,24 +76,27 @@ if (Input::exists()) {
                 }
             }
         }
-    } else
+    } else {
         $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 // Get privacy policy + terms
 $site_terms = $queries->getWhere('privacy_terms', array('name', '=', 'terms'));

@@ -20,11 +20,12 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('api_reactions'))
+if (Session::exists('api_reactions')) {
     $smarty->assign(array(
         'SUCCESS' => Session::flash('api_reactions'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
 if (!isset($_GET['id']) && !isset($_GET['action'])) {
     // Get all reactions
@@ -97,8 +98,11 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                         if ($validation->passed()) {
                             // Check enabled status
-                            if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
-                            else $enabled = 0;
+                            if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                                $enabled = 1;
+                            } else {
+                                $enabled = 0;
+                            }
 
                             switch (Input::get('type')) {
                                 case 1:
@@ -131,14 +135,14 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                                     if (strpos($error, 'name') !== false) {
                                         // Name
                                         $errors[] = $language->get('admin', 'name_required');
-                                    } else if (strpos($error, 'html') !== false) {
+                                    } elseif (strpos($error, 'html') !== false) {
                                         // HTML
                                         $errors[] = $language->get('admin', 'html_required');
                                     } else {
                                         // Type
                                         $errors[] = $language->get('admin', 'type_required');
                                     }
-                                } else if (strpos($error, 'maximum') !== false) {
+                                } elseif (strpos($error, 'maximum') !== false) {
                                     // Maximum
                                     if (strpos($error, 'name') !== false) {
                                         // Name
@@ -209,7 +213,9 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));
             die();
-        } else $reaction = $reaction[0];
+        } else {
+            $reaction = $reaction[0];
+        }
 
         // Deal with input
         if (Input::exists()) {
@@ -236,8 +242,11 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                 if ($validation->passed()) {
                     // Check enabled status
-                    if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
-                    else $enabled = 0;
+                    if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                        $enabled = 1;
+                    } else {
+                        $enabled = 0;
+                    }
 
                     switch (Input::get('type')) {
                         case 1:
@@ -270,14 +279,14 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             if (strpos($error, 'name') !== false) {
                                 // Name
                                 $errors[] = $language->get('admin', 'name_required');
-                            } else if (strpos($error, 'html') !== false) {
+                            } elseif (strpos($error, 'html') !== false) {
                                 // HTML
                                 $errors[] = $language->get('admin', 'html_required');
                             } else {
                                 // Type
                                 $errors[] = $language->get('admin', 'type_required');
                             }
-                        } else if (strpos($error, 'maximum') !== false) {
+                        } elseif (strpos($error, 'maximum') !== false) {
                             // Maximum
                             if (strpos($error, 'name') !== false) {
                                 // Name
@@ -323,11 +332,12 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
     }
 }
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

@@ -10,7 +10,7 @@
  *  Czech Language - Emails
  */
 
-$language = array (
+$language = array(
 
     // General Options
     'greeting' => 'Zdravíme,',

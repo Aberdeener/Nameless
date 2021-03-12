@@ -53,7 +53,7 @@ if (isset($_GET['action'])) {
 
             Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
         }
-    } else if ($_GET['action'] == 'update_mcname') {
+    } elseif ($_GET['action'] == 'update_mcname') {
         require_once(ROOT_PATH . '/core/integration/uuid.php');
         $uuid = $user_query->uuid;
 
@@ -77,7 +77,7 @@ if (isset($_GET['action'])) {
                 Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
         }
-    } else if ($_GET['action'] == 'update_uuid') {
+    } elseif ($_GET['action'] == 'update_uuid') {
         require_once(ROOT_PATH . '/core/integration/uuid.php');
 
         $profile = ProfileUtils::getProfile($user_query->username);
@@ -93,7 +93,7 @@ if (isset($_GET['action'])) {
                 Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
             }
         }
-    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
+    } elseif ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
         require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
         if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
@@ -180,8 +180,11 @@ if (Input::exists()) {
                     // Template
                     $new_template = $queries->getWhere('templates', array('id', '=', Input::get('template')));
 
-                    if (count($new_template)) $new_template = $new_template[0]->id;
-                    else $new_template = $user_query->theme_id;
+                    if (count($new_template)) {
+                        $new_template = $new_template[0]->id;
+                    } else {
+                        $new_template = $user_query->theme_id;
+                    }
 
                     // Nicknames?
                     $displaynames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
@@ -259,7 +262,7 @@ if (Input::exists()) {
                                 $errors[] = $language->get('user', 'mcname_required');
                                 break;
                         }
-                    } else if (strpos($error, 'minimum') !== false) {
+                    } elseif (strpos($error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
                         switch ($error) {
                             case (strpos($error, 'nickname') !== false):
@@ -269,7 +272,7 @@ if (Input::exists()) {
                                 $errors[] = $language->get('user', 'mcname_minimum_3');
                                 break;
                         }
-                    } else if (strpos($error, 'maximum') !== false) {
+                    } elseif (strpos($error, 'maximum') !== false) {
                         // x must be a maximum of y characters long
                         switch ($error) {
                             case (strpos($error, 'nickname') !== false):
@@ -288,7 +291,7 @@ if (Input::exists()) {
                     }
                 }
             }
-        } else if (Input::get('action') == 'delete') {
+        } elseif (Input::get('action') == 'delete') {
             if ($user_query->id > 1) {
                 HookHandler::executeEvent('deleteUser', array(
                     'user_id' => $user_query->id,
@@ -303,30 +306,36 @@ if (Input::exists()) {
             Redirect::to(URL::build('/panel/users'));
             die();
         }
-    } else
+    } else {
         $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
-if (Session::exists('edit_user_success'))
+if (Session::exists('edit_user_success')) {
     $success = Session::flash('edit_user_success');
+}
 
-if (Session::exists('edit_user_errors'))
+if (Session::exists('edit_user_errors')) {
     $errors = Session::flash('edit_user_errors');
+}
 
-if (Session::exists('edit_user_warnings'))
+if (Session::exists('edit_user_warnings')) {
     $warnings = Session::flash('edit_user_warnings');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 if (isset($warnings) && count($warnings)) {
     $smarty->assign(array(

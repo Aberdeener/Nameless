@@ -69,7 +69,7 @@ $language = array(
     'invalid_timezone' => 'Denne tidssonen er ugyldig.',
     'link' => 'Koble til',
     'unlink' => 'Koble fra',
-    
+
     /*
      *  Contact form
      */

@@ -43,7 +43,7 @@ require(ROOT_PATH . '/core/config.php');
 
 if (isset($conf) && is_array($conf)) {
     $GLOBALS['config'] = $conf;
-} else if (!isset($GLOBALS['config'])) {
+} elseif (!isset($GLOBALS['config'])) {
     $page = 'install';
 }
 
@@ -59,7 +59,7 @@ spl_autoload_register(function ($class) {
         require_once($path);
     }
 });
-    
+
 // If we're accessing the upgrade script don't initialise further
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
@@ -82,10 +82,12 @@ if ($page != 'install') {
     $cache->setCache('force_www_cache');
     if ($cache->isCached('force_www')) {
         $force_www = $cache->retrieve('force_www');
-        if ($force_www == 'true')
+        if ($force_www == 'true') {
             define('FORCE_WWW', true);
-    } else
+        }
+    } else {
         $cache->store('force_www', false);
+    }
 
     $cache->setCache('force_https_cache');
     if ($cache->isCached('force_https')) {
@@ -163,7 +165,7 @@ if ($page != 'install') {
             ini_set('display_errors', 0);
         }
     }
-    
+
     // Configurations
     $configuration = new Configuration($cache);
 
@@ -175,12 +177,16 @@ if ($page != 'install') {
     // Get the Bot URL(s)
     $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
     $bot_url = $bot_url[0]->value;
-    if ($bot_url == null) $bot_url = '';
+    if ($bot_url == null) {
+        $bot_url = '';
+    }
     define('BOT_URL', $bot_url);
 
     $bot_username = $queries->getWhere('settings', array('name', '=', 'discord_bot_username'));
     $bot_username = $bot_username[0]->value;
-    if ($bot_username == null) $bot_username = '';
+    if ($bot_username == null) {
+        $bot_username = '';
+    }
     define('BOT_USERNAME', $bot_username);
 
     // User initialisation
@@ -390,23 +396,27 @@ if ($page != 'install') {
 
     if ($cache->isCached('default_avatar_type')) {
         define('DEFAULT_AVATAR_TYPE', $cache->retrieve('default_avatar_type'));
-        if (DEFAULT_AVATAR_TYPE == 'custom' && $cache->isCached('default_avatar_image'))
+        if (DEFAULT_AVATAR_TYPE == 'custom' && $cache->isCached('default_avatar_image')) {
             define('DEFAULT_AVATAR_IMAGE', $cache->retrieve('default_avatar_image'));
-        else
+        } else {
             define('DEFAULT_AVATAR_IMAGE', '');
-    } else
+        }
+    } else {
         define('DEFAULT_AVATAR_TYPE', 'minecraft');
+    }
 
     if (DEFAULT_AVATAR_TYPE == 'minecraft') {
-        if ($cache->isCached('avatar_source'))
+        if ($cache->isCached('avatar_source')) {
             define('DEFAULT_AVATAR_SOURCE', $cache->retrieve('avatar_source'));
-        else
+        } else {
             define('DEFAULT_AVATAR_SOURCE', 'cravatar');
+        }
 
-        if ($cache->isCached('avatar_perspective'))
+        if ($cache->isCached('avatar_perspective')) {
             define('DEFAULT_AVATAR_PERSPECTIVE', $cache->retrieve('avatar_perspective'));
-        else
+        } else {
             define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
+        }
     }
 
     // Maintenance mode?
@@ -431,10 +441,11 @@ if ($page != 'install') {
 
     // Minecraft integration?
     $mc_integration = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
-    if (count($mc_integration) && $mc_integration[0]->value == '1')
+    if (count($mc_integration) && $mc_integration[0]->value == '1') {
         define('MINECRAFT', true);
-    else
+    } else {
         define('MINECRAFT', false);
+    }
 
     // Navbar links
     $navigation = new Navigation();
@@ -459,10 +470,11 @@ if ($page != 'install') {
     }
 
     $cache->setCache('navbar_icons');
-    if ($cache->isCached('index_icon'))
+    if ($cache->isCached('index_icon')) {
         $home_icon = $cache->retrieve('index_icon');
-    else
+    } else {
         $home_icon = '';
+    }
 
     $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);
 
@@ -643,4 +655,3 @@ if ($page != 'install') {
         unset($_SESSION['password']);
     }
 }
-

@@ -43,7 +43,7 @@ $language = array(
     'notices' => 'Noticias',
     'no_notices' => 'No hay noticias.',
     'email_errors_logged' => 'Se han registrado los errores de correo electrónico',
-    
+
     // Core
     'mode_toggle' => 'Dark/Light Mode',
     'settings' => 'Ajustes',
@@ -503,7 +503,7 @@ $language = array(
     'action_info' => 'Información de la Acción',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Actualizar',
     'current_version_x' => 'Versión actual: <strong>{x}</strong>', // Don't replaec {x}

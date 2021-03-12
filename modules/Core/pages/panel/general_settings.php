@@ -39,7 +39,7 @@ if (isset($_GET['do'])) {
         }
 
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
-    } else if ($_GET['do'] == 'updateLanguages') {
+    } elseif ($_GET['do'] == 'updateLanguages') {
         $active_language = $queries->getWhere('languages', array('is_default', '=', 1));
         if (count($active_language)) {
             DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', array($active_language[0]->id));
@@ -140,7 +140,9 @@ if (Input::exists()) {
 
             if ($_POST['homepage'] == 'portal') {
                 $use_portal = 1;
-            } else $use_portal = 0;
+            } else {
+                $use_portal = 0;
+            }
 
             $queries->update('settings', $portal_id, array(
                 'value' => $use_portal
@@ -154,10 +156,11 @@ if (Input::exists()) {
             $private_profile_id = $queries->getWhere('settings', array('name', '=', 'private_profile'));
             $private_profile_id = $private_profile_id[0]->id;
 
-            if ($_POST['privateProfile'])
+            if ($_POST['privateProfile']) {
                 $private_profile = 1;
-            else
+            } else {
                 $private_profile = 0;
+            }
 
             $queries->update('settings', $private_profile_id, array(
                 'value' => $private_profile
@@ -184,8 +187,11 @@ if (Input::exists()) {
             $cache->store('formatting', Output::getClean(Input::get('formatting')));
 
             // Friendly URLs
-            if (Input::get('friendlyURL') == 'true') $friendly = true;
-            else $friendly = false;
+            if (Input::get('friendlyURL') == 'true') {
+                $friendly = true;
+            } else {
+                $friendly = false;
+            }
 
             if (is_writable(ROOT_PATH . '/' . join(DIRECTORY_SEPARATOR, array('core', 'config.php')))) {
 
@@ -202,13 +208,16 @@ if (Input::exists()) {
 
                 // Make string to input
                 Config::set('core/friendly', $friendly);
-            } else $errors = array($language->get('admin', 'config_not_writable'));
+            } else {
+                $errors = array($language->get('admin', 'config_not_writable'));
+            }
 
             // Force HTTPS?
-            if (Input::get('forceHTTPS') == 'true')
+            if (Input::get('forceHTTPS') == 'true') {
                 $https = 'true';
-            else
+            } else {
                 $https = 'false';
+            }
 
             $force_https_id = $queries->getWhere('settings', array('name', '=', 'force_https'));
             if (count($force_https_id)) {
@@ -224,10 +233,11 @@ if (Input::exists()) {
             }
 
             // Force WWW?
-            if (Input::get('forceWWW') == 'true')
+            if (Input::get('forceWWW') == 'true') {
                 $www = 'true';
-            else
+            } else {
                 $www = 'false';
+            }
 
             $force_www_id = $queries->getWhere('settings', array('name', '=', 'force_www'));
             if (count($force_www_id)) {
@@ -290,7 +300,7 @@ if (Input::exists()) {
             foreach ($validation->errors() as $error) {
                 if (strpos($error, 'sitename') !== false) {
                     $errors[] = $language->get('admin', 'missing_sitename');
-                } else if (strpos($error, 'email') !== false) {
+                } elseif (strpos($error, 'email') !== false) {
                     $errors[] = $language->get('admin', 'missing_contact_address');
                 }
             }
@@ -304,8 +314,9 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('general_language'))
+if (Session::exists('general_language')) {
     $success = Session::flash('general_language');
+}
 
 if (isset($success)) {
     $smarty->assign(array(
@@ -330,8 +341,9 @@ $count = count($languages);
 
 for ($i = 0; $i < $count; $i++) {
     $language_path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'languages', $languages[$i]->name, 'version.php'));
-    if (!file_exists($language_path))
+    if (!file_exists($language_path)) {
         unset($languages[$i]);
+    }
 }
 
 $timezone = $queries->getWhere('settings', array('name', '=', 'timezone'));

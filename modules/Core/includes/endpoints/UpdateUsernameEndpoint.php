@@ -6,16 +6,18 @@
  *
  * @return string JSON Array
  */
-class UpdateUsernameEndpoint extends EndpointBase {
-
-    public function __construct() {
+class UpdateUsernameEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'updateUsername';
         $this->_module = 'Core';
         $this->_description = 'Update a users NamelessMC username to a new username';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['id', 'username']);
 
         // Ensure user exists

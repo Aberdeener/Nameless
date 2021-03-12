@@ -9,7 +9,8 @@
  *  Register email
  */
 
-function sendRegisterEmail(Queries $queries, Language $language, $email_address, $username, $user_id, $code) {
+function sendRegisterEmail(Queries $queries, Language $language, $email_address, $username, $user_id, $code)
+{
     $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
     $php_mailer = $php_mailer[0]->value;
 
@@ -39,7 +40,6 @@ function sendRegisterEmail(Queries $queries, Language $language, $email_address,
 
             return false;
         }
-
     } else {
         // PHP mail function
         $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));

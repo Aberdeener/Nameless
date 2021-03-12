@@ -29,8 +29,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     $page_title = $language->get('user', 'profile') . ' - ' . Output::getClean($md_profile);
-} else
+} else {
     $page_title = $language->get('user', 'profile');
+}
 
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
@@ -190,7 +191,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
                                 Alert::create($query->id, 'profile_post', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
-                            } else if ($post[0]->author_id != $user->data()->id) {
+                            } elseif ($post[0]->author_id != $user->data()->id) {
                                 // Alert post author
                                 if ($post[0]->author_id == $query->id) {
                                     Alert::create($query->id, 'profile_post_reply', array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname()), array('path' => 'core', 'file' => 'user', 'term' => 'new_wall_post_reply_your_profile', 'replace' => '{x}', 'replace_with' => $user->getDisplayname), URL::build('/profile/' . $profile_user->getDisplayname(true) . '/#post-' . $_POST['post']));
@@ -258,8 +259,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         } catch (Exception $e) {
                                             $error = $e->getMessage();
                                         }
-                                    } else
+                                    } else {
                                         $error = $language->get('user', 'invalid_wall_post');
+                                    }
                                 }
                             }
                         }
@@ -408,7 +410,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $queries->increment("users", $query->id, "profile_views");
             Cookie::put("nl-profile-" . $query->id, "true", 3600);
         }
-    } else if (!Session::exists('nl-profile-' . $query->id)) {
+    } elseif (!Session::exists('nl-profile-' . $query->id)) {
         $queries->increment("users", $query->id, "profile_views");
         Session::put("nl-profile-" . $query->id, "true");
     }
@@ -575,7 +577,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         for ($n = 0; $n < count($results->data); $n++) {
             $post_user = $queries->getWhere('users', array('id', '=', $results->data[$n]->author_id));
 
-            if (!count($post_user)) continue;
+            if (!count($post_user)) {
+                continue;
+            }
 
             // Get reactions/replies
             $reactions = array();
@@ -583,10 +587,11 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             $reactions_query = $queries->getWhere('user_profile_wall_posts_reactions', array('post_id', '=', $results->data[$n]->id));
             if (count($reactions_query)) {
-                if (count($reactions_query) == 1)
+                if (count($reactions_query) == 1) {
                     $reactions['count'] = $language->get('user', '1_like');
-                else
+                } else {
                     $reactions['count'] = str_replace('{x}', count($reactions_query), $language->get('user', 'x_likes'));
+                }
 
                 foreach ($reactions_query as $reaction) {
                     // Get reaction name and icon
@@ -611,15 +616,18 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         //'reaction_html' => $reaction_html
                     );
                 }
-            } else $reactions['count'] = str_replace('{x}', 0, $language->get('user', 'x_likes'));
+            } else {
+                $reactions['count'] = str_replace('{x}', 0, $language->get('user', 'x_likes'));
+            }
             $reactions_query = null;
 
             $replies_query = $queries->orderWhere('user_profile_wall_posts_replies', 'post_id = ' . $results->data[$n]->id, 'time', 'ASC');
             if (count($replies_query)) {
-                if (count($replies_query) == 1)
+                if (count($replies_query) == 1) {
                     $replies['count'] = $language->get('user', '1_reply');
-                else
+                } else {
                     $replies['count'] = str_replace('{x}', count($replies_query), $language->get('user', 'x_replies'));
+                }
 
                 foreach ($replies_query as $reply) {
                     $target_user = new User($reply->author_id);
@@ -637,7 +645,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'id' => $reply->id
                     );
                 }
-            } else $replies['count'] = str_replace('{x}', 0, $language->get('user', 'x_replies'));
+            } else {
+                $replies['count'] = str_replace('{x}', 0, $language->get('user', 'x_replies'));
+            }
             $replies_query = null;
 
             $target_user = new User($post_user[0]->id);
@@ -721,8 +731,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         );
     }
 
-    if (!count($fields))
+    if (!count($fields)) {
         $smarty->assign('NO_ABOUT_FIELDS', $language->get('user', 'no_about_fields'));
+    }
 
     // Minecraft?
     $minecraft_integration = $queries->getWhere('settings', array('name', '=', 'mc_integration'));

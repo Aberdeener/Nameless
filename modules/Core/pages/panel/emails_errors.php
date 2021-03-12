@@ -29,7 +29,7 @@ if (isset($_GET['do'])) {
         Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
         die();
-    } else if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    } elseif ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
         try {
             $queries->delete('email_errors', array('id', '=', $_GET['id']));
         } catch (Exception $e) {
@@ -39,7 +39,7 @@ if (isset($_GET['do'])) {
         Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
         die();
-    } else if ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    } elseif ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
         // Check the error exists
         $error = $queries->getWhere('email_errors', array('id', '=', $_GET['id']));
         if (!count($error)) {
@@ -105,7 +105,7 @@ if (isset($_GET['do'])) {
                     ));
                 }
             }
-        } else if ($error->type == 4) {
+        } elseif ($error->type == 4) {
             $user_error = $queries->getWhere('users', array('id', '=', $error->user_id));
             if (count($user_error)) {
                 $user_error = $user_error[0];
@@ -220,17 +220,19 @@ if (isset($_GET['do'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('emails_errors_success'))
+if (Session::exists('emails_errors_success')) {
     $smarty->assign(array(
         'SUCCESS' => Session::flash('emails_errors_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

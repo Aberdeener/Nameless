@@ -14,14 +14,14 @@ $cache->setCache('social_media');
 
 if (Input::exists()) {
     if (Token::check()) {
-        if (isset($_POST['theme']))
+        if (isset($_POST['theme'])) {
             $cache->store('discord_widget_theme', $_POST['theme']);
+        }
 
         $discord_id = $queries->getWhere('settings', array('name', '=', 'discord'));
         $discord_id = $discord_id[0]->id;
 
         if (isset($_POST['discord_guild_id'])) {
-
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
                 'discord_guild_id' => array(
@@ -38,7 +38,7 @@ if (Input::exists()) {
                 foreach ($validation->errors() as $validation_error) {
                     if (strpos($validation_error, 'minimum') !== false || strpos($validation_error, 'maximum') !== false) {
                         $errors[] = $language->get('admin', 'discord_id_length');
-                    } else if (strpos($validation_error, 'numeric') !== false) {
+                    } elseif (strpos($validation_error, 'numeric') !== false) {
                         $errors[] = $language->get('admin', 'discord_id_numeric');
                     }
                 }
@@ -46,9 +46,9 @@ if (Input::exists()) {
         } else {
             $guild_id = '';
         }
-        if (count($errors))
+        if (count($errors)) {
             $smarty->assign('ERRORS', $errors);
-        else {
+        } else {
             $queries->update('settings', $discord_id, array(
                 'value' => $guild_id
             ));
@@ -65,10 +65,11 @@ if (Input::exists()) {
 $guild_id = $queries->getWhere('settings', array('name', '=', 'discord'));
 $guild_id = $guild_id[0]->value;
 
-if ($cache->isCached('discord_widget_theme'))
+if ($cache->isCached('discord_widget_theme')) {
     $discord_theme = $cache->retrieve('discord_widget_theme');
-else
+} else {
     $discord_theme = 'dark';
+}
 
 $smarty->assign(array(
     'DISCORD_ID' => $language->get('admin', 'discord_id'),

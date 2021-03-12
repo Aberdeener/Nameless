@@ -1,16 +1,16 @@
 <?php
 if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'] == true) {
-	Redirect::to('?step=site_configuration');
-	die();
+    Redirect::to('?step=site_configuration');
+    die();
 }
 
 if (!isset($_SESSION['charset']) || !isset($_SESSION['engine'])) {
-	Redirect::to('?step=database_configuration');
-	die();
+    Redirect::to('?step=database_configuration');
+    die();
 }
 
 $scripts = array(
-	'
+    '
 	<script>
 		$(document).ready(function() {
 			$.post("?step=ajax_initialise&initialise=db", {perform: "true"}, function(response) {

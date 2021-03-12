@@ -25,15 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class MinecraftBanner {
-
-    public static function getBackgroundCanvas($width, $height, $background) {
+class MinecraftBanner
+{
+    public static function getBackgroundCanvas($width, $height, $background)
+    {
         $texture_size = 32;
 
         $canvas = imagecreatetruecolor($width, $height);
-        if ($background == NULL) {
+        if ($background == null) {
             $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/texture.png');
-        } else if (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
+        } elseif (file_exists(ROOT_PATH . '/uploads/banners/' . $background)) {
             $background = imagecreatefrompng(ROOT_PATH . '/uploads/banners/' . $background);
         } else {
             if (stristr($background, "http://") || stristr($background, "https://") || file_exists($background)) {
@@ -63,9 +64,7 @@ class MinecraftBanner {
                 for ($xPos = 0; $xPos <= ($width / $texture_size); $xPos++) {
                     $startX = $xPos * $texture_size;
                     $startY = $yPos * $texture_size;
-                    imagecopyresampled($canvas, $background, $startX, $startY, 0, 0
-                            , $texture_size, $texture_size
-                            , $texture_size, $texture_size);
+                    imagecopyresampled($canvas, $background, $startX, $startY, 0, 0, $texture_size, $texture_size, $texture_size, $texture_size);
                 }
             }
         } else {
@@ -75,7 +74,8 @@ class MinecraftBanner {
         return $canvas;
     }
 
-    public static function getColours() {
+    public static function getColours()
+    {
         return array(
             '0' => array(0, 0, 0), //Black
             '1' => array(0, 0, 170), //Dark Blue
@@ -96,12 +96,13 @@ class MinecraftBanner {
         );
     }
 
-    public static function getColourChar() {
+    public static function getColourChar()
+    {
         return "§";
     }
 
-    public static function getFontFile() {
+    public static function getFontFile()
+    {
         return ROOT_PATH . '/core/assets/fonts/minecraft.ttf';
     }
-
 }

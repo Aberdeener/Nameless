@@ -9,11 +9,12 @@
  *  Collection manager class
  */
 
-class CollectionManager {
-
+class CollectionManager
+{
     private static $_collections = array();
 
-    public static function addItemToCollection($collection, $item) {
+    public static function addItemToCollection($collection, $item)
+    {
         if (!isset(self::$_collections[$collection])) {
             self::$_collections[$collection] = new Collection();
         }
@@ -21,28 +22,33 @@ class CollectionManager {
         self::$_collections[$collection]->addItem($item);
     }
 
-    public static function getFullCollection($collection) {
+    public static function getFullCollection($collection)
+    {
         return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getAllItems() : array());
     }
 
-    public static function getEnabledCollection($collection) {
+    public static function getEnabledCollection($collection)
+    {
         return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getEnabledItems() : array());
     }
 }
 
-class Collection {
-
+class Collection
+{
     private $_items;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_items = array();
     }
 
-    public function addItem($item) {
+    public function addItem($item)
+    {
         $this->_items[] = $item;
     }
 
-    public function getEnabledItems() {
+    public function getEnabledItems()
+    {
         $items = array();
 
         foreach ($this->_items as $item) {
@@ -58,12 +64,13 @@ class Collection {
         return $items;
     }
 
-    public function getAllItems() {
+    public function getAllItems()
+    {
         $items = $this->_items;
         uasort($items, function ($a, $b) {
             return $a->getOrder() - $b->getOrder();
         });
-        
+
         return $items;
     }
 }

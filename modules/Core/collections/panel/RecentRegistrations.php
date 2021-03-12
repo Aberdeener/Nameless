@@ -9,25 +9,28 @@
  *  Recent registrations dashboard collection item
  */
 
-class RecentRegistrationsItem extends CollectionItemBase {
+class RecentRegistrationsItem extends CollectionItemBase
+{
+    private $_smarty;
+    private $_language;
+    private $_cache;
 
-    private $_smarty, 
-            $_language, 
-            $_cache;
-
-    public function __construct($smarty, $language, $cache) {
+    public function __construct($smarty, $language, $cache)
+    {
         $cache->setCache('dashboard_main_items_collection');
         if ($cache->isCached('recent_registrations')) {
             $from_cache = $cache->retrieve('recent_registrations');
-            if (isset($from_cache['order']))
+            if (isset($from_cache['order'])) {
                 $order = $from_cache['order'];
-            else
+            } else {
                 $order = 2;
+            }
 
-            if (isset($from_cache['enabled']))
+            if (isset($from_cache['enabled'])) {
                 $enabled = $from_cache['enabled'];
-            else
+            } else {
                 $enabled = 1;
+            }
         } else {
             $order = 2;
             $enabled = 1;
@@ -40,7 +43,8 @@ class RecentRegistrationsItem extends CollectionItemBase {
         $this->_cache = $cache;
     }
 
-    public function getContent() {
+    public function getContent()
+    {
         // Get recent registrations
         $timeago = new Timeago(TIMEZONE);
 
@@ -70,8 +74,9 @@ class RecentRegistrationsItem extends CollectionItemBase {
                         'time_full' => date('d M Y, H:i', $item->joined)
                     );
 
-                    if (++$i == 5)
+                    if (++$i == 5) {
                         break;
+                    }
                 }
             }
 
@@ -88,7 +93,8 @@ class RecentRegistrationsItem extends CollectionItemBase {
         return $this->_smarty->fetch('collections/dashboard_items/recent_registrations.tpl');
     }
 
-    public function getWidth() {
+    public function getWidth()
+    {
         return 0.33; // 1/3 width
     }
 }

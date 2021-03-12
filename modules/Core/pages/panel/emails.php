@@ -18,8 +18,9 @@ $page_title = $language->get('admin', 'emails');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Since emails are sent in the user's language, they need to be able to pick which language's messages to edit
-if (Session::exists('editing_language')) $lang_name = Session::get('editing_language');
-else {
+if (Session::exists('editing_language')) {
+    $lang_name = Session::get('editing_language');
+} else {
     $default_lang = $queries->getWhere('languages', array('is_default', '=', 1));
     $default_lang = $default_lang[0]->name;
     $lang_name = $default_lang;
@@ -32,7 +33,6 @@ $emails = array(
 );
 
 if (isset($_GET['action'])) {
-
     if ($_GET['action'] == 'test') {
         $smarty->assign(array(
             'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
@@ -57,9 +57,10 @@ if (isset($_GET['action'])) {
 
                 $sent = Email::send($email, 'mailer');
 
-                if (isset($sent['error']))
+                if (isset($sent['error'])) {
                     // Error
                     $errors[] = $sent['error'];
+                }
             } else {
                 // PHP mail function
                 $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
@@ -85,13 +86,15 @@ if (isset($_GET['action'])) {
 
                 $sent = Email::send($email, 'php');
 
-                if (isset($sent['error']))
+                if (isset($sent['error'])) {
                     // Error
                     $errors[] = $sent['error'];
+                }
             }
 
-            if (!count($errors))
+            if (!count($errors)) {
                 $success = $language->get('admin', 'test_email_success');
+            }
         } else {
             $smarty->assign(array(
                 'SEND_TEST_EMAIL_INFO' => str_replace('{x}', Output::getClean($user->data()->email), $language->get('admin', 'send_test_email_info')),
@@ -102,15 +105,16 @@ if (isset($_GET['action'])) {
         }
 
         $template_file = 'core/emails_test.tpl';
-    } else if ($_GET['action'] == 'edit_messages') {
-
+    } elseif ($_GET['action'] == 'edit_messages') {
         $available_languages = array();
 
         $languages = $queries->getWhere('languages', array('id', '<>', 0));
         foreach ($languages as $language_db) {
             $lang = new Language(null, $language_db->name);
             $lang_file = ($lang->getActiveLanguageDirectory() . DIRECTORY_SEPARATOR . 'emails.php');
-            if (file_exists($lang_file) && is_writable($lang_file)) array_push($available_languages, $language_db);
+            if (file_exists($lang_file) && is_writable($lang_file)) {
+                array_push($available_languages, $language_db);
+            }
         }
 
         $smarty->assign(array(
@@ -138,8 +142,7 @@ if (isset($_GET['action'])) {
         ));
 
         $template_file = 'core/emails_edit_messages.tpl';
-    } else if ($_GET['action'] == 'preview') {
-
+    } elseif ($_GET['action'] == 'preview') {
         $viewing_language =  new Language(null, Session::get('editing_language'));
 
         $smarty->assign(array(
@@ -177,11 +180,11 @@ if (isset($_GET['action'])) {
                     die();
                 }
             } else {
-
-                if (isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1)
+                if (isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1) {
                     $mailer = '1';
-                else
+                } else {
                     $mailer = '0';
+                }
 
                 $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
                 $php_mailer = $php_mailer[0]->id;
@@ -255,8 +258,9 @@ if (isset($_GET['action'])) {
                     die();
                 }
             }
-        } else
+        } else {
             $errors[] = $language->get('general', 'invalid_token');
+        }
     }
 
     $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
@@ -311,20 +315,23 @@ if (isset($_GET['action'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('emails_success'))
+if (Session::exists('emails_success')) {
     $success = Session::flash('emails_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

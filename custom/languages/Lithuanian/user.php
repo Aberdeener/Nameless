@@ -185,7 +185,7 @@ $language = array(
     'no_about_fields' => 'Šis vartotojas dar nepateikė jokių “apie” laukų.',
     'reply' => 'Atsakyti',
     'discord_username' => 'Discord Username',
-    
+
     // Reports
     'invalid_report_content' => 'Neįmanoma kurti ataskaitos. Patikrinkite, ar ataskaitos priežasties ilgis yra nuo 2 iki 1024 simbolių.',
     'report_post_content' => 'Įveskite savo atąskaitos priežastį',

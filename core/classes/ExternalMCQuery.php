@@ -9,12 +9,13 @@
  *  External Minecraft query class
  */
 
-class ExternalMCQuery {
-
+class ExternalMCQuery
+{
     // Basic server query
     // Returns array containing query result
     // Params: $ip = IP to query, $port = port to query
-    public static function query($ip, $port = 25565) {
+    public static function query($ip, $port = 25565)
+    {
         $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 
         try {
@@ -32,8 +33,7 @@ class ExternalMCQuery {
             curl_close($ch);
 
             return $result;
-
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return array(
                 'error' => true,
                 'value' => $e->getMessage()
@@ -43,18 +43,20 @@ class ExternalMCQuery {
 
     // Get a server's favicon
     // Params: $ip - server IP address
-    public static function getFavicon($ip = null) {
-        if($ip){
+    public static function getFavicon($ip = null)
+    {
+        if ($ip) {
             $query_ip = explode(':', $ip);
 
-            if(count($query_ip) == 2){
+            if (count($query_ip) == 2) {
                 $ip = $query_ip[0];
                 $port = $query_ip[1];
-            } else if(count($query_ip) == 1) {
+            } elseif (count($query_ip) == 1) {
                 $ip = $query_ip[0];
                 $port = $query_ip[1];
-            } else
+            } else {
                 return false;
+            }
 
             $queryUrl = 'https://api.namelessmc.com/api/server/' . $ip . '/' . $port;
 
@@ -72,11 +74,10 @@ class ExternalMCQuery {
 
                 curl_close($ch);
 
-                if(!$result->error && $result->response->description->favicon)
+                if (!$result->error && $result->response->description->favicon) {
                     return $result->response->description->favicon;
-
-            } catch(Exception $e){
-
+                }
+            } catch (Exception $e) {
             }
         }
         return false;

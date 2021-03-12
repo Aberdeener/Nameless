@@ -9,15 +9,16 @@
  *  Minecraft server query class
  */
 
-class MCQuery {
-
+class MCQuery
+{
     // Query a single server
     // Returns array containing query result
     // Params:  $ip - full server IP address with port (separated by :) to query
     //          $type - type of query to use (internal or external)
     //          $language - query language object
     //          $queries - Queries instance to pass through for error logging
-    public static function singleQuery($ip = null, $type = 'internal', $language, $queries) {
+    public static function singleQuery($ip = null, $type = 'internal', $language, $queries)
+    {
         if ($ip) {
             try {
                 if ($type == 'internal') {
@@ -129,7 +130,8 @@ class MCQuery {
      *
      * @return array Array containing query result
      */
-    public static function multiQuery($servers, $type = 'internal', $language, $accumulate = false, $queries) {
+    public static function multiQuery($servers, $type = 'internal', $language, $accumulate = false, $queries)
+    {
         if (count($servers)) {
             if ($type == 'internal') {
                 // Internal query
@@ -274,7 +276,8 @@ class MCQuery {
 
      * @return array Array of formatted players
      **/
-    private static function formatPlayerList($player_list) {
+    private static function formatPlayerList($player_list)
+    {
         $formatted = array();
 
         if (count($player_list)) {

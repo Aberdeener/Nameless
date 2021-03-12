@@ -43,8 +43,11 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         if (Token::check()) {
             try {
                 // Get reactions value
-                if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') $enabled = 1;
-                else $enabled = 0;
+                if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                    $enabled = 1;
+                } else {
+                    $enabled = 0;
+                }
 
                 $forum_reactions_id = $queries->getWhere('settings', array('name', '=', 'forum_reactions'));
                 $forum_reactions_id = $forum_reactions_id[0]->id;
@@ -89,8 +92,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     $parent_forum = null;
                     $parent_forum_count = 0;
                 }
-            } else
+            } else {
                 $parent_forum_count = 0;
+            }
 
             $template_array[] = array(
                 'edit_link' => URL::build('/panel/forums/', 'forum=' . Output::getClean($item->id)),
@@ -121,7 +125,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     ));
 
     $template_file = 'forum/forums.tpl';
-} else if (isset($_GET['action'])) {
+} elseif (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'new':
             if (!isset($_GET['step'])) {
@@ -152,8 +156,11 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 $description = Input::get('forumdesc');
 
                                 $last_forum_order = $queries->orderAll('forums', 'forum_order', 'DESC');
-                                if (count($last_forum_order)) $last_forum_order = $last_forum_order[0]->forum_order;
-                                else $last_forum_order = 0;
+                                if (count($last_forum_order)) {
+                                    $last_forum_order = $last_forum_order[0]->forum_order;
+                                } else {
+                                    $last_forum_order = 0;
+                                }
 
                                 $queries->create('forums', array(
                                     'forum_title' => Output::getClean(Input::get('forumname')),
@@ -178,13 +185,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                             $errors[] = $forum_language->get('forum', 'input_forum_title');
                                             break;
                                     }
-                                } else if (strpos($item, 'minimum') !== false) {
+                                } elseif (strpos($item, 'minimum') !== false) {
                                     switch ($item) {
                                         case (strpos($item, 'forumname') !== false):
                                             $errors[] = $forum_language->get('forum', 'forum_name_minimum');
                                             break;
                                     }
-                                } else if (strpos($item, 'maximum') !== false) {
+                                } elseif (strpos($item, 'maximum') !== false) {
                                     switch ($item) {
                                         case (strpos($item, 'forumname') !== false):
                                             $errors[] = $forum_language->get('forum', 'forum_name_maximum');
@@ -230,7 +237,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 if (!count($forum)) {
                     Redirect::to(URL::build('/panel/forums'));
                     die();
-                } else $forum = $forum[0];
+                } else {
+                    $forum = $forum[0];
+                }
 
                 // Forums only
                 if ($forum->forum_type == 'category') {
@@ -256,14 +265,18 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 $redirect_url = null;
                             }
 
-                            if (isset($_POST['hooks']) && count($_POST['hooks'])) $hooks = json_encode($_POST['hooks']);
-                            else $hooks = null;
+                            if (isset($_POST['hooks']) && count($_POST['hooks'])) {
+                                $hooks = json_encode($_POST['hooks']);
+                            } else {
+                                $hooks = null;
+                            }
 
                             if (!isset($redirect_error)) {
-                                if (isset($_POST['parent']))
+                                if (isset($_POST['parent'])) {
                                     $parent = $_POST['parent'];
-                                else
+                                } else {
                                     $parent = 0;
+                                }
 
                                 $queries->update('forums', $forum->id, array(
                                     'parent' => $parent,
@@ -385,7 +398,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                     Redirect::to(URL::build('/panel/forums'));
                     die();
-                } else if ($dir == 'down') {
+                } elseif ($dir == 'down') {
                     $n = 0;
                     foreach ($previous_forums as $previous_forum) {
                         if ($previous_forum->id == $_GET['fid']) {
@@ -411,7 +424,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     Redirect::to(URL::build('/panel/forums'));
                     die();
                 }
-            } else if ($_GET['dir'] == 'drag') {
+            } elseif ($_GET['dir'] == 'drag') {
                 // Get forums
                 if (isset($_GET['forums'])) {
                     $forums = json_decode($_GET['forums'])->forums;
@@ -516,8 +529,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             $other_forums = $queries->orderWhere('forums', 'parent > 0', 'forum_order', 'ASC');
             $template_array = array();
             foreach ($other_forums as $item) {
-                if ($item->id == $forum->id)
+                if ($item->id == $forum->id) {
                     continue;
+                }
 
                 $template_array[] = array(
                     'id' => Output::getClean($item->id),
@@ -541,7 +555,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             die();
             break;
     }
-} else if (isset($_GET['forum'])) {
+} elseif (isset($_GET['forum'])) {
     // Editing forum
     if (!is_numeric($_GET['forum'])) {
         die();
@@ -593,16 +607,23 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             $redirect_url = null;
                         }
 
-                        if (isset($_POST['parent_forum']))
+                        if (isset($_POST['parent_forum'])) {
                             $parent = $_POST['parent_forum'];
-                        else
+                        } else {
                             $parent = 0;
+                        }
 
-                        if (isset($_POST['hooks']) && count($_POST['hooks'])) $hooks = json_encode($_POST['hooks']);
-                        else $hooks = null;
+                        if (isset($_POST['hooks']) && count($_POST['hooks'])) {
+                            $hooks = json_encode($_POST['hooks']);
+                        } else {
+                            $hooks = null;
+                        }
 
-                        if (isset($_POST['default_labels']) && count($_POST['default_labels'])) $default_labels = implode(',', $_POST['default_labels']);
-                        else $default_labels = null;
+                        if (isset($_POST['default_labels']) && count($_POST['default_labels'])) {
+                            $default_labels = implode(',', $_POST['default_labels']);
+                        } else {
+                            $default_labels = null;
+                        }
 
                         // Update the forum
                         $to_update = array(
@@ -618,8 +639,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             'default_labels' => $default_labels
                         );
 
-                        if (!isset($redirect_error))
+                        if (!isset($redirect_error)) {
                             $to_update['redirect_url'] = $redirect_url;
+                        }
 
                         $queries->update('forums', $_GET['forum'], $to_update);
                     } catch (Exception $e) {
@@ -634,7 +656,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     $view_others = Input::get('perm-view_others-0');
                     $moderate = 0;
 
-                    if (!($view)) $view = 0;
+                    if (!($view)) {
+                        $view = 0;
+                    }
 
                     $forum_perm_exists = 0;
 
@@ -685,12 +709,24 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         $view_others = Input::get('perm-view_others-' . $group->id);
                         $moderate = Input::get('perm-moderate-' . $group->id);
 
-                        if (!($view)) $view = 0;
-                        if (!($create)) $create = 0;
-                        if (!($edit)) $edit = 0;
-                        if (!($post)) $post = 0;
-                        if (!($view_others)) $view_others = 0;
-                        if (!($moderate)) $moderate = 0;
+                        if (!($view)) {
+                            $view = 0;
+                        }
+                        if (!($create)) {
+                            $create = 0;
+                        }
+                        if (!($edit)) {
+                            $edit = 0;
+                        }
+                        if (!($post)) {
+                            $post = 0;
+                        }
+                        if (!($view_others)) {
+                            $view_others = 0;
+                        }
+                        if (!($moderate)) {
+                            $moderate = 0;
+                        }
 
                         $forum_perm_exists = 0;
 
@@ -743,13 +779,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     $errors[] = $forum_language->get('forum', 'input_forum_title');
                                     break;
                             }
-                        } else if (strpos($error, 'minimum') !== false) {
+                        } elseif (strpos($error, 'minimum') !== false) {
                             switch ($error) {
                                 case (strpos($error, 'title') !== false):
                                     $errors[] = $forum_language->get('forum', 'forum_name_minimum');
                                     break;
                             }
-                        } else if (strpos($error, 'maximum') !== false) {
+                        } elseif (strpos($error, 'maximum') !== false) {
                             switch ($error) {
                                 case (strpos($error, 'title') !== false):
                                     $errors[] = $forum_language->get('forum', 'forum_name_maximum');
@@ -788,7 +824,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     $template_forums_array = array();
     if (count($available_forums)) {
         foreach ($available_forums as $item) {
-            if ($item->id == $forum[0]->id) continue;
+            if ($item->id == $forum[0]->id) {
+                continue;
+            }
             $template_forums_array[] = array(
                 'id' => $item->id,
                 'title' => Output::getClean($item->forum_title)
@@ -874,20 +912,23 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('admin_forums'))
+if (Session::exists('admin_forums')) {
     $success = Session::flash('admin_forums');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

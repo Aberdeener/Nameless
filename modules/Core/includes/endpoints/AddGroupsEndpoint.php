@@ -6,16 +6,18 @@
  *
  * @return string JSON Array
  */
-class AddGroupsEndpoint extends EndpointBase {
-
-    public function __construct() {
+class AddGroupsEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'addGroups';
         $this->_module = 'Core';
         $this->_description = 'Add groups to user';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['user', 'groups']);
 
         // Ensure user exists

@@ -45,8 +45,9 @@ if (Input::exists()) {
             ));
         }
 
-        if (!count($errors))
+        if (!count($errors)) {
             $success = $language->get('admin', 'discord_settings_updated');
+        }
     } else {
         // Invalid token
         $errors[] = array($language->get('general', 'invalid_token'));
@@ -56,23 +57,26 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
-if (Session::exists('discord_error'))
+if (Session::exists('discord_error')) {
     $smarty->assign(array(
         'ERRORS' => array(Session::flash('discord_error')),
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 // Check if Discord integration is enabled
 $discord_enabled = $queries->getWhere('settings', array('name', '=', 'discord_integration'));

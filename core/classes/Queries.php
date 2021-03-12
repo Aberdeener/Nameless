@@ -8,89 +8,106 @@
  *
  *  Queries class
  */
-class Queries {
+class Queries
+{
     private $_db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_db = DB::getInstance();
     }
 
-    public function getWhere($table, $where) {
+    public function getWhere($table, $where)
+    {
         $data = $this->_db->get($table, $where);
         return $data->results();
     }
 
-    public function getAll($table, $where = array()) {
+    public function getAll($table, $where = array())
+    {
         $data = $this->_db->get($table, $where);
         return $data->results();
     }
 
-    public function orderAll($table, $order, $sort = null) {
+    public function orderAll($table, $order, $sort = null)
+    {
         $data = $this->_db->orderAll($table, $order, $sort);
         return $data->results();
     }
 
-    public function orderWhere($table, $where, $order, $sort = null) {
+    public function orderWhere($table, $where, $order, $sort = null)
+    {
         $data = $this->_db->orderWhere($table, $where, $order, $sort);
         return $data->results();
     }
 
-    public function getLike($table, $where, $like){
+    public function getLike($table, $where, $like)
+    {
         $data = $this->_db->like($table, $where, $like);
         return $data->results();
     }
 
-    public function update($table, $id, $fields = array()) {
-        if(!$this->_db->update($table, $id, $fields)) {
+    public function update($table, $id, $fields = array())
+    {
+        if (!$this->_db->update($table, $id, $fields)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function create($table, $fields = array()) {
-        if(!$this->_db->insert($table, $fields)) {
+    public function create($table, $fields = array())
+    {
+        if (!$this->_db->insert($table, $fields)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function delete($table, $where) {
-        if(!$this->_db->delete($table, $where)) {
+    public function delete($table, $where)
+    {
+        if (!$this->_db->delete($table, $where)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function increment($table, $id, $field) {
-        if(!$this->_db->increment($table, $id, $field)) {
+    public function increment($table, $id, $field)
+    {
+        if (!$this->_db->increment($table, $id, $field)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function decrement($table, $id, $field) {
-        if(!$this->_db->decrement($table, $id, $field)) {
+    public function decrement($table, $id, $field)
+    {
+        if (!$this->_db->decrement($table, $id, $field)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function createTable($table, $columns, $other) {
-        if(!$this->_db->createTable($table, $columns, $other)) {
+    public function createTable($table, $columns, $other)
+    {
+        if (!$this->_db->createTable($table, $columns, $other)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function getLastId() {
+    public function getLastId()
+    {
         return $this->_db->lastId();
     }
 
-    public function alterTable($table, $column, $attributes){
-        if(!$this->_db->alterTable($table, $column, $attributes)) {
+    public function alterTable($table, $column, $attributes)
+    {
+        if (!$this->_db->alterTable($table, $column, $attributes)) {
             throw new Exception('There was a problem performing that action.');
         }
     }
 
-    public function tableExists($table){
+    public function tableExists($table)
+    {
         return $this->_db->showTables($table);
     }
 
-    public function addPermissionGroup($group_id, $permission) {
+    public function addPermissionGroup($group_id, $permission)
+    {
         $permissions = $this->getWhere('groups', array('id', '=', $group_id));
         if (count($permissions)) {
             $permissions = $permissions[0]->permissions;
@@ -103,9 +120,10 @@ class Queries {
         }
     }
 
-    public function dbInitialise($charset = 'latin1', $engine = 'InnoDB'){
+    public function dbInitialise($charset = 'latin1', $engine = 'InnoDB')
+    {
         $data = $this->_db->showTables('settings');
-        if(!empty($data)){
+        if (!empty($data)) {
             return '<div class="alert alert-warning">Database already initialised!</div>';
         } else {
             $data = $this->_db->createTable("alerts", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `type` varchar(64) NOT NULL, `url` varchar(255) NOT NULL, `content_short` varchar(128) NOT NULL, `content` varchar(512) NOT NULL, `created` int(11) NOT NULL, `read` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");

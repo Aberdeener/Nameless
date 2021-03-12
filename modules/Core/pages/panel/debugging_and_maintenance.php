@@ -34,8 +34,11 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Update database and cache
             // Is debug mode enabled or not?
-            if (isset($_POST['enable_debugging']) && $_POST['enable_debugging'] == 1) $enabled = 1;
-            else $enabled = 0;
+            if (isset($_POST['enable_debugging']) && $_POST['enable_debugging'] == 1) {
+                $enabled = 1;
+            } else {
+                $enabled = 0;
+            }
 
             $debug_id = $queries->getWhere('settings', array('name', '=', 'error_reporting'));
             $debug_id = $debug_id[0]->id;
@@ -48,8 +51,11 @@ if (Input::exists()) {
             $cache->store('error_reporting', $enabled);
 
             // Is maintenance enabled or not?
-            if (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) $enabled = 'true';
-            else $enabled = 'false';
+            if (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) {
+                $enabled = 'true';
+            } else {
+                $enabled = 'false';
+            }
 
             $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance'));
             $maintenance_id = $maintenance_id[0]->id;
@@ -57,8 +63,11 @@ if (Input::exists()) {
                 'value' => $enabled
             ));
 
-            if (isset($_POST['message']) && !empty($_POST['message'])) $message = Input::get('message');
-            else $message = 'Maintenance mode is enabled.';
+            if (isset($_POST['message']) && !empty($_POST['message'])) {
+                $message = Input::get('message');
+            } else {
+                $message = 'Maintenance mode is enabled.';
+            }
 
             $maintenance_id = $queries->getWhere('settings', array('name', '=', 'maintenance_message'));
             $maintenance_id = $maintenance_id[0]->id;
@@ -76,8 +85,11 @@ if (Input::exists()) {
             ));
 
             // Page load timer
-            if (isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1) $enabled = 1;
-            else $enabled = 0;
+            if (isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1) {
+                $enabled = 1;
+            } else {
+                $enabled = 0;
+            }
 
             $load_id = $queries->getWhere('settings', array('name', '=', 'page_loading'));
             $load_id = $load_id[0]->id;
@@ -93,7 +105,9 @@ if (Input::exists()) {
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/debugging_and_maintenance'));
             die();
-        } else $errors[] = $language->get('admin', 'maintenance_message_max_1024');
+        } else {
+            $errors[] = $language->get('admin', 'maintenance_message_max_1024');
+        }
     } else {
         // Invalid token
         $errors[] = $language->get('general', 'invalid_token');
@@ -103,26 +117,29 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('debugging_success'))
+if (Session::exists('debugging_success')) {
     $smarty->assign(array(
         'SUCCESS' => Session::flash('debugging_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $cache->setCache('maintenance_cache');
 $maintenance = $cache->retrieve('maintenance');
 
 $cache->setCache('page_load_cache');
-if ($cache->isCached('page_load'))
+if ($cache->isCached('page_load')) {
     $page_loading = $cache->retrieve('page_load');
-else
+} else {
     $page_loading = 0;
+}
 
 if ($user->hasPermission('admincp.errors')) {
     $smarty->assign(array(

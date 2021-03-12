@@ -9,8 +9,8 @@
  *
  *
  */
-class Log {
-    
+class Log
+{
     private static $_actions = [
         'admin' => [
             'login' => 'acp_login',
@@ -178,11 +178,13 @@ class Log {
 
     private $_db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_db = DB::getInstance();
     }
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (!isset(self::$_instance)) {
             self::$_instance = new Log();
         }
@@ -194,7 +196,8 @@ class Log {
      * @param  String $path the path to the action
      * @return String/Array       The keys
      */
-    public static function Action($path) {
+    public static function Action($path)
+    {
         $path = explode('/', $path);
         $config = self::$_actions;
         foreach ($path as $bit) {
@@ -214,7 +217,8 @@ class Log {
      * @param  String $ip The ip of the user
      * @return boolean         Return true or false if inserted into the database.
      */
-    public function log($action, $info = '', $user = null, $ip = null) {
+    public function log($action, $info = '', $user = null, $ip = null)
+    {
         $userTemp = new User();
         $ip = $userTemp->getIP();
         if ($user == null) {

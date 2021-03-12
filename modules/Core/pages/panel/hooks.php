@@ -97,7 +97,7 @@ if (!isset($_GET['action'])) {
                         foreach ($validation->errors() as $error) {
                             if (strpos($error, 'url') !== false) {
                                 $errors[] = $language->get('admin', 'invalid_hook_url');
-                            } else if (strpos($error, 'name') !== false) {
+                            } elseif (strpos($error, 'name') !== false) {
                                 $errors[] = $language->get('admin', 'invalid_hook_name');
                             }
                         }
@@ -185,7 +185,7 @@ if (!isset($_GET['action'])) {
                         foreach ($validation->errors() as $error) {
                             if (strpos($error, 'url') !== false) {
                                 $errors[] = $language->get('admin', 'invalid_hook_url');
-                            } else if (strpos($error, 'name') !== false) {
+                            } elseif (strpos($error, 'name') !== false) {
                                 $errors[] = $language->get('admin', 'invalid_hook_name');
                             }
                         }
@@ -245,23 +245,27 @@ if (!isset($_GET['action'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('admin_hooks'))
+if (Session::exists('admin_hooks')) {
     $success = Session::flash('admin_hooks');
+}
 
-if (Session::exists('admin_pages_error'))
+if (Session::exists('admin_pages_error')) {
     $errors[] = Session::flash('admin_pages_error');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'NO_HOOKS' => $language->get('admin', 'no_hooks_yet'),

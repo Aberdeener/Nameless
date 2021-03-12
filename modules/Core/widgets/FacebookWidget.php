@@ -8,9 +8,10 @@
  *
  *  Facebook Widget
  */
-class FacebookWidget extends WidgetBase {
-
-    public function __construct($pages = array(), $fb_url = '') {
+class FacebookWidget extends WidgetBase
+{
+    public function __construct($pages = array(), $fb_url = '')
+    {
         parent::__construct($pages);
 
         // Get widget
@@ -37,7 +38,8 @@ class FacebookWidget extends WidgetBase {
             <div class="fb-page" data-href="' . $fb_url . '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="' . $fb_url . '" class="fb-xfbml-parse-ignore"><a href="' . $fb_url . '">' . SITE_NAME . '</a></blockquote></div><br>';
     }
 
-    public function initialise() {
+    public function initialise()
+    {
         // Do nothing
     }
 }

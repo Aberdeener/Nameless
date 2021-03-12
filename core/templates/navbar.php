@@ -15,8 +15,8 @@ $user_area_left = array();
 
 if ($user->isLoggedIn()) {
     /*
-	 *  Start deprecated variable generation
-	 */
+     *  Start deprecated variable generation
+     */
     $user_area['usercp'] = array(
         'target' => '',
         'link' => URL::build('/user'),
@@ -66,8 +66,8 @@ if ($user->isLoggedIn()) {
     );
 
     /*
-	 *  End deprecated variable generation
-	 */
+     *  End deprecated variable generation
+     */
 
     $user_section = array(
         'pms' => array(

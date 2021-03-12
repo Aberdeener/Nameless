@@ -43,24 +43,26 @@ if (Input::exists()) {
         // Validate input
         $validate = new Validate();
 
-        if ($method == 'email')
+        if ($method == 'email') {
             $to_validate = array(
                 'email' => array('required' => true, 'isbanned' => true, 'isactive' => true),
                 'password' => array('required' => true)
             );
-        else
+        } else {
             $to_validate = array(
                 'username' => array('required' => true, 'isbanned' => true, 'isactive' => true),
                 'password' => array('required' => true)
             );
+        }
 
         $validation = $validate->check($_POST, $to_validate);
 
         if ($validation->passed()) {
-            if ($method == 'email')
+            if ($method == 'email') {
                 $username = Input::get('email');
-            else
+            } else {
                 $username = Input::get('username');
+            }
 
             $user = new User();
             $login = $user->adminLogin($username, Input::get('password'), $method);
@@ -104,8 +106,9 @@ $smarty->assign(array(
     'CANCEL' => $language->get('general', 'cancel')
 ));
 
-if (Session::exists('adm_auth_error'))
+if (Session::exists('adm_auth_error')) {
     $smarty->assign('ERROR', Session::flash('adm_auth_error'));
+}
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);

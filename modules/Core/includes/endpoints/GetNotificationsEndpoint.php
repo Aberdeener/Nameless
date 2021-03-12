@@ -8,16 +8,18 @@
  *
  * @return string JSON Array
  */
-class GetNotificationsEndpoint extends EndpointBase {
-
-    public function __construct() {
+class GetNotificationsEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'getNotifications';
         $this->_module = 'Core';
         $this->_description = 'Get notifications for a user';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         // Ensure the user exists
         if (isset($_GET['user']) && is_numeric($_GET['user'])) {
             $user = $api->getUser('id', $_GET['user'])->data()->id;

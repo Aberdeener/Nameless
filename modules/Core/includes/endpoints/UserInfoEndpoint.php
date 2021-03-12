@@ -6,16 +6,18 @@
  *
  * @return string JSON Array
  */
-class UserInfoEndpoint extends EndpointBase {
-
-    public function __construct() {
+class UserInfoEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'userInfo';
         $this->_module = 'Core';
         $this->_description = 'Get information about a NamelessMC user';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $query = 'SELECT nl2_users.id, nl2_users.username, nl2_users.language_id, nl2_languages.name as `language`, nl2_users.nickname as displayname, nl2_users.uuid, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title, nl2_users.discord_id as discord_id FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
         $where = '';
         $params = array();
@@ -23,13 +25,13 @@ class UserInfoEndpoint extends EndpointBase {
         if (isset($_GET['id'])) {
             $where .= ' WHERE nl2_users.id = ?';
             array_push($params, $_GET['id']);
-        } else if (isset($_GET['username'])) {
+        } elseif (isset($_GET['username'])) {
             $where .= ' WHERE nl2_users.username = ?';
             array_push($params, $_GET['username']);
-        } else if (isset($_GET['uuid'])) {
+        } elseif (isset($_GET['uuid'])) {
             $where .= ' WHERE nl2_users.uuid = ?';
             array_push($params, str_replace('-', '', $_GET['uuid']));
-        } else if (isset($_GET['discord_id'])) {
+        } elseif (isset($_GET['discord_id'])) {
             $where .= ' WHERE nl2_users.discord_id = ?';
             array_push($params, $_GET['discord_id']);
         } else {

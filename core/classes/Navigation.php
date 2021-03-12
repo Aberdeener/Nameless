@@ -9,14 +9,15 @@
  *  Navigation class
  */
 
-class Navigation {
-
-    private $_topNavbar = array(),
-            $_footerNav = array(),
-            $_panel;
+class Navigation
+{
+    private $_topNavbar = array();
+    private $_footerNav = array();
+    private $_panel;
 
     // Panel sidebars discard provided order for links
-    public function __construct($panel = false) {
+    public function __construct($panel = false)
+    {
         $this->_panel = $panel;
     }
 
@@ -28,7 +29,8 @@ class Navigation {
     //			$target (string)	- HTML target attribute (eg '_blank') (optional)
     //          $order (int)        - nav item order (default 10)
     //          $icon (string)      - icon to prepend to nav item (default '')
-    public function add($name, $title, $link, $location = 'top', $target = null, $order = 10, $icon = '') {
+    public function add($name, $title, $link, $location = 'top', $target = null, $order = 10, $icon = '')
+    {
         if ($this->_panel && $location == 'top') {
             // Discard order
             // TODO: only a temporary solution to the link conflict issue in the StaffCP
@@ -70,7 +72,8 @@ class Navigation {
     //			$location (string)	- location to add item to, either 'top' or 'footer' (defaults to 'top'),
     //          $order (int)        - nav item order (default 10)
     //          $icon (string)      - icon to prepend to nav item (default '')
-    public function addDropdown($name, $title, $location = 'top', $order = 10, $icon = '') {
+    public function addDropdown($name, $title, $location = 'top', $order = 10, $icon = '')
+    {
         // Add the dropdown
         if ($location == 'top') {
             // Navbar
@@ -102,7 +105,8 @@ class Navigation {
     //			$target (string)	- HTML target attribute (eg '_blank') (optional)
     //          $icon (string)      - icon to prepend to nav item (default '')
     //          $order (int)        - nav item order (default 10)
-    public function addItemToDropdown($dropdown, $name, $title, $link, $location = 'top', $target = null, $icon = '', $order = 10) {
+    public function addItemToDropdown($dropdown, $name, $title, $link, $location = 'top', $target = null, $icon = '', $order = 10)
+    {
         // Add the item
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
             // Navbar
@@ -113,7 +117,7 @@ class Navigation {
                 'icon' => $icon,
                 'order' => $order
             );
-        } else if (isset($this->_footerNav[$dropdown])) {
+        } elseif (isset($this->_footerNav[$dropdown])) {
             // Footer
             $this->_footerNav[$dropdown]['items'][$name] = array(
                 'title' => $title,
@@ -130,7 +134,8 @@ class Navigation {
 
     // Return top navigation - returns array to pass to template
     // Params: $location (string) - either 'top' or 'footer' (defaults to 'top')
-    public function returnNav($location = 'top') {
+    public function returnNav($location = 'top')
+    {
         $return = array(); // String to return
         if ($location == 'top') {
             if (count($this->_topNavbar)) {
@@ -148,7 +153,7 @@ class Navigation {
                                 function ($a, $b) {
                                     if ($a['order'] > $b['order']) {
                                         return 1;
-                                    } else if ($a['order'] < $b['order']) {
+                                    } elseif ($a['order'] < $b['order']) {
                                         return -1;
                                     }
                                     return 0;
@@ -175,7 +180,7 @@ class Navigation {
                             function ($a, $b) {
                                 if ($a['order'] > $b['order']) {
                                     return 1;
-                                } else if ($a['order'] < $b['order']) {
+                                } elseif ($a['order'] < $b['order']) {
                                     return -1;
                                 }
                                 return 0;
@@ -190,7 +195,7 @@ class Navigation {
             $result = 0;
             if ($a['order'] > $b['order']) {
                 $result = 1;
-            } else if ($a['order'] < $b['order']) {
+            } elseif ($a['order'] < $b['order']) {
                 $result = -1;
             }
             return $result;

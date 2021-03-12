@@ -9,52 +9,61 @@
  *  Widget Base class
  */
 
-abstract class WidgetBase {
+abstract class WidgetBase
+{
+    protected $_name;
+    protected $_pages;
+    protected $_location;
+    protected $_content;
+    protected $_description;
+    protected $_module;
+    protected $_order;
+    protected $_settings = null;
 
-    protected $_name,
-              $_pages,
-              $_location,
-              $_content,
-              $_description,
-              $_module,
-              $_order,
-              $_settings = null;
-
-    public function __construct($pages = array()) {
+    public function __construct($pages = array())
+    {
         $this->_pages = $pages;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->_name;
     }
 
-    public function getPages() {
+    public function getPages()
+    {
         return $this->_pages;
     }
 
-    public function getLocation() {
+    public function getLocation()
+    {
         return $this->_location;
     }
 
-    public function display() {
+    public function display()
+    {
         return $this->_content;
     }
 
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->_description;
     }
 
-    public function getModule() {
+    public function getModule()
+    {
         return $this->_module;
     }
 
-    public function getSettings() {
+    public function getSettings()
+    {
         return $this->_settings;
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return $this->_order;
     }
 
-    public abstract function initialise();
+    abstract public function initialise();
 }

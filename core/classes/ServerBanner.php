@@ -25,7 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class ServerBanner {
+class ServerBanner
+{
     /**
      *
      * @param string $address the server address
@@ -37,7 +38,8 @@ class ServerBanner {
      * @param int $ping not implemented
      * @return resource the rendered banner
      */
-    public static function server($address, $motd = "§cOffline Server", $players = -1, $max_players = -1, $favicon = null, $background = null, $ping = 150) {
+    public static function server($address, $motd = "§cOffline Server", $players = -1, $max_players = -1, $favicon = null, $background = null, $ping = 150)
+    {
         $canvas = MinecraftBanner::getBackgroundCanvas(650, 80, $background);
 
         if ($favicon == null) {
@@ -99,15 +101,15 @@ class ServerBanner {
 
         if ($ping < 0) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/-1.png');
-        } else if ($ping > 0 && $ping <= 150) {
+        } elseif ($ping > 0 && $ping <= 150) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/5.png');
-        } else if ($ping <= 300) {
+        } elseif ($ping <= 300) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/4.png');
-        } else if ($ping <= 400) {
+        } elseif ($ping <= 400) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/3.png');
-        } else if ($ping <= 400) {
+        } elseif ($ping <= 400) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/2.png');
-        } else if ($ping > 400) {
+        } elseif ($ping > 400) {
             $image = imagecreatefrompng(ROOT_PATH . '/core/assets/img/ping/1.png');
         }
 

@@ -510,7 +510,7 @@ $language = array(
     'action_info' => '操作情報',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'アップデート',
     'current_version_x' => '現在のバージョン: <strong>{x}</strong>', // Don't replaec {x}

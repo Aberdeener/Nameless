@@ -32,25 +32,25 @@ if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
     }
 }
 
-if(!isset($_GET['metadata'])){
+if (!isset($_GET['metadata'])) {
     // Deal with input
-    if(Input::exists()){
-        if(Token::check(Input::get('token'))){
-            if(Input::get('type') == 'sitemap') {
+    if (Input::exists()) {
+        if (Token::check(Input::get('token'))) {
+            if (Input::get('type') == 'sitemap') {
                 require_once(ROOT_PATH . '/core/includes/sitemapphp/Sitemap.php');
                 $sitemap = new SitemapPHP\Sitemap(rtrim(Util::getSelfURL(), '/'));
                 $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
 
                 $methods = $pages->getSitemapMethods();
-                if(count($methods)){
-                    foreach($methods as $file => $method){
-                        if(file_exists($file)){
+                if (count($methods)) {
+                    foreach ($methods as $file => $method) {
+                        if (file_exists($file)) {
                             require_once($file);
 
                             call_user_func($method, $sitemap, $cache);
-
-                        } else
+                        } else {
                             $errors[] = str_replace('{x}', Output::getClean($file), $language->get('admin', 'unable_to_load_sitemap_file_x'));
+                        }
                     }
                 }
 
@@ -60,7 +60,7 @@ if(!isset($_GET['metadata'])){
                 $cache->store('updated', date('d M Y, H:i'));
 
                 $success = $language->get('admin', 'sitemap_generated');
-            } else if(Input::get('type') == 'google_analytics') {
+            } elseif (Input::get('type') == 'google_analytics') {
                 $configuration->set('Core', 'ga_script', Input::get('analyticsid'));
 
                 $success = $language->get('admin', 'settings_updated_successfully');
@@ -75,11 +75,12 @@ if(!isset($_GET['metadata'])){
     } else {
         if (file_exists(ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')) {
             $cache->setCache('sitemap_cache');
-            if($cache->isCached('updated')){
+            if ($cache->isCached('updated')) {
                 $updated = $cache->retrieve('updated');
                 $updated = $timeago->inWords($updated, $language->getTimeLanguage());
-            } else
+            } else {
                 $updated = $language->get('admin', 'unknown');
+            }
 
             $smarty->assign(array(
                 'SITEMAP_LAST_GENERATED' => str_replace('{x}', $updated, $language->get('admin', 'sitemap_last_generated_x')),
@@ -88,7 +89,6 @@ if(!isset($_GET['metadata'])){
                 'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
                 'LINK' => $language->get('admin', 'sitemap_link')
             ));
-
         } else {
             $smarty->assign('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
         }
@@ -97,37 +97,38 @@ if(!isset($_GET['metadata'])){
     $template_file = 'core/seo.tpl';
 } else {
     $page = $pages->getPageById($_GET['metadata']);
-    if(is_null($page)){
+    if (is_null($page)) {
         Redirect::to(URL::build('/panel/core/seo'));
         die();
     }
 
     $page_metadata = $queries->getWhere('page_descriptions', array('page', '=', $page['key']));
-    if(Input::exists()){
-        if(Token::check(Input::get('token'))){
-            if(isset($_POST['description'])){
-                if(strlen($_POST['description']) > 500){
+    if (Input::exists()) {
+        if (Token::check(Input::get('token'))) {
+            if (isset($_POST['description'])) {
+                if (strlen($_POST['description']) > 500) {
                     $errors[] = $language->get('admin', 'description_max_500');
                 } else {
                     $description = $_POST['description'];
                 }
-            } else
+            } else {
                 $description = null;
+            }
 
-            if(isset($_POST['keywords']))
+            if (isset($_POST['keywords'])) {
                 $keywords = $_POST['keywords'];
-            else
+            } else {
                 $keywords = null;
+            }
 
-            if(!count($errors)){
-                if(count($page_metadata)){
+            if (!count($errors)) {
+                if (count($page_metadata)) {
                     $page_id = $page_metadata[0]->id;
 
                     $queries->update('page_descriptions', $page_id, array(
                         'description' => $description,
                         'tags' => $keywords
                     ));
-
                 } else {
                     $queries->create('page_descriptions', array(
                         'page' => $page['key'],
@@ -139,13 +140,13 @@ if(!isset($_GET['metadata'])){
                 $page_metadata = $queries->getWhere('page_descriptions', array('page', '=', $page['key']));
 
                 $success = $language->get('admin', 'metadata_updated_successfully');
-
             }
-        } else
+        } else {
             $errors[] = $language->get('general', 'invalid_token');
+        }
     }
 
-    if(count($page_metadata)){
+    if (count($page_metadata)) {
         $description = Output::getClean($page_metadata[0]->description);
         $tags = Output::getClean($page_metadata[0]->tags);
     } else {
@@ -166,17 +167,19 @@ if(!isset($_GET['metadata'])){
     $template_file = 'core/seo_metadata_edit.tpl';
 }
 
-if(isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if(isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

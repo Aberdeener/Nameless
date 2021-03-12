@@ -54,7 +54,7 @@ if (isset($_GET['p'])) {
     } else {
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
-            Redirect::to(URL::build('/forum/view/' . $fid . '-' .  $forum->titleToURL($forum_query->forum_title)));
+            Redirect::to(URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title)));
             die();
         }
         $p = $_GET['p'];
@@ -70,7 +70,9 @@ if (count($page_metadata)) {
 }
 
 $page_title = $forum_language->get('forum', 'forum');
-if (isset($p)) $page_title .= ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+if (isset($p)) {
+    $page_title .= ' - ' . str_replace('{x}', $p, $language->get('general', 'page_x'));
+}
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Redirect forum?
@@ -106,15 +108,17 @@ if ($forum_query->redirect_forum == 1) {
     $template->displayTemplate('forum/view_forum_confirm_redirect.tpl', $smarty);
 } else {
     // Get all topics
-    if ($user->isLoggedIn())
+    if ($user->isLoggedIn()) {
         $user_id = $user->data()->id;
-    else
+    } else {
         $user_id = 0;
+    }
 
-    if ($forum->canViewOtherTopics($fid, $user_groups))
+    if ($forum->canViewOtherTopics($fid, $user_groups)) {
         $topics = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 0 AND deleted = 0", "topic_reply_date", "DESC");
-    else
+    } else {
         $topics = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 0 AND deleted = 0 AND topic_creator = " . $user_id, "topic_reply_date", "DESC");
+    }
 
     // Get sticky topics
     $stickies = $queries->orderWhere("topics", "forum_id = " . $fid . " AND sticky = 1 AND deleted = 0", "topic_reply_date", "DESC");
@@ -141,7 +145,7 @@ if ($forum_query->redirect_forum == 1) {
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
             'link' => URL::build('/forum/view/' . $parent_category[0]->id . '-' . $forum->titleToURL($parent_category[0]->forum_title))
         );
-    } else if (!empty($parent_category)) {
+    } elseif (!empty($parent_category)) {
         // Parent forum, get its category
         $breadcrumbs[] = array(
             'id' => $parent_category[0]->id,
@@ -192,10 +196,11 @@ if ($forum_query->redirect_forum == 1) {
         foreach ($subforums as $subforum) {
             // Get number of topics
             if ($forum->forumExist($subforum->id, $user_groups)) {
-                if ($forum->canViewOtherTopics($subforum->id, $user_groups))
+                if ($forum->canViewOtherTopics($subforum->id, $user_groups)) {
                     $latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0', 'topic_reply_date', 'DESC');
-                else
+                } else {
                     $latest_post = $queries->orderWhere('topics', 'forum_id = ' . $subforum->id . ' AND deleted = 0 AND topic_creator = ' . $user_id, 'topic_reply_date', 'DESC');
+                }
 
                 $subforum_topics = count($latest_post);
                 if (count($latest_post)) {
@@ -228,7 +233,9 @@ if ($forum_query->redirect_forum == 1) {
                         'time' => $latest_post_time,
                         'last_user_id' => $latest_post_user_id
                     );
-                } else $latest_post = array();
+                } else {
+                    $latest_post = array();
+                }
 
                 $subforum_array[] = array(
                     'id' => $subforum->id,
@@ -310,8 +317,12 @@ if ($forum_query->redirect_forum == 1) {
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
-                        } else $label = '';
-                    } else $label = '';
+                        } else {
+                            $label = '';
+                        }
+                    } else {
+                        $label = '';
+                    }
 
                     $labels_cache[$sticky->label] = $label;
                 }
@@ -384,10 +395,11 @@ if ($forum_query->redirect_forum == 1) {
         $results = $paginator->getLimited($topics, 10, $p, count($topics));
         $pagination = $paginator->generate(7, URL::build('/forum/view/' . $fid . '-' . $forum->titleToURL($forum_query->forum_title), true));
 
-        if (count($topics))
+        if (count($topics)) {
             $smarty->assign('PAGINATION', $pagination);
-        else
+        } else {
             $smarty->assign('PAGINATION', '');
+        }
 
         $template_array = array();
         // Get a list of all topics from the forum, and paginate
@@ -410,8 +422,12 @@ if ($forum_query->redirect_forum == 1) {
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
-                        } else $label = '';
-                    } else $label = '';
+                        } else {
+                            $label = '';
+                        }
+                    } else {
+                        $label = '';
+                    }
 
                     $labels_cache[$results->data[$n]->label] = $label;
                 }
@@ -495,8 +511,9 @@ if ($forum_query->redirect_forum == 1) {
     require(ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
-    if (isset($no_topics_exist))
+    if (isset($no_topics_exist)) {
         $template->displayTemplate('forum/view_forum_no_discussions.tpl', $smarty);
-    else
+    } else {
         $template->displayTemplate('forum/view_forum.tpl', $smarty);
+    }
 }

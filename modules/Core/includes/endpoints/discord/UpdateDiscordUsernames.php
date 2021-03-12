@@ -4,16 +4,18 @@
  *
  * @return string JSON Array
  */
-class UpdateDiscordUsernames extends EndpointBase {
-
-    public function __construct() {
+class UpdateDiscordUsernames extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'updateDiscordUsernames';
         $this->_module = 'Core';
         $this->_description = 'Bulk update many user\'s Discord usernames to display on their settings page.';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['users']);
 
         foreach ($_POST['users'] as $row) {

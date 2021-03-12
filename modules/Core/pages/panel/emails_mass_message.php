@@ -22,7 +22,6 @@ if (Input::exists()) {
     $errors = array();
 
     if (Token::check()) {
-
         $validate = new Validate();
 
         $validate->check($_POST, array(
@@ -38,7 +37,6 @@ if (Input::exists()) {
         ));
 
         if ($validate->passed()) {
-
             $users = $queries->getWhere('users', array('id', '<>', 0));
 
             $siteemail = $queries->getWhere('settings', array('name', '=', 'outgoing_email'));
@@ -116,8 +114,9 @@ if (Input::exists()) {
                 $errors[] = $error;
             }
         }
-    } else
+    } else {
         $errors[] = $language->get('general', 'invalid_token');
+    }
 }
 
 $php_mailer = $queries->getWhere('settings', array('name', '=', 'phpmailer'));
@@ -182,20 +181,23 @@ $template_file = 'core/emails_mass_message.tpl';
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('emails_success'))
+if (Session::exists('emails_success')) {
     $success = Session::flash('emails_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,

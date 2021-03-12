@@ -5,16 +5,18 @@
  *
  * @return string JSON Array of NamelessMC information
  */
-class InfoEndpoint extends EndpointBase {
-
-    public function __construct() {
+class InfoEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'info';
         $this->_module = 'Core';
         $this->_description = 'Return info about the Nameless installation';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         // Get version, update info and modules from database
         $version_query = $api->getDb()->query('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', array('nameless_version', 'version_checked', 'version_update', 'new_version'));
         if ($version_query->count()) {
@@ -31,9 +33,9 @@ class InfoEndpoint extends EndpointBase {
             if ($item->name == 'nameless_version') {
                 $ret[$item->name] = $item->value;
                 $current_version = $item->value;
-            } else if ($item->name == 'version_update') {
+            } elseif ($item->name == 'version_update') {
                 $version_update = $item->value;
-            } else if ($item->name == 'version_checked') {
+            } elseif ($item->name == 'version_checked') {
                 $version_checked = (int) $item->value;
             } else {
                 $new_version = $item->value;

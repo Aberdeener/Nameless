@@ -1,4 +1,5 @@
 <?php
+
  /*
  *  Made by Samerton
  *  Translation  by Hi_Michael

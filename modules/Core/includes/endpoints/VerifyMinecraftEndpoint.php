@@ -6,16 +6,18 @@
  *
  * @return string JSON Array
  */
-class VerifyMinecraftEndpoint extends EndpointBase {
-
-    public function __construct() {
+class VerifyMinecraftEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'verifyMinecraft';
         $this->_module = 'Core';
         $this->_description = 'Validate/Activate a NamelessMC account by confirming their reset code';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['user', 'code']);
 
         $user = $api->getUser('id', $_POST['user']);

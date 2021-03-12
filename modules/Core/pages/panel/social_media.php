@@ -49,8 +49,11 @@ if (Input::exists()) {
         $twitter_dark_theme = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
         $twitter_dark_theme = $twitter_dark_theme[0]->id;
 
-        if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) $theme = 'dark';
-        else $theme = 'light';
+        if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) {
+            $theme = 'dark';
+        } else {
+            $theme = 'light';
+        }
 
         $queries->update('settings', $twitter_dark_theme, array(
             'value' => $theme
@@ -87,17 +90,19 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 // Get values from database
 $youtube_url = $queries->getWhere('settings', array('name', '=', 'youtube_url'));

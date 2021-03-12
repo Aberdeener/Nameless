@@ -507,7 +507,7 @@ $language = array(
     'action_info' => 'Informații despre acțiune',
     'groups_removed' => 'Groups Removed',
     'groups_added' => 'Groups Added',
-    
+
     // Updates
     'update' => 'Actualizare',
     'current_version_x' => 'Versiune curentă: <strong>{x}</strong>', // Don't replaec {x}

@@ -8,17 +8,18 @@
  *
  *  Language class
  */
-class Language {
-
-    private $_activeLanguage,
-        $_activeLanguageDirectory,
-        $_activeLanguageEntries,
-        $_module;
+class Language
+{
+    private $_activeLanguage;
+    private $_activeLanguageDirectory;
+    private $_activeLanguageEntries;
+    private $_module;
 
     // Construct Language class
     // Params: 	$active_language (string) 	- contains the active language set in cache (optional)
     //			$module (string)			- contains the path of the language files for custom modules (optional)
-    public function __construct($module = null, $active_language = null) {
+    public function __construct($module = null, $active_language = null)
+    {
         if (!$active_language) {
             // No active language set, default to EnglishUK
             $this->_activeLanguage         = 'EnglishUK';
@@ -64,7 +65,8 @@ class Language {
     // Params: 	$file (string) - name of file to look in, without file extension (required)
     //			$term (string) - contains the term to translate (required)
     //          $number (int)  - contains the number of items to pass through to a plural function (optional)
-    public function get($file, $term, $number = null) {
+    public function get($file, $term, $number = null)
+    {
         // Ensure the file exists + term is set
         if (!is_file($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php')) {
             if ($this->_activeLanguage != 'EnglishUK') {
@@ -103,7 +105,8 @@ class Language {
         }
     }
 
-    public function set($file, $term, $value) {
+    public function set($file, $term, $value)
+    {
         $editing_file = ($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
         if (is_file($editing_file) && is_writable($editing_file)) {
             return file_put_contents($editing_file, html_entity_decode(
@@ -113,12 +116,15 @@ class Language {
                     htmlspecialchars(file_get_contents($editing_file))
                 )
             ));
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     // Return the current time language
     // No parameters
-    public function getTimeLanguage() {
+    public function getTimeLanguage()
+    {
         // Return time language variable
         $this->get('time', 'time');
         return $this->_activeLanguageEntries['time'];
@@ -126,13 +132,15 @@ class Language {
 
     // Return the current active language
     // No parameters
-    public function getActiveLanguage() {
+    public function getActiveLanguage()
+    {
         return $this->_activeLanguage;
     }
 
     // Return the current active language directory
     // No parameters
-    public function getActiveLanguageDirectory() {
+    public function getActiveLanguageDirectory()
+    {
         return $this->_activeLanguageDirectory;
     }
 }

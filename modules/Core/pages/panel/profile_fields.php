@@ -96,17 +96,29 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     // Update database
                     try {
                         // Get whether required/public/editable/forum post options are enabled or not
-                        if (isset($_POST['required']) && $_POST['required'] == 'on') $required = 1;
-                        else $required = 0;
+                        if (isset($_POST['required']) && $_POST['required'] == 'on') {
+                            $required = 1;
+                        } else {
+                            $required = 0;
+                        }
 
-                        if (isset($_POST['public']) && $_POST['public'] == 'on') $public = 1;
-                        else $public = 0;
+                        if (isset($_POST['public']) && $_POST['public'] == 'on') {
+                            $public = 1;
+                        } else {
+                            $public = 0;
+                        }
 
-                        if (isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
-                        else $forum_posts = 0;
+                        if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
+                            $forum_posts = 1;
+                        } else {
+                            $forum_posts = 0;
+                        }
 
-                        if (isset($_POST['editable']) && $_POST['editable'] == 'on') $editable = 1;
-                        else $editable = 0;
+                        if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
+                            $editable = 1;
+                        } else {
+                            $editable = 0;
+                        }
 
                         // Update database
                         $queries->update('profile_fields', $field->id, array(
@@ -203,17 +215,29 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                         // Input into database
                         try {
                             // Get whether required/public/editable/forum post options are enabled or not
-                            if (isset($_POST['required']) && $_POST['required'] == 'on') $required = 1;
-                            else $required = 0;
+                            if (isset($_POST['required']) && $_POST['required'] == 'on') {
+                                $required = 1;
+                            } else {
+                                $required = 0;
+                            }
 
-                            if (isset($_POST['public']) && $_POST['public'] == 'on') $public = 1;
-                            else $public = 0;
+                            if (isset($_POST['public']) && $_POST['public'] == 'on') {
+                                $public = 1;
+                            } else {
+                                $public = 0;
+                            }
 
-                            if (isset($_POST['forum']) && $_POST['forum'] == 'on') $forum_posts = 1;
-                            else $forum_posts = 0;
+                            if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
+                                $forum_posts = 1;
+                            } else {
+                                $forum_posts = 0;
+                            }
 
-                            if (isset($_POST['editable']) && $_POST['editable'] == 'on') $editable = 1;
-                            else $editable = 0;
+                            if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
+                                $editable = 1;
+                            } else {
+                                $editable = 0;
+                            }
 
                             // Insert into database
                             $queries->create('profile_fields', array(
@@ -273,20 +297,23 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
     }
 }
 
-if (Session::exists('profile_field_success'))
+if (Session::exists('profile_field_success')) {
     $success = Session::flash('profile_field_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,
@@ -304,12 +331,12 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-if (!isset($_GET['id']) && !isset($_GET['action']))
+if (!isset($_GET['id']) && !isset($_GET['action'])) {
     $template->displayTemplate('core/profile_fields.tpl', $smarty);
-
-else {
-    if (isset($_GET['id']) && !isset($_GET['action']))
+} else {
+    if (isset($_GET['id']) && !isset($_GET['action'])) {
         $template->displayTemplate('core/profile_fields_edit.tpl', $smarty);
-    else if (isset($_GET['action']) && $_GET['action'] == 'new')
+    } elseif (isset($_GET['action']) && $_GET['action'] == 'new') {
         $template->displayTemplate('core/profile_fields_create.tpl', $smarty);
+    }
 }

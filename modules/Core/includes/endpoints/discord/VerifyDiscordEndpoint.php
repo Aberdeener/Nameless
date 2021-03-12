@@ -5,16 +5,18 @@
  *
  * @return string JSON Array
  */
-class VerifyDiscordEndpoint extends EndpointBase {
-
-    public function __construct() {
+class VerifyDiscordEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'verifyDiscord';
         $this->_module = 'Core';
         $this->_description = 'Verify and link a NamelessMC user\'s Discord account using their validation token';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['token', 'discord_id', 'discord_username']);
 
         $token = Output::getClean($_POST['token']);

@@ -4,15 +4,18 @@
  *
  * @return string JSON Array
  */
-class ListUsersEndpoint extends EndpointBase {
-    public function __construct() {
+class ListUsersEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'listUsers';
         $this->_module = 'Core';
         $this->_description = 'List all users on the NamelessMC site';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $query = 'SELECT id, username, uuid, isbanned, discord_id AS banned, active FROM nl2_users';
 
         if (isset($_GET['banned'])) {

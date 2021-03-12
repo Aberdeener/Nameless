@@ -2,22 +2,20 @@
 require(__DIR__ . '/includes/functions.php');
 
 if (isset($_GET['do'])) {
-	$_SESSION['action'] = ($_GET['do'] == 'upgrade' ? 'upgrade' : 'install');
+    $_SESSION['action'] = ($_GET['do'] == 'upgrade' ? 'upgrade' : 'install');
 
-	Redirect::to('?step=requirements_validation');
-	die();
-
-} else if (isset($_GET['step'])) {
-	$step = strtolower($_GET['step']);
-	if (!file_exists(__DIR__ . '/steps/' . $step . '.php')) {
-		$error = 'Unknown step.';
-	}
-
+    Redirect::to('?step=requirements_validation');
+    die();
+} elseif (isset($_GET['step'])) {
+    $step = strtolower($_GET['step']);
+    if (!file_exists(__DIR__ . '/steps/' . $step . '.php')) {
+        $error = 'Unknown step.';
+    }
 }
 
 if (isset($step) && $step == 'ajax_initialise') {
-	require(__DIR__ . '/steps/' . $step . '.php');
-	die();
+    require(__DIR__ . '/steps/' . $step . '.php');
+    die();
 }
 
 require(__DIR__ . '/includes/header.php');
@@ -29,15 +27,15 @@ require(__DIR__ . '/includes/header.php');
 			<div class="five wide computer only column">
 				<div class="ui fluid vertical steps">
 					<?php
-						create_step($language['step_home'], 'home icon', array('welcome'));
-						create_step($language['step_requirements'], 'tasks icon', array('requirements_validation'));
-						create_step($language['step_general_config'], 'cog icon', array('general_configuration'));
-						create_step($language['step_database_config'], 'server icon', array('database_configuration', 'database_initialization', 'upgrade', 'upgrade_perform'));
-						create_step($language['step_site_config'], 'globe icon', array('site_configuration', 'site_initialization'));
-						create_step($language['step_admin_account'], 'user icon', array('admin_account_setup'));
-						create_step($language['step_conversion'], 'exchange icon', array('conversion'));
-						create_step($language['step_finish'], 'check icon', array('finish'));
-					?>
+                        create_step($language['step_home'], 'home icon', array('welcome'));
+                        create_step($language['step_requirements'], 'tasks icon', array('requirements_validation'));
+                        create_step($language['step_general_config'], 'cog icon', array('general_configuration'));
+                        create_step($language['step_database_config'], 'server icon', array('database_configuration', 'database_initialization', 'upgrade', 'upgrade_perform'));
+                        create_step($language['step_site_config'], 'globe icon', array('site_configuration', 'site_initialization'));
+                        create_step($language['step_admin_account'], 'user icon', array('admin_account_setup'));
+                        create_step($language['step_conversion'], 'exchange icon', array('conversion'));
+                        create_step($language['step_finish'], 'check icon', array('finish'));
+                    ?>
 				</div>
 			</div>
 			<div class="sixteen wide tablet eleven wide computer column">
@@ -67,22 +65,23 @@ require(__DIR__ . '/includes/header.php');
 							</a>
 						</div>
 					</div>
-				<?php } else if (isset($error)) { ?>
+				<?php } elseif (isset($error)) { ?>
 					<div class="ui red message">
 						<?php echo $error; ?>
 					</div>
 				<?php
-				} else {
-					if (!isset($_SESSION['action'])) {
-						?>
+                } else {
+                    if (!isset($_SESSION['action'])) {
+                        ?>
 						<div class="ui red message">
 							<?php echo $language['session_doesnt_exist']; ?>
 						</div>
 						<?php
-					} else
-						require(__DIR__ . '/steps/' . $step . '.php');
-				}
-				?>
+                    } else {
+                        require(__DIR__ . '/steps/' . $step . '.php');
+                    }
+                }
+                ?>
 			</div>
 		</div>
 	</div>

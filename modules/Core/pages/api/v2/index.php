@@ -27,21 +27,24 @@ if (!Util::getSetting(DB::getInstance(), 'use_api')) {
 // Initialise
 $api = new Nameless2API($route, $language, $endpoints);
 
-class Nameless2API {
+class Nameless2API
+{
+    private $_db;
+    private $_language;
+    private $_endpoints;
 
-    private $_db,
-            $_language,
-            $_endpoints;
-
-    public function getDb() {
+    public function getDb()
+    {
         return $this->_db;
     }
 
-    public function getLanguage() {
+    public function getLanguage()
+    {
         return $this->_language;
     }
 
-    public function __construct($route, $api_language, $endpoints) {
+    public function __construct($route, $api_language, $endpoints)
+    {
         try {
             $this->_db = DB::getInstance();
             $explode = explode('/', $route);
@@ -78,14 +81,15 @@ class Nameless2API {
             } else {
                 $this->throwError(1, $this->_language->get('api', 'invalid_api_key'));
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->throwError($e->getMessage());
         }
     }
 
     // Internal functions
 
-    private function validateKey($api_key = null) {
+    private function validateKey($api_key = null)
+    {
         if ($api_key) {
             // Check cached key
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
@@ -97,21 +101,28 @@ class Nameless2API {
 
                 // Store in cache file
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
+            } else {
+                $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
+            }
 
-            } else $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
-
-            if ($api_key == $correct_key) return true;
+            if ($api_key == $correct_key) {
+                return true;
+            }
         }
         return false;
     }
 
-    public function getUser($column, $value) {
+    public function getUser($column, $value)
+    {
         $user = new User(Output::getClean($value), Output::getClean($column));
-        if (!count($user->data())) $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
+        if (!count($user->data())) {
+            $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
+        }
         return $user;
     }
 
-    public function throwError($code = null, $message = null, $meta = null) {
+    public function throwError($code = null, $message = null, $meta = null)
+    {
         if ($code && $message) {
             die(json_encode(array('error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta), JSON_PRETTY_PRINT));
         } else {
@@ -119,14 +130,18 @@ class Nameless2API {
         }
     }
 
-    public function returnArray($arr = null) {
-        if (!$arr) $arr = array();
+    public function returnArray($arr = null)
+    {
+        if (!$arr) {
+            $arr = array();
+        }
 
         $arr['error'] = false;
         die(json_encode($arr, JSON_PRETTY_PRINT));
     }
 
-    public function validateParams($input, $required_fields, $type = 'post') {
+    public function validateParams($input, $required_fields, $type = 'post')
+    {
         if (!isset($input) || empty($input)) {
             $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
         }

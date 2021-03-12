@@ -1,4 +1,5 @@
 <?php
+
 $language = array(
     //info
     'info_report' => 'Bildirilen',
@@ -25,4 +26,3 @@ $language = array(
     'info_forum_merge' => 'Birleştir',
     'info_forum_react' => 'Tepki gösterdi',
 );
-?>

@@ -6,16 +6,18 @@
  *
  * @return string JSON Array
  */
-class GroupInfoEndpoint extends EndpointBase {
-
-    public function __construct() {
+class GroupInfoEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'groupInfo';
         $this->_module = 'Core';
         $this->_description = 'Lists groups and provides group information';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $query = 'SELECT id, name, staff, `order` FROM nl2_groups';
         $where = '';
         $order = ' ORDER BY `order`';
@@ -32,7 +34,7 @@ class GroupInfoEndpoint extends EndpointBase {
                 $where .= 'OR id = ?';
                 $params = array($_GET['id']);
             }
-        } else if (isset($_GET['name'])) {
+        } elseif (isset($_GET['name'])) {
             $where .= ' WHERE name = null ';
             if (is_array($_GET['name'])) {
                 foreach ($_GET['name'] as $value) {

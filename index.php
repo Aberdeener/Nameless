@@ -37,7 +37,7 @@ if (!ini_get('upload_tmp_dir')) {
     $tmp_dir = ini_get('upload_tmp_dir');
 }
 
-ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR  . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
+ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
 
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
@@ -58,7 +58,6 @@ if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
 
 // Get page to load from URL
 if (!isset($_GET['route']) || $_GET['route'] == '/') {
-
     if (count($directories) > 1 && (!isset($_GET['route']) || (isset($_GET['route']) && $_GET['route'] != '/'))) {
         require(ROOT_PATH . '/404.php');
     } else {
@@ -66,7 +65,6 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
         $pages->setActivePage($pages->getPageByURL('/'));
         require(ROOT_PATH . '/modules/Core/pages/index.php');
     }
-
 } else {
     $route = rtrim(strtok($_GET['route'], '?'), '/');
 
@@ -81,10 +79,10 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
 
             if (!file_exists($path)) {
                 require(ROOT_PATH . '/404.php');
-            } else { 
+            } else {
                 require($path);
             }
-            
+
             die();
         } else {
             require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php')));
@@ -95,9 +93,8 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
         $path_array = explode('/', $route);
 
         for ($i = count($path_array) - 2; $i > 0; $i--) {
-
             $new_path = '/';
-            for($n = 1; $n <= $i; $n++){
+            for ($n = 1; $n <= $i; $n++) {
                 $new_path .= $path_array[$n] . '/';
             }
 
@@ -112,7 +109,6 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
                     die();
                 }
             }
-
         }
 
         // 404

@@ -8,26 +8,29 @@
  *
  *  Output class
  */
-class Output {
-    
+class Output
+{
     // Purifier object
     private static $_purifier = null;
 
     // Returns a clean version of an inputted string
     // Params: $input (string) - contains the string which will be cleaned
-    public static function getClean($input) {
+    public static function getClean($input)
+    {
         return str_replace('&amp;', '&', htmlspecialchars($input, ENT_QUOTES));
     }
 
     // Returns a decoded version of a clean string
     // Params: $input (string) - contains the clean string which will be decoded
-    public static function getDecoded($input) {
+    public static function getDecoded($input)
+    {
         return htmlspecialchars_decode($input, ENT_QUOTES);
     }
 
     // Returns a purified version of an inputted string with HTMLPurifier
     // Params: $input (string) - contains the string which will be purified
-    public static function getPurified($input) {
+    public static function getPurified($input)
+    {
         // Require HTMLPurifier
         if (!self::$_purifier) {
             require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'includes', 'htmlpurifier', 'HTMLPurifier.standalone.php')));

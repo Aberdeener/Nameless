@@ -7,8 +7,8 @@
  *  Permission handler class
  */
 
-class PermissionHandler {
-
+class PermissionHandler
+{
     private static $_permissions;
 
     /*
@@ -17,8 +17,9 @@ class PermissionHandler {
      *          $permissions (string or array of strings) - module-unique name of permission(s)
      *          $title (string) - permission title - displays when managing permissions in StaffCP
      */
-    public static function registerPermissions($section, $permissions) {
-        if(!is_array($permissions)) {
+    public static function registerPermissions($section, $permissions)
+    {
+        if (!is_array($permissions)) {
             return false;
         }
 
@@ -35,7 +36,8 @@ class PermissionHandler {
      *  Get all permissions
      *  Params: none
      */
-    public static function getPermissions() {
+    public static function getPermissions()
+    {
         return self::$_permissions;
     }
 }

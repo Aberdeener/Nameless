@@ -35,10 +35,11 @@ if (Input::exists()) {
             ));
         } else {
             // Registration settings
-            if (isset($_POST['verification']) && $_POST['verification'] == 'on')
+            if (isset($_POST['verification']) && $_POST['verification'] == 'on') {
                 $verification = 1;
-            else
+            } else {
                 $verification = 0;
+            }
 
             $verification_id = $queries->getWhere('settings', array('name', '=', 'email_verification'));
             $verification_id = $verification_id[0]->id;
@@ -114,10 +115,11 @@ if (Input::exists()) {
             $validation_group_id = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
             $validation_action = $validation_group_id[0]->value;
             $validation_action = json_decode($validation_action, true);
-            if (isset($validation_action['action']))
+            if (isset($validation_action['action'])) {
                 $validation_action = $validation_action['action'];
-            else
+            } else {
                 $validation_action = 'promote';
+            }
             $validation_group_id = $validation_group_id[0]->id;
 
             $new_value = json_encode(array('action' => $validation_action, 'group' => $_POST['promote_group']));
@@ -146,17 +148,19 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 // Check if registration is enabled
 $registration_enabled = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
@@ -178,10 +182,11 @@ $registration_disabled_message = $queries->getWhere('settings', array('name', '=
 $validation_group = $queries->getWhere('settings', array('name', '=', 'validate_user_action'));
 $validation_group = $validation_group[0]->value;
 $validation_group = json_decode($validation_group, true);
-if (isset($validation_group['group']))
+if (isset($validation_group['group'])) {
     $validation_group = $validation_group['group'];
-else
+} else {
     $validation_group = 1;
+}
 
 $smarty->assign(array(
     'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),

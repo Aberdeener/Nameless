@@ -10,7 +10,7 @@
  *  Czech Language - API
  */
 
-$language = array (
+$language = array(
 
     // Errors
     'api_disabled' => 'API je zakázáno',

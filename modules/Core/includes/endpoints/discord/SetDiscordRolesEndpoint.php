@@ -6,16 +6,18 @@
  *
  * @return string JSON Array
  */
-class SetDiscordRolesEndpoint extends EndpointBase {
-
-    public function __construct() {
+class SetDiscordRolesEndpoint extends EndpointBase
+{
+    public function __construct()
+    {
         $this->_route = 'setDiscordRoles';
         $this->_module = 'Core';
         $this->_description = 'Set a NamelessMC user\'s according to the supplied Discord Role ID list';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api) {
+    public function execute(Nameless2API $api)
+    {
         $api->validateParams($_POST, ['user']);
 
         if (!Util::getSetting($api->getDb(), 'discord_integration')) {
@@ -30,7 +32,6 @@ class SetDiscordRolesEndpoint extends EndpointBase {
         $log_array = array();
 
         if ($_POST['roles'] != null) {
-
             $roles = $_POST['roles'];
 
             $original_group_ids = $user->getAllGroupIds();
@@ -64,9 +65,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
 
                 $log_array['removed'][] = Util::getGroupNameFromId($group_id);
             }
-
         } else {
-
             $original_group_ids = $user->getAllGroupIds();
             $added_group_id = 0;
 
@@ -93,7 +92,6 @@ class SetDiscordRolesEndpoint extends EndpointBase {
                 $should_log = true;
                 $log_array['removed'][] = Util::getGroupNameFromId($group_id);
             }
-
         }
 
         if ($should_log) {

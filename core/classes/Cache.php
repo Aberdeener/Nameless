@@ -26,8 +26,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
  * https://github.com/NamelessMC/Nameless
  */
 
-class Cache {
-
+class Cache
+{
     /**
      * The path to the cache file folder
      *
@@ -55,11 +55,12 @@ class Cache {
      * @param string|array [optional] $config
      * @return void
      */
-    public function __construct($config = null) {
+    public function __construct($config = null)
+    {
         if (isset($config)) {
             if (is_string($config)) {
                 $this->setCache($config);
-            } else if (is_array($config)) {
+            } elseif (is_array($config)) {
                 $this->setCache($config['name']);
                 $this->setCachePath($config['path']);
                 $this->setExtension($config['extension']);
@@ -73,7 +74,8 @@ class Cache {
      * @param string $key
      * @return boolean
      */
-    public function isCached($key) {
+    public function isCached($key)
+    {
         if ($this->_loadCache()) {
             $cachedData = $this->_loadCache();
             if (isset($cachedData[$key])) {
@@ -95,7 +97,8 @@ class Cache {
      * @param integer [optional] $expiration
      * @return object
      */
-    public function store($key, $data, $expiration = 0) {
+    public function store($key, $data, $expiration = 0)
+    {
         $storeData = array(
             'time'   => time(),
             'expire' => $expiration,
@@ -119,10 +122,13 @@ class Cache {
      * @param boolean [optional] $timestamp
      * @return string
      */
-    public function retrieve($key, $timestamp = false) {
+    public function retrieve($key, $timestamp = false)
+    {
         $cachedData = $this->_loadCache();
         (!$timestamp) ? $type = 'data' : $type = 'time';
-        if (!isset($cachedData[$key][$type])) return null;
+        if (!isset($cachedData[$key][$type])) {
+            return null;
+        }
         if (!$timestamp) {
             $entry = $cachedData[$key];
             if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
@@ -138,7 +144,8 @@ class Cache {
      * @param boolean [optional] $meta
      * @return array
      */
-    public function retrieveAll($meta = false) {
+    public function retrieveAll($meta = false)
+    {
         if (!$meta) {
             $results = array();
             $cachedData = $this->_loadCache();
@@ -159,7 +166,8 @@ class Cache {
      * @param string $key
      * @return object
      */
-    public function erase($key) {
+    public function erase($key)
+    {
         $cacheData = $this->_loadCache();
         if (is_array($cacheData)) {
             if (isset($cacheData[$key])) {
@@ -178,7 +186,8 @@ class Cache {
      *
      * @return integer
      */
-    public function eraseExpired() {
+    public function eraseExpired()
+    {
         $cacheData = $this->_loadCache();
         if (is_array($cacheData)) {
             $counter = 0;
@@ -201,7 +210,8 @@ class Cache {
      *
      * @return object
      */
-    public function eraseAll() {
+    public function eraseAll()
+    {
         $cacheDir = $this->getCacheDir();
         if (file_exists($cacheDir)) {
             $cacheFile = fopen($cacheDir, 'w');
@@ -215,7 +225,8 @@ class Cache {
      *
      * @return mixed
      */
-    private function _loadCache() {
+    private function _loadCache()
+    {
         if (file_exists($this->getCacheDir())) {
             $file = file_get_contents($this->getCacheDir());
             return json_decode($file, true);
@@ -229,7 +240,8 @@ class Cache {
      *
      * @return string
      */
-    public function getCacheDir() {
+    public function getCacheDir()
+    {
         if ($this->_checkCacheDir()) {
             $filename = $this->getCache();
             $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
@@ -242,7 +254,8 @@ class Cache {
      *
      * @return string
      */
-    private function _getHash($filename) {
+    private function _getHash($filename)
+    {
         return sha1($filename);
     }
 
@@ -253,7 +266,8 @@ class Cache {
      * @param integer $expiration
      * @return boolean
      */
-    private function _checkExpired($timestamp, $expiration) {
+    private function _checkExpired($timestamp, $expiration)
+    {
         $result = false;
         if ($expiration !== 0) {
             $timeDiff = time() - $timestamp;
@@ -267,7 +281,8 @@ class Cache {
      *
      * @return boolean
      */
-    private function _checkCacheDir() {
+    private function _checkCacheDir()
+    {
         if (!is_dir($this->getCachePath()) && !mkdir($this->getCachePath(), 0775, true)) {
             throw new Exception('Unable to create cache directory ' . $this->getCachePath());
         } elseif (!is_readable($this->getCachePath()) || !is_writable($this->getCachePath())) {
@@ -284,7 +299,8 @@ class Cache {
      * @param string $path
      * @return object
      */
-    public function setCachePath($path) {
+    public function setCachePath($path)
+    {
         $this->_cachepath = $path;
         return $this;
     }
@@ -294,7 +310,8 @@ class Cache {
      *
      * @return string
      */
-    public function getCachePath() {
+    public function getCachePath()
+    {
         return $this->_cachepath;
     }
 
@@ -304,7 +321,8 @@ class Cache {
      * @param string $name
      * @return object
      */
-    public function setCache($name) {
+    public function setCache($name)
+    {
         $this->_cachename = $name;
         return $this;
     }
@@ -314,7 +332,8 @@ class Cache {
      *
      * @return void
      */
-    public function getCache() {
+    public function getCache()
+    {
         return $this->_cachename;
     }
 
@@ -324,7 +343,8 @@ class Cache {
      * @param string $ext
      * @return object
      */
-    public function setExtension($ext) {
+    public function setExtension($ext)
+    {
         $this->_extension = $ext;
         return $this;
     }
@@ -334,7 +354,8 @@ class Cache {
      *
      * @return string
      */
-    public function getExtension() {
+    public function getExtension()
+    {
         return $this->_extension;
     }
 }

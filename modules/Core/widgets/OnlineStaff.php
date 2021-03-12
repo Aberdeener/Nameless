@@ -8,13 +8,14 @@
  *
  *  Online staff widget
  */
-class OnlineStaffWidget extends WidgetBase {
+class OnlineStaffWidget extends WidgetBase
+{
+    private $_cache;
+    private $_smarty;
+    private $_language;
 
-    private $_cache,
-            $_smarty,
-            $_language;
-
-    public function __construct($pages = array(), $smarty, $language, $cache) {
+    public function __construct($pages = array(), $smarty, $language, $cache)
+    {
         $this->_cache = $cache;
         $this->_smarty = $smarty;
         $this->_language = $language;
@@ -32,18 +33,19 @@ class OnlineStaffWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
-    public function initialise() {
+    public function initialise()
+    {
         $this->_cache->setCache('online_members');
 
-        if($this->_cache->isCached('staff'))
+        if ($this->_cache->isCached('staff')) {
             $online = $this->_cache->retrieve('staff');
-        else {
+        } else {
             $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1', array())->results();
             $this->_cache->store('staff', $online, 120);
         }
 
         // Generate HTML code for widget
-        if(count($online)){
+        if (count($online)) {
             $staff_members = array();
 
             foreach ($online as $staff) {
@@ -66,13 +68,13 @@ class OnlineStaffWidget extends WidgetBase {
                 'ONLINE_STAFF_LIST' => $staff_members,
                 'TOTAL_ONLINE_STAFF' => str_replace('{x}', count($staff_members), $this->_language['total_online_staff'])
             ));
-
-        } else
+        } else {
             $this->_smarty->assign(array(
                 'ONLINE_STAFF' => $this->_language['title'],
                 'NO_STAFF_ONLINE' => $this->_language['no_online_staff'],
                 'TOTAL_ONLINE_STAFF' => str_replace('{x}', '0', $this->_language['total_online_staff'])
             ));
+        }
 
         $this->_content = $this->_smarty->fetch('widgets/online_staff.tpl');
     }

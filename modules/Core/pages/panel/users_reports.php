@@ -308,7 +308,7 @@ if (!isset($_GET['id'])) {
 
             Redirect::to(URL::build('/panel/users/reports'));
             die();
-        } else if ($_GET['action'] == 'open') {
+        } elseif ($_GET['action'] == 'open') {
             // Reopen report
             if (is_numeric($_GET['id'])) {
                 // Get report
@@ -347,20 +347,23 @@ if (!isset($_GET['id'])) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-if (Session::exists('report_success'))
+if (Session::exists('report_success')) {
     $success = Session::flash('report_success');
+}
 
-if (isset($success))
+if (isset($success)) {
     $smarty->assign(array(
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ));
+}
 
-if (isset($errors) && count($errors))
+if (isset($errors) && count($errors)) {
     $smarty->assign(array(
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ));
+}
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,
