@@ -94,7 +94,6 @@ enabled:
   - "return_type_declaration"
   - "self_static_accessor"
   - "semicolon_after_instruction"
-  - "simplified_if_return"
   - "single_blank_line_at_eof"
   - "single_line_class_definition"
   - "single_line_throw"
@@ -110,7 +109,6 @@ enabled:
   - "unalign_double_arrow"
   - "unalign_equals"
   - "unary_operator_spaces"
-  - "symfony_braces"
 
 finder:
   exclude:
