@@ -110,7 +110,7 @@ enabled:
   - "unalign_double_arrow"
   - "unalign_equals"
   - "unary_operator_spaces"
-  - "psr2_braces"
+  - "symfony_braces"
 
 finder:
   exclude:
