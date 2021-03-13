@@ -60,7 +60,6 @@ enabled:
   - "no_extra_block_blank_lines"
   - "no_extra_consecutive_blank_lines"
   - "no_multiline_whitespace_around_double_arrow"
-  - "no_multiline_whitespace_before_semicolons"
   - "no_null_property_initialization"
   - "no_short_bool_cast"
   - "no_single_line_asterisk_comment"
