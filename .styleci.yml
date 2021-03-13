@@ -33,7 +33,6 @@ enabled:
   - "function_declaration"
   - "function_typehint_space"
   - "indentation"
-  - "logical_operators"
   - "short_array_syntax"
   - "short_list_syntax"
   - "lowercase_cast"
