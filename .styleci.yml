@@ -1,6 +1,6 @@
 use-tabs: false
 
-preset: null
+preset: none
 
 enabled:
   - "binary_operator_spaces"
