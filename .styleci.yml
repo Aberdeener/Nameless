@@ -110,7 +110,7 @@ enabled:
   - "unalign_double_arrow"
   - "unalign_equals"
   - "unary_operator_spaces"
-  - "psr12_braces"
+  - "psr2_braces"
 
 finder:
   exclude:
