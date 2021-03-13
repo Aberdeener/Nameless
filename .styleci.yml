@@ -1,7 +1,8 @@
 use-tabs: false
 
+preset: null
+
 enabled:
-  - "array_indentation"
   - "binary_operator_spaces"
   - "blank_line_after_opening_tag"
   - "blank_line_before_break"
@@ -112,7 +113,6 @@ enabled:
   - "unalign_double_arrow"
   - "unalign_equals"
   - "unary_operator_spaces"
-  - ""
 
 finder:
   exclude:
