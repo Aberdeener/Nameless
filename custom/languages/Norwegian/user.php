@@ -9,15 +9,11 @@
  *  Norwegian translation (norsk bokmål) - User
  */
 
-$language = array(
-    /*
-     *  Change this for the account validation message
-     */
+$language = [
+    // Change this for the account validation message
     'validate_account_command' => 'For å fullføre registeringen, skriv inn kommandoen <strong>/validate {x}</strong> ingame.', // Don't replace {x}
 
-    /*
-     *  User Related
-     */
+    // User Related
     'guest' => 'Gjest',
     'guests' => 'Gjester',
 
@@ -223,16 +219,12 @@ $language = array(
     'latest_profile_posts' => 'Siste profilmeldinger',
     'no_profile_posts' => 'Ingen profilmeldinger.',
 
-    /*
-     *  Infractions area
-     */
+    // Infractions area
     'you_have_been_banned' => 'Du har blitt utestengt!',
     'you_have_received_a_warning' => 'Du har mottatt en advarsel!',
     'acknowledge' => 'Anerkjennelse',
 
-    /*
-     *  Hooks
-     */
+    // Hooks
     'user_x_has_registered' => '{x} har registert seg hos ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} har validert kontoen deres!',
 
@@ -251,4 +243,4 @@ $language = array(
     'discord_communication_error' => 'Det oppstod en feil under kommuniseringen med Discord-boten. Sjekk om boten er oppe, og at bot-URL-en er korrekt.',
     'discord_unknown_error' => 'Det oppstod en ukjent feil under synkroniseringen av Discord-rollene. Vennligst kontakt en administrator.',
     'discord_id_help' => 'For mer informasjon om hvordan man finner Discord-bruker-ID, vennligst les <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">denne artikkelen.</a>'
-);
+];

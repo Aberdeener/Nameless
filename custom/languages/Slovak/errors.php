@@ -9,10 +9,8 @@
  *  Slovak Language - Errors
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => 'Ospravedlňujeme sa!',
     '404_content' => 'Ale túto stránku nemôžeme nájsť :(',
     '404_back' => 'Vrátiť späť',
@@ -31,4 +29,4 @@ $language = array(
     'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
     'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
-);
+];

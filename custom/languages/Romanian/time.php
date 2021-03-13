@@ -11,10 +11,8 @@
  *  Last Update: 29/06/2018
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'time', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'În urmă cu mai puțin de un minut',
@@ -28,4 +26,4 @@ $language = array(
     '_months' => 'Acum {x} luni',
     'about_1_year' => 'Acum un an',
     'over_x_years' => 'Acum {x} ani'
-);
+];

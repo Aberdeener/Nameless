@@ -10,10 +10,8 @@
  *  SwedishSE Language - Time
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'Tid', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'mindre än en minut sedan',
@@ -27,4 +25,4 @@ $language = array(
     '_months' => '{x} månader sen',
     'about_1_year' => 'ungefär ett år sedan',
     'over_x_years' => 'över {x} år sen'
-);
+];

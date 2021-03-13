@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
  *  Made by Samerton
  *  Translated by Aviortheking
@@ -10,10 +11,8 @@
  *  French Language for Forum module
  */
 
-$language = array(
-    /*
-     *  Forums
-     */ 
+$language = [
+    // Forums
     'forum' => 'Forum',
     'forums' => 'Forums',
     'forum_index' => 'Accueil',
@@ -120,7 +119,7 @@ $language = array(
     'label_forums' => 'Étiquette du forum',
     'label_groups' => 'Label Groups',
     'no_forums' => 'Aucun forum',
-    'no_labels_defined' => 'Aucune étiquettes n\'ont été définie.', 
+    'no_labels_defined' => 'Aucune étiquettes n\'ont été définie.',
     'no_label_types_defined' => 'Aucun type d\'étiquette n\'ont été définie.',
     'label_edit_success' => 'Étiquette modifié.',
     'label_type_edit_success' => 'Tpye d\'étiquette modifié.',
@@ -213,4 +212,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Topics',
     'posts_title' => 'Posts',
-);
+];

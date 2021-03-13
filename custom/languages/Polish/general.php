@@ -9,10 +9,8 @@
  *  Polish Language - General terms
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Pomoc',
     'submit' => 'Zatwierdź',
     'register' => 'Zarejestruj',
@@ -70,9 +68,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
   'contact' => 'Kontakt',
   'message' => 'Wiadomość',
     'email_address' => 'Adres email',
@@ -82,26 +78,18 @@ $language = array(
     'contact_message_sent' => 'Wiadomość została wysłana.',
     'contact_message_limit' => 'Możesz wysłać tylko jedną wiadomość na godzinę. Następną wiadomość możesz wysłać za {x} minut.', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Strona główna',
     'more' => 'Więcej',
     'status' => 'Status',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Media',
 
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Możesz formatować swój post za pomocą Markdown. Jeśli chcesz dowiedzieć się więcej o tej funkcji kliknij <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>tutaj</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -119,15 +107,11 @@ $language = array(
     'no_players_online' => 'Na serwerze nie ma graczy online.',
     'and_x_more' => 'i {x} więcej', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Ta strona używa plików cookie. Zakładając tu konto lub zamykając to powiadomienie zgadzasz się na ich wykorzystanie.',
     'cookie_agree' => 'Zgadzam się',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Statystyki',
     'users_registered' => 'Zarejestrowani użytkownicy',
     'latest_member' => 'Ostatni użytkownik',
@@ -146,13 +130,9 @@ $language = array(
     'no_default_server' => 'Brak domyślnego serwera, wybierz go w Integracje > Minecraft.',
     'server_status' => 'Status Serwera',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Polityka Prywatności',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Przekierowywanie...<br />Jeżeli nie przenieśliśmy cię automatycznie kliknij <a href="{x}" rel="nofollow noopener">tutaj</a>.' // Don't replace {x} which is the redirect URL
-);
+];

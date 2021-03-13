@@ -1,75 +1,73 @@
 <?php
 
 if (isset($_SESSION['site_initialized']) && $_SESSION['site_initialized'] == true) {
-	Redirect::to('?step=admin_account_setup');
-	die();
+    Redirect::to('?step=admin_account_setup');
+
+    die();
 }
 
-if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
-	Redirect::to('?step=database_configuration');
-	die();
+if (! isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
+    Redirect::to('?step=database_configuration');
+
+    die();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $validate = new Validate();
+    $validation = $validate->check($_POST, [
+        'sitename' => [
+            'required' => true,
+            'min' => 1,
+            'max' => 32,
+        ],
+        'incoming' => [
+            'required' => true,
+            'min' => 4,
+            'max' => 64,
+        ],
+        'outgoing' => [
+            'required' => true,
+            'min' => 4,
+            'max' => 64,
+        ],
+        'language' => [
+            'required' => true
+        ]
+    ]);
 
-	$validate = new Validate();
-	$validation = $validate->check($_POST, array(
-		'sitename' => array(
-			'required' => true,
-			'min' => 1,
-			'max' => 32,
-		),
-		'incoming' => array(
-			'required' => true,
-			'min' => 4,
-			'max' => 64,
-		),
-		'outgoing' => array(
-			'required' => true,
-			'min' => 4,
-			'max' => 64,
-		),
-		'language' => array(
-			'required' => true
-		)
-	));
+    if (! $validation->passed()) {
+        $error = $language['configuration_error'];
+    } else {
+        try {
+            $queries = new Queries();
+            $queries->create('settings', [
+                'name' => 'sitename',
+                'value' => Output::getClean(Input::get('sitename'))
+            ]);
 
-	if (!$validation->passed()) {
+            $cache = new Cache();
+            $cache->setCache('sitenamecache');
+            $cache->store('sitename', Output::getClean(Input::get('sitename')));
 
-		$error = $language['configuration_error'];
-	} else {
+            $queries->create('settings', [
+                'name' => 'incoming_email',
+                'value' => Output::getClean(Input::get('incoming'))
+            ]);
 
-		try {
+            $queries->create('settings', [
+                'name' => 'outgoing_email',
+                'value' => Output::getClean(Input::get('outgoing'))
+            ]);
 
-			$queries = new Queries();
-			$queries->create('settings', array(
-				'name' => 'sitename',
-				'value' => Output::getClean(Input::get('sitename'))
-			));
+            $_SESSION['default_language'] = Output::getClean(Input::get('language'));
 
-			$cache = new Cache();
-			$cache->setCache('sitenamecache');
-			$cache->store('sitename', Output::getClean(Input::get('sitename')));
+            Redirect::to('?step=site_initialization');
 
-			$queries->create('settings', array(
-				'name' => 'incoming_email',
-				'value' => Output::getClean(Input::get('incoming'))
-			));
-
-			$queries->create('settings', array(
-				'name' => 'outgoing_email',
-				'value' => Output::getClean(Input::get('outgoing'))
-			));
-
-			$_SESSION['default_language'] = Output::getClean(Input::get('language'));
-
-			Redirect::to('?step=site_initialization');
-			die();
-		} catch (Exception $e) {
-
-			$error = $e->getMessage();
-		}
-	}
+            die();
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+        }
+    }
 }
 
 ?>
@@ -95,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						<?php create_field('text', $language['site_name'], 'sitename', 'inputSitename', getenv('NAMELESS_SITE_NAME') ?: ''); ?>
 						<?php create_field('email', $language['contact_email'], 'incoming', 'contact_email', getenv('NAMELESS_SITE_CONTACT_EMAIL') ?: ''); ?>
 						<?php create_field('email', $language['outgoing_email'], 'outgoing', 'outgoing_email', getenv('NAMELESS_SITE_OUTGOING_EMAIL') ?: ''); ?>
-						<?php create_field('select', $language['language'], 'language', 'inputLanguage', $installer_language, $languages, true) ?>
+						<?php create_field('select', $language['language'], 'language', 'inputLanguage', $installer_language, $languages, true); ?>
 					</div>
 				</div>
 			</div>

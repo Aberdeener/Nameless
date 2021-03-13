@@ -10,10 +10,8 @@
  *  Russian Language - General terms
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Помощь',
     'submit' => 'Подтвердить',
     'register' => 'Регистрация',
@@ -71,9 +69,7 @@ $language = array(
     'link' => 'Связать',
     'unlink' => 'Отвязать',
 
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => 'Обратная связь',
     'message' => 'Сообщение',
     'email_address' => 'Email-адрес',
@@ -83,28 +79,18 @@ $language = array(
     'contact_message_sent' => 'Сообщение успешно отправлено.',
     'contact_message_limit' => 'Вы можете отправлять только одно сообщение в час. Отправьте следующее сообщение через {x} минут.', // Don't replace {x}
 
-
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Главная',
     'more' => 'Больше',
     'status' => 'Серверы',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Мы в социальных сетях',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Вы можете отформатировать своё сообщение с помощью Markdown. Для получения дополнительной информации см. <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>здесь</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'Онлайн',
     'offline' => 'Оффлайн',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -122,15 +108,11 @@ $language = array(
     'no_players_online' => 'Сейчас нет игроков онлайн.',
     'and_x_more' => 'and {x} more', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Этот веб-сайт использует файлы cookie для улучшения вашего опыта просмотра. Регистрируясь на нашем сайте или закрывая данное уведомление, вы соглашаетесь с их использованием.',
     'cookie_agree' => 'Подтвердить',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Статистика',
     'users_registered' => 'Всего игроков',
     'latest_member' => 'Посл. регистр.',
@@ -149,13 +131,9 @@ $language = array(
     'no_default_server' => 'Нету сервера по умолчанию, сделать это можно в админ панели - Интеграции - Minecraft.',
     'server_status' => 'Статус сервера',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Политика конфиденциальности',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Перенаправление...<br />Если вы не перенаправлены автоматически, пожалуйста, нажмите на <a href="{x}" rel="nofollow noopener">эту кнопку</a>.' // Don't replace {x} which is the redirect URL
-);
+];

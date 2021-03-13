@@ -10,7 +10,7 @@
  */
 
 // Nameless error handling
-require_once(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', 'ErrorHandler.php')));
+require_once (join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'core', 'classes', 'ErrorHandler.php']));
 set_exception_handler([ErrorHandler::class, 'catchException']);
 // catchError() used for throw_error or any exceptions which may be missed by catchException()
 set_error_handler([ErrorHandler::class, 'catchError']);
@@ -18,11 +18,11 @@ set_error_handler([ErrorHandler::class, 'catchError']);
 session_start();
 
 // Page variable must be set
-if (!isset($page)) {
+if (! isset($page)) {
     die('$page variable is unset. Cannot continue.');
 }
 
-if (!file_exists(ROOT_PATH . '/core/config.php')) {
+if (! file_exists(ROOT_PATH . '/core/config.php')) {
     if (is_writable(ROOT_PATH . '/core')) {
         fopen(ROOT_PATH . '/core/config.php', 'w');
     } else {
@@ -30,7 +30,7 @@ if (!file_exists(ROOT_PATH . '/core/config.php')) {
     }
 }
 
-if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
+if (! file_exists(ROOT_PATH . '/cache/templates_c')) {
     try {
         mkdir(ROOT_PATH . '/cache/templates_c', 0777, true);
     } catch (Exception $e) {
@@ -39,24 +39,23 @@ if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
 }
 
 // Require config
-require(ROOT_PATH . '/core/config.php');
+require (ROOT_PATH . '/core/config.php');
 
 if (isset($conf) && is_array($conf)) {
     $GLOBALS['config'] = $conf;
-} else if (!isset($GLOBALS['config'])) {
+} else if (! isset($GLOBALS['config'])) {
     $page = 'install';
 }
 
-/*
- *  Autoload classes
- */
+// Autoload classes
 require_once ROOT_PATH . '/core/includes/smarty/Smarty.class.php';
 
 // Any errors thrown now will not be caught by the error handler, as they require some classes be preloaded
 spl_autoload_register(function ($class) {
-    $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'core', 'classes', $class . '.php'));
+    $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'core', 'classes', $class . '.php']);
+
     if (file_exists($path)) {
-        require_once($path);
+        require_once ($path);
     }
 });
     
@@ -64,69 +63,72 @@ spl_autoload_register(function ($class) {
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
     $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
+
     return;
 }
 
 if ($page != 'install') {
-    /*
-    *  Initialise
-    */
+    // Initialise
 
     // Friendly URLs?
     define('FRIENDLY_URLS', Config::get('core/friendly'));
 
     // Set up cache
-    $cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'));
+    $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
     // Force https?
     $cache->setCache('force_www_cache');
+
     if ($cache->isCached('force_www')) {
         $force_www = $cache->retrieve('force_www');
+
         if ($force_www == 'true')
             define('FORCE_WWW', true);
-    } else
-        $cache->store('force_www', false);
+    } else $cache->store('force_www', false);
 
     $cache->setCache('force_https_cache');
+
     if ($cache->isCached('force_https')) {
         $force_https = $cache->retrieve('force_https');
+
         if ($force_https == 'true') {
-            if ($_SERVER["HTTPS"] != "on") {
+            if ($_SERVER['HTTPS'] != 'on') {
                 // Redirect to https
 
                 // Force www?
                 if (defined('FORCE_WWW')) {
                     if (strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-                        header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-                        die();
-                    } else {
-                        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                        header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+
                         die();
                     }
-                } else {
-                    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-                    die();
+                        header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+
+                        die();
                 }
-            } else {
+                    header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+
+                    die();
+            }
                 // Force www?
                 if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-                    header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                    header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+
                     die();
                 }
-            }
-
+            
             define('FORCE_SSL', true);
         }
     } else {
         $cache->store('force_https', false);
     }
 
-    if (!defined('FORCE_SSL')) {
+    if (! defined('FORCE_SSL')) {
         if (defined('FORCE_WWW') && strpos($_SERVER['HTTP_HOST'], 'www.') === false) {
-            if ($_SERVER["HTTPS"] != "on") {
-                header('Location: http://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            if ($_SERVER['HTTPS'] != 'on') {
+                header('Location: http://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             } else {
-                header('Location: https://www.' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             }
 
             die();
@@ -142,8 +144,9 @@ if ($page != 'install') {
     define('PAGE_LOADING', $page_loading);
 
     // Error reporting
-    if (!defined('DEBUGGING')) {
+    if (! defined('DEBUGGING')) {
         $cache->setCache('error_cache');
+
         if ($cache->isCached('error_reporting')) {
             if ($cache->retrieve('error_reporting') == 1) {
                 // Enabled
@@ -168,27 +171,29 @@ if ($page != 'install') {
     $configuration = new Configuration($cache);
 
     // Get the Nameless version
-    $nameless_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+    $nameless_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
     $nameless_version = $nameless_version[0]->value;
     define('NAMELESS_VERSION', $nameless_version);
 
     // Get the Bot URL(s)
-    $bot_url = $queries->getWhere('settings', array('name', '=', 'discord_bot_url'));
+    $bot_url = $queries->getWhere('settings', ['name', '=', 'discord_bot_url']);
     $bot_url = $bot_url[0]->value;
+
     if ($bot_url == null) $bot_url = '';
     define('BOT_URL', $bot_url);
 
-    $bot_username = $queries->getWhere('settings', array('name', '=', 'discord_bot_username'));
+    $bot_username = $queries->getWhere('settings', ['name', '=', 'discord_bot_username']);
     $bot_username = $bot_username[0]->value;
+
     if ($bot_username == null) $bot_username = '';
     define('BOT_USERNAME', $bot_username);
 
     // User initialisation
     $user = new User();
     // Do they need logging in (checked remember me)?
-    if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
+    if (Cookie::exists(Config::get('remember/cookie_name')) && ! Session::exists(Config::get('session/session_name'))) {
         $hash = Cookie::get(Config::get('remember/cookie_name'));
-        $hashCheck = DB::getInstance()->get('users_session', array('hash', '=', $hash));
+        $hashCheck = DB::getInstance()->get('users_session', ['hash', '=', $hash]);
 
         if ($hashCheck->count()) {
             $user = new User($hashCheck->first()->user_id);
@@ -206,7 +211,7 @@ if ($page != 'install') {
 
         $config_path = Config::get('core/path');
 
-        if (!empty($config_path)) {
+        if (! empty($config_path)) {
             $config_path = explode('/', Config::get('core/path'));
 
             for ($i = 0; $i < count($config_path); $i++) {
@@ -234,6 +239,7 @@ if ($page != 'install') {
             define('TIMEZONE', $user->data()->timezone);
         } else {
             $cache->setCache('timezone_cache');
+
             if ($cache->isCached('timezone')) {
                 define('TIMEZONE', $cache->retrieve('timezone'));
             } else {
@@ -247,12 +253,12 @@ if ($page != 'install') {
     }
 
     // Language
-    if (!$user->isLoggedIn() || !($user->data()->language_id)) {
+    if (! $user->isLoggedIn() || ! ($user->data()->language_id)) {
         // Default language for guests
         $cache->setCache('languagecache');
         $language = $cache->retrieve('language');
 
-        if (!$language) {
+        if (! $language) {
             define('LANGUAGE', 'EnglishUK');
             $language = new Language();
         } else {
@@ -261,13 +267,14 @@ if ($page != 'install') {
         }
     } else {
         // User selected language
-        $language = $queries->getWhere('languages', array('id', '=', $user->data()->language_id));
-        if (!count($language)) {
+        $language = $queries->getWhere('languages', ['id', '=', $user->data()->language_id]);
+
+        if (! count($language)) {
             // Get default language
             $cache->setCache('languagecache');
             $language = $cache->retrieve('language');
 
-            if (!$language) {
+            if (! $language) {
                 define('LANGUAGE', 'EnglishUK');
                 $language = new Language();
             } else {
@@ -284,32 +291,33 @@ if ($page != 'install') {
     $cache->setCache('sitenamecache');
     $sitename = $cache->retrieve('sitename');
 
-    if (!$sitename) {
+    if (! $sitename) {
         define('SITE_NAME', 'NamelessMC');
     } else {
         define('SITE_NAME', $sitename);
     }
 
     // Template
-    if (!$user->isLoggedIn() || !($user->data()->theme_id)) {
+    if (! $user->isLoggedIn() || ! ($user->data()->theme_id)) {
         // Default template for guests
         $cache->setCache('templatecache');
         $template = $cache->retrieve('default');
 
-        if (!$template) {
+        if (! $template) {
             define('TEMPLATE', 'DefaultRevamp');
         } else {
             define('TEMPLATE', $template);
         }
     } else {
         // User selected template
-        $template = $queries->getWhere('templates', array('id', '=', $user->data()->theme_id));
-        if (!count($template)) {
+        $template = $queries->getWhere('templates', ['id', '=', $user->data()->theme_id]);
+
+        if (! count($template)) {
             // Get default template
             $cache->setCache('templatecache');
             $template = $cache->retrieve('default');
 
-            if (!$template) {
+            if (! $template) {
                 define('TEMPLATE', 'DefaultRevamp');
             } else {
                 define('TEMPLATE', $template);
@@ -326,17 +334,18 @@ if ($page != 'install') {
                     if ($user_template->id === $template->id) {
                         $hasPermission = true;
                         define('TEMPLATE', $template->name);
+
                         break;
                     }
                 }
             }
 
-            if (!$hasPermission) {
+            if (! $hasPermission) {
                 // Get default template
                 $cache->setCache('templatecache');
                 $template = $cache->retrieve('default');
 
-                if (!$template) {
+                if (! $template) {
                     define('TEMPLATE', 'DefaultRevamp');
                 } else {
                     define('TEMPLATE', $template);
@@ -349,7 +358,7 @@ if ($page != 'install') {
     $cache->setCache('templatecache');
     $template = $cache->retrieve('panel_default');
 
-    if (!$template) {
+    if (! $template) {
         define('PANEL_TEMPLATE', 'Default');
     } else {
         define('PANEL_TEMPLATE', $template);
@@ -359,7 +368,7 @@ if ($page != 'install') {
     $smarty = new Smarty();
 
     // Basic Smarty variables
-    $smarty->assign(array(
+    $smarty->assign([
         'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
         'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
         'OG_IMAGE' => Output::getClean(rtrim(Util::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
@@ -367,16 +376,16 @@ if ($page != 'install') {
         'SITE_HOME' => URL::build('/'),
         'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
         'GUEST' => $language->get('user', 'guest')
-    ));
+    ]);
 
     // Cookie notice
-    if (!$user->isLoggedIn()) {
+    if (! $user->isLoggedIn()) {
         // Cookie notice for guests
-        if (!Cookie::exists('accept')) {
-            $smarty->assign(array(
+        if (! Cookie::exists('accept')) {
+            $smarty->assign([
                 'COOKIE_NOTICE' => $language->get('general', 'cookie_notice'),
                 'COOKIE_AGREE' => $language->get('general', 'cookie_agree')
-            ));
+            ]);
 
             define('COOKIE_NOTICE', true);
         }
@@ -384,43 +393,43 @@ if ($page != 'install') {
 
     // Avatars
     $cache->setCache('avatar_settings_cache');
+
     if ($cache->isCached('custom_avatars') && $cache->retrieve('custom_avatars') == 1) {
         define('CUSTOM_AVATARS', true);
     }
 
     if ($cache->isCached('default_avatar_type')) {
         define('DEFAULT_AVATAR_TYPE', $cache->retrieve('default_avatar_type'));
+
         if (DEFAULT_AVATAR_TYPE == 'custom' && $cache->isCached('default_avatar_image'))
             define('DEFAULT_AVATAR_IMAGE', $cache->retrieve('default_avatar_image'));
-        else
-            define('DEFAULT_AVATAR_IMAGE', '');
-    } else
-        define('DEFAULT_AVATAR_TYPE', 'minecraft');
+        else define('DEFAULT_AVATAR_IMAGE', '');
+    } else define('DEFAULT_AVATAR_TYPE', 'minecraft');
 
     if (DEFAULT_AVATAR_TYPE == 'minecraft') {
         if ($cache->isCached('avatar_source'))
             define('DEFAULT_AVATAR_SOURCE', $cache->retrieve('avatar_source'));
-        else
-            define('DEFAULT_AVATAR_SOURCE', 'cravatar');
+        else define('DEFAULT_AVATAR_SOURCE', 'cravatar');
 
         if ($cache->isCached('avatar_perspective'))
             define('DEFAULT_AVATAR_PERSPECTIVE', $cache->retrieve('avatar_perspective'));
-        else
-            define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
+        else define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
     }
 
     // Maintenance mode?
     $cache->setCache('maintenance_cache');
     $maintenance = $cache->retrieve('maintenance');
+
     if (isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') {
         // Enabled
         // Admins only beyond this point
-        if (!$user->isLoggedIn() || !$user->canViewACP()) {
+        if (! $user->isLoggedIn() || ! $user->canViewACP()) {
             // Maintenance mode
             if (isset($_GET['route']) && (rtrim($_GET['route'], '/') == '/login' || rtrim($_GET['route'], '/') == '/forgot_password' || substr($_GET['route'], 0, 5) == '/api/')) {
                 // Can continue as normal
             } else {
-                require(ROOT_PATH . '/maintenance.php');
+                require (ROOT_PATH . '/maintenance.php');
+
                 die();
             }
         } else {
@@ -430,16 +439,16 @@ if ($page != 'install') {
     }
 
     // Minecraft integration?
-    $mc_integration = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+    $mc_integration = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
+
     if (count($mc_integration) && $mc_integration[0]->value == '1')
         define('MINECRAFT', true);
-    else
-        define('MINECRAFT', false);
+    else define('MINECRAFT', false);
 
     // Navbar links
     $navigation = new Navigation();
-    $cc_nav     = new Navigation();
-    $mod_nav    = new Navigation(true); // $mod_nav = panel nav
+    $cc_nav = new Navigation();
+    $mod_nav = new Navigation(true); // $mod_nav = panel nav
 
     // Add links to cc_nav
     $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
@@ -450,7 +459,8 @@ if ($page != 'install') {
     // Add homepage to navbar
     // Check navbar order + icon in cache
     $cache->setCache('navbar_order');
-    if (!$cache->isCached('index_order')) {
+
+    if (! $cache->isCached('index_order')) {
         // Create cache entry now
         $home_order = 1;
         $cache->store('index_order', 1);
@@ -459,10 +469,10 @@ if ($page != 'install') {
     }
 
     $cache->setCache('navbar_icons');
+
     if ($cache->isCached('index_icon'))
         $home_icon = $cache->retrieve('index_icon');
-    else
-        $home_icon = '';
+    else $home_icon = '';
 
     $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);
 
@@ -474,10 +484,11 @@ if ($page != 'install') {
 
     // Modules
     $cache->setCache('modulescache');
-    if (!$cache->isCached('enabled_modules')) {
-        $cache->store('enabled_modules', array(
-            array('name' => 'Core', 'priority' => 1)
-        ));
+
+    if (! $cache->isCached('enabled_modules')) {
+        $cache->store('enabled_modules', [
+            ['name' => 'Core', 'priority' => 1]
+        ]);
         $cache->store('module_core', true);
     }
     $enabled_modules = (array) $cache->retrieve('enabled_modules');
@@ -485,15 +496,16 @@ if ($page != 'install') {
     foreach ($enabled_modules as $module) {
         if ($module['name'] == 'Core') {
             $core_exists = true;
+
             break;
         }
     }
 
-    if (!isset($core_exists)) {
-        $enabled_modules[] = array(
+    if (! isset($core_exists)) {
+        $enabled_modules[] = [
             'name' => 'Core',
             'priority' => 1
-        );
+        ];
     }
 
     $pages = new Pages();
@@ -505,7 +517,7 @@ if ($page != 'install') {
 
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
-            require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
+            require (ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
         }
     }
 
@@ -519,38 +531,42 @@ if ($page != 'install') {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
             Redirect::to(URL::build('/'));
+
             die();
         }
 
         // Is the IP address banned?
-        $ip_bans = $queries->getWhere('ip_bans', array('ip', '=', $ip));
+        $ip_bans = $queries->getWhere('ip_bans', ['ip', '=', $ip]);
+
         if (count($ip_bans)) {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
             Redirect::to(URL::build('/'));
+
             die();
         }
 
         // Update user last IP and last online
         if (filter_var($ip, FILTER_VALIDATE_IP)) {
-            $user->update(array(
+            $user->update([
                 'last_online' => date('U'),
                 'lastip' => $ip
-            ));
+            ]);
         } else {
-            $user->update(array(
+            $user->update([
                 'last_online' => date('U')
-            ));
+            ]);
         }
 
         // Insert it into the logs
-        $user_ip_logged = $queries->getWhere('users_ips', array('ip', '=', $ip));
-        if (!count($user_ip_logged)) {
+        $user_ip_logged = $queries->getWhere('users_ips', ['ip', '=', $ip]);
+
+        if (! count($user_ip_logged)) {
             // Create the entry now
-            $queries->create('users_ips', array(
+            $queries->create('users_ips', [
                 'user_id' => $user->data()->id,
                 'ip' => $ip
-            ));
+            ]);
         } else {
             if (count($user_ip_logged) > 1) {
                 foreach ($user_ip_logged as $user_ip) {
@@ -558,24 +574,25 @@ if ($page != 'install') {
                     if ($user_ip->user_id == $user->data()->id) {
                         // Already logged for this user
                         $already_logged = true;
+
                         break;
                     }
                 }
 
-                if (!isset($already_logged)) {
+                if (! isset($already_logged)) {
                     // Not yet logged, do so now
-                    $queries->create('users_ips', array(
+                    $queries->create('users_ips', [
                         'user_id' => $user->data()->id,
                         'ip' => $ip
-                    ));
+                    ]);
                 }
             } else {
                 // Does the entry already belong to the current user?
                 if ($user_ip_logged[0]->user_id != $user->data()->id) {
-                    $queries->create('users_ips', array(
+                    $queries->create('users_ips', [
                         'user_id' => $user->data()->id,
                         'ip' => $ip
-                    ));
+                    ]);
                 }
             }
         }
@@ -584,23 +601,25 @@ if ($page != 'install') {
         foreach ($user->getGroups() as $group) {
             if ($group->force_tfa) {
                 $forced = true;
+
                 break;
             }
         }
 
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
-            if (!$user->data()->tfa_enabled) {
+            if (! $user->data()->tfa_enabled) {
                 if (strpos($_SERVER[REQUEST_URI], 'do=enable_tfa') === false) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
+
                     die();
                 }
             }
         }
 
         // Basic user variables
-        $smarty->assign('LOGGED_IN_USER', array(
+        $smarty->assign('LOGGED_IN_USER', [
             'username' => $user->getDisplayname(true),
             'nickname' => $user->getDisplayname(),
             'profile' => $user->getProfileURL(),
@@ -609,26 +628,26 @@ if ($page != 'install') {
             'user_title' => Output::getClean($user->data()->user_title),
             'avatar' => $user->getAvatar(),
             'uuid' => Output::getClean($user->data()->uuid)
-        ));
+        ]);
 
         // Panel access?
         if ($user->canViewACP()) {
-            $smarty->assign(array(
+            $smarty->assign([
                 'PANEL_LINK' => URL::build('/panel'),
                 'PANEL' => $language->get('moderator', 'staff_cp')
-            ));
+            ]);
         }
     } else {
         // Perform tasks for guests
-        if (!$_SESSION['checked'] || $_SESSION['checked'] <= strtotime('-5 minutes')) {
-            $already_online = $queries->getWhere('online_guests', array('ip', '=', $ip));
+        if (! $_SESSION['checked'] || $_SESSION['checked'] <= strtotime('-5 minutes')) {
+            $already_online = $queries->getWhere('online_guests', ['ip', '=', $ip]);
 
             $date = date('U');
 
             if (count($already_online)) {
-                $queries->update('online_guests', $already_online[0]->id, array('last_seen' => $date));
+                $queries->update('online_guests', $already_online[0]->id, ['last_seen' => $date]);
             } else {
-                $queries->create('online_guests', array('ip' => $ip, 'last_seen' => $date));
+                $queries->create('online_guests', ['ip' => $ip, 'last_seen' => $date]);
             }
 
             $_SESSION['checked'] = $date;
@@ -636,11 +655,7 @@ if ($page != 'install') {
     }
 
     // Auto unset signin tfa variables if set
-    if (strpos($_GET['route'], '/queries/') === false && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
-        unset($_SESSION['remember']);
-        unset($_SESSION['username']);
-        unset($_SESSION['email']);
-        unset($_SESSION['password']);
+    if (strpos($_GET['route'], '/queries/') === false && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (! isset($_POST['tfa_code']) && ! isset($_SESSION['mcassoc']))) {
+        unset($_SESSION['remember'], $_SESSION['username'], $_SESSION['email'], $_SESSION['password']);
     }
 }
-

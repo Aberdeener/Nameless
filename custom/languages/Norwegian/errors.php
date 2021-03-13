@@ -9,10 +9,8 @@
  *  Norwegian translation (norsk bokmål) - Error
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => 'Beklager!',
     '404_content' => 'Vi kunne ikke finne denne siden!',
     '404_back' => 'Tilbake',
@@ -31,4 +29,4 @@ $language = array(
     'fatal_error_message_admin' => 'Beklager, men det oppstod en feil. Feilmelding:',
     'in_file' => 'i filen <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'på linje <strong>{x}</strong>' // Don't replace {x}
-);
+];

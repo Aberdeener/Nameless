@@ -9,18 +9,25 @@
  *  Widget Base class
  */
 
-abstract class WidgetBase {
-
+abstract class WidgetBase
+{
     protected $_name,
-              $_pages,
-              $_location,
-              $_content,
-              $_description,
-              $_module,
-              $_order,
-              $_settings = null;
 
-    public function __construct($pages = array()) {
+              $_pages,
+
+              $_location,
+
+              $_content,
+
+              $_description,
+
+              $_module,
+
+              $_order,
+
+              $_settings;
+
+    public function __construct($pages = []) {
         $this->_pages = $pages;
     }
 
@@ -56,5 +63,5 @@ abstract class WidgetBase {
         return $this->_order;
     }
 
-    public abstract function initialise();
+    abstract public function initialise();
 }

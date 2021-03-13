@@ -10,10 +10,8 @@
  *  German Language - Time
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'time', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'weniger als eine Minute her',
@@ -27,4 +25,4 @@ $language = array(
     '_months' => '{x} Monate her',
     'about_1_year' => 'über 1 Jahr her',
     'over_x_years' => 'über {x} Jahre her'
-);
+];

@@ -14,10 +14,8 @@
  *  Japanese Language - Errors
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>',
     '404_content' => '=指定したページは存在しません=',
     '404_back' => '戻る',
@@ -36,4 +34,4 @@ $language = array(
     'fatal_error_message_admin' => 'ページ読み込み中に内部エラーが発生しました。エラーの詳細:',
     'in_file' => 'ファイル: <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'ライン(行): <strong>{x}</strong>' // Don't replace {x}
-);
+];

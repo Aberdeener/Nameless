@@ -9,25 +9,27 @@
  *  Recent reports dashboard collection item
  */
 
-class RecentReportsItem extends CollectionItemBase {
-
-    private $_smarty, 
-            $_language, 
+class RecentReportsItem extends CollectionItemBase
+{
+    private $_smarty,
+ 
+            $_language,
+ 
             $_cache;
 
     public function __construct($smarty, $language, $cache) {
         $cache->setCache('dashboard_main_items_collection');
+
         if ($cache->isCached('recent_reports')) {
             $from_cache = $cache->retrieve('recent_reports');
+
             if (isset($from_cache['order']))
                 $order = $from_cache['order'];
-            else
-                $order = 3;
+            else $order = 3;
 
             if (isset($from_cache['enabled']))
                 $enabled = $from_cache['enabled'];
-            else
-                $enabled = 1;
+            else $enabled = 1;
         } else {
             $order = 3;
             $enabled = 1;
@@ -51,10 +53,10 @@ class RecentReportsItem extends CollectionItemBase {
         } else {
             $queries = new Queries();
             $query = $queries->orderWhere('reports', 'status = 0', 'date_reported', 'DESC');
-            $data = array();
+            $data = [];
 
             if (count($query)) {
-                $users = array();
+                $users = [];
                 $i = 0;
 
                 foreach ($query as $item) {
@@ -62,7 +64,8 @@ class RecentReportsItem extends CollectionItemBase {
                         $reporter_user = $users[$item->reporter_id];
                     } else {
                         $reporter_user = new User($item->reporter_id);
-                        if (!$reporter_user->data())
+
+                        if (! $reporter_user->data())
                             continue;
                         $users[$item->reporter_id] = $reporter_user;
                     }
@@ -71,12 +74,13 @@ class RecentReportsItem extends CollectionItemBase {
                         $reported_user = $users[$item->reported_id];
                     } else {
                         $reported_user = new User($item->reported_id);
-                        if (!$reported_user->data())
+
+                        if (! $reported_user->data())
                             continue;
                         $users[$item->reported_id] = $reported_user;
                     }
 
-                    $data[] = array(
+                    $data[] = [
                         'url' => URL::build('/panel/users/reports/', 'id=' . Output::getClean($item->id)),
                         'reporter_username' => $reporter_user->getDisplayname(true),
                         'reporter_nickname' => $reporter_user->getDisplayname(),
@@ -97,7 +101,7 @@ class RecentReportsItem extends CollectionItemBase {
                         'link' => Output::getClean($item->link),
                         'ig_reported_mcname' => ($item->reported_mcname ? Output::getClean($item->reported_mcname) : ''),
                         'ig_reported_uuid' => ($item->reported_uuid ? Output::getClean($item->reported_uuid) : '')
-                    );
+                    ];
 
                     if (++$i == 5)
                         break;
@@ -107,7 +111,7 @@ class RecentReportsItem extends CollectionItemBase {
             $this->_cache->store('recent_reports_data', $data, 60);
         }
 
-        $this->_smarty->assign(array(
+        $this->_smarty->assign([
             'RECENT_REPORTS' => $this->_language->get('moderator', 'recent_reports'),
             'REPORTS' => $data,
             'NO_REPORTS' => $this->_language->get('moderator', 'no_open_reports'),
@@ -117,7 +121,7 @@ class RecentReportsItem extends CollectionItemBase {
             'WEBSITE' => $this->_language->get('moderator', 'website'),
             'INGAME' => $this->_language->get('moderator', 'ingame'),
             'VIEW' => $this->_language->get('general', 'view')
-        ));
+        ]);
 
         return $this->_smarty->fetch('collections/dashboard_items/recent_reports.tpl');
     }

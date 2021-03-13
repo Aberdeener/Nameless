@@ -1,8 +1,9 @@
 <?php
+
 // Returns set of users for the StaffCP Users tab
 header('Content-type: application/json;charset=utf-8');
 
-if (!$user->isLoggedIn() || !$user->hasPermission('admincp.users')) {
+if (! $user->isLoggedIn() || ! $user->hasPermission('admincp.users')) {
     die(json_encode('Unauthenticated'));
 }
 
@@ -10,12 +11,12 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 
 $db = DB::getInstance();
 
-$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users', array())->first()->total;
+$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
 $query = 'SELECT nl2_users.id as id, nl2_users.username as username, nl2_users.nickname as nickname, nl2_users.joined as joined FROM nl2_users';
 $where = '';
 $order = '';
 $limit = '';
-$params = array();
+$params = [];
 
 if (isset($_GET['search']) && $_GET['search']['value'] != '') {
     $where .= ' WHERE username LIKE ? OR nickname LIKE ? OR email LIKE ?';
@@ -23,7 +24,7 @@ if (isset($_GET['search']) && $_GET['search']['value'] != '') {
 }
 
 if (isset($_GET['order']) && count($_GET['order'])) {
-    $orderBy = array();
+    $orderBy = [];
 
     for ($i = 0, $j = count($_GET['order']); $i < $j; $i++) {
         $column = intval($_GET['order'][$i]['column']);
@@ -61,8 +62,8 @@ if (strlen($where) > 0) {
 }
 
 $results = $db->query($query . $where . $order . $limit, $params)->results();
-$data = array();
-$groups = array();
+$data = [];
+$groups = [];
 
 if (count($results)) {
     foreach ($results as $result) {
@@ -73,7 +74,7 @@ if (count($results)) {
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group
-        $group = DB::getInstance()->query('SELECT `name` FROM nl2_groups WHERE id = (SELECT group_id FROM nl2_users_groups WHERE user_id = ? ORDER BY `order` ASC LIMIT 1)', array($result->id));
+        $group = DB::getInstance()->query('SELECT `name` FROM nl2_groups WHERE id = (SELECT group_id FROM nl2_users_groups WHERE user_id = ? ORDER BY `order` ASC LIMIT 1)', [$result->id]);
         $obj->groupName = $group->first()->name;
 
         $data[] = $obj;
@@ -81,11 +82,11 @@ if (count($results)) {
 }
 
 echo json_encode(
-    array(
+    [
         'draw' => isset($_GET['draw']) ? intval($_GET['draw']) : 0,
         'recordsTotal' => $total,
         'recordsFiltered' => isset($totalFiltered) ? $totalFiltered : $total,
         'data' => $data
-    ),
+    ],
     JSON_PRETTY_PRINT
 );

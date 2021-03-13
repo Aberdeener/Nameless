@@ -9,9 +9,21 @@
  *  Base template class
  */
 
-abstract class TemplateBase {
-    
-    protected $_name = '', $_version = '', $_nameless_version = '', $_author = '', $_settings = '', $_css = array(), $_js = array();
+abstract class TemplateBase
+{
+    protected $_name = '',
+
+ $_version = '',
+
+ $_nameless_version = '',
+
+ $_author = '',
+
+ $_settings = '',
+
+ $_css = [],
+
+ $_js = [];
 
     public function __construct($name, $version, $nameless_version, $author) {
         $this->_name = $name;
@@ -20,7 +32,7 @@ abstract class TemplateBase {
         $this->_author = $author;
     }
 
-    public abstract function onPageLoad();
+    abstract public function onPageLoad();
 
     public function addCSSFiles($files) {
         if (is_array($files) && count($files)) {
@@ -94,18 +106,18 @@ abstract class TemplateBase {
     }
 
     public function displayTemplate($template, $smarty) {
-        $smarty->assign(array(
+        $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
-        ));
+        ]);
         $smarty->display($template);
     }
 
     public function getTemplate($template, $smarty) {
-        $smarty->assign(array(
+        $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
-        ));
+        ]);
 
         return $smarty->fetch($template);
     }

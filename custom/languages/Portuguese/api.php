@@ -11,8 +11,7 @@
  *  Last Update: 01/03/2021
  */
 
-$language = array(
-
+$language = [
     // Errors
     'api_disabled' => 'A API está desativada',
     'unknown_error' => 'Erro desconhecido',
@@ -65,4 +64,4 @@ $language = array(
     'discord_id_set' => 'Discord ID definido com sucesso',
     'discord_settings_updated' => 'Configurações do Discord atualizadas com sucesso',
     'discord_usernames_updated' => 'Nomes de usuário do Discord atualizados com sucesso'
-);
+];

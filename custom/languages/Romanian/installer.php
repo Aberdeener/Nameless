@@ -11,10 +11,8 @@
  *  Last Update: 17/11/2018
  */
 
-$language = array(
-    /*
-     *  Installation
-     */
+$language = [
+    // Installation
     'install' => 'Instalare',
     'pre-release' => 'pre-lansare',
     'installer_welcome' => 'Bine ați venit la versiunea 2.0-pre-release a programului NamelessMC.',
@@ -105,4 +103,4 @@ $language = array(
     'config_not_writable' => 'The config file is not writable.',
 
     'session_doesnt_exist' => 'Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again, and if the issue persists, please contact your web host for support.'
-);
+];

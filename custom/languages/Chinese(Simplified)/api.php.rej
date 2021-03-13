@@ -1,0 +1,29 @@
+***************
+*** 11,18 ****
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
+- $language = array(
+- 
+      // Errors
+      'api_disabled' => 'API is disabled',
+      'unknown_error' => '未知错误',
+--- 11,17 ----
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
++ $language = [
+      // Errors
+      'api_disabled' => 'API is disabled',
+      'unknown_error' => '未知错误',
+***************
+*** 65,68 ****
+      'discord_id_set' => 'Discord ID 更新成功',
+      'discord_settings_updated' => 'Discord settings updated successfully',
+      'discord_usernames_updated' => 'Discord usernames updated successfully'
+- );
+--- 64,67 ----
+      'discord_id_set' => 'Discord ID 更新成功',
+      'discord_settings_updated' => 'Discord settings updated successfully',
+      'discord_usernames_updated' => 'Discord usernames updated successfully'
++ ];

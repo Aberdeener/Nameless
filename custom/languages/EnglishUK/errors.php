@@ -9,10 +9,8 @@
  *  EnglishUK Language - Errors
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => 'Sorry!',
     '404_content' => 'We couldn\'t find that page.',
     '404_back' => 'Go back',
@@ -31,4 +29,4 @@ $language = array(
     'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
     'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
-);
+];

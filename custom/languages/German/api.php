@@ -10,8 +10,7 @@
  *  German Language - API
  */
 
-$language = array(
-
+$language = [
     // Errors
     'api_disabled' => 'API ist deaktiviert',
     'unknown_error' => 'Unbekannter Fehler',
@@ -65,4 +64,4 @@ $language = array(
     'discord_id_set' => 'Discord ID erfolgreich eingestellt',
     'discord_settings_updated' => 'Discord Einstellungen erfolgreich aktualisiert',
     'discord_usernames_updated' => 'Discord-Benutzernamen wurden erfolgreich aktualisiert'
-);
+];

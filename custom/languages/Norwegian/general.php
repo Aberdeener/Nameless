@@ -9,10 +9,8 @@
  *  Norwegian translation (norsk bokmål) - General
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Help',
     'submit' => 'Utfør',
     'register' => 'Registrer',
@@ -70,9 +68,7 @@ $language = array(
     'link' => 'Koble til',
     'unlink' => 'Koble fra',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => 'Kontakt',
     'message' => 'Melding',
     'email_address' => 'E-postadresse',
@@ -82,27 +78,18 @@ $language = array(
     'contact_message_sent' => 'Meldingen har blitt sendt!',
     'contact_message_limit' => 'Du kan kun sende èn melding hver time. Du kan sende en ny melding om {x} minutter.', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Hjem',
     'more' => 'Mer',
     'status' => 'Status',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Sosiale medier',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Du kan formatere ditt innlegg med Markdown. For mer informasjon, sjekk <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>her</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'Pålogget',
     'offline' => 'Frakoblet',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -120,15 +107,11 @@ $language = array(
     'no_players_online' => 'Det er ingen spillere pålogget',
     'and_x_more' => 'og {x} flere', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Denne nettsiden benytter seg av cookies for å forbedre din brukeropplevelse. Ved å registrere deg på vår nettside eller ved å lukke denne meldingen, aksepterer du dette.',
     'cookie_agree' => 'Enig',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Statistikk',
     'users_registered' => 'Brukere registrert',
     'latest_member' => 'Siste bruker registrert',
@@ -147,13 +130,9 @@ $language = array(
     'no_default_server' => 'Det finnes ingen standardserver, vennligst velg en i StaffCP - Integreringer - Minecraft.',
     'server_status' => 'Serverstatus',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Personvernerklæring',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Omdirigerer...<br />Hvis du ikke blir omdirigert automatisk, vennligst trykk <a href="{x}" rel="nofollow noopener">her</a>.' // Don't replace {x} which is the redirect URL
-);
+];

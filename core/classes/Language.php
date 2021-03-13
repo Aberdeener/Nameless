@@ -8,32 +8,35 @@
  *
  *  Language class
  */
-class Language {
-
+class Language
+{
     private $_activeLanguage,
+
         $_activeLanguageDirectory,
+
         $_activeLanguageEntries,
+
         $_module;
 
     // Construct Language class
     // Params: 	$active_language (string) 	- contains the active language set in cache (optional)
     //			$module (string)			- contains the path of the language files for custom modules (optional)
     public function __construct($module = null, $active_language = null) {
-        if (!$active_language) {
+        if (! $active_language) {
             // No active language set, default to EnglishUK
-            $this->_activeLanguage         = 'EnglishUK';
+            $this->_activeLanguage = 'EnglishUK';
         } else {
-            $this->_activeLanguage         = $active_language;
+            $this->_activeLanguage = $active_language;
         }
 
         // Require file
-        if (!$module || ($module && $module == 'core')) {
-            $path = join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'custom', 'languages', $this->_activeLanguage));
+        if (! $module || ($module && $module == 'core')) {
+            $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage]);
             $this->_module = 'Core';
         } else {
             $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . $this->_activeLanguage;
 
-            if (!is_dir($path)) {
+            if (! is_dir($path)) {
                 $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . 'EnglishUK';
             }
 
@@ -44,16 +47,16 @@ class Language {
 
         // HTML language definition
         if (is_file($path . DIRECTORY_SEPARATOR . 'version.php')) {
-            require($path . DIRECTORY_SEPARATOR . 'version.php');
+            require ($path . DIRECTORY_SEPARATOR . 'version.php');
 
             if (isset($language_html)) {
-                if (!defined('HTML_LANG')) {
+                if (! defined('HTML_LANG')) {
                     define('HTML_LANG', $language_html);
                 }
             }
 
             if (isset($language_rtl)) {
-                if (!defined('HTML_RTL')) {
+                if (! defined('HTML_RTL')) {
                     define('HTML_RTL', $language_rtl);
                 }
             }
@@ -66,11 +69,11 @@ class Language {
     //          $number (int)  - contains the number of items to pass through to a plural function (optional)
     public function get($file, $term, $number = null) {
         // Ensure the file exists + term is set
-        if (!is_file($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php')) {
+        if (! is_file($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php')) {
             if ($this->_activeLanguage != 'EnglishUK') {
                 if (is_file(rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . 'EnglishUK' . DIRECTORY_SEPARATOR . $file . '.php')) {
-                    if (!isset($this->_activeLanguageEntries[$file])) {
-                        require(rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . 'EnglishUK' . DIRECTORY_SEPARATOR . $file . '.php');
+                    if (! isset($this->_activeLanguageEntries[$file])) {
+                        require (rtrim($this->_activeLanguageDirectory, $this->_activeLanguage) . DIRECTORY_SEPARATOR . 'EnglishUK' . DIRECTORY_SEPARATOR . $file . '.php');
                         $this->_activeLanguageEntries[$file] = $language;
                     }
                 } else {
@@ -80,8 +83,8 @@ class Language {
                 die('Error loading language file ' . Output::getClean($file) . '.php in ' . ($this->_module == 'Core' ? 'Core' : $this->_module));
             }
         } else {
-            if (!isset($this->_activeLanguageEntries[$file])) {
-                require($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
+            if (! isset($this->_activeLanguageEntries[$file])) {
+                require ($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
                 $this->_activeLanguageEntries[$file] = $language;
             }
         }
@@ -91,20 +94,20 @@ class Language {
             if (is_array($this->_activeLanguageEntries[$file][$term])) {
                 if (function_exists('pluralForm') && $number != null) {
                     return pluralForm($number, $this->_activeLanguageEntries[$file][$term]);
-                } else {
-                    return 'Plural form not set for ' . Output::getClean($term);
                 }
-            } else {
-                return $this->_activeLanguageEntries[$file][$term];
+
+                    return 'Plural form not set for ' . Output::getClean($term);
             }
-        } else {
+
+                return $this->_activeLanguageEntries[$file][$term];
+        }
             // Not set, display an error
             return 'Term ' . Output::getClean($term) . ' not set (file: ' . $file . '.php)';
-        }
     }
 
     public function set($file, $term, $value) {
         $editing_file = ($this->_activeLanguageDirectory . DIRECTORY_SEPARATOR . $file . '.php');
+
         if (is_file($editing_file) && is_writable($editing_file)) {
             return file_put_contents($editing_file, html_entity_decode(
                 str_replace(
@@ -113,7 +116,9 @@ class Language {
                     htmlspecialchars(file_get_contents($editing_file))
                 )
             ));
-        } else return false;
+        }
+
+return false;
     }
 
     // Return the current time language
@@ -121,6 +126,7 @@ class Language {
     public function getTimeLanguage() {
         // Return time language variable
         $this->get('time', 'time');
+
         return $this->_activeLanguageEntries['time'];
     }
 

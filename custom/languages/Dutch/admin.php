@@ -11,10 +11,8 @@
  *  Nederlandse taal - Admin
  */
 
-$language = array(
-    /*
-     *  Admin controle paneel
-     */
+$language = [
+    // Admin controle paneel
     // Login
     're-authenticate' => 'Gelieve opnieuw te verifiëren',
 
@@ -743,5 +741,4 @@ $language = array(
     'discord_bot_error_unauthorized' => 'Website API-sleutel is ongeldig',
     'discord_bot_error_invrole' => 'Opgegeven rol-ID is ongeldig.',
     'discord_bot_error_hierarchy' => 'De bot kan de rollen van deze gebruiker niet bewerken.'
-
-);
+];

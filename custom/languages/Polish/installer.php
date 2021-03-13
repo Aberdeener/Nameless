@@ -9,10 +9,8 @@
  *  Polish Language - Installation
  */
 
-$language = array(
-    /*
-     *  Installation
-     */
+$language = [
+    // Installation
     'install' => 'Zainstaluj',
     'pre-release' => 'pre-release',
     'installer_welcome' => 'Witamy w wersji NamelessMc 2.0 pre-release.',
@@ -103,4 +101,4 @@ $language = array(
     'config_not_writable' => 'Plik konfiguracyjny jest zablokowany.',
 
     'session_doesnt_exist' => 'Nie można zapisać sesji. Jest to wymagane to korzystania z NamelessMC. Spróbuj ponownie, jeśli problem się powtarza skontaktuj się ze swoim hostingiem.'
-);
+];

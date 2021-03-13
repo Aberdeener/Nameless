@@ -1,0 +1,29 @@
+***************
+*** 10,17 ****
+   *  Czech Language - API
+   */
+  
+- $language = array (
+- 
+      // Errors
+      'api_disabled' => 'API je zakázáno',
+      'unknown_error' => 'Neznámá chyba',
+--- 10,16 ----
+   *  Czech Language - API
+   */
+  
++ $language = [
+      // Errors
+      'api_disabled' => 'API je zakázáno',
+      'unknown_error' => 'Neznámá chyba',
+***************
+*** 62,65 ****
+      'discord_id_set' => 'ID Discordu úspěšně nastaveno',
+      'discord_settings_updated' => 'Nastavení Discordu úspěšně aktualizována',
+      'discord_usernames_updated' => 'Uživatelská jména na Discordu úspěšně aktualizována'
+- );
+--- 61,64 ----
+      'discord_id_set' => 'ID Discordu úspěšně nastaveno',
+      'discord_settings_updated' => 'Nastavení Discordu úspěšně aktualizována',
+      'discord_usernames_updated' => 'Uživatelská jména na Discordu úspěšně aktualizována'
++ ];

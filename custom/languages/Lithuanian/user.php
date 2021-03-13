@@ -10,7 +10,7 @@
  *  Lithuanian Language - Users
  */
 
-$language = array(
+$language = [
     // Change this for the account validation message
     'validate_account_command' => 'Norėdami užbaigti registraciją, rašykite komandą <strong>/validate {x}</strong> žaidime.', // Don't replace {x}
 
@@ -245,4 +245,4 @@ $language = array(
     'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
     'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
     'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
-);
+];

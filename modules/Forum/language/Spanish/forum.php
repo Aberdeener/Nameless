@@ -11,10 +11,8 @@
  *  Spanish Language for Forum module
  */
 
-$language = array(
-    /*
-     *  Forums
-     */
+$language = [
+    // Forums
     'forum' => 'Foro',
     'forums' => 'Foros',
     'forum_index' => 'Inicio',
@@ -214,4 +212,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Temas',
     'posts_title' => 'Publicaciones',
-);
+];

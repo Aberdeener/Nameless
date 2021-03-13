@@ -1,0 +1,28 @@
+***************
+*** 10,16 ****
+   *  Czech Language - Moderator terms
+   */
+  
+- $language = array (
+      'staff_cp' => 'Panel',
+      'overview' => 'Nástěnka',
+  
+--- 10,16 ----
+   *  Czech Language - Moderator terms
+   */
+  
++ $language = [
+      'staff_cp' => 'Panel',
+      'overview' => 'Nástěnka',
+  
+***************
+*** 105,109 ****
+      // Users
+      'recent_registrations' => 'Poslední registrace',
+      'reset_profile_banner' => 'Obnovit profilový obrázek'
+- 
+- );--- 105,108 ----
+      // Users
+      'recent_registrations' => 'Poslední registrace',
+      'reset_profile_banner' => 'Obnovit profilový obrázek'
++ ];

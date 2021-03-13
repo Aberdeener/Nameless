@@ -1,0 +1,49 @@
+***************
+*** 10,19 ****
+   *  Czech Language - Admin
+   */
+  
+- $language = array (
+-     /*
+-      *  Admin Control Panel
+-      */
+      // Login
+      're-authenticate' => 'Znovu se přihlaste',
+  
+--- 10,17 ----
+   *  Czech Language - Admin
+   */
+  
++ $language = [
++     // Admin Control Panel
+      // Login
+      're-authenticate' => 'Znovu se přihlaste',
+  
+***************
+*** 513,519 ****
+      'show_nickname_instead_of_username' => 'Zobrazit přezdívku uživatele namísto jeho uživatelského jména?',
+  
+      // Custom Pages
+- 	'pages' => 'Stránky',
+      'custom_pages' => 'Vlastní stránky',
+      'new_page' => '<i class="fa fa-plus-circle"></i> Nová stránka',
+      'no_custom_pages' => 'Nebyly vytvořeny žádné stránky.',
+--- 511,517 ----
+      'show_nickname_instead_of_username' => 'Zobrazit přezdívku uživatele namísto jeho uživatelského jména?',
+  
+      // Custom Pages
++     'pages' => 'Stránky',
+      'custom_pages' => 'Vlastní stránky',
+      'new_page' => '<i class="fa fa-plus-circle"></i> Nová stránka',
+      'no_custom_pages' => 'Nebyly vytvořeny žádné stránky.',
+***************
+*** 720,723 ****
+      'discord_bot_error_unauthorized' => 'API klíč webu je neplatný',
+      'discord_bot_error_invrole' => 'Zadané ID role je neplatné.',
+      'discord_bot_error_hierarchy' => 'Bot nemůže upravit role tohoto uživatele.'
+- );
+--- 718,721 ----
+      'discord_bot_error_unauthorized' => 'API klíč webu je neplatný',
+      'discord_bot_error_invrole' => 'Zadané ID role je neplatné.',
+      'discord_bot_error_hierarchy' => 'Bot nemůže upravit role tohoto uživatele.'
++ ];

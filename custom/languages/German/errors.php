@@ -10,10 +10,8 @@
  *  German Language - Errors
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => 'Entschuldige!',
     '404_content' => 'Wir konnten diese Seite nicht finden.</br>Vielleicht wurde sie aufgegessen :0',
     '404_back' => 'Zurück',
@@ -32,4 +30,4 @@ $language = array(
     'fatal_error_message_admin' => 'Entschuldigung, aber beim Laden der Seite ist etwas schief gelaufen. Fehlerdetails:',
     'in_file' => 'In File <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'In Zeile <strong>{x}</strong>' // Don't replace {x}
-);
+];

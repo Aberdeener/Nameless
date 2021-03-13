@@ -9,12 +9,12 @@
  *  Collection manager class
  */
 
-class CollectionManager {
-
-    private static $_collections = array();
+class CollectionManager
+{
+    private static $_collections = [];
 
     public static function addItemToCollection($collection, $item) {
-        if (!isset(self::$_collections[$collection])) {
+        if (! isset(self::$_collections[$collection])) {
             self::$_collections[$collection] = new Collection();
         }
 
@@ -22,20 +22,20 @@ class CollectionManager {
     }
 
     public static function getFullCollection($collection) {
-        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getAllItems() : array());
+        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getAllItems() : []);
     }
 
     public static function getEnabledCollection($collection) {
-        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getEnabledItems() : array());
+        return (isset(self::$_collections[$collection]) ? self::$_collections[$collection]->getEnabledItems() : []);
     }
 }
 
-class Collection {
-
+class Collection
+{
     private $_items;
 
     public function __construct() {
-        $this->_items = array();
+        $this->_items = [];
     }
 
     public function addItem($item) {
@@ -43,7 +43,7 @@ class Collection {
     }
 
     public function getEnabledItems() {
-        $items = array();
+        $items = [];
 
         foreach ($this->_items as $item) {
             if ($item->isEnabled()) {

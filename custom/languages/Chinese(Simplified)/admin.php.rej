@@ -1,0 +1,33 @@
+***************
+*** 11,20 ****
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
+- $language = array(
+-     /*
+-      *  Admin Control Panel
+-      */
+      // Login
+      're-authenticate' => '请重新验证您的账户所有权',
+  
+--- 11,18 ----
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
++ $language = [
++     // Admin Control Panel
+      // Login
+      're-authenticate' => '请重新验证您的账户所有权',
+  
+***************
+*** 750,754 ****
+      'discord_bot_error_unauthorized' => 'Website API key is invalid',
+      'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+      'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
+- 
+- );
+--- 748,751 ----
+      'discord_bot_error_unauthorized' => 'Website API key is invalid',
+      'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
+      'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
++ ];

@@ -9,8 +9,8 @@
  *  Token class
  */
 
-class Token {
-
+class Token
+{
     // Generate a form token and store in a session variable
     // No parameters
     public static function generate() {
@@ -27,10 +27,9 @@ class Token {
         if (Session::exists($tokenName)) {
             return Session::get($tokenName);
         }
-        else {
+         
             // Otherwise generate a new one
             return self::generate();
-        }
     }
 
     // Check a token in session matches

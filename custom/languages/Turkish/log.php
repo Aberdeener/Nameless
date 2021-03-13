@@ -1,5 +1,6 @@
 <?php
-$language = array(
+
+$language = [
     //info
     'info_report' => 'Bildirilen',
     'info_login' => 'Kullanıcı Oturum Açtı!',
@@ -12,7 +13,7 @@ $language = array(
 
     //forums
     'info_forums_delete_post' => 'Silinmiş mesaj',
-    'info_forums_delete_topic' =>'Silinmiş konu',
+    'info_forums_delete_topic' => 'Silinmiş konu',
     'info_forums_edit_post' => 'Düzenlenmiş mesaj',
     'info_forums_lock' => 'Kilitle',
     'info_forums_unlock' => 'Kiliti kaldır',
@@ -24,5 +25,4 @@ $language = array(
     'info_forum_move' => 'Taşı',
     'info_forum_merge' => 'Birleştir',
     'info_forum_react' => 'Tepki gösterdi',
-);
-?>
+];

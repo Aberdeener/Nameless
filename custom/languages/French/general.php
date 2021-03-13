@@ -9,10 +9,8 @@
  *  French Language - Users
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'submit' => 'Soumettre',
     'register' => 'Enregistrer',
     'already_registered' => 'Déjà enregistré?',
@@ -67,9 +65,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => 'Contact',
     'message' => 'Message',
     'email_address' => 'Adresse mail',
@@ -79,28 +75,18 @@ $language = array(
     'contact_message_sent' => 'Message envoyé avec succès.',
     'contact_message_limit' => 'Vous ne pouvez envoyer qu’un message par heure. Vous pourrez ensuite envoyer un message dans {x} minutes.', // Don't replace {x}
 
-
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Accueil',
     'more' => 'Plus',
     'status' => 'Statut',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Social',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Vous pouvez formater votre message à l\'aide de Markdown. Pour plus d\'informations, voir <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>ici</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'En ligne',
     'offline' => 'Hors ligne',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -118,15 +104,11 @@ $language = array(
     'no_players_online' => 'Il n’y a pas de joueurs en ligne.',
     'and_x_more' => 'et {x} plus', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Ce site web utilise des cookies pour améliorer votre expérience de navigation. En vous inscrivant sur notre site web ou en fermant le présent avis, vous acceptez leur utilisation.',
     'cookie_agree' => 'Accepter',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Statistiques',
     'users_registered' => 'Utilisateurs enregistrés',
     'latest_member' => 'Dernier membre',
@@ -143,13 +125,9 @@ $language = array(
     'online_guests' => 'Invités en ligne',
     'total_online' => 'Total en ligne', // this is Online Users + Online Guests
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Politique de confidentialité',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Redirection... Si vous n\'êtes pas redirigé automatiquement, veuillez cliquer sur <a href="{x}" rel="nofollow noopener">ici</a>' // Don't replace {x} which is the redirect URL
-);
+];

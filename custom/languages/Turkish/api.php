@@ -9,8 +9,7 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
-
+$language = [
     // Errors
     'api_disabled' => 'API is disabled',
     'unknown_error' => 'Bilinmeyen hata',
@@ -63,4 +62,4 @@ $language = array(
     'discord_id_set' => 'Discord ID set successfully',
     'discord_settings_updated' => 'Discord settings updated successfully',
     'discord_usernames_updated' => 'Discord usernames updated successfully'
-);
+];

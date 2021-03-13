@@ -9,15 +9,11 @@
  *  Italian Language - Users
  */
 
-$language = array(
-    /*
-     *  Change this for the account validation message
-     */
+$language = [
+    // Change this for the account validation message
     'validate_account_command' => 'Per completare la registrazione, per favore esegui in gioco il comando <strong>/validate {x}</strong>.', // Don't replace {x}
 
-    /*
-     *  User Related
-     */
+    // User Related
     'guest' => 'Ospite',
     'guests' => 'Ospiti',
 
@@ -134,7 +130,7 @@ $language = array(
     // Login
     'successful_login' => 'Hai effettuato il log in con successo.',
     'incorrect_details' => 'Hai inserito dati errati.',
-    'inactive_account' => "Il tuo account è inattivo. Si prega di controllare le e-mail per un link di convalida, controlla anche la tua cartella di posta indesiderata.",
+    'inactive_account' => 'Il tuo account è inattivo. Si prega di controllare le e-mail per un link di convalida, controlla anche la tua cartella di posta indesiderata.',
     'account_banned' => "Quell'account è bannato.",
     'forgot_password' => 'Ha dimenticato la password?',
     'remember_me' => 'Ricordati di me',
@@ -224,16 +220,12 @@ $language = array(
     'latest_profile_posts' => 'Ultimi post del profilo',
     'no_profile_posts' => 'Nessun post del profilo.',
 
-    /*
-     *  Infractions area
-     */
+    // Infractions area
     'you_have_been_banned' => 'Sei stato bannato!',
     'you_have_received_a_warning' => 'Hai ricevuto un avvertimento!',
     'acknowledge' => 'Acknowledge',
 
-    /*
-     *  Hooks
-     */
+    // Hooks
     'user_x_has_registered' => '{x} si è unito ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
 
@@ -252,4 +244,4 @@ $language = array(
     'discord_communication_error' => "Si è verificato un errore durante la comunicazione con il Bot di Discord. Assicurati che il bot sia in esecuzione e che l'URL del tuo Bot sia corretto.",
     'discord_unknown_error' => 'Si è verificato un errore sconosciuto durante la sincronizzazione dei ruoli di Discord. Contatta un amministratore.',
     'discord_id_help' => 'Per informazioni su dove trovare gli ID Discord, leggi <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">questo.</a>'
-);
+];

@@ -9,7 +9,7 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
+$language = [
     'mod_cp' => 'Moderatör Panel',
     'staff_cp' => 'Yönetim Panel',
     'overview' => 'Görüntüle',
@@ -104,5 +104,4 @@ $language = array(
     // Users
     'recent_registrations' => 'Son Kayıtlar',
     'reset_profile_banner' => 'Profil banner(afiş) sıfırla'
-
-);
+];

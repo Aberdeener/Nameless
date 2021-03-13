@@ -15,73 +15,76 @@ define('PAGE', 'panel');
 define('PARENT_PAGE', 'users');
 define('PANEL_PAGE', 'reports');
 $page_title = $language->get('moderator', 'reports');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+
+require_once (ROOT_PATH . '/core/templates/backend_init.php');
 
 $timeago = new Timeago(TIMEZONE);
 
-if (!isset($_GET['id'])) {
+if (! isset($_GET['id'])) {
     // Get all reports
-    $reports = array();
+    $reports = [];
 
-    if (!isset($_GET['view'])) {
+    if (! isset($_GET['view'])) {
         // Get open reports
-        if (!isset($_GET['uid'])) {
+        if (! isset($_GET['uid'])) {
             $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', true);
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
         } else {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
+            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [intval($_GET['uid'])])->results();
             $url = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])));
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'CHANGE_VIEW' => $language->get('moderator', 'view_closed'),
             'CHANGE_VIEW_LINK' => $change_view_link
-        ));
+        ]);
     } else {
         // Get closed reports
-        if (!isset($_GET['uid'])) {
+        if (! isset($_GET['uid'])) {
             $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 ORDER BY date_updated DESC')->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&');
             $change_view_link = URL::build('/panel/users/reports');
         } else {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', array(intval($_GET['uid'])))->results();
+            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', [intval($_GET['uid'])])->results();
             $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . intval(Output::getClean($_GET['uid'])) . '&');
             $change_view_link = URL::build('/panel/users/reports/', 'uid=' . intval(Output::getClean($_GET['uid'])));
         }
 
-        $smarty->assign(array(
+        $smarty->assign([
             'CHANGE_VIEW' => $language->get('moderator', 'view_open'),
             'CHANGE_VIEW_LINK' => $change_view_link
-        ));
+        ]);
     }
 
     if (count($report_query)) {
         // Get page
         if (isset($_GET['p'])) {
-            if (!is_numeric($_GET['p'])) {
+            if (! is_numeric($_GET['p'])) {
                 Redirect::to($url);
+
                 die();
-            } else {
+            }
+
                 if ($_GET['p'] == 1) {
                     // Avoid bug in pagination class
                     Redirect::to($url);
+
                     die();
                 }
                 $p = $_GET['p'];
-            }
         } else {
             $p = 1;
         }
 
-        $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
+        $paginator = new Paginator((isset($template_pagination) ? $template_pagination : []));
         $results = $paginator->getLimited($report_query, 10, $p, count($report_query));
         $pagination = $paginator->generate(7, $url);
 
         foreach ($results->data as $report) {
             // Get comments count
-            $comments = $queries->getWhere('reports_comments', array('report_id', '=', $report->id));
+            $comments = $queries->getWhere('reports_comments', ['report_id', '=', $report->id]);
             $comments = count($comments);
 
             $target_user = new User($report->reported_id);
@@ -102,7 +105,7 @@ if (!isset($_GET['id'])) {
 
             $updated_by_user = new User($report->updated_by);
 
-            $reports[] = array(
+            $reports[] = [
                 'id' => $report->id,
                 'user_reported' => $user_reported,
                 'user_profile' => $user_profile,
@@ -118,12 +121,12 @@ if (!isset($_GET['id'])) {
                 'updated_at' => ($report->updated ? $timeago->inWords(date('Y-m-d H:i:s', $report->updated), $language->getTimeLanguage()) : $timeago->inWords($report->date_updated, $language->getTimeLanguage())),
                 'updated_at_full' => ($report->updated ? date('d M Y, H:i', $report->updated) : date('d M Y, H:i', strtotime($report->date_updated))),
                 'comments' => $comments
-            );
+            ];
         }
 
         $smarty->assign('PAGINATION', $pagination);
     } else {
-        if (!isset($_GET['view'])) {
+        if (! isset($_GET['view'])) {
             $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_open_reports'));
         } else {
             $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_closed_reports'));
@@ -135,57 +138,59 @@ if (!isset($_GET['id'])) {
     }
 
     // Smarty variables
-    $smarty->assign(array(
+    $smarty->assign([
         'ALL_REPORTS' => $reports,
         'VIEW' => $language->get('general', 'view'),
         'USER_REPORTED' => $language->get('moderator', 'user_reported'),
         'COMMENTS' => $language->get('moderator', 'comments'),
         'UPDATED_BY' => $language->get('moderator', 'updated_by'),
         'ACTIONS' => $language->get('moderator', 'actions')
-    ));
+    ]);
 
     $template_file = 'core/users_reports.tpl';
 } else {
     // Get report by ID
-    if (!isset($_GET['action'])) {
-        $report = $queries->getWhere('reports', array('id', '=', $_GET['id']));
-        if (!count($report)) {
+    if (! isset($_GET['action'])) {
+        $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
+
+        if (! count($report)) {
             Redirect::to(URL::build('/panel/users/reports'));
+
             die();
         }
         $report = $report[0];
 
         // Check input
         if (Input::exists()) {
-            $errors = array();
+            $errors = [];
 
             // Check token
             if (Token::check()) {
                 // Valid token
                 $validate = new Validate();
 
-                $validation = $validate->check($_POST, array(
-                    'content' => array(
+                $validation = $validate->check($_POST, [
+                    'content' => [
                         'required' => true,
                         'min' => 1,
                         'max' => 10000
-                    )
-                ));
+                    ]
+                ]);
 
                 if ($validation->passed()) {
-                    $queries->create('reports_comments', array(
+                    $queries->create('reports_comments', [
                         'report_id' => $report->id,
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'comment_content' => Output::getClean(Input::get('content')),
                         'date' => date('U')
-                    ));
+                    ]);
 
-                    $queries->update('reports', $report->id, array(
+                    $queries->update('reports', $report->id, [
                         'updated_by' => $user->data()->id,
                         'updated' => date('U'),
                         'date_updated' => date('Y-m-d H:i:s')
-                    ));
+                    ]);
 
                     $success = $language->get('moderator', 'comment_created');
                 } else {
@@ -199,12 +204,13 @@ if (!isset($_GET['id'])) {
         }
 
         // Get comments
-        $comments = $queries->getWhere('reports_comments', array('report_id', '=', $report->id));
-        $smarty_comments = array();
+        $comments = $queries->getWhere('reports_comments', ['report_id', '=', $report->id]);
+        $smarty_comments = [];
+
         foreach ($comments as $comment) {
             $comment_user = new User($comment->commenter_id);
 
-            $smarty_comments[] = array(
+            $smarty_comments[] = [
                 'username' => $comment_user->getDisplayname(),
                 'profile' => URL::build('/panel/user/' . Output::getClean($comment->commenter_id . '-' . $comment_user->data()->username)),
                 'style' => $comment_user->getGroupClass(),
@@ -212,11 +218,12 @@ if (!isset($_GET['id'])) {
                 'content' => Output::getPurified(Output::getDecoded($comment->comment_content)),
                 'date' => ($comment->date ? date('d M Y, H:i', $comment->date) : date('d M Y, H:i', strtotime($comment->comment_date))),
                 'date_friendly' => ($comment->date ? $timeago->inWords(date('Y-m-d H:i:s', $comment->date), $language->getTimeLanguage()) : $timeago->inWords($comment->comment_date, $language->getTimeLanguage()))
-            );
+            ];
         }
 
-        if (!$report->reported_id) {
+        if (! $report->reported_id) {
             $reported_user = new User($report->reported_uuid, 'uuid');
+
             if ($reported_user->data()) {
                 $reported_user_profile = URL::build('/panel/user/' . Output::getClean($reported_user->data()->id . '-' . $reported_user->data()->username));
                 $reported_user_style = $reported_user->getGroupClass();
@@ -240,7 +247,7 @@ if (!isset($_GET['id'])) {
         $reporter_user = new User($report->reporter_id);
 
         // Smarty variables
-        $smarty->assign(array(
+        $smarty->assign([
             'REPORTS_LINK' => URL::build('/panel/users/reports'),
             'VIEWING_REPORT' => $language->get('moderator', 'viewing_report'),
             'BACK' => $language->get('general', 'back'),
@@ -262,19 +269,19 @@ if (!isset($_GET['id'])) {
             'NO_COMMENTS' => $language->get('moderator', 'no_comments'),
             'NEW_COMMENT' => $language->get('moderator', 'new_comment'),
             'TYPE' => $report->type
-        ));
+        ]);
 
         // Close/reopen link
         if ($report->status == 0) {
-            $smarty->assign(array(
+            $smarty->assign([
                 'CLOSE_LINK' => URL::build('/panel/users/reports/', 'action=close&id=' . $report->id),
                 'CLOSE_REPORT' => $language->get('moderator', 'close_report')
-            ));
+            ]);
         } else {
-            $smarty->assign(array(
+            $smarty->assign([
                 'REOPEN_LINK' => URL::build('/panel/users/reports/', 'action=open&id=' . $report->id),
                 'REOPEN_REPORT' => $language->get('moderator', 'reopen_report')
-            ));
+            ]);
         }
 
         $template_file = 'core/users_reports_view.tpl';
@@ -283,86 +290,94 @@ if (!isset($_GET['id'])) {
             // Close report
             if (is_numeric($_GET['id'])) {
                 // Get report
-                $report = $queries->getWhere('reports', array('id', '=', $_GET['id']));
+                $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
+
                 if (count($report)) {
-                    $queries->update('reports', $report[0]->id, array(
+                    $queries->update('reports', $report[0]->id, [
                         'status' => 1,
                         'date_updated' => date('Y-m-d H:i:s'),
                         'updated' => date('U'),
                         'updated_by' => $user->data()->id
-                    ));
+                    ]);
 
-                    $queries->create('reports_comments', array(
+                    $queries->create('reports_comments', [
                         'report_id' => $report[0]->id,
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
                         'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_closed_report'))
-                    ));
+                    ]);
                 }
 
                 Session::flash('report_success', $language->get('moderator', 'report_closed'));
                 Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+
                 die();
             }
 
             Redirect::to(URL::build('/panel/users/reports'));
+
             die();
-        } else if ($_GET['action'] == 'open') {
+        }
+
+        if ($_GET['action'] == 'open') {
             // Reopen report
             if (is_numeric($_GET['id'])) {
                 // Get report
-                $report = $queries->getWhere('reports', array('id', '=', $_GET['id']));
+                $report = $queries->getWhere('reports', ['id', '=', $_GET['id']]);
+
                 if (count($report)) {
-                    $queries->update('reports', $report[0]->id, array(
+                    $queries->update('reports', $report[0]->id, [
                         'status' => 0,
                         'date_updated' => date('Y-m-d H:i:s'),
                         'updated' => date('U'),
                         'updated_by' => $user->data()->id
-                    ));
+                    ]);
 
-                    $queries->create('reports_comments', array(
+                    $queries->create('reports_comments', [
                         'report_id' => $report[0]->id,
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
                         'comment_content' => str_replace('{x}', Output::getClean($user->data()->username), $language->get('moderator', 'x_reopened_report'))
-                    ));
+                    ]);
                 }
 
                 Session::flash('report_success', $language->get('moderator', 'report_reopened'));
                 Redirect::to(URL::build('/panel/users/reports/', 'id=' . Output::getClean($report[0]->id)));
+
                 die();
             }
 
             Redirect::to(URL::build('/panel/users/reports'));
-            die();
-        } else {
-            Redirect::to(URL::build('/panel/users/reports'));
+
             die();
         }
+            Redirect::to(URL::build('/panel/users/reports'));
+
+            die();
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
 if (Session::exists('report_success'))
     $success = Session::flash('report_success');
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
@@ -370,14 +385,14 @@ $smarty->assign(array(
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
-));
+]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require (ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

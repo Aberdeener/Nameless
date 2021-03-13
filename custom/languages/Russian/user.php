@@ -10,15 +10,11 @@
  *  Russian Language - Users
  */
 
-$language = array(
-    /*
-     *  Change this for the account validation message
-     */
+$language = [
+    // Change this for the account validation message
     'validate_account_command' => 'Для завершения регистрации, пожалуйста, введите команду <strong>/validate {x}</strong> на сервере.', // Don't replace {x}
 
-    /*
-     *  User Related
-     */
+    // User Related
     'guest' => 'Гость',
     'guests' => 'Гости',
 
@@ -225,16 +221,12 @@ $language = array(
     'latest_profile_posts' => 'Последние записи в профиле',
     'no_profile_posts' => 'Нету записей в профиле.',
 
-    /*
-     *  Infractions area
-     */
+    // Infractions area
     'you_have_been_banned' => 'Вы были забанены!',
     'you_have_received_a_warning' => 'Вы получили предупреждение!',
     'acknowledge' => 'База знаний',
 
-    /*
-     *  Hooks
-     */
+    // Hooks
     'user_x_has_registered' => '{x} присоединился к ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
 
@@ -253,4 +245,4 @@ $language = array(
     'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
     'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
     'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
-);
+];

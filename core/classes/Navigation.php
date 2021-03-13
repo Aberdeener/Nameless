@@ -9,10 +9,12 @@
  *  Navigation class
  */
 
-class Navigation {
+class Navigation
+{
+    private $_topNavbar = [],
 
-    private $_topNavbar = array(),
-            $_footerNav = array(),
+            $_footerNav = [],
+
             $_panel;
 
     // Panel sidebars discard provided order for links
@@ -45,22 +47,22 @@ class Navigation {
         // Add the link to the navigation
         if ($location == 'top') {
             // Add to top navbar
-            $this->_topNavbar[$name] = array(
+            $this->_topNavbar[$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         } else {
             // Add to footer navigation
-            $this->_footerNav[$name] = array(
+            $this->_footerNav[$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         }
     }
 
@@ -74,22 +76,22 @@ class Navigation {
         // Add the dropdown
         if ($location == 'top') {
             // Navbar
-            $this->_topNavbar[$name] = array(
+            $this->_topNavbar[$name] = [
                 'type' => 'dropdown',
                 'title' => $title,
-                'items' => array(),
+                'items' => [],
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         } else {
             // Footer
-            $this->_footerNav[$name] = array(
+            $this->_footerNav[$name] = [
                 'type' => 'dropdown',
                 'title' => $title,
-                'items' => array(),
+                'items' => [],
                 'order' => $order,
                 'icon' => $icon
-            );
+            ];
         }
     }
 
@@ -106,22 +108,22 @@ class Navigation {
         // Add the item
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
             // Navbar
-            $this->_topNavbar[$dropdown]['items'][$name] = array(
+            $this->_topNavbar[$dropdown]['items'][$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
                 'order' => $order
-            );
+            ];
         } else if (isset($this->_footerNav[$dropdown])) {
             // Footer
-            $this->_footerNav[$dropdown]['items'][$name] = array(
+            $this->_footerNav[$dropdown]['items'][$name] = [
                 'title' => $title,
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
                 'order' => $order
-            );
+            ];
         }
 
         // Unable to add item to dropdown, might not have been initialised
@@ -131,11 +133,13 @@ class Navigation {
     // Return top navigation - returns array to pass to template
     // Params: $location (string) - either 'top' or 'footer' (defaults to 'top')
     public function returnNav($location = 'top') {
-        $return = array(); // String to return
+        $return = []; // String to return
+
         if ($location == 'top') {
             if (count($this->_topNavbar)) {
                 foreach ($this->_topNavbar as $key => $item) {
                     $return[$key] = $item;
+
                     if (defined('PAGE') && PAGE == $key) {
                         $return[$key]['active'] = true;
                     }
@@ -148,9 +152,12 @@ class Navigation {
                                 function ($a, $b) {
                                     if ($a['order'] > $b['order']) {
                                         return 1;
-                                    } else if ($a['order'] < $b['order']) {
+                                    }
+
+                                    if ($a['order'] < $b['order']) {
                                         return -1;
                                     }
+
                                     return 0;
                                 }
                             );
@@ -164,6 +171,7 @@ class Navigation {
             if (count($this->_footerNav)) {
                 foreach ($this->_footerNav as $key => $item) {
                     $return[$key] = $item;
+
                     if (defined('PAGE') && PAGE == $key) {
                         $return[$key]['active'] = true;
                     }
@@ -175,9 +183,12 @@ class Navigation {
                             function ($a, $b) {
                                 if ($a['order'] > $b['order']) {
                                     return 1;
-                                } else if ($a['order'] < $b['order']) {
+                                }
+
+                                if ($a['order'] < $b['order']) {
                                     return -1;
                                 }
+
                                 return 0;
                             }
                         );
@@ -188,11 +199,13 @@ class Navigation {
 
         uasort($return, function ($a, $b) {
             $result = 0;
+
             if ($a['order'] > $b['order']) {
                 $result = 1;
             } else if ($a['order'] < $b['order']) {
                 $result = -1;
             }
+
             return $result;
         });
 

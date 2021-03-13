@@ -10,10 +10,8 @@
  *  German Language - Admin
  */
 
-$language = array(
-    /*
-     *  Admin Control Panel
-     */
+$language = [
+    // Admin Control Panel
     // Login
     're-authenticate' => 'Bitte melde dich erneut an!',
 
@@ -743,5 +741,4 @@ $language = array(
     'discord_bot_error_unauthorized' => 'Der Website-API-Schlüssel ist ungültig',
     'discord_bot_error_invrole' => 'Die angegebene Rollen-ID ist ungültig.',
     'discord_bot_error_hierarchy' => 'Der Bot kann die Rolle dieses Benutzers nicht bearbeiten.'
-
-);
+];

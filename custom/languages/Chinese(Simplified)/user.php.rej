@@ -1,0 +1,71 @@
+***************
+*** 11,25 ****
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
+- $language = array(
+-     /*
+-      *  Change this for the account validation message
+-      */
+      'validate_account_command' => '要完成注册，请在游戏中执行命令<strong> / validate {x} </ strong>。', // Don't replace {x}
+  
+-     /*
+-      *  User Related
+-      */
+      'guest' => '访客',
+      'guests' => '访客',
+  
+--- 11,21 ----
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
++ $language = [
++     // Change this for the account validation message
+      'validate_account_command' => '要完成注册，请在游戏中执行命令<strong> / validate {x} </ strong>。', // Don't replace {x}
+  
++     // User Related
+      'guest' => '访客',
+      'guests' => '访客',
+  
+***************
+*** 226,241 ****
+      'latest_profile_posts' => '最近的留言',
+      'no_profile_posts' => '目前没有人给您留言喔。',
+  
+-     /*
+-      *  Infractions area
+-      */
+      'you_have_been_banned' => '你已被封禁!',
+      'you_have_received_a_warning' => '你收到了一条警告!',
+      'acknowledge' => '承认错误',
+  
+-     /*
+-      *  Hooks
+-      */
+      'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
+      'user_x_has_validated' => '{x} has validated their account!',
+  
+--- 222,233 ----
+      'latest_profile_posts' => '最近的留言',
+      'no_profile_posts' => '目前没有人给您留言喔。',
+  
++     // Infractions area
+      'you_have_been_banned' => '你已被封禁!',
+      'you_have_received_a_warning' => '你收到了一条警告!',
+      'acknowledge' => '承认错误',
+  
++     // Hooks
+      'user_x_has_registered' => '{x} 加入了 ' . SITE_NAME . '!',
+      'user_x_has_validated' => '{x} has validated their account!',
+  
+***************
+*** 254,257 ****
+      'discord_communication_error' => '无法与 Discord 机器人交流。请您确保机器人正在运行并且您的机器人链接是正确的。',
+      'discord_unknown_error' => '在同步 Discord 身份组时出现了错误。请联系管理员。',
+      'discord_id_help' => '您可阅读 <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">此文章</a> 来了解如何获得您的用户 ID。'
+- );
+--- 246,249 ----
+      'discord_communication_error' => '无法与 Discord 机器人交流。请您确保机器人正在运行并且您的机器人链接是正确的。',
+      'discord_unknown_error' => '在同步 Discord 身份组时出现了错误。请联系管理员。',
+      'discord_id_help' => '您可阅读 <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">此文章</a> 来了解如何获得您的用户 ID。'
++ ];

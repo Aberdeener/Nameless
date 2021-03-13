@@ -9,10 +9,8 @@
  *  Norwegian translation (norsk bokmål) - Time
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'tid', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'mindre enn ett minutt siden.',
@@ -26,4 +24,4 @@ $language = array(
     '_months' => '{x} måneder siden',
     'about_1_year' => 'omtrent 1 år siden',
     'over_x_years' => 'over {x} år siden'
-);
+];

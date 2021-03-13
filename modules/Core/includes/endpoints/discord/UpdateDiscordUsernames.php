@@ -4,8 +4,8 @@
  *
  * @return string JSON Array
  */
-class UpdateDiscordUsernames extends EndpointBase {
-
+class UpdateDiscordUsernames extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'updateDiscordUsernames';
         $this->_module = 'Core';
@@ -19,13 +19,14 @@ class UpdateDiscordUsernames extends EndpointBase {
         foreach ($_POST['users'] as $row) {
             $user = $api->getUser('discord_id', $row['id'] + 0);
             $discord_username = Output::getClean($row['name']);
+
             try {
-                $api->getDb()->update('users', $user->data()->id, array('discord_username' => $discord_username));
+                $api->getDb()->update('users', $user->data()->id, ['discord_username' => $discord_username]);
             } catch (Exception $e) {
                 $api->throwError(24, $api->getLanguage()->get('api', 'unable_to_update_discord_username'), $e->getMessage());
             }
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_usernames_updated')));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'discord_usernames_updated')]);
     }
 }

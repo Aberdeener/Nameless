@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @param int $user NamelessMC ID of user to view
+ * @param int        $user   NamelessMC ID of user to view
  * @param json array $groups ID of group ids
  *
  * @return string JSON Array
  */
-class RemoveGroupsEndpoint extends EndpointBase {
-
+class RemoveGroupsEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'removeGroups';
         $this->_module = 'Core';
@@ -20,12 +20,14 @@ class RemoveGroupsEndpoint extends EndpointBase {
 
         // Ensure user exists
         $user = new User($_POST['user']);
-        if (!count($user->data())) {
+
+        if (! count($user->data())) {
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
         }
 
         $groups = $_POST['groups'];
-        if (!count($groups)) {
+
+        if (! count($groups)) {
             $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'));
         }
 
@@ -36,6 +38,6 @@ class RemoveGroupsEndpoint extends EndpointBase {
             Discord::removeDiscordRole($user, $group, $api->getLanguage());
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated')));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'group_updated')]);
     }
 }

@@ -23,11 +23,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class MinecraftPingException extends \Exception {
+class MinecraftPingException extends \Exception
+{
     // Exception thrown by MinecraftPing class
 }
 
-class MinecraftPing {
+class MinecraftPing
+{
     /*
      * Queries Minecraft server
      * Returns array on success, false on failure.
@@ -51,8 +53,11 @@ class MinecraftPing {
      */
 
     private $Socket,
+
             $ServerAddress,
+
             $ServerPort,
+
             $Timeout;
 
     public function __construct($Address, $Port = 25565, $Timeout = 2, $ResolveSRV = true) {
@@ -83,7 +88,7 @@ class MinecraftPing {
         $connectTimeout = $this->Timeout;
         $this->Socket = @fsockopen($this->ServerAddress, $this->ServerPort, $errno, $errstr, $connectTimeout);
 
-        if (!$this->Socket) {
+        if (! $this->Socket) {
             throw new Exception("Failed to connect or create a socket: $errno ($errstr)");
         }
 
@@ -98,11 +103,11 @@ class MinecraftPing {
         $Data = "\x00"; // packet ID = 0 (varint)
 
         $Data .= "\x04"; // Protocol version (varint)
-        $Data .= Pack('c', StrLen($this->ServerAddress)) . $this->ServerAddress; // Server (varint len + UTF-8 addr)
-        $Data .= Pack('n', $this->ServerPort); // Server port (unsigned short)
+        $Data .= pack('c', strlen($this->ServerAddress)) . $this->ServerAddress; // Server (varint len + UTF-8 addr)
+        $Data .= pack('n', $this->ServerPort); // Server port (unsigned short)
         $Data .= "\x01"; // Next state: status (varint)
 
-        $Data = Pack('c', StrLen($Data)) . $Data; // prepend length of packet ID + data
+        $Data = pack('c', strlen($Data)) . $Data; // prepend length of packet ID + data
 
         fwrite($this->Socket, $Data); // handshake
         fwrite($this->Socket, "\x01\x00"); // status ping
@@ -110,43 +115,44 @@ class MinecraftPing {
         $Length = $this->ReadVarInt(); // full packet length
 
         if ($Length < 10) {
-            return FALSE;
+            return false;
         }
 
         $this->ReadVarInt(); // packet type, in server ping it's 0
 
         $Length = $this->ReadVarInt(); // string length
 
-        $Data = "";
+        $Data = '';
+
         do {
             if (microtime(true) - $TimeStart > $this->Timeout) {
                 throw new MinecraftPingException('Server read timed out');
             }
 
-            $Remainder = $Length - StrLen($Data);
+            $Remainder = $Length - strlen($Data);
             $block = fread($this->Socket, $Remainder); // and finally the json string
             // abort if there is no progress
-            if (!$block) {
+            if (! $block) {
                 throw new MinecraftPingException('Server returned too few data');
             }
 
             $Data .= $block;
-        } while (StrLen($Data) < $Length);
+        } while (strlen($Data) < $Length);
 
-        if ($Data === FALSE) {
+        if ($Data === false) {
             throw new MinecraftPingException('Server didn\'t return any data');
         }
 
-        $Data = JSON_Decode($Data, true);
+        $Data = json_decode($Data, true);
 
-        if (JSON_Last_Error() !== JSON_ERROR_NONE) {
-            if (Function_Exists('json_last_error_msg')) {
-                throw new MinecraftPingException(JSON_Last_Error_Msg());
-            } else {
-                throw new MinecraftPingException('JSON parsing failed');
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            if (function_exists('json_last_error_msg')) {
+                throw new MinecraftPingException(json_last_error_msg());
             }
 
-            return FALSE;
+                throw new MinecraftPingException('JSON parsing failed');
+            
+            return false;
         }
 
         return $Data;
@@ -155,37 +161,37 @@ class MinecraftPing {
     public function QueryOldPre17() {
         fwrite($this->Socket, "\xFE\x01");
         $Data = fread($this->Socket, 512);
-        $Len = StrLen($Data);
+        $Len = strlen($Data);
 
         if ($Len < 4 || $Data[0] !== "\xFF") {
-            return FALSE;
+            return false;
         }
 
-        $Data = SubStr($Data, 3); // Strip packet header (kick message packet and short length)
+        $Data = substr($Data, 3); // Strip packet header (kick message packet and short length)
         $Data = iconv('UTF-16BE', 'UTF-8', $Data);
 
         // Are we dealing with Minecraft 1.4+ server?
         if ($Data[1] === "\xA7" && $Data[2] === "\x31") {
-            $Data = Explode("\x00", $Data);
+            $Data = explode("\x00", $Data);
 
-            return array(
-                'HostName'   => $Data[3],
-                'Players'    => IntVal($Data[4]),
-                'MaxPlayers' => IntVal($Data[5]),
-                'Protocol'   => IntVal($Data[1]),
-                'Version'    => $Data[2]
-            );
+            return [
+                'HostName' => $Data[3],
+                'Players' => intval($Data[4]),
+                'MaxPlayers' => intval($Data[5]),
+                'Protocol' => intval($Data[1]),
+                'Version' => $Data[2]
+            ];
         }
 
-        $Data = Explode("\xA7", $Data);
+        $Data = explode("\xA7", $Data);
 
-        return array(
-            'HostName'   => SubStr($Data[0], 0, -1),
-            'Players'    => isset($Data[1]) ? IntVal($Data[1]) : 0,
-            'MaxPlayers' => isset($Data[2]) ? IntVal($Data[2]) : 0,
-            'Protocol'   => 0,
-            'Version'    => '1.3'
-        );
+        return [
+            'HostName' => substr($Data[0], 0, -1),
+            'Players' => isset($Data[1]) ? intval($Data[1]) : 0,
+            'MaxPlayers' => isset($Data[2]) ? intval($Data[2]) : 0,
+            'Protocol' => 0,
+            'Version' => '1.3'
+        ];
     }
 
     private function ReadVarInt() {
@@ -195,11 +201,11 @@ class MinecraftPing {
         while (true) {
             $k = @fgetc($this->Socket);
 
-            if ($k === FALSE) {
+            if ($k === false) {
                 return 0;
             }
 
-            $k = Ord($k);
+            $k = ord($k);
 
             $i |= ($k & 0x7F) << $j++ * 7;
 

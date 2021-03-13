@@ -9,10 +9,8 @@
  *  Polish Language - Errors
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => 'Przepraszamy!',
     '404_content' => 'Ta strona nie istnieje!',
     '404_back' => 'Powrót',
@@ -31,4 +29,4 @@ $language = array(
     'fatal_error_message_admin' => 'Przepraszamy, ale podczas ładowania strony coś poszło nie tak. Szczegóły błędu:',
     'in_file' => 'w pliku <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'w linijce <strong>{x}</strong>', // Don't replace {x}
-);
+];

@@ -9,10 +9,8 @@
  *  Italian Language - Installation
  */
 
-$language = array(
-    /*
-     *  Installation
-     */
+$language = [
+    // Installation
     'install' => 'Installa',
     'pre-release' => 'Pre-Rilascio',
     'installer_welcome' => 'Benvenuti nel pre-rilascio di NamelessMC versione 2.0.',
@@ -103,4 +101,4 @@ $language = array(
     'config_not_writable' => 'Il file di configurazione non è scrivibile.',
 
     'session_doesnt_exist' => 'Impossibile rilevare la sessione. Il salvataggio delle sessioni è un requisito per utilizzare Nameless. Prova di nuovo, e se il problema persiste, contatta il tuo host web per assistenza.'
-);
+];

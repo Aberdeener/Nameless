@@ -10,10 +10,8 @@
  *  SwedishSE Language - Admin
  */
 
-$language = array(
-    /*
-     *  Admin Control Panel
-     */
+$language = [
+    // Admin Control Panel
     // Login
     're-authenticate' => 'Vänligen åter autentisera',
 
@@ -747,5 +745,4 @@ $language = array(
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
     'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
-
-);
+];

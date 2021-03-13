@@ -11,10 +11,8 @@
  *  Greek Language - Time
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'χρόνος', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'λιγότερο από ένα λεπτό πριν',
@@ -28,4 +26,4 @@ $language = array(
     '_months' => '{x} μήνες πριν',
     'about_1_year' => 'Πριν από περίπου 1 χρόνο',
     'over_x_years' => 'πάνω από {x} χρόνια πριν'
-);
+];

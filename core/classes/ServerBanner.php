@@ -25,19 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-class ServerBanner {
+class ServerBanner
+{
     /**
      *
-     * @param string $address the server address
-     * @param string $motd message of the day which should be displayed
-     * @param int $players not implemented
-     * @param int $max_players not implemented
-     * @param resource $favicon not implemented
-     * @param string $background Image Path or Standard Value
-     * @param int $ping not implemented
+     * @param  string   $address     the server address
+     * @param  string   $motd        message of the day which should be displayed
+     * @param  int      $players     not implemented
+     * @param  int      $max_players not implemented
+     * @param  resource $favicon     not implemented
+     * @param  string   $background  Image Path or Standard Value
+     * @param  int      $ping        not implemented
      * @return resource the rendered banner
      */
-    public static function server($address, $motd = "§cOffline Server", $players = -1, $max_players = -1, $favicon = null, $background = null, $ping = 150) {
+    public static function server($address, $motd = '§cOffline Server', $players = -1, $max_players = -1, $favicon = null, $background = null, $ping = 150) {
         $canvas = MinecraftBanner::getBackgroundCanvas(650, 80, $background);
 
         if ($favicon == null) {
@@ -54,13 +55,14 @@ class ServerBanner {
         $titleY = $favicon_posY + 3 * 2 + 13;
         imagettftext($canvas, 13, 0, $startX, $titleY, $white, MinecraftBanner::getFontFile(), $address);
 
-        $motd = str_replace(array('§k', '§l', '§m', '§o', '§r'), '', $motd);
+        $motd = str_replace(['§k', '§l', '§m', '§o', '§r'], '', $motd);
 
         $components = explode(MinecraftBanner::getColourChar(), $motd);
 
         $nextX = $startX;
         $nextY = 50;
         $last_color = [255, 255, 255];
+
         foreach ($components as $component) {
             if (empty($component)) {
                 continue;
@@ -71,7 +73,8 @@ class ServerBanner {
 
             //default to white
             $text = $component;
-            if (!empty($color_code)) {
+
+            if (! empty($color_code)) {
                 //try to find the color rgb to the colro code
                 if (isset($colors[$color_code])) {
                     $color_rgb = $colors[$color_code];
@@ -87,6 +90,7 @@ class ServerBanner {
             imagettftext($canvas, 12, 0, $nextX, $nextY, $color, MinecraftBanner::getFontFile(), $lines[0]);
             $box = imagettfbbox(12, 0, MinecraftBanner::getFontFile(), $text);
             $text_width = abs($box[4] - $box[0]);
+
             if (count($lines) > 1) {
                 $nextX = $startX;
                 $nextY += 3 * 2 + 12;

@@ -11,10 +11,8 @@
  *  Last Update: 01/03/2021
  */
 
-$language = array(
-    /*
-     *  Installation
-     */
+$language = [
+    // Installation
     'install' => 'Instalar',
     'pre-release' => 'pre-release',
     'installer_welcome' => 'Bem-vindo ao NamelessMC versão 2.0.',
@@ -105,4 +103,4 @@ $language = array(
     'config_not_writable' => 'O arquivo de configuração não é gravável.',
 
     'session_doesnt_exist' => 'Não foi possível detectar a sessão. Salvar sessões é um requisito para usar o Nameless. Tente novamente e, se o problema persistir, entre em contato com sua hospedagem para obter suporte.'
-);
+];

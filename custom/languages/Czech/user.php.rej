@@ -1,0 +1,83 @@
+***************
+*** 1,4 ****
+- <?php 
+  /*
+   *  Made by Samerton
+   *  Translated by Fjuro
+--- 1,5 ----
++ <?php
++ 
+  /*
+   *  Made by Samerton
+   *  Translated by Fjuro
+***************
+*** 10,24 ****
+   *  Czech Language - Users
+   */
+  
+- $language = array(
+-     /*
+-      *  Change this for the account validation message
+-      */
+      'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz <strong>/validate {x}</strong>.', // Don't replace {x}
+  
+-     /*
+-      *  User Related
+-      */
+      'guest' => 'Host',
+      'guests' => 'Hosté',
+      
+--- 11,21 ----
+   *  Czech Language - Users
+   */
+  
++ $language = [
++     // Change this for the account validation message
+      'validate_account_command' => 'Pro dokončení registrace zadejte ve hře příkaz <strong>/validate {x}</strong>.', // Don't replace {x}
+  
++     // User Related
+      'guest' => 'Host',
+      'guests' => 'Hosté',
+      
+***************
+*** 223,238 ****
+      'latest_profile_posts' => 'Nejnovější profilové příspěvky',
+      'no_profile_posts' => 'Žádné profilové příspěvky.',
+  
+-     /*
+-      *  Infractions area
+-      */
+      'you_have_been_banned' => 'Byli jste zabanováni!',
+      'you_have_received_a_warning' => 'Obdrželi jste varování!',
+      'acknowledge' => 'Zjistit více',
+  
+-     /*
+-      *  Hooks
+-      */
+      'user_x_has_registered' => '{x} se připojil na ' . SITE_NAME . '!',
+      'user_x_has_validated' => '{x} ověřil svůj účet!',
+      
+--- 220,231 ----
+      'latest_profile_posts' => 'Nejnovější profilové příspěvky',
+      'no_profile_posts' => 'Žádné profilové příspěvky.',
+  
++     // Infractions area
+      'you_have_been_banned' => 'Byli jste zabanováni!',
+      'you_have_received_a_warning' => 'Obdrželi jste varování!',
+      'acknowledge' => 'Zjistit více',
+  
++     // Hooks
+      'user_x_has_registered' => '{x} se připojil na ' . SITE_NAME . '!',
+      'user_x_has_validated' => '{x} ověřil svůj účet!',
+      
+***************
+*** 251,254 ****
+      'discord_communication_error' => 'Při komunikaci s Discord botem se vyskytla chyba. Ujistěte se, že bot běží a že URL bota je správná.',
+      'discord_unknown_error' => 'Při synchronizaci Discord rolí se vyskytla neznámá chyba. Kontaktujte prosím správce.',
+      'discord_id_help' => 'Pro informace, kde nalézt Discord ID, si přečtěte <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">toto.</a>'
+- );
+--- 244,247 ----
+      'discord_communication_error' => 'Při komunikaci s Discord botem se vyskytla chyba. Ujistěte se, že bot běží a že URL bota je správná.',
+      'discord_unknown_error' => 'Při synchronizaci Discord rolí se vyskytla neznámá chyba. Kontaktujte prosím správce.',
+      'discord_id_help' => 'Pro informace, kde nalézt Discord ID, si přečtěte <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">toto.</a>'
++ ];

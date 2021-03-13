@@ -9,21 +9,21 @@
 *  Email class
 */
 
-class Email {
-
+class Email
+{
     // Send an email
     // Params:  $email - array containing all necessary email information to send as per the sendPHP and sendMailer functions
     //          $method - email sending method to use (php or mailer)
     public static function send($email, $method = 'php') {
         if ($method == 'php') {
             return self::sendPHP($email);
-        } 
-        else if ($method == 'mailer') {
+        }
+
+         if ($method == 'mailer') {
             return self::sendMailer($email);
         }
-        else {
+         
             return false;
-        }
     }
 
     // Send an email using PHP's sendmail() function
@@ -35,26 +35,29 @@ class Email {
     private static function sendPHP($email) {
         try {
             $mail = mail($email['to'], $email['subject'], $email['message'], $email['headers']);
+
             if ($mail)
                 return true;
-            else {
+             
                 $error = error_get_last();
+
                 if (isset($error['message']))
-                    return array('error' => $error['message']);
-                else
-                    return array('error' => 'Unknown');
-            }
+                    return ['error' => $error['message']];
+                
+                    return ['error' => 'Unknown'];
         } catch (Exception $e) {
             // Error
-            return array('error' => $e->getMessage());
+            return ['error' => $e->getMessage()];
         }
+
         return false;
     }
 
     // Send an email using the PHPMailer library
     private static function sendMailer($email) {
-        require_once(ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
-        require(ROOT_PATH . '/core/email.php');
+        require_once (ROOT_PATH . '/core/includes/phpmailer/PHPMailerAutoload.php');
+
+        require (ROOT_PATH . '/core/email.php');
 
         // Initialise PHPMailer
         $mail = new PHPMailer(true);
@@ -74,8 +77,8 @@ class Email {
                 $mail->AddReplyTo($email['replyto']['email'], $email['replyto']['name']);
             }
 
-            $mail->CharSet = "UTF-8";
-            $mail->Encoding = "base64";
+            $mail->CharSet = 'UTF-8';
+            $mail->Encoding = 'base64';
             $mail->setFrom($GLOBALS['email']['email'], $GLOBALS['email']['name']);
             $mail->From = $GLOBALS['email']['email'];
             $mail->FromName = $GLOBALS['email']['name'];
@@ -85,13 +88,13 @@ class Email {
             $mail->msgHTML($email['message']);
             $mail->Body = $email['message'];
 
-            if (!$mail->send()) {
-                return array('error' => $mail->ErrorInfo);
-            } else {
-                return true;
+            if (! $mail->send()) {
+                return ['error' => $mail->ErrorInfo];
             }
+
+                return true;
         } catch (Exception $e) {
-            return array('error' => $e->getMessage());
+            return ['error' => $e->getMessage()];
         }
     }
 

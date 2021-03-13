@@ -9,8 +9,7 @@
  *  French Language - Users
  */
 
-$language = array(
-
+$language = [
     // Errors
     'api_disabled' => 'API is disabled',
     'unknown_error' => 'Unknown error',
@@ -56,4 +55,4 @@ $language = array(
     'server_info_updated' => 'Server info updated successfully',
     'discord_settings_updated' => 'Discord settings updated successfully',
     'discord_usernames_updated' => 'Discord usernames updated successfully'
-);
+];

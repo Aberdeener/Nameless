@@ -9,15 +9,11 @@
  *  French Language - Users
  */
 
-$language = array(
-    /*
-     *  Change this for the account validation message
-     */
+$language = [
+    // Change this for the account validation message
     'validate_account_command' => 'Pour compléter l\'enregistrement, veuillez exécuter cette command <strong>/validate {x}</strong> en-jeux.', // Don't replace {x}
 
-    /*
-     *  User Related
-     */
+    // User Related
     'guest' => 'Invité',
     'guests' => 'Invités',
 
@@ -221,25 +217,18 @@ $language = array(
     'one_or_more_users_blocked' => 'Vous ne pouvez pas envoyer de messages privés à au moins un membre de la conversation.',
     'messages' => 'Messages',
 
-    /*
-     *  Infractions area
-     */
+    // Infractions area
     'you_have_been_banned' => 'Vous avez été banni!',
     'you_have_received_a_warning' => 'Vous avez reçu un avertissement!',
     'acknowledge' => 'Accusé de réception',
 
-
-    /*
-     *  Emails
-     */
+    // Emails
     'email_greeting' => 'Hey,',
     'email_message' => 'Merci de vous être inscrit! Pour compléter votre inscription, veuillez cliquer sur le lien suivant:',
     'forgot_password_email_message' => 'Pour réinitialiser votre mot de passe, cliquez sur le lien suivant. Si vous ne l’avez pas demandé vous-même, vous pouvez supprimer cet e-mail en toute sécurité.',
     'email_thanks' => 'Merci,',
 
-    /*
-     *  Hooks
-     */
+    // Hooks
     'user_x_has_registered' => '{x} a rejoint ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
 
@@ -258,4 +247,4 @@ $language = array(
     'discord_communication_error' => 'There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.',
     'discord_unknown_error' => 'There was an unknown error while syncing Discord roles. Please contact an administrator.',
     'discord_id_help' => 'For information on where to find Discord ID\'s, please read <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">this.</a>'
-);
+];

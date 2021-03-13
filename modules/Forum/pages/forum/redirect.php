@@ -27,5 +27,6 @@ if (strpos($route, 'view_forum') !== false) {
     $url = URL::build('/forum');
 }
 
-header("Location: " . $url, TRUE, 301);
+header('Location: ' . $url, true, 301);
+
 die();

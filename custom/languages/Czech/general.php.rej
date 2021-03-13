@@ -1,0 +1,142 @@
+***************
+*** 10,19 ****
+   *  Czech Language - General terms
+   */
+  
+- $language = array (
+-     /*
+-      *  General terms
+-      */
+      'help' => 'Podpora',
+      'submit' => 'Potvrdit',
+      'register' => 'Zaregistrovat se',
+--- 10,17 ----
+   *  Czech Language - General terms
+   */
+  
++ $language = [
++     // General terms
+      'help' => 'Podpora',
+      'submit' => 'Potvrdit',
+      'register' => 'Zaregistrovat se',
+***************
+*** 71,79 ****
+      'link' => 'Propojit',
+      'unlink' => 'Odpojit',
+  
+-     /*
+-      *  Contact form
+-      */
+      'contact' => 'Kontakt',
+      'message' => 'Zpráva',
+      'email_address' => 'E-mailová adresa',
+--- 69,75 ----
+      'link' => 'Propojit',
+      'unlink' => 'Odpojit',
+  
++     // Contact form
+      'contact' => 'Kontakt',
+      'message' => 'Zpráva',
+      'email_address' => 'E-mailová adresa',
+***************
+*** 83,109 ****
+      'contact_message_email' => 'Zadaný e-mail je neplatný.',
+      'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další zprávu budete moct odeslat za {x} minut.', // Don't replace {x}
+  
+-     /*
+-      *  Navbar
+-      */
+      'home' => 'Domů',
+      'more' => 'Více',
+      'status' => 'Stav',
+  
+-     /*
+-      *  Homepage
+-      */
+      'social' => 'Sociální',
+  
+-     /*
+-      *  Help dialogues
+-      */
+      'markdown_help' => 'Váš příspěvek můžete naformátovat pomocí stylu Markdown. Pro více informací klikněte <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>sem</a>.',
+      'online' => 'Online',
+  
+-     /*
+-      *  Server query
+-      */
+      'offline' => 'Offline',
+      'player_count' => '{x}/{y}', // Don't replace {x} or {y}
+      'ping' => 'Ping: {x}', // Don't replace {x}
+--- 79,97 ----
+      'contact_message_email' => 'Zadaný e-mail je neplatný.',
+      'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další zprávu budete moct odeslat za {x} minut.', // Don't replace {x}
+  
++     // Navbar
+      'home' => 'Domů',
+      'more' => 'Více',
+      'status' => 'Stav',
+  
++     // Homepage
+      'social' => 'Sociální',
+  
++     // Help dialogues
+      'markdown_help' => 'Váš příspěvek můžete naformátovat pomocí stylu Markdown. Pro více informací klikněte <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>sem</a>.',
+      'online' => 'Online',
+  
++     // Server query
+      'offline' => 'Offline',
+      'player_count' => '{x}/{y}', // Don't replace {x} or {y}
+      'ping' => 'Ping: {x}', // Don't replace {x}
+***************
+*** 120,134 ****
+      'no_players_online' => 'Na serveru nehrají žádní hráči.',
+      'and_x_more' => 'a {x} dalších', // Don't replace {x}
+  
+-     /*
+-      *  Cookie notice
+-      */
+      'cookie_notice' => 'Tento web používá cookies pro zlepšení uživatelského zážitku. Registrací nebo zavřením tohoto oznámení souhlasíte s jejich použitím.',
+      'cookie_agree' => 'Souhlasím',
+  
+-     /*
+-      *  Widgets
+-      */
+      'statistics' => 'Statistiky',
+      'users_registered' => 'Zaregistrovaní uživatelé',
+      'latest_member' => 'Poslední člen',
+--- 108,118 ----
+      'no_players_online' => 'Na serveru nehrají žádní hráči.',
+      'and_x_more' => 'a {x} dalších', // Don't replace {x}
+  
++     // Cookie notice
+      'cookie_notice' => 'Tento web používá cookies pro zlepšení uživatelského zážitku. Registrací nebo zavřením tohoto oznámení souhlasíte s jejich použitím.',
+      'cookie_agree' => 'Souhlasím',
+  
++     // Widgets
+      'statistics' => 'Statistiky',
+      'users_registered' => 'Zaregistrovaní uživatelé',
+      'latest_member' => 'Poslední člen',
+***************
+*** 147,159 ****
+      'no_default_server' => 'Není nastaven žádný výchozí server, vyberte jej v Panel - Integrace - Minecraft',
+      'server_status' => 'Stav serveru',
+  
+-     /*
+-      *  Privacy policy
+-      */
+      'privacy_policy' => 'Zásady ochrany osobních údajů',
+  
+-     /*
+-      *  Custom page redirect
+-      */
+      'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.' // Don't replace {x} which is the redirect URL
+- );--- 131,139 ----
+      'no_default_server' => 'Není nastaven žádný výchozí server, vyberte jej v Panel - Integrace - Minecraft',
+      'server_status' => 'Stav serveru',
+  
++     // Privacy policy
+      'privacy_policy' => 'Zásady ochrany osobních údajů',
+  
++     // Custom page redirect
+      'redirecting_message' => 'Přesměrování...<br />Pokud nebudete přesměrováni automaticky, klikněte prosím  <a href="{x}" rel="nofollow noopener">sem</a>.' // Don't replace {x} which is the redirect URL
++ ];

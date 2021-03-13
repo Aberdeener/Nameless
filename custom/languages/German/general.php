@@ -10,10 +10,8 @@
  *  German Language - General terms
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Hilfe',
     'submit' => 'Senden',
     'register' => 'Registrieren',
@@ -71,9 +69,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Verknüpfung aufheben',
 
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => 'Kontakt',
     'message' => 'Nachricht',
     'email_address' => 'Email Address',
@@ -83,27 +79,18 @@ $language = array(
     'contact_message_sent' => 'Nachricht erfolgreich gesendet.',
     'contact_message_limit' => 'Sie können nur eine Nachricht pro Stunde senden. Sie können als nächstes eine Nachricht in {x} Minuten senden.', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Startseite',
     'more' => 'Mehr',
     'status' => 'Status',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Soziale Medien',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Du kannst deine Beiträge formatieren. <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>Mehr Informationen</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -121,15 +108,11 @@ $language = array(
     'no_players_online' => 'Es sind keine Spieler Online.',
     'and_x_more' => 'and {x} more', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Diese Website verwendet Cookies, um Ihre Browser-Erfahrung zu verbessern. Mit der Registrierung auf unserer Website oder dem Schließen dieses Hinweises stimmen Sie der Verwendung zu.',
     'cookie_agree' => 'Akzeptieren',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Statistiken',
     'users_registered' => 'Benutzer registriert',
     'latest_member' => 'Letztes Mitglied',
@@ -148,13 +131,9 @@ $language = array(
     'no_default_server' => 'Es gibt keinen Standardserver, bitte wählen Sie einen aus StaffCP - Integrations - Minecraft.',
     'server_status' => 'Server Status',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Datenschutzerklärung',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Umleiten...<br />Wenn Sie nicht automatisch umgeleitet werden, klicken Sie bitte auf <a href="{x}" rel="nofollow noopener">Hier</a>.' // Don't replace {x} which is the redirect URL
-);
+];

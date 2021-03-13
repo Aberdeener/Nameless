@@ -14,10 +14,8 @@
  *  Japanese Language - Time
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => '時間', // Placeholder, no need to translate
     'seconds_short' => '秒', // Shortened "seconds", eg "s"
     'less_than_a_minute' => '1分前',
@@ -31,4 +29,4 @@ $language = array(
     '_months' => '{x}ヶ月前',
     'about_1_year' => '約1年前',
     'over_x_years' => '約{x}年前'
-);
+];

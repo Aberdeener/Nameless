@@ -5,8 +5,8 @@
  *
  * @return string JSON Array
  */
-class SubmitDiscordRoleListEndpoint extends EndpointBase {
-
+class SubmitDiscordRoleListEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'submitDiscordRoleList';
         $this->_module = 'Core';
@@ -15,7 +15,7 @@ class SubmitDiscordRoleListEndpoint extends EndpointBase {
     }
 
     public function execute(Nameless2API $api) {
-        $roles = array();
+        $roles = [];
 
         if ($_POST['roles'] != null) {
             $roles = $_POST['roles'];
@@ -27,6 +27,6 @@ class SubmitDiscordRoleListEndpoint extends EndpointBase {
             $api->throwError(33, $api->getLanguage()->get('api', 'unable_to_update_discord_roles'), $e->getMessage());
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'discord_settings_updated')));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'discord_settings_updated')]);
     }
 }

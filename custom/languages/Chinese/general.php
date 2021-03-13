@@ -13,10 +13,8 @@
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Help',
     'submit' => '送出',
     'register' => '註冊',
@@ -74,9 +72,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => '聯絡',
     'message' => '訊息',
     'email_address' => '電子郵件位置',
@@ -86,26 +82,18 @@ $language = array(
     'contact_message_email' => 'The provided email is invalid.',
     'contact_message_limit' => '你一小時可以提交一次. 請在 {x} 分鐘後重試.', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => '首頁',
     'more' => '更多',
     'status' => 'Status',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => '社交',
 
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => '你可以使用Markdown模式編輯文章. 查看更多資訊請參考 <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>此處資料</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => '線上',
     'offline' => '離線',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -123,15 +111,11 @@ $language = array(
     'no_players_online' => 'There are no players online.',
     'and_x_more' => 'and {x} more', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
     'cookie_agree' => 'Agree',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Statistics',
     'users_registered' => 'Users Registered',
     'latest_member' => 'Latest Member',
@@ -150,13 +134,9 @@ $language = array(
     'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
     'server_status' => 'Server Status',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Privacy Policy',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
-);
+];

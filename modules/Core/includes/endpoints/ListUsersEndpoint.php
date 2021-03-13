@@ -4,7 +4,8 @@
  *
  * @return string JSON Array
  */
-class ListUsersEndpoint extends EndpointBase {
+class ListUsersEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'listUsers';
         $this->_module = 'Core';
@@ -41,9 +42,10 @@ class ListUsersEndpoint extends EndpointBase {
 
         $users = $api->getDb()->query($query)->results();
 
-        $users_json = array();
+        $users_json = [];
+
         foreach ($users as $user) {
-            $user_json = array();
+            $user_json = [];
             $user_json['id'] = intval($user->id);
             $user_json['username'] = $user->username;
             $user_json['uuid'] = $user->uuid;
@@ -53,6 +55,6 @@ class ListUsersEndpoint extends EndpointBase {
             $users_json[] = $user_json;
         }
 
-        $api->returnArray(array('users' => $users_json));
+        $api->returnArray(['users' => $users_json]);
     }
 }

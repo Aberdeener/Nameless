@@ -8,25 +8,28 @@
  *
  *  Input class
  */
-class Input {
-
+class Input
+{
     // Check that input actually exists
     // Params: $type (string) - check for either POST or GET submission (optional, defaults to POST)
     public static function exists($type = 'post') {
         switch ($type) {
-            case 'post';
+            case 'post':
                 // Check the $_POST variable
-                return (!empty($_POST)) ? true : false;
+                return (! empty($_POST)) ? true : false;
+
                 break;
 
-            case 'get';
+            case 'get':
                 // Check the $_GET variable
-                return (!empty($_GET)) ? true : false;
+                return (! empty($_GET)) ? true : false;
+
                 break;
 
             default:
                 // Otherwise, return false
                 return false;
+
                 break;
         }
     }
@@ -36,8 +39,9 @@ class Input {
     public static function get($item) {
         if (isset($_POST[$item])) {
             return $_POST[$item];
-        } 
-        else if (isset($_GET[$item])) {
+        }
+
+         if (isset($_GET[$item])) {
             return $_GET[$item];
         }
 
@@ -72,7 +76,7 @@ class Input {
 
             $editor .= '],
 
-                removeButtons: \'Anchor,Styles,SpecialChar,About,Flash' . (!$admin ? ',Iframe,Table' : '') . ',Format\'
+                removeButtons: \'Anchor,Styles,SpecialChar,About,Flash' . (! $admin ? ',Iframe,Table' : '') . ',Format\'
             } );';
 
             if ($admin) {
@@ -121,7 +125,7 @@ class Input {
     //          $name (string) - name of input field ID
     public static function createTinyEditor($language, $name = null) {
         if ($name) {
-            $editor = '
+            return '
             tinymce.init({
               selector: \'#' . $name . '\',
               browser_spellcheck: true,
@@ -136,8 +140,6 @@ class Input {
               skin: "' . (defined('TEMPLATE_TINY_EDITOR_STYLE') ? TEMPLATE_TINY_EDITOR_STYLE : 'oxide') . '"
             });
             ';
-
-            return $editor;
         }
         
         return null;

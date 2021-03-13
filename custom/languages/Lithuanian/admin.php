@@ -10,7 +10,7 @@
  *  Lithuanian Language - Admin
  */
 
-$language = array(
+$language = [
     // Login
     're-authenticate' => 'Prašome patvirtinkite dar kartą',
 
@@ -744,5 +744,4 @@ $language = array(
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
     'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
-
-);
+];

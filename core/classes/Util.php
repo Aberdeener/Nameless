@@ -9,7 +9,8 @@
  *  Util class
  */
 
-class Util {
+class Util
+{
     // Converting Cyrillic to Latin letters (https://en.wikipedia.org/wiki/ISO_9)
     public static function cyrillicToLatin($string) {
         $cyrillic = [
@@ -24,6 +25,7 @@ class Util {
             'A', 'B', 'V', 'G', 'D', 'E', 'Io', 'Zh', 'Z', 'I', 'Y', 'K', 'L', 'M', 'N', 'O', 'P',
             'R', 'S', 'T', 'U', 'F', 'H', 'Ts', 'Ch', 'Sh', 'Sht', 'A', 'I', 'Y', 'e', 'Yu', 'Ya'
         ];
+
         return str_replace($cyrillic, $latin, $string);
     }
 
@@ -38,14 +40,15 @@ class Util {
 
         foreach (glob($directory . '/*') as $file) {
             if (is_dir($file)) {
-                if (!self::recursiveRemoveDirectory($file))
+                if (! self::recursiveRemoveDirectory($file))
                     return false;
             } else {
-                if (!unlink($file))
+                if (! unlink($file))
                     return false;
             }
         }
         rmdir($directory);
+
         return true;
     }
 
@@ -53,10 +56,10 @@ class Util {
     // No params
     public static function listTimezones() {
         // Array to contain timezones
-        $timezones = array();
+        $timezones = [];
 
         // Array to contain offsets
-        $offsets = array();
+        $offsets = [];
 
         // Get all PHP timezones
         $all_timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
@@ -75,10 +78,10 @@ class Util {
             $offset = 'GMT ' . intval($current->getOffset() / 3600) . ':' . str_pad(abs(intval($current->getOffset() % 3600 / 60)), 2, 0);
 
             // Prettify timezone name
-            $name = Output::getClean(str_replace(array('/', '_'), array(', ', ' '), $timezone));
+            $name = Output::getClean(str_replace(['/', '_'], [', ', ' '], $timezone));
 
             // Add to timezones array
-            $timezones[$timezone] = array('offset' => $offset, 'name' => $name, 'time' => $current->format('H:i'));
+            $timezones[$timezone] = ['offset' => $offset, 'name' => $name, 'time' => $current->format('H:i')];
         }
 
         array_multisort($offsets, $timezones);
@@ -97,15 +100,16 @@ class Util {
                 $url = array_shift($matches);
 
                 $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);
-                $text = preg_replace("/^www./", "", $text);
+                $text = preg_replace('/^www./', '', $text);
 
-                $last = - (strlen(strrchr($text, "/"))) + 1;
+                $last = -(strlen(strrchr($text, '/'))) + 1;
+
                 if ($last < 0) {
-                    $text = substr($text, 0, $last) . "&hellip;";
+                    $text = substr($text, 0, $last) . '&hellip;';
                 }
 
                 return sprintf('<a rel="nofollow noopener" target="_blank" href="%s">%s</a>', $url, $text);
-            }, 
+            },
         $text);
     }
 
@@ -114,14 +118,13 @@ class Util {
         if (defined('DEFAULT_AVATAR_SOURCE')) {
             if (defined('DEFAULT_AVATAR_PERSPECTIVE'))
                 $perspective = DEFAULT_AVATAR_PERSPECTIVE;
-            else
-                $perspective = 'face';
+            else $perspective = 'face';
 
             switch (DEFAULT_AVATAR_SOURCE) {
                 case 'crafatar':
                     if ($perspective == 'face')
                         return 'https://crafatar.com/avatars/' . Output::getClean($uuid) . '?size=' . $size . '&amp;overlay';
-                    else
+                    
                         return 'https://crafatar.com/renders/head/' . Output::getClean($uuid) . '?overlay';
 
                     break;
@@ -130,7 +133,7 @@ class Util {
                     // Only supports face currently
                     if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
                         return URL::build('/avatar/' . Output::getClean($uuid));
-                    else
+                    
                         return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u=' . Output::getClean($uuid);
 
                     break;
@@ -138,25 +141,26 @@ class Util {
                 case 'mc-heads':
                     if ($perspective == 'face')
                         return 'https://mc-heads.net/avatar/' . Output::getClean($uuid) . '/' . $size;
-                    else
+                    
                         return 'https://mc-heads.net/head/' . Output::getClean($uuid) . '/' . $size;
 
                     break;
 
                 case 'minotar':
                     if ($perspective == 'face')
-                        return 'https://minotar.net/helm/' .  Output::getClean($uuid) . '/' . $size . '.png';
-                    else
-                        return 'https://minotar.net/cube/' .  Output::getClean($uuid) . '/' . $size . '.png';
+                        return 'https://minotar.net/helm/' . Output::getClean($uuid) . '/' . $size . '.png';
+                    
+                        return 'https://minotar.net/cube/' . Output::getClean($uuid) . '/' . $size . '.png';
 
                     break;
 
                 case 'visage':
                     if ($perspective == 'face')
                         return 'https://visage.surgeplay.com/face/' . $size . '/' . Output::getClean($uuid);
-                    else if ($perspective == 'bust')
+
+                     if ($perspective == 'bust')
                         return 'https://visage.surgeplay.com/bust/' . $size . '/' . Output::getClean($uuid);
-                    else
+                    
                         return 'https://visage.surgeplay.com/head/' . $size . '/' . Output::getClean($uuid);
 
                     break;
@@ -165,8 +169,9 @@ class Util {
                 default:
                     if ($perspective == 'face')
                         return 'https://cravatar.eu/helmavatar/' . Output::getClean($uuid) . '/' . $size . '.png';
-                    else
+                    
                         return 'https://cravatar.eu/helmhead/' . Output::getClean($uuid) . '/' . $size . '.png';
+
                     break;
             }
         } else {
@@ -180,27 +185,30 @@ class Util {
         if (defined('DEFAULT_AVATAR_SOURCE')) {
             if (defined('DEFAULT_AVATAR_PERSPECTIVE'))
                 $perspective = DEFAULT_AVATAR_PERSPECTIVE;
-            else
-                $perspective = 'face';
+            else $perspective = 'face';
 
             switch (DEFAULT_AVATAR_SOURCE) {
                 case 'crafatar':
                     if ($perspective == 'face')
                         return 'https://crafatar.com/avatars/{x}?size={y}&amp;overlay';
-                    else
+                    
                         return 'https://crafatar.com/renders/head/{x}?overlay';
+
                     break;
+
                 case 'nameless':
                     // Only supports face currently
                     if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true)
                         return URL::build('/avatar/{x}');
-                    else
+                    
                         return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={x}';
+
                     break;
+
                 case 'mc-heads':
                     if ($perspective == 'face')
                         return 'https://mc-heads.net/avatar/{x}/{y}';
-                    else
+                    
                         return 'https://mc-heads.net/head/{x}/{y}';
 
                     break;
@@ -208,7 +216,7 @@ class Util {
                 case 'minotar':
                     if ($perspective == 'face')
                         return 'https://minotar.net/helm/{x}/{y}.png';
-                    else
+                    
                         return 'https://minotar.net/cube/{x}/{y}.png';
 
                     break;
@@ -216,18 +224,21 @@ class Util {
                 case 'visage':
                     if ($perspective == 'face')
                         return 'https://visage.surgeplay.com/face/{y}/{x}';
-                    else if ($perspective == 'bust')
+
+                     if ($perspective == 'bust')
                         return 'https://visage.surgeplay.com/bust/{y}/{x}';
-                    else
+                    
                         return 'https://visage.surgeplay.com/head/{y}/{x}';
 
                     break;
+
                 case 'cravatar':
                 default:
                     if ($perspective == 'face')
                         return 'https://cravatar.eu/helmavatar/{x}/{y}.png';
-                    else
+                    
                         return 'https://cravatar.eu/helmhead/{x}/{y}.png';
+
                     break;
             }
         } else {
@@ -236,11 +247,10 @@ class Util {
         }
     }
 
-    /*
-     *  Get the server name
-     */
+    // Get the server name
     public static function getSelfURL($protocol = true) {
         $hostname = Config::get('core/hostname');
+
         if (is_array($hostname))
             $hostname = $_SERVER['SERVER_NAME'];
 
@@ -252,9 +262,9 @@ class Util {
 
         if ($protocol) {
             if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
-                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname);
+                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . $www . Output::getClean($hostname);
             } else {
-                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . "://" . $www . Output::getClean($hostname) . ":" . $_SERVER['SERVER_PORT'];
+                $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . $www . Output::getClean($hostname) . ':' . $_SERVER['SERVER_PORT'];
             }
         } else {
             $url = $www . Output::getClean($hostname);
@@ -277,13 +287,14 @@ class Util {
 
         $parsed = parse_url($url);
 
-        return !(str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
+        return ! (str_replace('www.', '', rtrim(Util::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
     // URL-ify a string
     public static function stringToURL($string = null) {
         if ($string) {
-            $string = preg_replace("/[^A-Za-z0-9 ]/", '', $string);
+            $string = preg_replace('/[^A-Za-z0-9 ]/', '', $string);
+
             return Output::getClean(strtolower(urlencode(str_replace(' ', '-', htmlspecialchars_decode($string)))));
         }
 
@@ -294,6 +305,7 @@ class Util {
      *  The truncate function is taken from CakePHP, license MIT
      *  https://github.com/cakephp/cakephp/blob/master/LICENSE
      */
+
     /**
      * Truncates text.
      *
@@ -306,17 +318,17 @@ class Util {
      * - `exact` If false, $text will not be cut mid-word
      * - `html` If true, HTML tags would be handled correctly
      *
-     * @param string  $text String to truncate.
-     * @param integer $length Length of returned string, including ellipsis.
-     * @param array $options An array of html attributes and options.
-     * @return string Trimmed string.
+     * @param  string  $text    String to truncate.
+     * @param  integer $length  Length of returned string, including ellipsis.
+     * @param  array   $options An array of html attributes and options.
+     * @return string  Trimmed string.
      * @access public
-     * @link http://book.cakephp.org/view/1469/Text#truncate-1625
+     * @see http://book.cakephp.org/view/1469/Text#truncate-1625
      */
-    public static function truncate($text, $length = 750, $options = array()) {
-        $default = array(
+    public static function truncate($text, $length = 750, $options = []) {
+        $default = [
             'ending' => '...', 'exact' => true, 'html' => false
-        );
+        ];
         $options = array_merge($default, $options);
         extract($options);
 
@@ -325,16 +337,18 @@ class Util {
                 return $text;
             }
             $totalLength = mb_strlen(strip_tags($ending));
-            $openTags = array();
+            $openTags = [];
             $truncate = '';
 
             preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
+
             foreach ($tags as $tag) {
-                if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
+                if (! preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
                     if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
                         array_unshift($openTags, $tag[2]);
                     } else if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
                         $pos = array_search($closeTag[1], $openTags);
+
                         if ($pos !== false) {
                             array_splice($openTags, $pos, 1);
                         }
@@ -343,9 +357,11 @@ class Util {
                 $truncate .= $tag[1];
 
                 $contentLength = mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $tag[3]));
+
                 if ($contentLength + $totalLength > $length) {
                     $left = $length - $totalLength;
                     $entitiesLength = 0;
+
                     if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $tag[3], $entities, PREG_OFFSET_CAPTURE)) {
                         foreach ($entities[0] as $entity) {
                             if ($entity[1] + 1 - $entitiesLength <= $left) {
@@ -358,11 +374,12 @@ class Util {
                     }
 
                     $truncate .= mb_substr($tag[3], 0, $left + $entitiesLength);
+
                     break;
-                } else {
+                }
                     $truncate .= $tag[3];
                     $totalLength += $contentLength;
-                }
+                
                 if ($totalLength >= $length) {
                     break;
                 }
@@ -370,19 +387,21 @@ class Util {
         } else {
             if (mb_strlen($text) <= $length) {
                 return $text;
-            } else {
-                $truncate = mb_substr($text, 0, $length - mb_strlen($ending));
             }
+                $truncate = mb_substr($text, 0, $length - mb_strlen($ending));
         }
-        if (!$exact) {
+
+        if (! $exact) {
             $spacepos = mb_strrpos($truncate, ' ');
+
             if (isset($spacepos)) {
                 if ($html) {
                     $bits = mb_substr($truncate, $spacepos);
                     preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
-                    if (!empty($droppedTags)) {
+
+                    if (! empty($droppedTags)) {
                         foreach ($droppedTags as $closingTag) {
-                            if (!in_array($closingTag[1], $openTags)) {
+                            if (! in_array($closingTag[1], $openTags)) {
                                 array_unshift($openTags, $closingTag[1]);
                             }
                         }
@@ -410,12 +429,12 @@ class Util {
         $queries = new Queries();
 
         // Check for updates
-        if (!$current_version) {
-            $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+        if (! $current_version) {
+            $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
             $current_version = $current_version[0]->value;
         }
 
-        $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
+        $uid = $queries->getWhere('settings', ['name', '=', 'unique_id']);
         $uid = $uid[0]->value;
 
         $ch = curl_init();
@@ -436,34 +455,30 @@ class Util {
         curl_close($ch);
 
         if (isset($error)) {
-            return json_encode(array('error' => $error));
-        } else {
+            return json_encode(['error' => $error]);
+        }
+
             if ($update_check == 'None') {
-                return json_encode(array('no_update' => true));
-            } else {
+                return json_encode(['no_update' => true]);
+            }
                 $info = json_decode($update_check);
 
-                if (!isset($info->error) && !isset($info->no_update) && isset($info->new_version)) {
+                if (! isset($info->error) && ! isset($info->no_update) && isset($info->new_version)) {
                     if (isset($info->urgent) && $info->urgent == 'true')
                         $to_db = 'urgent';
-                    else
-                        $to_db = 'true';
+                    else $to_db = 'true';
 
-                    $update_id = $queries->getWhere('settings', array('name', '=', 'version_update'));
+                    $update_id = $queries->getWhere('settings', ['name', '=', 'version_update']);
                     $update_id = $update_id[0]->id;
-                    $queries->update('settings', $update_id, array(
+                    $queries->update('settings', $update_id, [
                         'value' => $to_db
-                    ));
+                    ]);
                 }
 
                 return $update_check;
-            }
-        }
     }
 
-    /*
-     *  Get the latest Nameless news
-     */
+    // Get the latest Nameless news
     public static function getLatestNews() {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -479,18 +494,19 @@ class Util {
         curl_close($ch);
 
         if (isset($error)) {
-            return json_encode(array('error' => $error));
-        } else {
-            return $news;
+            return json_encode(['error' => $error]);
         }
+
+            return $news;
     }
 
     public static function curlGetContents($full_url, $body = null) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $full_url);
+
         if ($body != null) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         }
         $contents = curl_exec($ch);
@@ -498,11 +514,12 @@ class Util {
         if ($contents == false) {
             Log::getInstance()->log(Log::Action('misc/curl_error'), curl_error($ch));
             curl_close($ch);
+
             return false;
-        } else {
-            curl_close($ch);
-            return $contents;
         }
+            curl_close($ch);
+
+            return $contents;
     }
 
     /*
@@ -510,19 +527,20 @@ class Util {
      *  From https://stackoverflow.com/a/53461987
      */
     public static function replaceAnchorsWithText($data) {
-        $data = preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', function ($m) {
+        return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', function ($m) {
             if (strpos($m[1], self::getSelfURL()) === false)
                 return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
-            else
+            
                 return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
         }, $data);
-        return $data;
     }
 
     public static function getSetting(DB $db, $setting, $fallback = null) {
-        $value = $db->get('settings', array('name', '=', $setting));
+        $value = $db->get('settings', ['name', '=', $setting]);
+
         if ($value->count()) return $value->first()->value;
-        else return $fallback;
+
+         return $fallback;
     }
 
     public static function loadEndpoints($path, $endpoints) {
@@ -534,26 +552,31 @@ class Util {
             } else {
                 $endpoint_path = $file->getPathName();
                 $endpoint_file_name = $file->getFilename();
-                require_once($endpoint_path);
+
+                require_once ($endpoint_path);
                 $endpoint_class_name = str_replace('.php', '', $endpoint_file_name);
-                $endpoints->add(new $endpoint_class_name);
+                $endpoints->add(new $endpoint_class_name());
             }
         }
     }
 
     public static function getIngameRankName($website_group_id) {
-        $data = DB::getInstance()->get('group_sync', array('website_group_id', '=', $website_group_id));
+        $data = DB::getInstance()->get('group_sync', ['website_group_id', '=', $website_group_id]);
+
         if ($data->count()) {
             return $data->first()->ingame_rank_name;
         }
+
         return null;
     }
 
     public static function getGroupNameFromId($group_id) {
-        $data = DB::getInstance()->get('groups', array('id', '=', $group_id));
+        $data = DB::getInstance()->get('groups', ['id', '=', $group_id]);
+
         if ($data->count()) {
             return $data->first()->name;
         }
+
         return null;
     }
 }

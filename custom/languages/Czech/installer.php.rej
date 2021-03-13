@@ -1,0 +1,31 @@
+***************
+*** 10,19 ****
+   *  Czech Language - Installation
+   */
+  
+- $language = array (
+-     /*
+-      *  Installation
+-      */
+      'install' => 'Instalace',
+      'pre-release' => 'předběžné vydání',
+      'installer_welcome' => 'Vítejte v předběžném vydání NamelessMC verze 2.0.',
+--- 10,17 ----
+   *  Czech Language - Installation
+   */
+  
++ $language = [
++     // Installation
+      'install' => 'Instalace',
+      'pre-release' => 'předběžné vydání',
+      'installer_welcome' => 'Vítejte v předběžném vydání NamelessMC verze 2.0.',
+***************
+*** 104,107 ****
+      'config_not_writable' => 'Konfigurační soubor není zapisovatelný.',
+  
+      'session_doesnt_exist' => 'Nepodařilo se detekovat relaci. Pro správnou funkci Nameless je potřeba funkce ukládání relací. Zkuste to prosím znovu. Pokud chyba přetrvává, kontaktujte podporu vašeho webhostingu.'
+- );--- 102,105 ----
+      'config_not_writable' => 'Konfigurační soubor není zapisovatelný.',
+  
+      'session_doesnt_exist' => 'Nepodařilo se detekovat relaci. Pro správnou funkci Nameless je potřeba funkce ukládání relací. Zkuste to prosím znovu. Pokud chyba přetrvává, kontaktujte podporu vašeho webhostingu.'
++ ];

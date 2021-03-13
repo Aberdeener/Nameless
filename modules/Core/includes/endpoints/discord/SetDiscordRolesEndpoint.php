@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @param int $user The NamelessMC user ID to edit
+ * @param int    $user  The NamelessMC user ID to edit
  * @param string $roles An array of Discord Role ID to give to the user
  *
  * @return string JSON Array
  */
-class SetDiscordRolesEndpoint extends EndpointBase {
-
+class SetDiscordRolesEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'setDiscordRoles';
         $this->_module = 'Core';
@@ -18,7 +18,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
     public function execute(Nameless2API $api) {
         $api->validateParams($_POST, ['user']);
 
-        if (!Util::getSetting($api->getDb(), 'discord_integration')) {
+        if (! Util::getSetting($api->getDb(), 'discord_integration')) {
             $api->throwError(34, $api->getLanguage()->get('api', 'discord_integration_disabled'));
         }
 
@@ -27,19 +27,19 @@ class SetDiscordRolesEndpoint extends EndpointBase {
         $user = $api->getUser('id', $user_id);
 
         $should_log = false;
-        $log_array = array();
+        $log_array = [];
 
         if ($_POST['roles'] != null) {
-
             $roles = $_POST['roles'];
 
             $original_group_ids = $user->getAllGroupIds();
-            $added_groups_ids = array();
+            $added_groups_ids = [];
 
             $user->removeGroups();
 
             foreach ($roles as $role) {
                 $group = Discord::getWebsiteGroup($api->getDb(), $role);
+
                 if ($group == null) {
                     continue;
                 }
@@ -64,9 +64,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
 
                 $log_array['removed'][] = Util::getGroupNameFromId($group_id);
             }
-
         } else {
-
             $original_group_ids = $user->getAllGroupIds();
             $added_group_id = 0;
 
@@ -79,7 +77,7 @@ class SetDiscordRolesEndpoint extends EndpointBase {
             }
 
             // If the new group they got was not in their original groups, log it
-            if (!in_array($added_group_id, $original_group_ids)) {
+            if (! in_array($added_group_id, $original_group_ids)) {
                 $should_log = true;
                 $log_array['added'][] = Util::getGroupNameFromId($added_group_id);
             }
@@ -93,13 +91,12 @@ class SetDiscordRolesEndpoint extends EndpointBase {
                 $should_log = true;
                 $log_array['removed'][] = Util::getGroupNameFromId($group_id);
             }
-
         }
 
         if ($should_log) {
             Log::getInstance()->log(Log::Action('discord/role_set'), json_encode($log_array), $user->data()->id);
         }
 
-        $api->returnArray(array('message' => $api->getLanguage()->get('api', 'group_updated'), 'meta' => json_encode($log_array)));
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'group_updated'), 'meta' => json_encode($log_array)]);
     }
 }

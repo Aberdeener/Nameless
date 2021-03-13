@@ -10,11 +10,14 @@
  *  EndpointsBase class
  */
 
-abstract class EndpointBase {
-
+abstract class EndpointBase
+{
     protected $_route,
+
               $_module,
+
               $_description,
+
               $_method;
 
     public function getRoute() {
@@ -33,6 +36,5 @@ abstract class EndpointBase {
         return $this->_method;
     }
 
-    public abstract function execute(Nameless2API $api);
-
+    abstract public function execute(Nameless2API $api);
 }

@@ -9,8 +9,8 @@
  *  Minecraft server query class
  */
 
-class MCQuery {
-
+class MCQuery
+{
     // Query a single server
     // Returns array containing query result
     // Params:  $ip - full server IP address with port (separated by :) to query
@@ -38,9 +38,9 @@ class MCQuery {
                         }
 
                         if (isset($query['players'])) {
-                            $player_list = isset($query['players']['sample']) ? $query['players']['sample'] : array();
+                            $player_list = isset($query['players']['sample']) ? $query['players']['sample'] : [];
 
-                            $return = array(
+                            $return = [
                                 'status_value' => 1,
                                 'status' => $language->get('general', 'online'),
                                 'player_count' => Output::getClean($query['players']['online']),
@@ -50,13 +50,13 @@ class MCQuery {
                                 'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online')),
                                 'motd' => (isset($query['description']['text']) ? $query['description']['text'] : ''),
                                 'version' => $query['version']['name']
-                            );
+                            ];
                         } else {
-                            $return = array(
+                            $return = [
                                 'status_value' => 0,
                                 'status' => $language->get('general', 'offline'),
                                 'server_offline' => $language->get('general', 'server_offline')
-                            );
+                            ];
                         }
 
                         $ping->close();
@@ -70,26 +70,26 @@ class MCQuery {
                     if (count($query_ip) <= 2) {
                         $query = ExternalMCQuery::query($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565));
 
-                        if (!$query->error && isset($query->response)) {
-                            $player_list = isset($query->response->players->list) ? $query->response->players->list : array();
+                        if (! $query->error && isset($query->response)) {
+                            $player_list = isset($query->response->players->list) ? $query->response->players->list : [];
 
-                            return array(
+                            return [
                                 'status_value' => 1,
                                 'status' => $language->get('general', 'online'),
                                 'player_count' => Output::getClean($query->response->players->online),
                                 'player_count_max' => Output::getClean($query->response->players->max),
                                 'player_list' => $player_list,
-                                'format_player_list' => self::formatPlayerList((array)$player_list),
+                                'format_player_list' => self::formatPlayerList((array) $player_list),
                                 'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online')),
                                 'motd' => $query->response->description->text
-                            );
-                        } else {
-                            return array(
+                            ];
+                        }
+
+                            return [
                                 'status_value' => 0,
                                 'status' => $language->get('general', 'offline'),
                                 'server_offline' => $language->get('general', 'server_offline')
-                            );
-                        }
+                            ];
                     }
                 }
             } catch (Exception $e) {
@@ -99,20 +99,21 @@ class MCQuery {
 
                 $queries->create(
                     'query_errors',
-                    array(
+                    [
                         'date' => date('U'),
                         'error' => $error,
                         'ip' => $query_ip[0],
                         'port' => (isset($query_ip[1]) ? $query_ip[1] : 25565)
-                    )
+                    ]
                 );
 
-                return array(
+                return [
                     'error' => true,
                     'value' => $error
-                );
+                ];
             }
         }
+
         return false;
     }
 
@@ -133,7 +134,7 @@ class MCQuery {
         if (count($servers)) {
             if ($type == 'internal') {
                 // Internal query
-                $to_return = array();
+                $to_return = [];
                 $total_count = 0;
                 $status = 0;
 
@@ -153,29 +154,29 @@ class MCQuery {
                             // Unable to query
                             $error = $e->getMessage();
 
-                            $query = array();
+                            $query = [];
 
                             $queries->create(
                                 'query_errors',
-                                array(
+                                [
                                     'date' => date('U'),
                                     'error' => $error,
                                     'ip' => $query_ip[0],
                                     'port' => (isset($query_ip[1]) ? $query_ip[1] : 25565)
-                                )
+                                ]
                             );
                         }
 
                         if (isset($query['players'])) {
                             if ($accumulate === false) {
-                                $to_return[] = array(
+                                $to_return[] = [
                                     'name' => Output::getClean($server['name']),
                                     'status_value' => 1,
                                     'status' => $language->get('general', 'online'),
                                     'player_count' => Output::getClean($query['players']['online']),
                                     'player_count_max' => Output::getClean($query['players']['max']),
                                     'x_players_online' => str_replace('{x}', Output::getClean($query['players']['online']), $language->get('general', 'currently_x_players_online'))
-                                );
+                                ];
                             } else {
                                 if ($status == 0) {
                                     $status = 1;
@@ -184,12 +185,12 @@ class MCQuery {
                             }
                         } else {
                             if ($accumulate === true) {
-                                $to_return[] = array(
+                                $to_return[] = [
                                     'name' => Output::getClean($server['name']),
                                     'status_value' => 0,
                                     'status' => $language->get('general', 'offline'),
                                     'server_offline' => $language->get('general', 'server_offline')
-                                );
+                                ];
                             }
                         }
                     }
@@ -200,19 +201,19 @@ class MCQuery {
                 }
 
                 if ($accumulate === true) {
-                    $to_return = array(
+                    $to_return = [
                         'status_value' => $status,
                         'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
                         'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
                         'total_players' => $total_count,
                         'player_count' => $total_count
-                    );
+                    ];
                 }
 
                 return $to_return;
-            } else {
+            }
                 // External query
-                $to_return = array();
+                $to_return = [];
                 $total_count = 0;
                 $status = 0;
 
@@ -222,16 +223,16 @@ class MCQuery {
                     if (count($query_ip) <= 2) {
                         $query = ExternalMCQuery::query($query_ip[0], (isset($query_ip[1]) ? $query_ip[1] : 25565));
 
-                        if (!$query->error && isset($query->response)) {
+                        if (! $query->error && isset($query->response)) {
                             if ($accumulate === false) {
-                                $to_return[] = array(
+                                $to_return[] = [
                                     'name' => Output::getClean($server['name']),
                                     'status_value' => 1,
                                     'status' => $language->get('general', 'online'),
                                     'player_count' => Output::getClean($query->response->players->online),
                                     'player_count_max' => Output::getClean($query->response->players->max),
                                     'x_players_online' => str_replace('{x}', Output::getClean($query->response->players->online), $language->get('general', 'currently_x_players_online'))
-                                );
+                                ];
                             } else {
                                 if ($status == 0) {
                                     $status = 1;
@@ -240,30 +241,30 @@ class MCQuery {
                             }
                         } else {
                             if ($accumulate === true) {
-                                $to_return[] = array(
+                                $to_return[] = [
                                     'name' => Output::getClean($server['name']),
                                     'status_value' => 0,
                                     'status' => $language->get('general', 'offline'),
                                     'server_offline' => $language->get('general', 'server_offline')
-                                );
+                                ];
                             }
                         }
                     }
                 }
 
                 if ($accumulate === true) {
-                    $to_return = array(
+                    $to_return = [
                         'status_value' => $status,
                         'status' => (($status == 1) ? $language->get('general', 'online') : $language->get('general', 'offline')),
                         'status_full' => (($status == 1) ? str_replace('{x}', $total_count, $language->get('general', 'currently_x_players_online')) : $language->get('general', 'server_offline')),
                         'total_players' => $total_count,
                         'player_count' => $total_count
-                    );
+                    ];
                 }
 
                 return $to_return;
-            }
         }
+
         return false;
     }
 
@@ -273,19 +274,20 @@ class MCQuery {
      * @param $player_list array Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
 
      * @return array Array of formatted players
-     **/
+     */
     private static function formatPlayerList($player_list) {
-        $formatted = array();
+        $formatted = [];
 
         if (count($player_list)) {
             foreach ($player_list as $player) {
-                $player = (array)$player;
+                $player = (array) $player;
                 $user = new User($player['id'], 'uuid');
-                if (!$user->data()) {
+
+                if (! $user->data()) {
                     $user = new User($player['name'], 'username');
                 }
 
-                if (!$user->data()) {
+                if (! $user->data()) {
                     $avatar = Util::getAvatarFromUUID($player['id']);
                     $profile = '#';
                 } else {
@@ -293,12 +295,12 @@ class MCQuery {
                     $profile = $user->getProfileURL();
                 }
 
-                $formatted[] = array(
+                $formatted[] = [
                     'username' => Output::getClean($player['name']),
                     'uuid' => Output::getClean($player['id']),
                     'avatar' => $avatar,
                     'profile' => $profile
-                );
+                ];
             }
         }
 

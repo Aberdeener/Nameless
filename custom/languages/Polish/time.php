@@ -9,10 +9,8 @@
  *  Polish Language - Time
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'time', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'mniej niż minutę temu',
@@ -26,4 +24,4 @@ $language = array(
     '_months' => '{x} miesięcy temu',
     'about_1_year' => 'około rok temu',
     'over_x_years' => 'ponad {x} lat temu',
-);
+];

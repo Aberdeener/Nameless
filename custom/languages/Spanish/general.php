@@ -9,10 +9,8 @@
  *  Spanish Language - General terms
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Ayuda',
     'submit' => 'Enviar',
     'register' => 'Registro',
@@ -70,9 +68,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => 'Contacto',
     'message' => 'Mensaje',
     'email_address' => 'Correo electrónico',
@@ -82,27 +78,18 @@ $language = array(
     'contact_message_sent' => 'Mensaje enviado con éxito.',
     'contact_message_limit' => 'Sólo puede enviar un mensaje por hora. Puede enviar un mensaje en {x} minutos.', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Inicio',
     'more' => 'Más',
     'status' => 'Estado',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Social',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Puedes redactar tu publicación usando Markdown. Para más información, mira <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aquí</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'En línea',
     'offline' => 'Desconectado',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -120,15 +107,11 @@ $language = array(
     'no_players_online' => 'No hay jugadores conectados.',
     'and_x_more' => 'y {x} más', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Este sitio web utiliza Cookies para mejorar tu experiencia. Si sigues navegando, estás aceptando nuestros términos y condiciones.',
     'cookie_agree' => 'Acepto',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Estadísticas',
     'users_registered' => 'Usuarios Registrados',
     'latest_member' => 'Último Miembro',
@@ -147,13 +130,9 @@ $language = array(
     'no_default_server' => 'No hemos encontrado ningun servidor por defecto, Por favor selecciona uno en StaffCP - Integraciones - Minecraft.',
     'server_status' => 'Estado del servidor',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Política de privacidad',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Redireccionando...<br />Si la redireccion tarda mucho, puede hacer <a href="{x}" rel="nofollow noopener">Click aqui</a> para continuar.' // Don't replace {x} which is the redirect URL
-);
+];

@@ -10,14 +10,10 @@
  *  Translation By Douglas Teles, dasilvaj4 and Mansffer
  *  Last Update: 01/03/2021
  */
-$language = array(
-    /*
-     *  Change this for the account validation message
-     */
+$language = [
+    // Change this for the account validation message
     'validate_account_command' => 'Para completar o registo, por favor execute o comando <strong>/validate {x}</strong> no servidor.', // Don't replace {x}
-    /*
-     *  User Related
-     */
+    // User Related
     'guest' => 'Visitante',
     'guests' => 'Visitantes',
 
@@ -221,16 +217,12 @@ $language = array(
     'latest_profile_posts' => 'Últimas postagens de perfil',
     'no_profile_posts' => 'Sem postagens de perfil.',
 
-    /*
-     *  Infractions area
-     */
+    // Infractions area
     'you_have_been_banned' => 'Você foi banido!',
     'you_have_received_a_warning' => 'Você recebeu uma advertencia!',
     'acknowledge' => 'Reconhecimento',
 
-    /*
-     *  Hooks
-     */
+    // Hooks
     'user_x_has_registered' => '{x} juntou-se ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} validou sua conta!',
 
@@ -249,4 +241,4 @@ $language = array(
     'discord_communication_error' => 'Ocorreu um erro ao se comunicar com o Bot do Discord. Certifique-se de que o bot está funcionando e que o URL do bot está correto.',
     'discord_unknown_error' => 'Ocorreu um erro desconhecido ao sincronizar as funções do Discord. Entre em contato com um administrador.',
     'discord_id_help' => 'Para obter informações sobre onde encontrar as IDs do Discord, leia <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">isso.</a>'
-);
+];

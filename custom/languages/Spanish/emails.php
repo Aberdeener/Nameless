@@ -9,8 +9,7 @@
  *  Spanish Language - Emails
  */
 
-$language = array(
-
+$language = [
     // General Options
     'greeting' => 'Hola,',
     'thanks' => 'Gracias,',
@@ -26,4 +25,4 @@ $language = array(
     // Forum Topic Replies
     'forum_topic_reply_subject' => '{x} ha respondido a {y}', // Don't remove {x} or {y}
     'forum_topic_reply_message' => '{x} ha respondido a un tema que sigues. Contenido: {z}' // Don't remove {x} or {z}
-);
+];

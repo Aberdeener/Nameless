@@ -1,0 +1,32 @@
+***************
+*** 11,20 ****
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
+- $language = array(
+-     /*
+-      *  Installation
+-      */
+      'install' => '安装',
+      'pre-release' => '预览版本',
+      'installer_welcome' => '欢迎使用 NamelessMC 版本 2.0 预览版。',
+--- 11,18 ----
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
++ $language = [
++     // Installation
+      'install' => '安装',
+      'pre-release' => '预览版本',
+      'installer_welcome' => '欢迎使用 NamelessMC 版本 2.0 预览版。',
+***************
+*** 105,108 ****
+      'config_not_writable' => '配置文件无法写入',
+  
+      'session_doesnt_exist' => '无法检测会话。若想使用 Nameless，您必须启用会话。请您再试一次，若此问题始终存在，请咨询您的网页提供商。'
+- );
+--- 103,106 ----
+      'config_not_writable' => '配置文件无法写入',
+  
+      'session_doesnt_exist' => '无法检测会话。若想使用 Nameless，您必须启用会话。请您再试一次，若此问题始终存在，请咨询您的网页提供商。'
++ ];

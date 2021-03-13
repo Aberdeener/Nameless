@@ -8,18 +8,18 @@ Twitter:    @jamiebicknell
 Modified by Samerton for NamelessMC
 */
 
-require('../classes/Cache.php');
+require ('../classes/Cache.php');
 $cache = new Cache();
 
 $size = isset($_GET['s']) ? max(8, min(250, $_GET['s'])) : 48;
 $user = isset($_GET['u']) ? $_GET['u'] : '';
 $view = isset($_GET['v']) ? substr($_GET['v'], 0, 1) : 'f';
-$view = in_array($view, array('f', 'l', 'r', 'b')) ? $view : 'f';
+$view = in_array($view, ['f', 'l', 'r', 'b']) ? $view : 'f';
 
 function get_skin($user, $cache) {
-    
     // Check cache
     $cache->setCache('avatarCache_' . $user);
+
     if ($cache->isCached($user)) {
         return 'cached';
     }
@@ -47,6 +47,7 @@ function get_skin($user, $cache) {
     $output .= '9od++pvX8fdMAcj3/QJ9iJsAFPQCxHSnQt8vMJ3v2wCYpkhkAOR7vG7q4aCXoMoSgG8hFAuc/grMdAD4B/kHl9da7';
     $output .= 'Ne9AAAAAElFTkSuQmCC';
     $output = base64_decode($output);
+
     if ($user != '') {
         $ch = curl_init('https://sessionserver.mojang.com/session/minecraft/profile/' . $user);
 
@@ -87,7 +88,7 @@ if ($skin != 'cached') {
     $im = imagecreatefromstring($skin);
     $av = imagecreatetruecolor($size, $size);
 
-    $x = array('f' => 8, 'l' => 16, 'r' => 0, 'b' => 24);
+    $x = ['f' => 8, 'l' => 16, 'r' => 0, 'b' => 24];
 
     imagecopyresized($av, $im, 0, 0, $x[$view], 8, $size, $size, 8, 8);         // Face
     imagecolortransparent($im, imagecolorat($im, 63, 0));                       // Black Hat Issue
@@ -105,7 +106,7 @@ if ($skin != 'cached') {
     imagedestroy($av);
 } else {
     // Output - already cached
-    $im = imagecreatefrompng("cache/" . $user  . ".png");
+    $im = imagecreatefrompng('cache/' . $user . '.png');
     header('Content-type: image/png');
     imagepng($im);
     imagedestroy($im);

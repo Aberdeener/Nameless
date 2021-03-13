@@ -1,0 +1,32 @@
+***************
+*** 11,20 ****
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
+- $language = array(
+-     /*
+-      *  Errors
+-      */
+      '404_title' => '非常抱歉!',
+      '404_content' => '您找的页面并不存在喔。',
+      '404_back' => '返回',
+--- 11,18 ----
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
++ $language = [
++     // Errors
+      '404_title' => '非常抱歉!',
+      '404_content' => '您找的页面并不存在喔。',
+      '404_back' => '返回',
+***************
+*** 33,36 ****
+      'fatal_error_message_admin' => '抱歉，加载页面时出了点问题。错误详情:',
+      'in_file' => '在文件 <strong>{x}</strong> 的', // Don't replace {x}
+      'on_line' => '第 <strong>{x}</strong> 行' // Don't replace {x}
+- );
+--- 31,34 ----
+      'fatal_error_message_admin' => '抱歉，加载页面时出了点问题。错误详情:',
+      'in_file' => '在文件 <strong>{x}</strong> 的', // Don't replace {x}
+      'on_line' => '第 <strong>{x}</strong> 行' // Don't replace {x}
++ ];

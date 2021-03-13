@@ -11,15 +11,11 @@
  *  Nederlandse taal - Gebruikers
  */
 
-$language = array(
-    /*
-     *  Change this for the account validation message
-     */
+$language = [
+    // Change this for the account validation message
     'validate_account_command' => 'Om de registratie te voltooien, run alstublieft het commando <strong>/validate {x}</strong> ingame.', // Don't replace {x}
 
-    /*
-     *  Gebruiker gerelateerd
-     */
+    // Gebruiker gerelateerd
     'guest' => 'Gast',
     'guests' => 'Gasten',
 
@@ -226,16 +222,12 @@ $language = array(
     'latest_profile_posts' => 'Laatste Profielberichten',
     'no_profile_posts' => 'Geen Profielberichten',
 
-    /*
-     *  Overtredingen gebied
-     */
+    // Overtredingen gebied
     'you_have_been_banned' => 'Je bent verbannen!',
     'you_have_received_a_warning' => 'Je hebt een waarschuwing gekregen!',
     'acknowledge' => 'Begrepen',
 
-    /*
-     *  Hooks
-     */
+    // Hooks
     'user_x_has_registered' => '{x} is lid geworden van ' . SITE_NAME . '!',
     'user_x_has_validated' => '{x} has validated their account!',
 
@@ -254,4 +246,4 @@ $language = array(
     'discord_communication_error' => 'Er was een fout in de communicatie met de Discord Bot. Zorg ervoor dat de bot werkt en dat uw Bot-URL correct is.',
     'discord_unknown_error' => 'Er was een onbekende fout bij het synchroniseren van de rollen van Discord. Neem contact op met een beheerder.',
     'discord_id_help' => 'Voor informatie over waar je de Discord ID\'s kunt vinden, lees alsjeblieft <a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">dit.</a>'
-);
+];

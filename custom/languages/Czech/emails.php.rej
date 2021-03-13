@@ -1,0 +1,28 @@
+***************
+*** 10,17 ****
+   *  Czech Language - Emails
+   */
+  
+- $language = array (
+- 
+      // General Options
+      'greeting' => 'Zdravíme,',
+      'thanks' => 'Děkujeme,',
+--- 10,16 ----
+   *  Czech Language - Emails
+   */
+  
++ $language = [
+      // General Options
+      'greeting' => 'Zdravíme,',
+      'thanks' => 'Děkujeme,',
+***************
+*** 27,30 ****
+      // Forum Topic Replies
+      'forum_topic_reply_subject' => '{x} odpověděl uživateli {y}', // Don't remove {x} or {y}
+      'forum_topic_reply_message' => '{x} odpověděl na téma, které sledujete. Obsah: {z}' // Don't remove {x} or {z}
+- );--- 26,29 ----
+      // Forum Topic Replies
+      'forum_topic_reply_subject' => '{x} odpověděl uživateli {y}', // Don't remove {x} or {y}
+      'forum_topic_reply_message' => '{x} odpověděl na téma, které sledujete. Obsah: {z}' // Don't remove {x} or {z}
++ ];

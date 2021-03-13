@@ -1,0 +1,31 @@
+***************
+*** 10,19 ****
+   *  Czech Language - Errors
+   */
+  
+- $language = array (
+-     /*
+-      *  Errors
+-      */
+      '404_title' => 'Omlouváme se!',
+      '404_content' => 'Tuto stránku jsme nenašli.',
+      '404_back' => 'Vrátit se zpět',
+--- 10,17 ----
+   *  Czech Language - Errors
+   */
+  
++ $language = [
++     // Errors
+      '404_title' => 'Omlouváme se!',
+      '404_content' => 'Tuto stránku jsme nenašli.',
+      '404_back' => 'Vrátit se zpět',
+***************
+*** 32,35 ****
+      'fatal_error_message_admin' => 'Omlouváme se, ale při načítání stránky se něco pokazilo. Podrobnosti chyby:',
+      'in_file' => 'v souboru <strong>{x}</strong>', // Don't replace {x}
+      'on_line' => 'na řádku <strong>{x}</strong>' // Don't replace {x}
+- );--- 30,33 ----
+      'fatal_error_message_admin' => 'Omlouváme se, ale při načítání stránky se něco pokazilo. Podrobnosti chyby:',
+      'in_file' => 'v souboru <strong>{x}</strong>', // Don't replace {x}
+      'on_line' => 'na řádku <strong>{x}</strong>' // Don't replace {x}
++ ];

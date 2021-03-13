@@ -11,10 +11,8 @@
  *  Nederlandse taal - Tijd
  */
 
-$language = array(
-    /*
-     *  Tijd
-     */
+$language = [
+    // Tijd
     'time' => 'tijd', // Placeholder, geen behoefte om te vertalen
     'seconds_short' => 's', // Verkort "seconden", bv "sec"
     'less_than_a_minute' => 'Minder dan een minuut geleden',
@@ -28,4 +26,4 @@ $language = array(
     '_months' => '{x} maanden geleden',
     'about_1_year' => 'ongeveer 1 jaar geleden',
     'over_x_years' => 'meer dan {x} jaar geleden'
-);
+];

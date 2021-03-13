@@ -9,10 +9,8 @@
  *  Czech Language - General terms
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Help',
     'submit' => 'Potvrdiť',
     'register' => 'Registrovať sa',
@@ -70,9 +68,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => 'Kontakt',
     'message' => 'Správa',
     'email_address' => 'Email Address',
@@ -82,27 +78,18 @@ $language = array(
     'contact_message_sent' => 'Správa bola úspešne odoslaná.',
     'contact_message_limit' => 'Můžete odeslat pouze jednu zprávu za hodinu. Další můžete odeslat za {x} minut.', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Domov',
     'more' => 'Viac',
     'status' => 'Status',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Sociálné siete',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Formát môžete naformátovať pomocou značky Markdown. Dalšie informácie nájdete v časti <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>Tu</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -120,15 +107,11 @@ $language = array(
     'no_players_online' => 'There are no players online.',
     'and_x_more' => 'and {x} more', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
     'cookie_agree' => 'Agree',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Statistics',
     'users_registered' => 'Users Registered',
     'latest_member' => 'Latest Member',
@@ -147,14 +130,9 @@ $language = array(
     'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
     'server_status' => 'Server Status',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Privacy Policy',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
-);
-
+];

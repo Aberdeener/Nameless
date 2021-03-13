@@ -10,10 +10,8 @@
  *  Translation by Douglas Teles & Mansffer
  *  Last Update: 01/03/2021
  */
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Ajuda',
     'submit' => 'Enviar',
     'register' => 'Registrar',
@@ -71,9 +69,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Desvincular',
     
-    /*
-    *  Contact form
-    */
+    // Contact form
     'contact' => 'Contato',
     'message' => 'Mensagem',
     'email_address' => 'Endereço de email',
@@ -83,27 +79,18 @@ $language = array(
     'contact_message_sent' => 'Mensagem enviada com sucesso.',
     'contact_message_limit' => 'Você só pode enviar uma mensagem por hora. Você pode enviar uma mensagem em {x} minutos.', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Início',
     'more' => 'Mais',
     'status' => 'Status',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Social',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Você pode formatar sua postagem usando o Markdown. Para mais informações, veja <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aqui</a>.',
 
-    /*
-    *  Server query
-    */
+    // Server query
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -121,15 +108,11 @@ $language = array(
     'no_players_online' => 'Não há jogadores online.',
     'and_x_more' => 'e {x} mais', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Este site usa cookies para melhorar a sua experiência de navegação. Ao registar-se no nosso site ou fechar este aviso você concorda com a sua utilização.',
     'cookie_agree' => 'Concordo',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Estatisticas',
     'users_registered' => 'Usuários Registrados',
     'latest_member' => 'Membro mais Recente',
@@ -148,13 +131,9 @@ $language = array(
     'no_default_server' => 'Não há servidor padrão, selecione um em StaffCP - Integrações - Minecraft.',
     'server_status' => 'Status do servidor',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Política de Privacidade',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Redirecionando...<br />Se você não for redirecionado automaticamente, clique <a href="{x}" rel="nofollow noopener">aqui</a>.' // Don't replace {x} which is the redirect URL
-);
+];

@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -9,10 +10,8 @@
  *  EnglishUS Language for Forum module
  */
 
-$language = array(
-    /*
-     *  Forums
-     */ 
+$language = [
+    // Forums
     'forum' => 'Forum',
     'forums' => 'Forums',
     'forum_index' => 'Home',
@@ -212,4 +211,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Topics',
     'posts_title' => 'Posts',
-);
+];

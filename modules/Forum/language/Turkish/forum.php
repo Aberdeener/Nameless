@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -9,10 +10,8 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
-    /*
-     *  Forums
-     */ 
+$language = [
+    // Forums
     'forum' => 'Forum',
     'forums' => 'Forum',
     'forum_index' => 'Ana Sayfa',
@@ -211,4 +210,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Konular',
     'posts_title' => 'Mesajlar',
-);
+];

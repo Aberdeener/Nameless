@@ -9,10 +9,8 @@
  *  French Language - Users
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'time', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'il y a moins d\'une minute',
@@ -26,4 +24,4 @@ $language = array(
     '_months' => 'il y a {x} mois',
     'about_1_year' => 'il y a 1 ans',
     'over_x_years' => 'il y a {x} ans'
-);
+];

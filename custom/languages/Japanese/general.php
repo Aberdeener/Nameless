@@ -14,10 +14,8 @@
  *  Japanese Language - General terms
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'ヘルプ',
     'submit' => '送信',
     'register' => '登録',
@@ -75,9 +73,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => '問い合わせ',
     'message' => 'メッセージ',
     'email_address' => 'Email アドレス',
@@ -87,27 +83,18 @@ $language = array(
     'contact_message_sent' => '正常に送信されました。',
     'contact_message_limit' => '1 時間に 1 つのメッセージのみ送信できます。 {x} 分後に再試行してください。', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'ホーム',
     'more' => 'さらに',
     'status' => 'ステータス',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'ソーシャル',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Markdownを使用して投稿できます。 詳しくは <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>ここ</a> を参照してください。',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'オンライン',
     'offline' => 'オフライン',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -125,15 +112,11 @@ $language = array(
     'no_players_online' => '現在オンラインのプレイヤーはいません。',
     'and_x_more' => '{x} 以上', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => '当ウェブサイトは、ユーザーのエクスペリエンス向上のためにクッキーを使用しています。 当ウェブサイトに登録するか、この通知を閉じることにより、使用に同意するものとします。',
     'cookie_agree' => '同意',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => '統計',
     'users_registered' => '登録ユーザー',
     'latest_member' => '最新メンバー',
@@ -152,13 +135,9 @@ $language = array(
     'no_default_server' => 'デフォルトのサーバーがありません、StaffCP - Integrations - Minecraftで選択してください。',
     'server_status' => 'サーバーステータス',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'プライバシーポリシー(個人情報保護方針)',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'リダイレクト...<br />自動的にリダイレクトされない場合は、<a href="{x}" rel="nofollow noopener">こちら</a>をクリックしてください。' // Don't replace {x} which is the redirect URL
-);
+];

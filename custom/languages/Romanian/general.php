@@ -11,10 +11,8 @@
  *  Last Update: 26/06/2019
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Help',
     'submit' => 'Trimite',
     'register' => 'Înregistrează-te ',
@@ -72,9 +70,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => 'Contact',
     'message' => 'Mesaj',
     'email_address' => 'Adresa de e-mail',
@@ -84,27 +80,18 @@ $language = array(
     'contact_message_sent' => 'Mesaj trimis cu succes.',
     'contact_message_limit' => 'Puteți trimite doar un mesaj pe oră. Aveți posibilitatea să trimiteți un nou mesaj în {x} minute.', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Acasă',
     'more' => 'Mai mult',
     'status' => 'Statistici',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Social',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Puteți să vă formatați postarea folosind Markdown. Pentru mai multe informații, vedeți <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>aici</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -122,15 +109,11 @@ $language = array(
     'no_players_online' => 'Momentan nu sunt jucători online.',
     'and_x_more' => 'şi alţii {x}', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Acest site utilizează cookie-uri pentru a îmbunătăți experiența dvs. de navigare. Prin înregistrarea pe site-ul nostru sau închiderea acestei notificări sunteți de acord cu utilizarea lor.',
     'cookie_agree' => 'De acord',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Statistici',
     'users_registered' => 'Utilizatori înregistrați',
     'latest_member' => 'Cel mai nou membru',
@@ -149,13 +132,9 @@ $language = array(
     'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
     'server_status' => 'Server Status',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Politica de confidentialitate',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'În curs de redirecționare...<br />Dacă nu ești redirecționat automat, te rog <a href="{x}" rel="nofollow noopener">apasă aici</a>.' // Don't replace {x} which is the redirect URL
-);
+];

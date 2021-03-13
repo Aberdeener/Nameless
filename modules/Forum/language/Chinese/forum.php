@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
  *  Made by Samerton
  *  Translate By Hi_Michael
@@ -9,14 +10,12 @@
  *
  *  Chinese Language - Forum
  *  Translation progress : 100%
- *  翻譯有誤請使用GitHun回報issues 
+ *  翻譯有誤請使用GitHun回報issues
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
-$language = array(
-    /*
-     *  Forums
-     */ 
+$language = [
+    // Forums
     'forum' => '論壇',
     'forums' => '論壇',
     'forum_index' => '首頁',
@@ -216,4 +215,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Topics',
     'posts_title' => 'Posts',
-);
+];

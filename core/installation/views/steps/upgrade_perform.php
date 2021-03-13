@@ -1,58 +1,47 @@
 <?php
 
-$s = (isset($_GET['s']) ? (int)$_GET['s'] : 0);
+$s = (isset($_GET['s']) ? (int) $_GET['s'] : 0);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
+        try {
+            require (realpath(__DIR__ . '/../includes/upgrade_perform.php'));
+            $redirect_url = ($s < 9 ? '?step=upgrade_perform&s=' . ($s + 1) : '?step=finish');
+            
+            if (! empty($errors)) {
+                if (! isset($message)) {
+                    $message = '<p>' . $language['errors_logged'] . '</p>';
+                    $message .= '<div class="ui bulleted list">' . implode('', array_map(function ($err) {
+                        return '<div class="item">' . $err . '</div>';
+                    }, $errors)) . '</div>';
+                }
 
-	if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
+                $json = [
+                    'error' => true,
+                    'message' => $message,
+                    'redirect_url' => $redirect_url,
+                ];
+            } else {
+                $json = [
+                    'success' => true,
+                    'message' => $message,
+                    'redirect_url' => $redirect_url,
+                ];
+            }
+        } catch (Exception $e) {
+            $json = [
+                'error' => true,
+                'message' => $e->getMessage(),
+                'redirect_url' => '',
+            ];
+        }
 
-		try {
+        ob_clean();
+        header('Content-Type: application/json');
+        echo json_encode($json);
 
-			require(realpath(__DIR__ . '/../includes/upgrade_perform.php'));
-			$redirect_url = ($s < 9 ? '?step=upgrade_perform&s=' . ($s + 1) : '?step=finish');
-			
-			if (!empty($errors)) {
-
-				if (!isset($message)) {
-					$message = '<p>' . $language['errors_logged'] . '</p>';
-					$message .= '<div class="ui bulleted list">' . implode('', array_map(function($err) {
-						return '<div class="item">' . $err . '</div>';
-					}, $errors)) . '</div>';
-				}
-
-				$json = array(
-					'error' => true,
-					'message' => $message,
-					'redirect_url' => $redirect_url,
-				);
-
-			} else {
-
-				$json = array(
-					'success' => true,
-					'message' => $message,
-					'redirect_url' => $redirect_url,
-				);
-
-			}
-
-		} catch (Exception $e) {
-
-			$json = array(
-				'error' => true,
-				'message' => $e->getMessage(),
-				'redirect_url' => '',
-			);
-
-		}
-
-		ob_clean();
-		header('Content-Type: application/json');
-		echo json_encode($json);
-		die();
-
-	}
-
+        die();
+    }
 }
 
 ?>

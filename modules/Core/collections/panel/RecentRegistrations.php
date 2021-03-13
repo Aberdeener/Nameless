@@ -9,25 +9,27 @@
  *  Recent registrations dashboard collection item
  */
 
-class RecentRegistrationsItem extends CollectionItemBase {
-
-    private $_smarty, 
-            $_language, 
+class RecentRegistrationsItem extends CollectionItemBase
+{
+    private $_smarty,
+ 
+            $_language,
+ 
             $_cache;
 
     public function __construct($smarty, $language, $cache) {
         $cache->setCache('dashboard_main_items_collection');
+
         if ($cache->isCached('recent_registrations')) {
             $from_cache = $cache->retrieve('recent_registrations');
+
             if (isset($from_cache['order']))
                 $order = $from_cache['order'];
-            else
-                $order = 2;
+            else $order = 2;
 
             if (isset($from_cache['enabled']))
                 $enabled = $from_cache['enabled'];
-            else
-                $enabled = 1;
+            else $enabled = 1;
         } else {
             $order = 2;
             $enabled = 1;
@@ -51,14 +53,14 @@ class RecentRegistrationsItem extends CollectionItemBase {
         } else {
             $queries = new Queries();
             $query = $queries->orderAll('users', 'joined', 'DESC LIMIT 5');
-            $data = array();
+            $data = [];
 
             if (count($query)) {
                 $i = 0;
 
                 foreach ($query as $item) {
                     $target_user = new User($item->id);
-                    $data[] = array(
+                    $data[] = [
                         'url' => URL::build('/panel/user/' . Output::getClean($item->id) . '-' . Output::getClean($item->username)),
                         'username' => $target_user->getDisplayname(true),
                         'nickname' => $target_user->getDisplayname(),
@@ -68,7 +70,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
                         'groups' => $target_user->getAllGroups(true),
                         'time' => $timeago->inWords(date('d M Y, H:i', $item->joined), $this->_language->getTimeLanguage()),
                         'time_full' => date('d M Y, H:i', $item->joined)
-                    );
+                    ];
 
                     if (++$i == 5)
                         break;
@@ -78,12 +80,12 @@ class RecentRegistrationsItem extends CollectionItemBase {
             $this->_cache->store('recent_registrations_data', $data, 60);
         }
 
-        $this->_smarty->assign(array(
+        $this->_smarty->assign([
             'RECENT_REGISTRATIONS' => $this->_language->get('moderator', 'recent_registrations'),
             'REGISTRATIONS' => $data,
             'REGISTERED' => $this->_language->get('user', 'registered'),
             'VIEW' => $this->_language->get('general', 'view')
-        ));
+        ]);
 
         return $this->_smarty->fetch('collections/dashboard_items/recent_registrations.tpl');
     }

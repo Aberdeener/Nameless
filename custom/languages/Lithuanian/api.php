@@ -10,8 +10,7 @@
  *  Lithuanian Language - API
  */
 
-$language = array(
-
+$language = [
   // Errors
   'api_disabled' => 'API is disabled',
   'unknown_error' => 'Nežinoma klaida',
@@ -64,4 +63,4 @@ $language = array(
   'discord_id_set' => 'Discord ID set successfully',
   'discord_settings_updated' => 'Discord settings updated successfully',
     'discord_usernames_updated' => 'Discord usernames updated successfully'
-);
+];

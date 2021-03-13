@@ -9,10 +9,8 @@
  *  Spanish Language - Errors
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => '¡Lo sentimos!',
     '404_content' => 'No pudimos encontrar esa página.',
     '404_back' => 'Regresar',
@@ -31,4 +29,4 @@ $language = array(
     'fatal_error_message_admin' => 'Se ha producido un error al cargar la página. Detalles del error:',
     'in_file' => 'En el archivo <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'En la línea <strong>{x}</strong>' // Don't replace {x}
-);
+];

@@ -14,10 +14,8 @@
  *  Japanese Language - Installation
  */
 
-$language = array(
-    /*
-     *  Installation
-     */
+$language = [
+    // Installation
     'install' => 'インストール',
     'pre-release' => 'プレリリース版',
     'installer_welcome' => 'NamelessMC v2 プレリリース版インストーラへようこそ。',
@@ -108,4 +106,4 @@ $language = array(
     'config_not_writable' => '設定ファイルは書き込み可能ではありません。',
 
     'session_doesnt_exist' => 'セッションを検出できません。セッションの保存はNamelessを使用するための要件です。再度試してみて、問題が解決しない場合は、ウェブホストに連絡してください。'
-);
+];

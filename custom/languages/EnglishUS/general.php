@@ -9,10 +9,8 @@
  *  EnglishUS Language - General terms
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Help',
     'submit' => 'Submit',
     'register' => 'Register',
@@ -70,9 +68,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => 'Contact',
     'message' => 'Message',
     'email_address' => 'Email Address',
@@ -82,28 +78,18 @@ $language = array(
     'contact_message_sent' => 'Message sent successfully.',
     'contact_message_limit' => 'You can only send one message per hour. You can next send a message in {x} minutes.', // Don't replace {x}
 
-
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Home',
     'more' => 'More',
     'status' => 'Status',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Social',
 
-
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'You can format your post using Markdown. For more information, see <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>here</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -121,15 +107,11 @@ $language = array(
     'no_players_online' => 'There are no players online.',
     'and_x_more' => 'and {x} more', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'This website uses cookies to enhance your browsing experience. By registering on our website or closing this notice you agree with their use.',
     'cookie_agree' => 'Agree',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Statistics',
     'users_registered' => 'Users Registered',
     'latest_member' => 'Latest Member',
@@ -148,13 +130,9 @@ $language = array(
     'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
     'server_status' => 'Server Status',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Privacy Policy',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Redirecting...<br />If you are not redirected automatically, please click <a href="{x}" rel="nofollow noopener">here</a>.' // Don't replace {x} which is the redirect URL
-);
+];

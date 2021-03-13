@@ -9,8 +9,7 @@
  *  Norwegian translation (norsk bokmål) - API
  */
 
-$language = array(
-
+$language = [
     // Errors
     'api_disabled' => 'API er deaktivert',
     'unknown_error' => 'Ukjent feil',
@@ -63,4 +62,4 @@ $language = array(
     'discord_id_set' => 'Discord-ID-en har blitt endret.',
     'discord_settings_updated' => 'Discord-innstillinger har blitt oppdatert',
     'discord_usernames_updated' => 'Discord-brukernavn har blitt oppdatert'
-);
+];

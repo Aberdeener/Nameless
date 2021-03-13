@@ -1,4 +1,4 @@
-<?php require(__DIR__ . '/includes/header.php'); ?>
+<?php require (__DIR__ . '/includes/header.php'); ?>
 
 <div class="main-content">
     <div class="ui container">
@@ -16,4 +16,4 @@
     </div>
 </div>
 
-<?php require(__DIR__ . '/includes/footer.php'); ?>
+<?php require (__DIR__ . '/includes/footer.php'); ?>

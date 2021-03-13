@@ -10,16 +10,16 @@
  *  Endpoints class
  */
 
-class Endpoints {
-
-    private $_endpoints = array();
+class Endpoints
+{
+    private $_endpoints = [];
 
     public function getAll() {
         return $this->_endpoints;
     }
 
     public function add(EndpointBase $endpoint) {
-        if (!isset($this->_endpoints[$endpoint->getRoute()])) {
+        if (! isset($this->_endpoints[$endpoint->getRoute()])) {
             $this->_endpoints[$endpoint->getRoute()] = $endpoint;
         }
     }
@@ -28,6 +28,7 @@ class Endpoints {
         foreach ($this->getAll() as $endpoint) {
             if ($endpoint->getRoute() == $request) {
                 $endpoint->execute($api);
+
                 return true;
             }
         }

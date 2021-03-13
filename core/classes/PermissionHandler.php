@@ -7,8 +7,8 @@
  *  Permission handler class
  */
 
-class PermissionHandler {
-
+class PermissionHandler
+{
     private static $_permissions;
 
     /*
@@ -18,12 +18,12 @@ class PermissionHandler {
      *          $title (string) - permission title - displays when managing permissions in StaffCP
      */
     public static function registerPermissions($section, $permissions) {
-        if(!is_array($permissions)) {
+        if (! is_array($permissions)) {
             return false;
         }
 
         foreach ($permissions as $permission => $title) {
-            if (!isset(self::$_permissions[$section][$permission])) {
+            if (! isset(self::$_permissions[$section][$permission])) {
                 self::$_permissions[$section][$permission] = $title;
             }
         }

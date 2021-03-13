@@ -8,13 +8,13 @@
  *
  *  Twitter Widget
  */
-class TwitterWidget extends WidgetBase {
-
-    public function __construct($pages = array(), $twitter = '', $theme = '') {
+class TwitterWidget extends WidgetBase
+{
+    public function __construct($pages = [], $twitter = '', $theme = '') {
         parent::__construct($pages);
 
         // Get widget
-        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', array('Twitter'))->first();
+        $widget_query = DB::getInstance()->query('SELECT `location`, `order` FROM nl2_widgets WHERE `name` = ?', ['Twitter'])->first();
 
         // Set widget variables
         $this->_module = 'Core';

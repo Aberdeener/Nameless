@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -9,7 +10,7 @@
  *  EnglishUK Language - Moderator terms
  */
 
-$language = array(
+$language = [
     'staff_cp' => 'StaffCP',
     'overview' => 'Overview',
     
@@ -104,5 +105,4 @@ $language = array(
     // Users
     'recent_registrations' => 'Recent Registrations',
     'reset_profile_banner' => 'Reset Profile Banner'
-
-);
+];

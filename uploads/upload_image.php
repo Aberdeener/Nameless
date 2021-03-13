@@ -12,22 +12,23 @@
 define('ROOT_PATH', realpath(__DIR__ . '/..'));
 $page = 'image_upload';
 
-require('../core/init.php');
+require ('../core/init.php');
 
 if ($user->isLoggedIn()) {
     // Require Bulletproof
-    require('../core/includes/bulletproof/bulletproof.php');
+    require ('../core/includes/bulletproof/bulletproof.php');
 
-    if (!is_dir(ROOT_PATH . '/uploads/images')) {
+    if (! is_dir(ROOT_PATH . '/uploads/images')) {
         mkdir(ROOT_PATH . '/uploads/images');
     }
 
     $image = new Bulletproof\Image($_FILES);
 
     $image->setSize(1000, 2 * 1048576)
-        ->setMime(array('jpeg', 'png', 'gif'))
+        ->setMime(['jpeg', 'png', 'gif'])
         ->setDimension(2000, 2000)
-        ->setLocation(ROOT_PATH . '/uploads/images/' . $user->data()->id, 0777);
+        ->setLocation(ROOT_PATH . '/uploads/images/' . $user->data()->id, 0777)
+    ;
 
     if ($image['upload']) {
         $upload = $image->upload();
@@ -42,20 +43,19 @@ if ($user->isLoggedIn()) {
 
             $url = ((defined('CONFIG_PATH')) ? CONFIG_PATH : '' . '/uploads/images/' . $user->data()->id . '/' . $image->getName() . '.' . $image->getMime());
 
-            echo json_encode(array(
+            echo json_encode([
                 'uploaded' => '1',
                 'fileName' => $image->getName() . $image->getMime(),
                 'url' => $url
-            ));
+            ]);
         } else {
-            echo json_encode(array(
+            echo json_encode([
                 'uploaded' => '0',
-                'error' => array('message' => $image->getError() . ' ' . $image->getMime())
-            ));
+                'error' => ['message' => $image->getError() . ' ' . $image->getMime()]
+            ]);
         }
     }
-} else
-    echo json_encode(array(
+} else echo json_encode([
         'uploaded' => '0',
-        'error' => array('You are not logged in')
-    ));
+        'error' => ['You are not logged in']
+    ]);

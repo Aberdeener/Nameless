@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -9,10 +10,8 @@
  *  EnglishUK Language - Time
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'time', // Placeholder, no need to translate
     'less_than_a_minute' => 'less than a minute ago',
     '1_minute' => '1 minute ago',
@@ -25,4 +24,4 @@ $language = array(
     '_months' => '{x} months ago',
     'about_1_year' => 'about 1 year ago',
     'over_x_years' => 'over {x} years ago'
-);
+];

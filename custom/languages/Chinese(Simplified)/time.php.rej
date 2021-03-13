@@ -1,0 +1,32 @@
+***************
+*** 11,20 ****
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
+- $language = array(
+-     /*
+-      *  Time
+-      */
+      'time' => 'time', // Placeholder, 无需翻译
+      'seconds_short' => '秒', // 单词 "seconds" 的缩写, 就像 "s"
+      'less_than_a_minute' => '1 分钟内',
+--- 11,18 ----
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
++ $language = [
++     // Time
+      'time' => 'time', // Placeholder, 无需翻译
+      'seconds_short' => '秒', // 单词 "seconds" 的缩写, 就像 "s"
+      'less_than_a_minute' => '1 分钟内',
+***************
+*** 28,31 ****
+      '_months' => '{x} 月前',
+      'about_1_year' => '大约 1 年前',
+      'over_x_years' => '{x} 年之外'
+- );
+--- 26,29 ----
+      '_months' => '{x} 月前',
+      'about_1_year' => '大约 1 年前',
+      'over_x_years' => '{x} 年之外'
++ ];

@@ -10,8 +10,9 @@
  */
 
 // Ensure user isn't already logged in
-if($user->isLoggedIn()){
+if ($user->isLoggedIn()){
     Redirect::to(URL::build('/'));
+
     die();
 }
 
@@ -21,40 +22,43 @@ define('PAGE', 'register');
 $page_title = $language->get('general', 'register');
 
 // Check if Minecraft is enabled
-$minecraft = $queries->getWhere('settings', array('name', '=', 'mc_integration'));
+$minecraft = $queries->getWhere('settings', ['name', '=', 'mc_integration']);
 $minecraft = $minecraft[0]->value;
 
 if ($minecraft == '1') {
     // Check if AuthMe is enabled
-    $authme_enabled = $queries->getWhere('settings', array('name', '=', 'authme'));
+    $authme_enabled = $queries->getWhere('settings', ['name', '=', 'authme']);
     $authme_enabled = $authme_enabled[0]->value;
 
     if ($authme_enabled == '1') {
         // Authme connector
-        require(join(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php')));
+        require (join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
+
         die();
     }
 }
 
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
-require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+require_once (ROOT_PATH . '/core/templates/frontend_init.php');
+
+require_once (ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Check if registration is enabled
-$registration_enabled = $queries->getWhere('settings', array('name', '=', 'registration_enabled'));
+$registration_enabled = $queries->getWhere('settings', ['name', '=', 'registration_enabled']);
 $registration_enabled = $registration_enabled[0]->value;
 
 if ($registration_enabled == 0) {
     // Registration is disabled, display a message
-    $template->addCSSFiles(array(
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => array()
-    ));
+    $template->addCSSFiles([
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/css/spoiler.css' => []
+    ]);
 
-    $template->addJSFiles(array(
-        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array()
-    ));
+    $template->addJSFiles([
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => []
+    ]);
 
     // Get registration disabled message and assign to Smarty variable
-    $registration_disabled_message = $queries->getWhere('settings', array('name', '=', 'registration_disabled_message'));
+    $registration_disabled_message = $queries->getWhere('settings', ['name', '=', 'registration_disabled_message']);
+
     if (count($registration_disabled_message)) {
         $message = Output::getPurified(htmlspecialchars_decode($registration_disabled_message[0]->value));
     } else {
@@ -62,22 +66,23 @@ if ($registration_enabled == 0) {
     }
 
     $smarty->assign(
-        array(
+        [
             'REGISTRATION_DISABLED' => $message,
             'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
-        )
+        ]
     );
 
     // Load modules + template
-    Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets);
 
     $page_load = microtime(true) - $start;
     define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require (ROOT_PATH . '/core/templates/navbar.php');
+
+    require (ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
     $template->displayTemplate('registration_disabled.tpl', $smarty);
@@ -86,21 +91,22 @@ if ($registration_enabled == 0) {
 }
 
 // Registration page
-require(ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
-require(ROOT_PATH . '/core/includes/password.php'); // For password hashing
+require (ROOT_PATH . '/core/integration/uuid.php'); // For UUID stuff
+
+require (ROOT_PATH . '/core/includes/password.php'); // For password hashing
 
 // Are custom usernames enabled?
-$custom_usernames = $queries->getWhere("settings", array("name", "=", "displaynames"));
+$custom_usernames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
 $custom_usernames = $custom_usernames[0]->value;
 
-if (isset($_GET['step']) && isset($_SESSION['mcassoc'])) {
+if (isset($_GET['step'], $_SESSION['mcassoc'])) {
     // Get site details for MCAssoc
     $mcassoc_site_id = SITE_NAME;
 
-    $mcassoc_shared_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
+    $mcassoc_shared_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_key']);
     $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
 
-    $mcassoc_instance_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_instance'));
+    $mcassoc_instance_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_instance']);
     $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
 
     define('MCASSOC', true);
@@ -109,18 +115,19 @@ if (isset($_GET['step']) && isset($_SESSION['mcassoc'])) {
     $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
     $mcassoc->enableInsecureMode();
 
-    require(ROOT_PATH . '/core/integration/run_mcassoc.php');
+    require (ROOT_PATH . '/core/integration/run_mcassoc.php');
+
     die();
 }
 
 // Is UUID linking enabled?
 if ($minecraft == '1') {
-    $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
+    $uuid_linking = $queries->getWhere('settings', ['name', '=', 'uuid_linking']);
     $uuid_linking = $uuid_linking[0]->value;
 
     if ($uuid_linking == '1') {
         // Do we want to verify the user owns the account?
-        $account_verification = $queries->getWhere('settings', array('name', '=', 'verify_accounts'));
+        $account_verification = $queries->getWhere('settings', ['name', '=', 'verify_accounts']);
         $account_verification = $account_verification[0]->value;
     }
 } else {
@@ -128,21 +135,21 @@ if ($minecraft == '1') {
 }
 
 // Use recaptcha?
-$recaptcha = $queries->getWhere("settings", array("name", "=", "recaptcha"));
+$recaptcha = $queries->getWhere('settings', ['name', '=', 'recaptcha']);
 $recaptcha = $recaptcha[0]->value;
 
-$captcha_type = $queries->getWhere('settings', array('name', '=', 'recaptcha_type'));
-$captcha_type= $captcha_type[0]->value;
+$captcha_type = $queries->getWhere('settings', ['name', '=', 'recaptcha_type']);
+$captcha_type = $captcha_type[0]->value;
 
-$recaptcha_key = $queries->getWhere("settings", array("name", "=", "recaptcha_key"));
-$recaptcha_secret = $queries->getWhere('settings', array('name', '=', 'recaptcha_secret'));
+$recaptcha_key = $queries->getWhere('settings', ['name', '=', 'recaptcha_key']);
+$recaptcha_secret = $queries->getWhere('settings', ['name', '=', 'recaptcha_secret']);
 
 // Is email verification enabled?
-$email_verification = $queries->getWhere('settings', array('name', '=', 'email_verification'));
+$email_verification = $queries->getWhere('settings', ['name', '=', 'email_verification']);
 $email_verification = $email_verification[0]->value;
 
 // API verification
-$api_verification = $queries->getWhere('settings', array('name', '=', 'api_verification'));
+$api_verification = $queries->getWhere('settings', ['name', '=', 'api_verification']);
 $api_verification = $api_verification[0]->value;
 
 // Deal with any input
@@ -166,97 +173,94 @@ if (Input::exists()) {
             $result = json_decode($result, true);
         } else {
             // reCAPTCHA is disabled
-            $result = array(
+            $result = [
                 'success' => 'true'
-            );
+            ];
         }
 
         if (isset($result['success']) && $result['success'] == 'true') {
             // Validate
             $validate = new Validate();
 
-            $to_validation = array( // Base field validation
-                'password' => array(
+            $to_validation = [ // Base field validation
+                'password' => [
                     'required' => true,
                     'min' => 6,
                     'max' => 30
-                ),
-                'password_again' => array(
+                ],
+                'password_again' => [
                     'matches' => 'password'
-                ),
-                'email' => array(
+                ],
+                'email' => [
                     'required' => true,
                     'email' => true,
                     'unique' => 'users'
-                ),
-                't_and_c' => array(
+                ],
+                't_and_c' => [
                     'required' => true,
                     'agree' => true
-                )
-            );
+                ]
+            ];
 
-            if ($recaptcha === "true") { // check Recaptcha response
-                $to_validation['g-recaptcha-response'] = array(
+            if ($recaptcha === 'true') { // check Recaptcha response
+                $to_validation['g-recaptcha-response'] = [
                     'required' => true
-                );
+                ];
             }
 
             // Minecraft username?
             if (MINECRAFT) {
                 if ($custom_usernames == 'true') {
                     // Nickname enabled
-                    $to_validation['username'] = array(
+                    $to_validation['username'] = [
                         'required' => true,
                         'min' => 3,
                         'max' => 20,
                         'unique' => 'users'
-                    );
-                    $to_validation['nickname'] = array(
+                    ];
+                    $to_validation['nickname'] = [
                         'required' => true,
                         'min' => 3,
                         'max' => 20,
                         'unique' => 'users'
-                    );
+                    ];
 
                     $nickname = Output::getClean(Input::get('nickname'));
                     $username = Output::getClean(Input::get('username'));
-
                 } else {
-                    $to_validation['username'] = array(
+                    $to_validation['username'] = [
                         'required' => true,
                         'min' => 3,
                         'max' => 20,
                         'unique' => 'users'
-                    );
+                    ];
 
                     $nickname = Output::getClean(Input::get('username'));
                     $username = Output::getClean(Input::get('username'));
-
                 }
-
             } else {
                 // Just check username
-                $to_validation['username'] = array(
+                $to_validation['username'] = [
                     'required' => true,
                     'min' => 3,
                     'max' => 20,
                     'unique' => 'users'
-                );
+                ];
 
                 $nickname = Output::getClean(Input::get('username'));
                 $username = Output::getClean(Input::get('username'));
-
             }
 
             // Validate custom fields
-            $profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
+            $profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
+
             if (count($profile_fields)) {
                 foreach ($profile_fields as $field) {
                     if ($field->required == true) {
-                        $to_validation[$field->name] = array(
+                        $to_validation[$field->name] = [
                             'required' => true,
                             'max' => (is_null($field->length) ? 1024 : $field->length)
-                        );
+                        ];
                     }
                 }
             }
@@ -269,18 +273,18 @@ if (Input::exists()) {
                     // Perform validation on Minecraft name
                     $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
 
-                    $mcname_result = $profile ? $profile->getProfileAsArray() : array();
+                    $mcname_result = $profile ? $profile->getProfileAsArray() : [];
 
-                    if (isset($mcname_result['username']) && !empty($mcname_result['username']) && isset($mcname_result['uuid']) && !empty($mcname_result['uuid'])) {
+                    if (isset($mcname_result['username']) && ! empty($mcname_result['username']) && isset($mcname_result['uuid']) && ! empty($mcname_result['uuid'])) {
                         // Valid
                         $uuid = Output::getClean($mcname_result['uuid']);
 
                         // Ensure UUID is unique
-                        $uuid_query = $queries->getWhere('users', array('uuid', '=', $uuid));
+                        $uuid_query = $queries->getWhere('users', ['uuid', '=', $uuid]);
+
                         if (count($uuid_query)) {
                             $uuid_error = $language->get('user', 'uuid_already_exists');
                         }
-
                     } else {
                         // Invalid
                         $invalid_mcname = true;
@@ -288,28 +292,28 @@ if (Input::exists()) {
                 }
 
                 // Check to see if the Minecraft username was valid
-                if (!isset($invalid_mcname)) {
-                    if (!isset($uuid)) {
+                if (! isset($invalid_mcname)) {
+                    if (! isset($uuid)) {
                         $uuid = '';
                     }
 
-                    if (!isset($uuid_error)) {
+                    if (! isset($uuid_error)) {
                         // Minecraft user account association
                         if (isset($account_verification) && $account_verification == '1') {
                             // MCAssoc enabled
                             // Get data from database
                             $mcassoc_site_id = SITE_NAME;
 
-                            $mcassoc_shared_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
+                            $mcassoc_shared_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_key']);
                             $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
 
-                            $mcassoc_instance_secret = $queries->getWhere('settings', array('name', '=', 'mcassoc_instance'));
+                            $mcassoc_instance_secret = $queries->getWhere('settings', ['name', '=', 'mcassoc_instance']);
                             $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
 
                             define('MCASSOC', true);
 
                             // Hash password first
-                            $password = password_hash($_POST['password'], PASSWORD_BCRYPT, array("cost" => 13));
+                            $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 13]);
                             $_SESSION['password'] = $password;
                             unset($_POST['password']);
 
@@ -317,21 +321,21 @@ if (Input::exists()) {
                             $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
                             $mcassoc->enableInsecureMode();
 
-                            require(ROOT_PATH . '/core/integration/run_mcassoc.php');
-                            die();
+                            require (ROOT_PATH . '/core/integration/run_mcassoc.php');
 
-                        } else {
+                            die();
+                        }
                             // Disabled
                             $user = new User();
 
                             $ip = $user->getIP();
+
                             if (filter_var($ip, FILTER_VALIDATE_IP)) {
                                 // Valid IP
-                            } else {
-                                // TODO: Invalid IP, do something else
                             }
-
-                            $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, array("cost" => 13));
+                                // TODO: Invalid IP, do something else
+                            
+                            $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
                             // Get current unix time
                             $date = new DateTime();
                             $date = $date->getTimestamp();
@@ -339,16 +343,16 @@ if (Input::exists()) {
                             try {
                                 if ($api_verification == '1') {
                                     // Generate shorter code for API validation
-                                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+                                    $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
                                     $active = 1;
                                 } else {
                                     // Generate random code for email
-                                    $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 60);
+                                    $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
                                     $active = 0;
                                 }
 
                                 // Get default language ID before creating user
-                                $language_id = $queries->getWhere('languages', array('name', '=', LANGUAGE));
+                                $language_id = $queries->getWhere('languages', ['name', '=', LANGUAGE]);
 
                                 if (count($language_id)) {
                                     $language_id = $language_id[0]->id;
@@ -358,10 +362,11 @@ if (Input::exists()) {
 
                                 // Get default group ID
                                 $cache->setCache('default_group');
+
                                 if ($cache->isCached('default_group')) {
                                     $default_group = $cache->retrieve('default_group');
                                 } else {
-                                    $default_group = $queries->getWhere('groups', array('default_group', '=', 1));
+                                    $default_group = $queries->getWhere('groups', ['default_group', '=', 1]);
                                     $default_group = $default_group[0]->id;
 
                                     $cache->store('default_group', $default_group);
@@ -369,7 +374,7 @@ if (Input::exists()) {
 
                                 // Create user
                                 $user->create(
-                                    array(
+                                    [
                                         'username' => $username,
                                         'nickname' => $nickname,
                                         'uuid' => $uuid,
@@ -382,7 +387,7 @@ if (Input::exists()) {
                                         'last_online' => $date,
                                         'language_id' => $language_id,
                                         'active' => $active
-                                    )
+                                    ]
                                 );
 
                                 // Get user ID
@@ -398,29 +403,29 @@ if (Input::exists()) {
                                             continue;
                                         }
                                         $value = Input::get($field->name);
-                                        if (!empty($value)) {
+
+                                        if (! empty($value)) {
                                             // Insert custom field
                                             $queries->create(
                                                 'users_profile_fields',
-                                                array(
+                                                [
                                                     'user_id' => $user_id,
                                                     'field_id' => $field->id,
                                                     'value' => Output::getClean(Input::get($field->name))
-                                                )
+                                                ]
                                             );
                                         }
                                     }
                                 }
 
-                                Log::getInstance()->log(Log::Action('user/register'), "", $user_id);
+                                Log::getInstance()->log(Log::Action('user/register'), '', $user_id);
 
                                 if ($api_verification != '1' && $email_verification == '1') {
                                     // Send registration email
                                     sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
-
                                 } else if ($api_verification != '1') {
                                     // Email verification disabled
-                                    HookHandler::executeEvent('registerUser', array(
+                                    HookHandler::executeEvent('registerUser', [
                                         'event' => 'registerUser',
                                         'user_id' => $user_id,
                                         'username' => Output::getClean(Input::get('username')),
@@ -429,17 +434,18 @@ if (Input::exists()) {
                                         'avatar_url' => $user->getAvatar(null, 128, true),
                                         'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
                                         'language' => $language
-                                    ));
+                                    ]);
 
                                     // Redirect straight to verification link
                                     $url = URL::build('/validate/', 'c=' . $code);
                                     Redirect::to($url);
+
                                     die();
                                 }
 
                                 HookHandler::executeEvent(
                                     'registerUser',
-                                    array(
+                                    [
                                         'event' => 'registerUser',
                                         'user_id' => $user_id,
                                         'username' => Output::getClean(Input::get('username')),
@@ -448,7 +454,7 @@ if (Input::exists()) {
                                         'avatar_url' => $user->getAvatar(null, 128, true),
                                         'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . Output::getClean(Input::get('username'))), '/'),
                                         'language' => $language
-                                    )
+                                    ]
                                 );
 
                                 if ($api_verification != '1') {
@@ -458,26 +464,23 @@ if (Input::exists()) {
                                 }
 
                                 Redirect::to(URL::build('/'));
-                                die();
 
+                                die();
                             } catch (Exception $e) {
                                 die($e->getMessage());
                             }
-                        }
                     } else {
-                        $errors = array($uuid_error);
+                        $errors = [$uuid_error];
                     }
-
                 } else {
                     // Invalid Minecraft name
-                    $errors = array($language->get('user', 'invalid_mcname'));
+                    $errors = [$language->get('user', 'invalid_mcname')];
                 }
-
             } else {
                 // Errors
-                $errors = array();
-                foreach ($validation->errors() as $validation_error) {
+                $errors = [];
 
+                foreach ($validation->errors() as $validation_error) {
                     if (strpos($validation_error, 'is required') !== false) {
                         // x is required
                         if (strpos($validation_error, 'username') !== false) {
@@ -491,7 +494,7 @@ if (Input::exists()) {
                         } else if (strpos($validation_error, 't_and_c') !== false) {
                             $errors[] = $language->get('user', 'accept_terms');
                         } else {
-                            $errors[] = $validation_error . ".";
+                            $errors[] = $validation_error . '.';
                         }
                     } else if (strpos($validation_error, 'minimum') !== false) {
                         // x must be a minimum of y characters long
@@ -516,7 +519,7 @@ if (Input::exists()) {
                         $errors[] = $language->get('user', 'passwords_dont_match');
                     } else if (strpos($validation_error, 'already exists') !== false) {
                         // already exists
-                        if (!in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
+                        if (! in_array($language->get('user', 'username_mcname_email_exists'), $errors)) {
                             $errors[] = $language->get('user', 'username_mcname_email_exists');
                         }
                     } else if (strpos($validation_error, 'not a valid Minecraft account') !== false) {
@@ -533,12 +536,11 @@ if (Input::exists()) {
             }
         } else {
             // reCAPTCHA failed
-            $errors = array($language->get('user', 'invalid_recaptcha'));
+            $errors = [$language->get('user', 'invalid_recaptcha')];
         }
-
     } else {
         // Invalid token
-        $errors = array($language->get('general', 'invalid_token'));
+        $errors = [$language->get('general', 'invalid_token')];
     }
 }
 
@@ -555,28 +557,29 @@ if ($minecraft == 1) {
     $smarty->assign('MINECRAFT', true);
 }
 
-$custom_fields = array();
-$profile_fields = $queries->getWhere('profile_fields', array('id', '<>', 0));
+$custom_fields = [];
+$profile_fields = $queries->getWhere('profile_fields', ['id', '<>', 0]);
+
 if (count($profile_fields)) {
     foreach ($profile_fields as $field) {
         if ($field->required == false) {
             continue;
         }
 
-        $custom_fields[] = array(
+        $custom_fields[] = [
             'id' => $field->id,
             'name' => Output::getClean($field->name),
             'description' => Output::getClean($field->description),
             'type' => $field->type,
             'required' => $field->required
-        );
+        ];
     }
 }
 // Assign Smarty variables
 $smarty->assign(
-    array(
+    [
         'USERNAME' => $language->get('user', 'username'),
-        'NICKNAME' => ($custom_usernames == 'false' && !MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
+        'NICKNAME' => ($custom_usernames == 'false' && ! MINECRAFT) ? $language->get('user', 'username') : $language->get('user', 'nickname'),
         'NICKNAME_VALUE' => ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : ''),
         'USERNAME_VALUE' => ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : ''),
         'MINECRAFT_USERNAME' => $language->get('user', 'minecraft_username'),
@@ -595,7 +598,7 @@ $smarty->assign(
         'ERROR_TITLE' => $language->get('general', 'error'),
         'CAPTCHA_CLASS' => $captcha_type === 'hCaptcha' ? 'h-captcha' : 'g-recaptcha',
         'CUSTOM_FIELDS' => $custom_fields
-    )
+    ]
 );
 
 if ($recaptcha === 'true') {
@@ -603,29 +606,30 @@ if ($recaptcha === 'true') {
 
     if ($captcha_type === 'hCaptcha') {
         $template->addJSFiles(
-            array(
-                'https://hcaptcha.com/1/api.js' => array()
-            )
+            [
+                'https://hcaptcha.com/1/api.js' => []
+            ]
         );
     } else {
         $template->addJSFiles(
-            array(
-                'https://www.google.com/recaptcha/api.js' => array()
-            )
+            [
+                'https://www.google.com/recaptcha/api.js' => []
+            ]
         );
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require (ROOT_PATH . '/core/templates/navbar.php');
+
+require (ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('register.tpl', $smarty);

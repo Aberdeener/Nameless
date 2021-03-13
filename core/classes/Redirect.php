@@ -8,8 +8,8 @@
  *
  *  Redirect class
  */
-class Redirect {
-
+class Redirect
+{
     // Redirect the user to the specified location
     // Params: $location (string) - path or URL to redirect to, or (int) 404 if the page is not found
     public static function to($location = null) {
@@ -21,8 +21,11 @@ class Redirect {
                     // 404 request?
                     case 404:
                         header('HTTP/1.0 404 Not Found');
-                        require(ROOT_PATH . '/404.php');
+
+                        require (ROOT_PATH . '/404.php');
+
                         die();
+
                     break;
                 }
             }

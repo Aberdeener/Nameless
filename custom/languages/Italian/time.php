@@ -9,10 +9,8 @@
  *  Italian Language - Time
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'tempo', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'meno di un minuto fa',
@@ -26,4 +24,4 @@ $language = array(
     '_months' => '{x} mesi fa',
     'about_1_year' => 'circa 1 anno fa',
     'over_x_years' => 'oltre {x} anni fa'
-);
+];

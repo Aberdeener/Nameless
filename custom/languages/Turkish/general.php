@@ -9,10 +9,8 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
-    /*
-     *  General terms
-     */
+$language = [
+    // General terms
     'help' => 'Help',
     'submit' => 'Onayla',
     'register' => 'Kayıt Ol',
@@ -70,9 +68,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact form
-     */
+    // Contact form
     'contact' => 'İletişim',
     'message' => 'Mesaj',
     'email_address' => 'E-posta adresiniz',
@@ -82,26 +78,18 @@ $language = array(
     'contact_message_email' => 'Sağlanan e-posta geçersiz.',
     'contact_message_limit' => 'Saatte yalnızca bir mesaj gönderebilirsiniz. {X} dakika içinde bir mesaj gönderebilirsiniz.', // Don't replace {x}
 
-    /*
-     *  Navbar
-     */
+    // Navbar
     'home' => 'Ana Sayfa',
     'more' => 'Daha',
     'status' => 'Durum',
 
-    /*
-     *  Homepage
-     */
+    // Homepage
     'social' => 'Sosyal',
 
-    /*
-     *  Help dialogues
-     */
+    // Help dialogues
     'markdown_help' => 'Markdown\'u kullanarak yayınınızı biçimlendirebilirsiniz. Daha fazla bilgi için <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>buraya</a> bakın.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'Çevrimiçi',
     'offline' => 'Çevrimdışı',
     'player_count' => '{x}/{y}', // Don't replace {x} or {y}
@@ -119,15 +107,11 @@ $language = array(
     'no_players_online' => 'Çevrimiçi oyuncu yok',
     'and_x_more' => 've {x} tane daha', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Bu web sitesi, tarama deneyiminizi geliştirmek için çerezleri kullanır. Web sitemize kayıt olarak veya bu bildirimi kapatarak kullanımlarını kabul etmiş olursunuz..',
     'cookie_agree' => 'Katılıyorum',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'İstatistik',
     'users_registered' => 'Kullanıcılar:',
     'latest_member' => 'Son Üye:',
@@ -146,12 +130,8 @@ $language = array(
     'no_default_server' => 'There is no default server, please select one in StaffCP - Integrations - Minecraft.',
     'server_status' => 'Server Status',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Gizlilik Politikası',
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Yeniden yönlendiriliyor ... <br />Otomatik olarak yönlendirilmiyorsanız, lütfen <a href="{x}" rel="nofollow noopener">burayı</a> tıklayın.' // Don't replace {x} which is the redirect URL
-);
+];

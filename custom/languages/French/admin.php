@@ -9,10 +9,8 @@
  *  French Language - Users
  */
 
-$language = array(
-    /*
-     *  Admin Control Panel
-     */
+$language = [
+    // Admin Control Panel
     // Login
     're-authenticate' => 'Veuillez vous ré-authentifier',
 
@@ -685,4 +683,4 @@ Vous devriez configurer votre groupe par défaut pour avoir des autorisations li
     'discord_bot_error_unauthorized' => 'Website API key is invalid',
     'discord_bot_error_invrole' => 'Provided Role ID is invalid.',
     'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
-);
+];

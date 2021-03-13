@@ -9,10 +9,8 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'zaman', // Placeholder, no need to translate
     'seconds_short' => 'sn', // Shortened "seconds", eg "s"
     'less_than_a_minute' => '1 dakikadan az bir süre önce',
@@ -26,4 +24,4 @@ $language = array(
     '_months' => '{x} ay önce',
     'about_1_year' => 'yaklaşık 1 yıl önce',
     'over_x_years' => '{x} yıldan uzun bir süre önce'
-);
+];

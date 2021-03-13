@@ -1,0 +1,143 @@
+***************
+*** 11,20 ****
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
+- $language = array(
+-     /*
+-      *  General terms
+-      */
+      'help' => '帮助',
+      'submit' => '提交',
+      'register' => '注册',
+--- 11,18 ----
+   *  Translation progress(v2-pr8) : 100%
+   */
+  
++ $language = [
++     // General terms
+      'help' => '帮助',
+      'submit' => '提交',
+      'register' => '注册',
+***************
+*** 72,80 ****
+      'link' => 'Link',
+      'unlink' => 'Unlink',
+      
+-     /*
+-      *  Contact form
+-      */
+      'contact' => '联系我们',
+      'message' => '消息',
+      'email_address' => '请输入您的电子邮箱地址',
+--- 70,76 ----
+      'link' => 'Link',
+      'unlink' => 'Unlink',
+      
++     // Contact form
+      'contact' => '联系我们',
+      'message' => '消息',
+      'email_address' => '请输入您的电子邮箱地址',
+***************
+*** 84,111 ****
+      'contact_message_sent' => '消息发送成功。',
+      'contact_message_limit' => '您每小时只能发送一条消息。距您可再次发送还有 {x} 分钟。', // Don't replace {x}
+  
+- 
+-     /*
+-      *  Navbar
+-      */
+      'home' => '主页',
+      'more' => '更多',
+      'status' => '服务器状态',
+  
+-     /*
+-      *  Homepage
+-      */
+      'social' => '社区',
+  
+- 
+-     /*
+-      *  Help dialogues
+-      */
+      'markdown_help' => '您可以使用 Markdown 设置帖子的格式。有关更多信息，请参见 <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>这里</a>.',
+  
+-     /*
+-      *  Server query
+-      */
+      'online' => '在线',
+      'offline' => '离线',
+      'player_count' => '{x}/{y}', // Don't replace {x} or {y}
+--- 80,97 ----
+      'contact_message_sent' => '消息发送成功。',
+      'contact_message_limit' => '您每小时只能发送一条消息。距您可再次发送还有 {x} 分钟。', // Don't replace {x}
+  
++     // Navbar
+      'home' => '主页',
+      'more' => '更多',
+      'status' => '服务器状态',
+  
++     // Homepage
+      'social' => '社区',
+  
++     // Help dialogues
+      'markdown_help' => '您可以使用 Markdown 设置帖子的格式。有关更多信息，请参见 <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>这里</a>.',
+  
++     // Server query
+      'online' => '在线',
+      'offline' => '离线',
+      'player_count' => '{x}/{y}', // Don't replace {x} or {y}
+***************
+*** 123,137 ****
+      'no_players_online' => '目前没有任何玩家在线',
+      'and_x_more' => '还有 {x} 更多', // Don't replace {x}
+  
+-     /*
+-      *  Cookie notice
+-      */
+      'cookie_notice' => '本网站使用 Cookie 来增强您的浏览体验。通过在我们的网站上进行注册或关闭此通知，代表您同意它们的使用。',
+      'cookie_agree' => '同意',
+  
+-     /*
+-      *  Widgets
+-      */
+      'statistics' => '统计',
+      'users_registered' => '已注册用户数',
+      'latest_member' => '最近的成员',
+--- 109,119 ----
+      'no_players_online' => '目前没有任何玩家在线',
+      'and_x_more' => '还有 {x} 更多', // Don't replace {x}
+  
++     // Cookie notice
+      'cookie_notice' => '本网站使用 Cookie 来增强您的浏览体验。通过在我们的网站上进行注册或关闭此通知，代表您同意它们的使用。',
+      'cookie_agree' => '同意',
+  
++     // Widgets
+      'statistics' => '统计',
+      'users_registered' => '已注册用户数',
+      'latest_member' => '最近的成员',
+***************
+*** 150,162 ****
+      'no_default_server' => '未设置默认服务器，请前往管理面板 - 集成 - Minecraft 来设置',
+      'server_status' => '服务器状态',
+  
+-     /*
+-      *  Privacy policy
+-      */
+      'privacy_policy' => '隐私政策',
+  
+-     /*
+-      *  Custom page redirect
+-      */
+      'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.' // Don't replace {x} which is the redirect URL
+- );
+--- 132,140 ----
+      'no_default_server' => '未设置默认服务器，请前往管理面板 - 集成 - Minecraft 来设置',
+      'server_status' => '服务器状态',
+  
++     // Privacy policy
+      'privacy_policy' => '隐私政策',
+  
++     // Custom page redirect
+      'redirecting_message' => '重定向中...<br />如果您的页面没有自动跳转，请点击 <a href="{x}" rel="nofollow noopener">这里</a>.' // Don't replace {x} which is the redirect URL
++ ];

@@ -13,10 +13,8 @@
  *  https://github.com/haer0248/NamelessMC-v2-Traditional-Chinese/issues
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => '抱歉!',
     '404_content' => '我們無法找到此網頁.',
     '404_back' => '返回',
@@ -35,4 +33,4 @@ $language = array(
     'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
     'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
-);
+];

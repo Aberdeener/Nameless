@@ -14,15 +14,11 @@
  *  Japanese Language - Users
  */
 
-$language = array(
-    /*
-     *  Change this for the account validation message
-     */
+$language = [
+    // Change this for the account validation message
     'validate_account_command' => '登録を完了するには、ゲーム内で <strong>/validate {x}</strong> コマンドを送信してください。', // Don't replace {x}
 
-    /*
-     *  User Related
-     */
+    // User Related
     'guest' => 'ゲスト',
     'guests' => 'ゲスト',
 
@@ -229,16 +225,12 @@ $language = array(
     'latest_profile_posts' => '最新のプロフィール投稿',
     'no_profile_posts' => 'プロフィール投稿はありません。',
 
-    /*
-     *  Infractions area
-     */
+    // Infractions area
     'you_have_been_banned' => '指定されたアカウントは使用が禁止されています。',
     'you_have_received_a_warning' => '指定されたアカウントは警告を受信しています。',
     'acknowledge' => '承認する',
 
-    /*
-     *  Hooks
-     */
+    // Hooks
     'user_x_has_registered' => '{x} が ' . SITE_NAME . ' に登録しました。',
     'user_x_has_validated' => '{x} has validated their account!',
 
@@ -257,4 +249,4 @@ $language = array(
     'discord_communication_error' => 'Discordボットとの通信中にエラーが発生しました。ボットが動作しているかどうか、ボットのURLが正しいかどうかを確認してください。',
     'discord_unknown_error' => 'Discordロールの同期中に不明なエラーが発生しました。管理者に連絡してください。',
     'discord_id_help' => 'DiscordのIDがどこにあるかについては、<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">こちら</a>をご確認ください。'
-);
+];

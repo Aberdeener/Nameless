@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @param int $id NamelessMC ID of the user whose announcements to view
+ * @param int    $id       NamelessMC ID of the user whose announcements to view
  * @param string $username NamelessMC sername of the user whose announcements to view
  *
  * @return string JSON Array of latest announcements
  */
-class GetAnnouncementsEndpoint extends EndpointBase {
-
+class GetAnnouncementsEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'getAnnouncements';
         $this->_module = 'Core';
@@ -24,7 +24,7 @@ class GetAnnouncementsEndpoint extends EndpointBase {
             $tempUser = null;
         }
 
-        $announcements = array();
+        $announcements = [];
 
         foreach (Announcements::getAvailable('api', null, $tempUser != null ? $tempUser->data()->group_id : 0, $tempUser != null ? $tempUser->data()->secondary_groups : null) as $announcement) {
             $announcements[$announcement->id]['pages'] = json_decode($announcement->pages);
@@ -33,6 +33,6 @@ class GetAnnouncementsEndpoint extends EndpointBase {
             $announcements[$announcement->id]['message'] = Output::getPurified($announcement->message);
         }
 
-        $api->returnArray(array('announcements' => $announcements));
+        $api->returnArray(['announcements' => $announcements]);
     }
 }

@@ -9,10 +9,8 @@
  *  Spanish/Spain Language - Language version
  */
 
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'tiempo', // Placeholder, no need to translate
     'seconds_short' => 'segundos', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'Hace menos de 1 minuto',
@@ -26,4 +24,4 @@ $language = array(
     '_months' => 'Hace {x} mes',
     'about_1_year' => 'Hace aproximadamente 1 año',
     'over_x_years' => 'Hace {x} años'
-);
+];

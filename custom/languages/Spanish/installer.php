@@ -9,10 +9,8 @@
  *  Spanish Language - Installation
  */
 
-$language = array(
-    /*
-     *  Installation
-     */
+$language = [
+    // Installation
     'install' => 'Instalar',
     'pre-release' => 'pre-lanzamiento',
     'installer_welcome' => 'Bienvenido a NamelessMC versión 2.0 pre-lanzamiento.',
@@ -103,4 +101,4 @@ $language = array(
     'config_not_writable' => 'El archivo de configuracion no es writable',
 
     'session_doesnt_exist' => 'No se pudo detectar la sesión. El guardado de sesiones es un requisito para usar Nameless. Vuelva a intentarlo y, si el problema persiste, póngase en contacto con su proveedor de alojamiento web para obtener asistencia..'
-);
+];

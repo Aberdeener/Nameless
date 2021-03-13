@@ -10,10 +10,8 @@
  *  Russian Language - Admin
  */
 
-$language = array(
-    /*
-     *  Admin Control Panel
-     */
+$language = [
+    // Admin Control Panel
     // Login
     're-authenticate' => 'Пожалуйста, повторите аутентификацию',
 
@@ -746,5 +744,4 @@ $language = array(
     'discord_bot_error_unauthorized' => 'API ключ сайта некорректный',
     'discord_bot_error_invrole' => 'ID роли некорректный.',
     'discord_bot_error_hierarchy' => 'The bot cannot edit this user\'s roles.'
-
-);
+];

@@ -9,10 +9,8 @@
  *  Spanish Language - Admin
  */
 
-$language = array(
-    /*
-     *  Admin Control Panel
-     */
+$language = [
+    // Admin Control Panel
     // Login
     're-authenticate' => 'Inicie sesión para ingresar',
 
@@ -743,5 +741,4 @@ $language = array(
     'discord_bot_error_unauthorized' => 'La clave de API del sitio web no es válida',
     'discord_bot_error_invrole' => 'El ID del role proporcionado no es válido.',
     'discord_bot_error_hierarchy' => 'El bot no puede editar los roles de este usuario.'
-
-);
+];

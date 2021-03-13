@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -11,10 +12,8 @@
  *  Last update: 09/02/2021
  */
 
-$language = array(
-    /*
-     *  Forums
-     */ 
+$language = [
+    // Forums
     'forum' => 'Fórum',
     'forums' => 'Fóruns',
     'forum_index' => 'Início',
@@ -214,4 +213,4 @@ $language = array(
     'recent_posts_statistic_icon' => '<i class="far fa-comments"></i>',
     'topics_title' => 'Tópicos',
     'posts_title' => 'Postagens',
-);
+];

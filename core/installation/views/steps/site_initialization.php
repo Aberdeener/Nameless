@@ -1,17 +1,19 @@
 <?php
 
 if (isset($_SESSION['site_initialized']) && $_SESSION['site_initialized'] == true) {
-	Redirect::to('?step=admin_account_setup');
-	die();
+    Redirect::to('?step=admin_account_setup');
+
+    die();
 }
 
-if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
-	Redirect::to('?step=database_configuration');
-	die();
+if (! isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
+    Redirect::to('?step=database_configuration');
+
+    die();
 }
 
-$scripts = array(
-	'
+$scripts = [
+    '
 	<script>
 		$(document).ready(function() {
 			$.post("?step=ajax_initialise&initialise=site", {perform: "true"}, function(response) {
@@ -31,7 +33,7 @@ $scripts = array(
 		});
 	</script>
 	'
-);
+];
 ?>
 
 <div class="ui segments">

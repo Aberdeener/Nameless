@@ -9,10 +9,8 @@
  *  Norwegian translation (norsk bokmål) - Admin
  */
 
-$language = array(
-    /*
-     *  Admin Control Panel
-     */
+$language = [
+    // Admin Control Panel
     // Login
     're-authenticate' => 'Vennligst logg inn på nytt.',
 
@@ -720,21 +718,21 @@ $language = array(
     'text_colour_required' => 'En tekstfarge er påkrevd',
     'no_announcements' => 'Ingen kunngjøringer har blitt opprettet enda.',
 
-	// Discord
-	'discord' => 'Discord',
-	'enable_discord_integration' => 'Aktiver Discord-integrering?',
-	'discord_role_id' => 'Discord rolle-ID',
-	'discord_role_id_numeric' => 'Discord rolle-ID må være numerisk',
-	'discord_role_id_length' => 'Discord rolle-ID må inneholde 18 tegn.',
-	'discord_settings_updated' => 'Discord-innstillingene dine har blitt oppdatert.',
-	'discord_guild_id_required' => 'Vennligst oppgi Discord-serveren din sin ID, slik at Discord-integreringen fungerer.',
-	'discord_bot_url' => 'Discord Bot-URL',
-	'discord_bot_url_info' => 'Plasseringen til din egne instance av Nameless Link Bot. Endre kun hvis du vet hva du gjør!',
-	'discord_bot_url_required' => 'Vennligst oppgi Bot-URL-en for at Discord-integreringen skal fungere.',
-	'discord_invalid_api_url' => 'Ser ut som API-URL-en har blitt endret. Vennligst få servereieren til å oppdatere URLen med Nameless Link Bot.',
-	'test_bot_url' => 'Testbot-URL',
-	'discord_bot_url_valid' => 'Din Bot-URL er gyldig.',
-	'discord_cannot_interact' => 'Nameless Link-boten kan ikke samhandle med denne brukeren på Discord. Er rollen deres høyere enn Nameless Link-boten sin?',
+    // Discord
+    'discord' => 'Discord',
+    'enable_discord_integration' => 'Aktiver Discord-integrering?',
+    'discord_role_id' => 'Discord rolle-ID',
+    'discord_role_id_numeric' => 'Discord rolle-ID må være numerisk',
+    'discord_role_id_length' => 'Discord rolle-ID må inneholde 18 tegn.',
+    'discord_settings_updated' => 'Discord-innstillingene dine har blitt oppdatert.',
+    'discord_guild_id_required' => 'Vennligst oppgi Discord-serveren din sin ID, slik at Discord-integreringen fungerer.',
+    'discord_bot_url' => 'Discord Bot-URL',
+    'discord_bot_url_info' => 'Plasseringen til din egne instance av Nameless Link Bot. Endre kun hvis du vet hva du gjør!',
+    'discord_bot_url_required' => 'Vennligst oppgi Bot-URL-en for at Discord-integreringen skal fungere.',
+    'discord_invalid_api_url' => 'Ser ut som API-URL-en har blitt endret. Vennligst få servereieren til å oppdatere URLen med Nameless Link Bot.',
+    'test_bot_url' => 'Testbot-URL',
+    'discord_bot_url_valid' => 'Din Bot-URL er gyldig.',
+    'discord_cannot_interact' => 'Nameless Link-boten kan ikke samhandle med denne brukeren på Discord. Er rollen deres høyere enn Nameless Link-boten sin?',
 
     // Discord bot Errors
     'discord_bot_error_badparameter' => 'Ugyldig forespørseltekst',
@@ -745,5 +743,4 @@ $language = array(
     'discord_bot_error_unauthorized' => 'Nettside-API-nøkkel er ugyldig.',
     'discord_bot_error_invrole' => 'Oppgitte rolle-id er ugyldig.',
     'discord_bot_error_hierarchy' => 'Boten kan ikke endre denne brukerens roller.'
-
-);
+];

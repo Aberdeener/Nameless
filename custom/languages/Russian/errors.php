@@ -10,10 +10,8 @@
  *  Russian Language - Errors
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => 'Простите!',
     '404_content' => 'Мы не смогли найти эту страницу.',
     '404_back' => 'Назад',
@@ -32,4 +30,4 @@ $language = array(
     'fatal_error_message_admin' => 'Простите, но что-то пошло не так при загрузке страницы. Сведения об ошибке:',
     'in_file' => 'в файле <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'на строке <strong>{x}</strong>' // Don't replace {x}
-);
+];

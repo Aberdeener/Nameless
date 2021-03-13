@@ -11,10 +11,8 @@
  *  Greek Language - Errors
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => 'Σύγνωμη!',
     '404_content' => 'Δεν μπορέσαμε να βρούμε αυτή τη σελίδα.',
     '404_back' => 'Πήγαινε πίσω',
@@ -33,4 +31,4 @@ $language = array(
     'fatal_error_message_admin' => 'Sorry, but something went wrong while loading the page. Error details:',
     'in_file' => 'in file <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'on line <strong>{x}</strong>' // Don't replace {x}
-);
+];

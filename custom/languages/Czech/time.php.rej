@@ -1,0 +1,31 @@
+***************
+*** 10,19 ****
+   *  Czech Language - Time
+   */
+  
+- $language = array (
+-     /*
+-      *  Time
+-      */
+      'time' => 'čas', // Placeholder, no need to translate
+      'less_than_a_minute' => 'před méně než minutou',
+      '1_minute' => 'před 1 minutou',
+--- 10,17 ----
+   *  Czech Language - Time
+   */
+  
++ $language = [
++     // Time
+      'time' => 'čas', // Placeholder, no need to translate
+      'less_than_a_minute' => 'před méně než minutou',
+      '1_minute' => 'před 1 minutou',
+***************
+*** 26,29 ****
+      '_months' => 'před {x} měsíci',
+      'about_1_year' => 'před rokem',
+      'over_x_years' => 'před {x} lety'
+- );--- 24,27 ----
+      '_months' => 'před {x} měsíci',
+      'about_1_year' => 'před rokem',
+      'over_x_years' => 'před {x} lety'
++ ];

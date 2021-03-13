@@ -11,10 +11,12 @@
  * 	TODO: Regex validation? Example: Discord
  */
 
-class Validate {
-
+class Validate
+{
     private $_passed = false,
-        $_errors = array(),
+
+        $_errors = [],
+
         $_db = null;
 
     // Construct Validate class
@@ -27,7 +29,7 @@ class Validate {
             $host = null;
         }
 
-        if (!empty($host)) {
+        if (! empty($host)) {
             $this->_db = DB::getInstance();
         }
     }
@@ -35,14 +37,11 @@ class Validate {
     // Validate an array of inputs
     // Params: $source (array) - the array containing the form input (eg $_POST)
     //         $items (array)  - contains an array of items which need to be validated
-    public function check($source, $items = array()) {
-
+    public function check($source, $items = []) {
         // Loop through the items which need validating
         foreach ($items as $item => $rules) {
-
             // Loop through each validation rule for the set item
             foreach ($rules as $rule => $rule_value) {
-
                 $value = trim($source[$item]);
 
                 // Escape the item's contents just in case
@@ -52,48 +51,54 @@ class Validate {
                 if ($rule === 'required' && empty($value)) {
                     // The post array does not include this value, return an error
                     $this->addError("{$item} is required");
-                } else if (!empty($value)) {
+                } else if (! empty($value)) {
                     // The post array does include this value, continue validating
                     switch ($rule) {
                             // Minimum of $rule_value characters
-                        case 'min';
+                        case 'min':
                             if (mb_strlen($value) < $rule_value) {
                                 // Not a minumum of $rule_value characters, return an error
                                 $this->addError("{$item} must be a minimum of {$rule_value} characters.");
                             }
+
                             break;
 
                             // Maximum of $rule_value characters
-                        case 'max';
+                        case 'max':
                             if (mb_strlen($value) > $rule_value) {
                                 // Above the maximum of $rule_value characters, return an error
                                 $this->addError("{$item} must be a maximum of {$rule_value} characters.");
                             }
+
                             break;
 
                             // Check value matches another value
-                        case 'matches';
+                        case 'matches':
                             if ($value != $source[$rule_value]) {
                                 // Value does not match, return an error
                                 $this->addError("{$rule_value} must match {$item}.");
                             }
+
                             break;
 
                             // Check the user has agreed to the terms and conditions
-                        case 'agree';
+                        case 'agree':
                             if ($value != 1) {
                                 // The user has not agreed, return an error
-                                $this->addError("You must agree to our terms and conditions in order to register.");
+                                $this->addError('You must agree to our terms and conditions in order to register.');
                             }
+
                             break;
 
                             // Check the value has not already been inputted in the database
-                        case 'unique';
-                            $check = $this->_db->get($rule_value, array($item, '=', $value));
+                        case 'unique':
+                            $check = $this->_db->get($rule_value, [$item, '=', $value]);
+
                             if ($check->count()) {
                                 // The value has already been inputted, return an error
                                 $this->addError("The username/email {$item} already exists!");
                             }
+
                             break;
 
                         // TODO: Fix isvalid
@@ -109,59 +114,69 @@ class Validate {
                         */
 
                             // Check if email is valid
-                        case 'email';
-                            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                        case 'email':
+                            if (! filter_var($value, FILTER_VALIDATE_EMAIL)) {
                                 // Value is not a valid email
                                 $this->addError("{$value} is not a valid email.");
                             }
+
                             break;
 
                         case 'timezone':
-                            if (!in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
+                            if (! in_array($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL))) {
                                 $this->addError("The timezone {$item} is invalid.");
                             }
+
                             break;
 
                             // Check that the specified user account is set as active (ie validated)
-                        case 'isactive';
-                            $check = $this->_db->get('users', array($item, '=', $value));
+                        case 'isactive':
+                            $check = $this->_db->get('users', [$item, '=', $value]);
+
                             if ($check->count()) {
                                 $isuseractive = $check->first()->active;
+
                                 if ($isuseractive == 0) {
                                     // Not active, return an error
-                                    $this->addError("That username is inactive. Have you validated your account or requested a password reset?");
+                                    $this->addError('That username is inactive. Have you validated your account or requested a password reset?');
                                 }
                             }
+
                             break;
 
                             // Check that the specified user account is not banned
-                        case 'isbanned';
-                            $check = $this->_db->get('users', array($item, '=', $value));
+                        case 'isbanned':
+                            $check = $this->_db->get('users', [$item, '=', $value]);
+
                             if ($check->count()) {
                                 $isuserbanned = $check->first()->isbanned;
+
                                 if ($isuserbanned == 1) {
                                     // The user is banned, return an error
                                     $this->addError("The username {$item} is banned.");
                                 }
                             }
+
                             break;
 
-                        case 'isbannedip';
+                        case 'isbannedip':
                             // Todo: Check if IP is banned
                             break;
 
                         case 'alphanumeric':
-                            if (!ctype_alnum($value)) {
+                            if (! ctype_alnum($value)) {
                                 // $value is not alphanumeric
                                 $this->addError("{$item} must be alphanumeric.");
                             }
+
                             break;
 
                         case 'numeric':
-                            if (!is_numeric($value)) {
+                            if (! is_numeric($value)) {
                                 // $value is not numeric
                                 $this->addError("{$item} must be numeric.");
                             }
+
                             break;
                     }
                 }

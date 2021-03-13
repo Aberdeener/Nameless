@@ -9,10 +9,8 @@
  *  Turkish translation by xOrcun
  */
 
-$language = array(
-    /*
-     *  Errors
-     */
+$language = [
+    // Errors
     '404_title' => 'Üzgünüm!',
     '404_content' => 'Sayfa bulunamadı!',
     '404_back' => 'Geri Dön',
@@ -31,4 +29,4 @@ $language = array(
     'fatal_error_message_admin' => 'Maalesef, sayfa yüklenirken bir şeyler ters gitti. Hata detayları:',
     'in_file' => '<strong>{x}</strong> dosyasında', // Don't replace {x}
     'on_line' => '<strong>{x}</strong> internet üzerinde' // Don't replace {x}
-);
+];

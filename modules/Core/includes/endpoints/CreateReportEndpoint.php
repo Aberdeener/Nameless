@@ -3,12 +3,12 @@
 /**
  * @param string $reporter The NamelessMC username of the user who is creating the report
  * @param string $reported The NamelessMC username of the user who is getting reported
- * @param string $content The content of the report
+ * @param string $content  The content of the report
  *
  * @return string JSON Array
  */
-class CreateReportEndpoint extends EndpointBase {
-
+class CreateReportEndpoint extends EndpointBase
+{
     public function __construct() {
         $this->_route = 'createReport';
         $this->_module = 'Core';
@@ -25,19 +25,22 @@ class CreateReportEndpoint extends EndpointBase {
         }
 
         // Ensure user reporting has website account, and has not been banned
-        $user_reporting = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['reporter'])));
-        if (!$user_reporting->count()) {
+        $user_reporting = $api->getDb()->get('users', ['id', '=', Output::getClean($_POST['reporter'])]);
+
+        if (! $user_reporting->count()) {
             $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
         }
 
         $user_reporting = $user_reporting->first();
+
         if ($user_reporting->isbanned) {
             $api->throwError(21, $api->getLanguage()->get('api', 'you_have_been_banned_from_website'));
         }
 
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', array('id', '=', Output::getClean($_POST['reported'])));
-        if (!$user_reported_id->count()) {
+        $user_reported_id = $api->getDb()->get('users', ['id', '=', Output::getClean($_POST['reported'])]);
+
+        if (! $user_reported_id->count()) {
             $user_reported_id = 0;
         } else {
             $user_reported_id = $user_reported_id->first()->id;
@@ -48,7 +51,8 @@ class CreateReportEndpoint extends EndpointBase {
         }
 
         // Ensure user has not already reported the same player, and the report is open
-        $user_reports = $api->getDb()->get('reports', array('reporter_id', '=', $user_reporting->id))->results();
+        $user_reports = $api->getDb()->get('reports', ['reporter_id', '=', $user_reporting->id])->results();
+
         if (count($user_reports)) {
             foreach ($user_reports as $report) {
                 if ($report->reported_id == $user_reported_id && $report->status == 0) {
@@ -61,7 +65,7 @@ class CreateReportEndpoint extends EndpointBase {
         try {
             $report = new Report();
             $report->create(
-                array(
+                [
                     'type' => 0,
                     'reporter_id' => $user_reporting->id,
                     'reported_id' => $user_reported_id,
@@ -71,10 +75,10 @@ class CreateReportEndpoint extends EndpointBase {
                     'updated_by' => $user_reporting->id,
                     'reported' => date('U'),
                     'updated' => date('U')
-                )
+                ]
             );
 
-            $api->returnArray(array('message' => $api->getLanguage()->get('api', 'report_created')));
+            $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')]);
         } catch (Exception $e) {
             $api->throwError(23, $api->getLanguage()->get('api', 'unable_to_create_report'), $e->getMessage());
         }

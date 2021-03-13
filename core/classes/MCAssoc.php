@@ -1,11 +1,15 @@
 <?php
 
-class MCAssoc {
-
+class MCAssoc
+{
     private $siteId,
+
             $sharedSecret,
+
             $instanceSecret,
+
             $timestampLeeway,
+
             $insecureMode = false;
 
     public function __construct($siteId, $sharedSecret, $instanceSecret, $timestampLeeway = 300) {
@@ -20,10 +24,12 @@ class MCAssoc {
     }
 
     private function baseSign($data, $key) {
-        if (!$key && !$this->insecureMode) {
-            throw new Exception("key must be provided");
-        } else if ($this->insecureMode) {
-            $key = "insecure";
+        if (! $key && ! $this->insecureMode) {
+            throw new Exception('key must be provided');
+        }
+
+        if ($this->insecureMode) {
+            $key = 'insecure';
         }
 
         return hash_hmac('sha1', $data, $key, true);
@@ -38,14 +44,17 @@ class MCAssoc {
             return false;
 
         $res = 0;
+
         for ($i = 0; $i < strlen($str1); $i++) {
             $res |= ord($str1[$i]) ^ ord($str2[$i]);
         }
+
         return ($res == 0);
     }
 
     private function verify($input, $key) {
         $signed_data = base64_decode($input, true);
+
         if ($signed_data === false) {
             throw new Exception('bad base64 data');
         }
@@ -62,9 +71,10 @@ class MCAssoc {
         $signature = substr($signed_data, -20);
         $my_signature = $this->baseSign($data, $key);
 
-        if (!$this->constantCompare($my_signature, $signature)) {
+        if (! $this->constantCompare($my_signature, $signature)) {
             throw new Exception('signature invalid');
         }
+
         return $data;
     }
 
@@ -83,13 +93,15 @@ class MCAssoc {
 
         $data = $this->verify($input, $this->sharedSecret);
         $rdata = json_decode($data);
+
         if ($rdata === null) {
             throw new Exception('json data invalid');
         }
 
         $mintime = $time - $this->timestampLeeway;
         $maxtime = $time + $this->timestampLeeway;
-        if (!(($mintime < $rdata->now) && ($rdata->now < $maxtime))) {
+
+        if (! (($mintime < $rdata->now) && ($rdata->now < $maxtime))) {
             throw new Exception('timestamp stale');
         }
 

@@ -11,10 +11,8 @@
  *  Nederlandse taal - Algemene termen
  */
 
-$language = array(
-    /*
-     *  Algemene termen
-     */
+$language = [
+    // Algemene termen
     'help' => 'Help',
     'submit' => 'Verstuur',
     'register' => 'Registreren',
@@ -72,9 +70,7 @@ $language = array(
     'link' => 'Link',
     'unlink' => 'Unlink',
     
-    /*
-     *  Contact formulier
-     */
+    // Contact formulier
     'contact' => 'Contact',
     'message' => 'Bericht',
     'email_address' => 'E-mailadres',
@@ -84,27 +80,18 @@ $language = array(
     'contact_message_sent' => 'Bericht succesvol verzonden.',
     'contact_message_limit' => 'Je kan maar 1 bericht per uur versturen. Je kan pas weer over {x} minuten een nieuw bericht versturen.', // Vervang {x} niet
 
-    /*
-     *  Navigatiebalk
-     */
+    // Navigatiebalk
     'home' => 'Start',
     'more' => 'Meer',
     'status' => 'Status',
 
-    /*
-     *  Homepagina
-     */
+    // Homepagina
     'social' => 'Sociaal',
 
-
-    /*
-     *  Hulp dialogen
-     */
+    // Hulp dialogen
     'markdown_help' => 'Je kan gebruik maken van Markdown bij je berichten en forum. Voor meer informatie, klik <a href=\'https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\' target=\'_blank\'>hier</a>.',
 
-    /*
-     *  Server query
-     */
+    // Server query
     'online' => 'Online',
     'offline' => 'Offline',
     'player_count' => '{x}/{y}', // Verander "{x}" of "{y}" niet
@@ -122,15 +109,11 @@ $language = array(
     'no_players_online' => 'Er zijn geen spelers online.',
     'and_x_more' => 'en {x} meer', // Don't replace {x}
 
-    /*
-     *  Cookie notice
-     */
+    // Cookie notice
     'cookie_notice' => 'Deze website maakt gebruik van cookies om uw surfervaring te verbeteren. Door u te registreren op onze website of door deze mededeling te sluiten gaat u akkoord met het gebruik ervan.',
     'cookie_agree' => 'Akkoord',
 
-    /*
-     *  Widgets
-     */
+    // Widgets
     'statistics' => 'Statistieken',
     'users_registered' => 'Geregistreerde Gebruikers',
     'latest_member' => 'Nieuwste lid',
@@ -149,13 +132,9 @@ $language = array(
     'no_default_server' => 'Er is geen standaard server, kies er een in StaffCP - Integraties - Minecraft.',
     'server_status' => 'Server Status',
 
-    /*
-     *  Privacy policy
-     */
+    // Privacy policy
     'privacy_policy' => 'Privacyverklaring',
 
-    /*
-     *  Custom page redirect
-     */
+    // Custom page redirect
     'redirecting_message' => 'Doorsturen...<br />Als u niet automatisch wordt doorgestuurd, klik dan <a href="{x}" rel="nofollow noopener">hier</a>.' // Don't replace {x} which is the redirect URL
-);
+];

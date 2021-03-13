@@ -11,10 +11,8 @@
  *  Nederlandse taal - Problemen
  */
 
-$language = array(
-    /*
-     *  Problemen
-     */
+$language = [
+    // Problemen
     '404_title' => 'Het spijt ons!',
     '404_content' => 'We konden de pagina die je zocht niet vinden.',
     '404_back' => 'Terug?',
@@ -33,4 +31,4 @@ $language = array(
     'fatal_error_message_admin' => 'Sorry, maar er is iets misgegaan tijdens het laden van de pagina. Error gegevens:',
     'in_file' => 'in bestand <strong>{x}</strong>', // Don't replace {x}
     'on_line' => 'op regel <strong>{x}</strong>' // Don't replace {x}
-);
+];

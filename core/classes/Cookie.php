@@ -9,8 +9,8 @@
  *  Cookie class
  */
 
-class Cookie {
-
+class Cookie
+{
     // Check the specified cookie exists (returns true or false)
     // Params: $name (string) - name of cookie to check
     public static function exists($name) {

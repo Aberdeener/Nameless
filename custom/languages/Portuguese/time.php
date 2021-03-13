@@ -10,10 +10,8 @@
  *  Translation By Douglas Teles & dasilvaj4
  *  Last Update: 11/04/2018
  */
-$language = array(
-    /*
-     *  Time
-     */
+$language = [
+    // Time
     'time' => 'tempo', // Placeholder, no need to translate
     'seconds_short' => 's', // Shortened "seconds", eg "s"
     'less_than_a_minute' => 'a menos de um minuto atrás',
@@ -27,4 +25,4 @@ $language = array(
     '_months' => '{x} meses atrás',
     'about_1_year' => 'cerca de 1 ano atrás',
     'over_x_years' => 'mais de {x} anos atrás'
-);
+];

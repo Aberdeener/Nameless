@@ -10,10 +10,8 @@
  *  Russian Language - Installation
  */
 
-$language = array(
-    /*
-     *  Installation
-     */
+$language = [
+    // Installation
     'install' => 'Установка',
     'pre-release' => 'пред-релиз',
     'installer_welcome' => 'Добро пожаловать в NamelessMC пред-релизной версии 2.0.',
@@ -104,4 +102,4 @@ $language = array(
     'config_not_writable' => 'Файл конфигурации недоступен для записи.',
 
     'session_doesnt_exist' => 'Не определенасессия. Сессии используются при работе с NamelessMC. Свяжитесь с тех. поддержкой вашего провайдера.'
-);
+];

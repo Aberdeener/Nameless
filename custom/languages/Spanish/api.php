@@ -9,8 +9,7 @@
  *  Spanish Language - API
  */
 
-$language = array(
-
+$language = [
     // Errors
     'api_disabled' => 'API is disabled',
     'unknown_error' => 'Error desconocido',
@@ -63,4 +62,4 @@ $language = array(
     'discord_id_set' => 'ID de discord establecida correctamente.',
     'discord_settings_updated' => 'Discord settings updated successfully',
     'discord_usernames_updated' => 'Discord usernames updated successfully'
-);
+];
