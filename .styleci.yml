@@ -81,7 +81,6 @@ enabled:
   - "normalize_index_brace"
   - "not_operator_with_successor_space"
   - "object_operator_without_whitespace"
-  - "operator_linebreak_beginning"
   - "phpdoc_align"
   - "phpdoc_indent"
   - "phpdoc_link_to_see"
